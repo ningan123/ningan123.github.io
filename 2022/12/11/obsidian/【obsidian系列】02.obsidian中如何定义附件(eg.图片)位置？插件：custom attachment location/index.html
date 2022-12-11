@@ -2,9 +2,9 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>【cue语言系列】02.base64编解码 | ningan123</title>
-  <meta name="keywords" content=" cue ">
-  <meta name="description" content="【cue语言系列】02.base64编解码 | ningan123">
+  <title>【obsidian系列】02.obsidian中如何定义附件(eg.图片)位置？插件：custom attachment location | ningan123</title>
+  <meta name="keywords" content=" obsidian ">
+  <meta name="description" content="【obsidian系列】02.obsidian中如何定义附件(eg.图片)位置？插件：custom attachment location | ningan123">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <meta name="description" content="背景我在使用github.io创作自己的博客，使用了hexo主题，hexo主题需要有一些元数据才能正确的识别，想通过obsidian的模板插件来定制一个专属于hexo元数据的模板。 操作安装插件打开插件左下角设置 –&gt; 第三方插件 –&gt; 社区插件市场，搜索：templater  点击安装，然后启用。 配置插件在仓库下新建一个文件夹，随意取名  在插件的配置处，将刚刚的文件夹填上。  定">
 <meta property="og:type" content="article">
@@ -329,39 +329,31 @@
 </aside>
 <div id="post">
     <div class="pjax">
-        <article id="post-cue/【cue语言系列】02.base64编解码" class="article article-type-post" itemscope itemprop="blogPost">
+        <article id="post-obsidian/【obsidian系列】02.obsidian中如何定义附件(eg.图片)位置？插件：custom attachment location" class="article article-type-post" itemscope itemprop="blogPost">
     
-        <h1 class="article-title">【cue语言系列】02.base64编解码</h1>
+        <h1 class="article-title">【obsidian系列】02.obsidian中如何定义附件(eg.图片)位置？插件：custom attachment location</h1>
     
     <div class="article-meta">
         
         
-        
-        <span class="book">
-            <i class="iconfont icon-category"></i>
-            
-            
-            <a  data-rel="cue">cue</a>
-            
-        </span>
         
         
         <span class="tag">
             <i class="iconfont icon-tag"></i>
             
-            <a class="color4">cue</a>
+            <a class="color4">obsidian</a>
             
         </span>
         
     </div>
     <div class="article-meta">
         
-            发布时间 : <time class="date" title='最后更新: 2022-12-11 19:21:00'>2022-12-11 19:20</time>
+            发布时间 : <time class="date" title='最后更新: 2022-12-11 19:24:00'>2022-12-11 19:24</time>
         
     </div>
     <div class="article-meta">
         
-        <span>字数:262</span>
+        <span>字数:220</span>
         
         
         <span id="busuanzi_container_page_pv">
@@ -380,7 +372,7 @@
     
     <div class="toc-ref">
     
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9C%A8%E7%BA%BF%E8%BF%90%E8%A1%8C"><span class="toc-text">在线运行</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E5%9C%B0%E6%A8%A1%E6%8B%9F"><span class="toc-text">本地模拟</span></a></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%83%8C%E6%99%AF"><span class="toc-text">背景</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E6%B5%81%E7%A8%8B"><span class="toc-text">操作流程</span></a></li></ol>
     
 <style>
     .left-col .switch-btn,
@@ -396,30 +388,18 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="在线运行"><a href="#在线运行" class="headerlink" title="在线运行"></a>在线运行</h2><p><a target="_blank" rel="noopener" href="https://cuelang.org/play/#cue@export@cue">工具</a></p>
-<p>三种不同的输出方式，输出的结果是不一样的</p>
-<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220812151050020.png" alt="image-20220812151050020"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220812151109172.png" alt="image-20220812151109172"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220812151149851.png" alt="image-20220812151149851"></p>
-<h2 id="本地模拟"><a href="#本地模拟" class="headerlink" title="本地模拟"></a>本地模拟</h2><p>base64.cue</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master <span class="built_in">base64</span>]<span class="comment"># cat base64.cue</span></span><br><span class="line">import <span class="string">&quot;encoding/base64&quot;</span></span><br><span class="line"></span><br><span class="line">t1: base64.Encode(null, <span class="string">&quot;foo&quot;</span>)</span><br><span class="line">t2: base64.Decode(null, base64.Encode(null, <span class="string">&quot;foo&quot;</span>))</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[root@master cuePractice]<span class="comment"># cue version</span></span><br><span class="line">cue version v0.4.3 linux/amd64</span><br><span class="line">[root@master cuePractice]<span class="comment"># </span></span><br><span class="line">[root@master cuePractice]<span class="comment"># cue export base64/base64.cue</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;t1&quot;</span>: <span class="string">&quot;Zm9v&quot;</span>,</span><br><span class="line">    <span class="string">&quot;t2&quot;</span>: <span class="string">&quot;Zm9v&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">[root@master cuePractice]<span class="comment"># cue export base64/base64.cue --out json</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">&quot;t1&quot;</span>: <span class="string">&quot;Zm9v&quot;</span>,</span><br><span class="line">    <span class="string">&quot;t2&quot;</span>: <span class="string">&quot;Zm9v&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">[root@master cuePractice]<span class="comment"># cue export base64/base64.cue --out yaml</span></span><br><span class="line">t1: Zm9v</span><br><span class="line">t2: !!binary Zm9v</span><br><span class="line">[root@master cuePractice]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@master cuePractice]<span class="comment"># go run base64/base64.go</span></span><br><span class="line">scheme: </span><br><span class="line">&#123;</span><br><span class="line">        t1: <span class="string">&quot;Zm9v&quot;</span></span><br><span class="line">        t2: <span class="string">&#x27;foo&#x27;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220812150805711.png" alt="image-20220812150805711"></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// base64.go</span></span><br><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">	<span class="string">&quot;errors&quot;</span></span><br><span class="line">	<span class="string">&quot;fmt&quot;</span></span><br><span class="line">	<span class="string">&quot;os&quot;</span></span><br><span class="line">	<span class="string">&quot;path/filepath&quot;</span></span><br><span class="line"></span><br><span class="line">	<span class="string">&quot;cuelang.org/go/cue&quot;</span></span><br><span class="line">	<span class="string">&quot;cuelang.org/go/cue/cuecontext&quot;</span></span><br><span class="line">	cueerror <span class="string">&quot;cuelang.org/go/cue/errors&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line"></span><br><span class="line">	ctx := cuecontext.New()</span><br><span class="line"></span><br><span class="line">	clusterVal := ctx.NewList()</span><br><span class="line"></span><br><span class="line">	confPath := <span class="string">&quot;/root/cuePractice/base64&quot;</span></span><br><span class="line">	fileData, err := os.ReadFile(filepath.Join(confPath, <span class="string">&quot;base64.cue&quot;</span>))</span><br><span class="line">	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">		fmt.Println(err.Error())</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	scheme := ctx.CompileBytes(fileData, cue.Scope(clusterVal))</span><br><span class="line">	<span class="keyword">if</span> scheme.Err() != <span class="literal">nil</span> &#123;</span><br><span class="line">		msg := cueerror.Details(scheme.Err(), <span class="literal">nil</span>)</span><br><span class="line">		fmt.Println(errors.New(msg))</span><br><span class="line">	&#125;</span><br><span class="line">	fmt.Printf(<span class="string">&quot;scheme: \n%s\n&quot;</span>, scheme)</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220812151403446.png" alt="image-20220812151403446"></p>
+        <h2 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h2><p>我想让插入的图片放到相对位置下，这样更方便查找图片，而且在移动文件夹或者换电脑的时候，也不会丢失图片。</p>
+<p>目的：实现一个类似于typora的assets文件夹存放图片。</p>
+<p>下图为typora的图像文件位置设置：<br><img src="https://img-blog.csdnimg.cn/b055d069b70c4be7824392e707cf9462.png" alt="在这里插入图片描述"></p>
+<h2 id="操作流程"><a href="#操作流程" class="headerlink" title="操作流程"></a>操作流程</h2><p> 打开插件<br>左下角设置 –&gt; 第三方插件 –&gt; 社区插件市场<br><img src="https://img-blog.csdnimg.cn/ef5e86145fb746b89b3b9b41c29eaa56.png" alt="在这里插入图片描述"></p>
+<p>搜索：custom attachment location<br><img src="https://img-blog.csdnimg.cn/27c8d389b84a4d8d929e90f74da582c7.png" alt="在这里插入图片描述"></p>
+<p>打开插件，安装的所有插件都会显示在左侧<br><img src="https://img-blog.csdnimg.cn/5da250d1061a450abc8aa6126ed63511.png" alt="在这里插入图片描述"></p>
+<p>可以看到，附件的位置位于.&#x2F;assets&#x2F;${filename}下<br><img src="https://img-blog.csdnimg.cn/45f121bb0535434fbd960b197b6099e1.png" alt="在这里插入图片描述"></p>
+<p>新建一个test文件夹，新建test-custom-attachment.md文件，粘贴一个图片进去，可以看到图片的位置正是刚刚显示的路径。</p>
+<p><img src="https://img-blog.csdnimg.cn/0d5d2d82008c4b858c0372eb5ea59b44.png" alt="在这里插入图片描述"></p>
+<p>打开“文件与链接”，可以看到：附件的位置已经自动显示在了assets&#x2F;test-custom-attachment下面</p>
+<p><img src="https://img-blog.csdnimg.cn/720dcd3f54ae43758d84f0014eaa8d53.png" alt="在这里插入图片描述"></p>
+<p>完毕！</p>
 
       
        <hr><span style="font-style: italic;color: gray;"> 转载请注明来源，欢迎对文章中的引用来源进行考证，欢迎指出任何有错误或不够清晰的表达。可以在下面评论区评论，也可以邮件至 anwenyan528@163.com </span>
