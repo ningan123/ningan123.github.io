@@ -97,11 +97,11 @@
     
     <tags>
       
+      <tag>ubuntu</tag>
+      
       <tag>k8s</tag>
       
       <tag>kubeadm</tag>
-      
-      <tag>ubuntu</tag>
       
     </tags>
     
@@ -126,11 +126,11 @@
     
     <tags>
       
-      <tag>ubuntu</tag>
-      
       <tag>net</tag>
       
       <tag>vmware</tag>
+      
+      <tag>ubuntu</tag>
       
       <tag>mobaxterm</tag>
       
@@ -208,6 +208,31 @@
     <tags>
       
       <tag>obsidian</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【go语言系列】go类型转换：字符串转化为uint16</title>
+    <link href="/2022/08/17/go/%E3%80%90go%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91go%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E5%8C%96%E4%B8%BAuint16/"/>
+    <url>/2022/08/17/go/%E3%80%90go%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91go%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E5%8C%96%E4%B8%BAuint16/</url>
+    
+    <content type="html"><![CDATA[<h2 id="字符串转化为uint16"><a href="#字符串转化为uint16" class="headerlink" title="字符串转化为uint16"></a>字符串转化为uint16</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br><span class="hljs-string">&quot;fmt&quot;</span><br><span class="hljs-string">&quot;strconv&quot;</span><br><span class="hljs-string">&quot;strings&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br><span class="hljs-comment">// 方法1</span><br>port1, err := strconv.Atoi(<span class="hljs-string">&quot;12345&quot;</span>)<br><span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br><span class="hljs-built_in">panic</span>(err)<br>&#125;<br>port2 := <span class="hljs-type">uint16</span>(port1)<br>fmt.Printf(<span class="hljs-string">&quot;type:%T  value:%v\n&quot;</span>, port1, port1) <span class="hljs-comment">// type:int  value:12345</span><br>fmt.Printf(<span class="hljs-string">&quot;type:%T  value:%v\n&quot;</span>, port2, port2) <span class="hljs-comment">// type:uint16  value:12345</span><br>fmt.Println(port2)                              <span class="hljs-comment">// 12345</span><br><br><span class="hljs-comment">// 方法2</span><br>port3, err := strconv.ParseUint(<span class="hljs-string">&quot;1234&quot;</span>, <span class="hljs-number">10</span>, <span class="hljs-number">16</span>)<br><span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br><span class="hljs-built_in">panic</span>(err)<br>&#125;<br>port4 := <span class="hljs-type">uint16</span>(port3)<br>fmt.Printf(<span class="hljs-string">&quot;type:%T  value:%v\n&quot;</span>, port3, port3) <span class="hljs-comment">// type:uint64  value:1234</span><br>fmt.Printf(<span class="hljs-string">&quot;type:%T  value:%v\n&quot;</span>, port4, port4) <span class="hljs-comment">// type:uint16  value:1234</span><br>fmt.Println(port4)                              <span class="hljs-comment">// 1234</span><br>&#125;<br><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    <categories>
+      
+      <category>go</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>go</tag>
       
     </tags>
     
