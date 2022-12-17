@@ -4,7 +4,7 @@
   
   
   <entry>
-    <title>linux</title>
+    <title>linux常用命令</title>
     <link href="/2022/12/15/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
     <url>/2022/12/15/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     
@@ -23,18 +23,12 @@
   
   
   <entry>
-    <title>git工作常用</title>
+    <title>git常用命令</title>
     <link href="/2022/12/15/git/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/"/>
     <url>/2022/12/15/git/git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/</url>
     
     <content type="html"><![CDATA[<h2 id="拉取远程分支并创建本地分支"><a href="#拉取远程分支并创建本地分支" class="headerlink" title="拉取远程分支并创建本地分支"></a>拉取远程分支并创建本地分支</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用该方式会在本地新建分支x，并自动切换到该本地分支x</span><br>git checkout -b master origin/master<br></code></pre></td></tr></table></figure>]]></content>
     
-    
-    <categories>
-      
-      <category>git</category>
-      
-    </categories>
     
     
     <tags>
