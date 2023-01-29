@@ -16,22 +16,22 @@
   <meta name="author" content="ningan123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="windows和linux下避免git clone和push时每次都需要输入用户名和密码git 可以用 https 方式访问也可以用 ssh 方式访问 1）https：就是你每次要输入密码那种 2）ssh：用公钥私钥  本地用ssh-keygen生成密钥，分为 私钥和公钥，私钥本地保存，公钥放到服务端 方法一：https协议 配置全局开机存储认证信息windows参考：windows下git ht">
+    <meta name="description" content="拉取远程分支并创建本地分支1234567# 使用该方式会在本地新建分支x，并自动切换到该本地分支xgit checkout -b master origin&#x2F;master# dev合并到master处于master分支git merge origin&#x2F;dev  # merge到本地的mastergit push     报错解决git checkout -b  xxx origin&#x2F;xx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="git每次都要输入密码">
-<meta property="og:url" content="http://example.com/2022/05/22/git/git%E6%AF%8F%E6%AC%A1%E9%83%BD%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81/index.html">
+<meta property="og:title" content="【git】git常用命令">
+<meta property="og:url" content="http://example.com/2022/12/15/git/%E3%80%90git%E3%80%91git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="ningan123">
-<meta property="og:description" content="windows和linux下避免git clone和push时每次都需要输入用户名和密码git 可以用 https 方式访问也可以用 ssh 方式访问 1）https：就是你每次要输入密码那种 2）ssh：用公钥私钥  本地用ssh-keygen生成密钥，分为 私钥和公钥，私钥本地保存，公钥放到服务端 方法一：https协议 配置全局开机存储认证信息windows参考：windows下git ht">
+<meta property="og:description" content="拉取远程分支并创建本地分支1234567# 使用该方式会在本地新建分支x，并自动切换到该本地分支xgit checkout -b master origin&#x2F;master# dev合并到master处于master分支git merge origin&#x2F;dev  # merge到本地的mastergit push     报错解决git checkout -b  xxx origin&#x2F;xx">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-22T03:42:00.000Z">
-<meta property="article:modified_time" content="2023-01-29T08:41:00.000Z">
+<meta property="article:published_time" content="2022-12-15T02:26:00.000Z">
+<meta property="article:modified_time" content="2023-01-11T02:54:00.000Z">
 <meta property="article:author" content="ningan123">
 <meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>git每次都要输入密码 - ningan123</title>
+  <title>【git】git常用命令 - ningan123</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +197,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="git每次都要输入密码"></span>
+            <span id="subtitle" data-typed-text="【git】git常用命令"></span>
           
         </div>
 
@@ -208,8 +208,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-05-22 11:42" pubdate>
-          2022年5月22日 中午
+        <time datetime="2022-12-15 10:26" pubdate>
+          2022年12月15日 上午
         </time>
       </span>
     
@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          2.5k 字
+          1.5k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          22 分钟
+          13 分钟
         
       </span>
     
@@ -269,43 +269,16 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">git每次都要输入密码</h1>
+            <h1 style="display: none">【git】git常用命令</h1>
             
             
               <div class="markdown-body">
                 
-                <h1 id="windows和linux下避免git-clone和push时每次都需要输入用户名和密码"><a href="#windows和linux下避免git-clone和push时每次都需要输入用户名和密码" class="headerlink" title="windows和linux下避免git clone和push时每次都需要输入用户名和密码"></a>windows和linux下避免git clone和push时每次都需要输入用户名和密码</h1><p>git 可以用 https 方式访问也可以用 ssh 方式访问</p>
-<p>1）https：就是你每次要输入密码那种</p>
-<p>2）ssh：用公钥私钥  本地用ssh-keygen生成密钥，分为 私钥和公钥，私钥本地保存，公钥放到服务端</p>
-<h2 id="方法一：https协议-配置全局开机存储认证信息"><a href="#方法一：https协议-配置全局开机存储认证信息" class="headerlink" title="方法一：https协议 配置全局开机存储认证信息"></a>方法一：https协议 配置全局开机存储认证信息</h2><h3 id="windows"><a href="#windows" class="headerlink" title="windows"></a>windows</h3><p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/zhangxiaoyang0/article/details/69239734">windows下git http协议保存用户名密码</a></p>
-<p>打开个人文件夹，一般为C:\Documents and Settings\用户名，其中有一个.gitconfig的文件，使用记事本打开。如果之前配置了名字和email的话，在这里面会看到。</p>
-<p>如何添加配置呢？</p>
-<p>1）打开.gitconfig文件夹 追加如下配置</p>
-<figure class="highlight ini"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs ini"><span class="hljs-section">[credential]</span><br><span class="hljs-attr">helper</span>=store<br></code></pre></td></tr></table></figure>
-
-<p>2）在终端(git bash)执行   执行之后，可以看到~&#x2F;.gitconfig文件，也会多了上面那项    直接在</p>
-<figure class="highlight llvm"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs llvm">git config --<span class="hljs-keyword">global</span> credential.helper <span class="hljs-keyword">store</span> <br></code></pre></td></tr></table></figure>
-
-<p>下次我们再次输入用户名之后，<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=git&spm=1001.2101.3001.7020">git</a>就会记住用户名密码，以后就不需再输入了。</p>
-<p>这时在上述那个目录底下，可发现生成另外一个文件.git-credentials，里面记录的就是用户名<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=%E5%AF%86%E7%A0%81&spm=1001.2101.3001.7020">密码</a>了。格式如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">https://&#123;username&#125;:&#123;password&#125;@github.com<br></code></pre></td></tr></table></figure>
+                <h2 id="拉取远程分支并创建本地分支"><a href="#拉取远程分支并创建本地分支" class="headerlink" title="拉取远程分支并创建本地分支"></a>拉取远程分支并创建本地分支</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用该方式会在本地新建分支x，并自动切换到该本地分支x</span><br>git checkout -b master origin/master<br><br><span class="hljs-comment"># dev合并到master</span><br>处于master分支<br>git merge origin/dev  <span class="hljs-comment"># merge到本地的master</span><br>git push <br></code></pre></td></tr></table></figure>
 
 
 
-<h3 id="linux"><a href="#linux" class="headerlink" title="linux"></a>linux</h3><p>参考：<a target="_blank" rel="noopener" href="https://www.bbsmax.com/A/xl56WaDodr/">Linux之解决每次git pull&#x2F;git push都需输入密码设置</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 执行这两条命令</span><br><span class="hljs-built_in">cd</span> /   <span class="hljs-comment"># 我是在/root下面执行的下面的这个命令，所以我的.gitconfig和.git-credentials文件是在/root下生成的</span><br>git config --global credential.helper store<br><br><span class="hljs-comment"># 执行完命令之后会在.gitconfig文件中了下面的内容</span><br>[credential]<br>        helper = store<br><br><span class="hljs-built_in">cd</span>到项目目录，执行git pull,会提示输入账号密码。输完这一次以后git pull或git push就不在需要输入密码了（会在根目录生成一个 .git-credentials 文件）<br><br>over！！！<br></code></pre></td></tr></table></figure>
-
-<p>其实和windows是一样的！</p>
-<h2 id="方法二：ssh协议"><a href="#方法二：ssh协议" class="headerlink" title="方法二：ssh协议"></a>方法二：ssh协议</h2><p>本地用ssh-keygen生成密钥，分为 私钥和公钥，私钥本地保存，公钥放到服务端</p>
-<h3 id="linux-1"><a href="#linux-1" class="headerlink" title="linux"></a>linux</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 ~]<span class="hljs-comment"># find / -name ssh-keygen</span><br>find: ‘/run/user/1000/doc’: Permission denied<br>find: ‘/run/user/1000/gvfs’: Permission denied<br>/snap/core20/1587/usr/bin/ssh-keygen<br>/snap/core20/1587/usr/share/bash-completion/completions/ssh-keygen<br>/usr/share/bash-completion/completions/ssh-keygen<br>/usr/bin/ssh-keygen<br>[root@ubuntu-22 ~]<span class="hljs-comment">#</span><br>[root@ubuntu-22 ~]<span class="hljs-comment"># /usr/bin/ssh-keygen</span><br>Generating public/private rsa key pair.<br>Enter file <span class="hljs-keyword">in</span> <span class="hljs-built_in">which</span> to save the key (/root/.ssh/id_rsa):<br>Enter passphrase (empty <span class="hljs-keyword">for</span> no passphrase):<br>Enter same passphrase again:<br>Your identification has been saved <span class="hljs-keyword">in</span> /root/.ssh/id_rsa<br>Your public key has been saved <span class="hljs-keyword">in</span> /root/.ssh/id_rsa.pub<br>The key fingerprint is:<br>SHA256:fyr7kENOycEK99SmHaYL3b5tPozhbvykX5ZNUtEai94 root@ubuntu-22<br>The key<span class="hljs-string">&#x27;s randomart image is:</span><br><span class="hljs-string">+---[RSA 3072]----+</span><br><span class="hljs-string">|               ..|</span><br><span class="hljs-string">|       . .    . o|</span><br><span class="hljs-string">|    . . + =  . +.|</span><br><span class="hljs-string">|     o * X .. o. |</span><br><span class="hljs-string">|      o S o. .. .|</span><br><span class="hljs-string">|       = =. . E= |</span><br><span class="hljs-string">|        *oo+o + .|</span><br><span class="hljs-string">|        .o=B+o   |</span><br><span class="hljs-string">|        .**==.   |</span><br><span class="hljs-string">+----[SHA256]-----+</span><br><span class="hljs-string">[root@ubuntu-22 ~]#</span><br><span class="hljs-string">[root@ubuntu-22 ~]# cd .ssh</span><br><span class="hljs-string">[root@ubuntu-22 .ssh]# ll</span><br><span class="hljs-string">total 20</span><br><span class="hljs-string">drwx------ 2 root root 4096  1月 29 17:07 ./</span><br><span class="hljs-string">drwx------ 6 root root 4096  1月 29 17:06 ../</span><br><span class="hljs-string">-rw------- 1 root root 2602  1月 29 17:07 id_rsa</span><br><span class="hljs-string">-rw-r--r-- 1 root root  568  1月 29 17:07 id_rsa.pub</span><br><span class="hljs-string">-rw-r--r-- 1 root root  142  1月 29 17:06 known_hosts</span><br><span class="hljs-string">[root@ubuntu-22 .ssh]#</span><br><span class="hljs-string">[root@ubuntu-22 .ssh]# cat id_rsa.pub</span><br><span class="hljs-string">ssh-rsa ... root@ubuntu-22</span><br><span class="hljs-string"></span><br></code></pre></td></tr></table></figure>
-
-<p>github   设置    把这个公钥放到github的ssh中</p>
-<p>这下通过git clone ssh的方式就可以成功clone下来了</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 ~]<span class="hljs-comment"># git clone git@github.com:xxx/xxx.git</span><br>Cloning into <span class="hljs-string">&#x27;xxx&#x27;</span>...<br>remote: Enumerating objects: 3, <span class="hljs-keyword">done</span>.<br>remote: Counting objects: 100% (3/3), <span class="hljs-keyword">done</span>.<br>remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0<br>Receiving objects: 100% (3/3), <span class="hljs-keyword">done</span>.<br><br></code></pre></td></tr></table></figure>
-
-<p>git push也可以了</p>
-<p>参考：<a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_42072280/article/details/122540366?spm=1001.2014.3001.5501">github设置添加SSH</a></p>
-
+<h2 id="报错解决"><a href="#报错解决" class="headerlink" title="报错解决"></a>报错解决</h2><h3 id="git-checkout-b-xxx-origin-x2F-xxx-报错"><a href="#git-checkout-b-xxx-origin-x2F-xxx-报错" class="headerlink" title="git checkout -b  xxx origin&#x2F;xxx 报错"></a>git checkout -b  xxx origin&#x2F;xxx 报错</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan dubhe]<span class="hljs-comment"># git checkout -b dev_230109 origin/dev_230109</span><br>fatal: <span class="hljs-string">&#x27;origin/dev_230109&#x27;</span> is not a commit and a branch <span class="hljs-string">&#x27;dev_230109&#x27;</span> cannot be created from it<br><br>[root@ningan dubhe]<span class="hljs-comment"># git branch</span><br>* anwy-dev<br>  anwy-test<br>  master<br>  rc1<br>  rc2<br>  rc2-0.1.4<br>  rc2-testable<br>  rc2-testable2<br><br><br><span class="hljs-comment">## 解决办法</span><br>[root@ningan dubhe]<span class="hljs-comment"># git pull</span><br>remote: Enumerating objects: 39, <span class="hljs-keyword">done</span>.<br>remote: Counting objects: 100% (39/39), <span class="hljs-keyword">done</span>.<br>remote: Compressing objects: 100% (35/35), <span class="hljs-keyword">done</span>.<br>remote: Total 39 (delta 12), reused 0 (delta 0), pack-reused 0<br>Unpacking objects: 100% (39/39), <span class="hljs-keyword">done</span>.<br>From http://gitlab.tianti.tg.unicom.local/cloudStorage/tgStack/dubhe<br> * [new branch]      dev_230109 -&gt; origin/dev_230109<br>Already up to <span class="hljs-built_in">date</span>.<br>[root@ningan dubhe]<span class="hljs-comment">#</span><br>[root@ningan dubhe]<span class="hljs-comment"># git branch</span><br>* anwy-dev<br>  anwy-test<br>  master<br>  rc1<br>  rc2<br>  rc2-0.1.4<br>  rc2-testable<br>  rc2-testable2<br>[root@ningan dubhe]<span class="hljs-comment">#</span><br>[root@ningan dubhe]<span class="hljs-comment"># git checkout -b dev_230109 origin/dev_230109</span><br>M       Makefile<br>M       config/cuk-config.cue<br>D       config/kubeconfig-n2<br>M       config/regionConfig.yaml<br>M       go.mod<br>M       go.sum<br>M       pkg/utils/common_vars_insert.go<br>M       pkg/utils/common_vars_insert_test.go<br>Branch <span class="hljs-string">&#x27;dev_230109&#x27;</span> <span class="hljs-built_in">set</span> up to track remote branch <span class="hljs-string">&#x27;dev_230109&#x27;</span> from <span class="hljs-string">&#x27;origin&#x27;</span>.<br>Switched to a new branch <span class="hljs-string">&#x27;dev_230109&#x27;</span><br>[root@ningan dubhe]<span class="hljs-comment">#</span><br><br>[root@ningan dubhe]<span class="hljs-comment"># git branch</span><br>  anwy-dev<br>  anwy-test<br>* dev_230109<br>  master<br>  rc1<br>  rc2<br>  rc2-0.1.4<br>  rc2-testable<br>  rc2-testable2<br><br><br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -329,8 +302,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>git每次都要输入密码</div>
-      <div>http://example.com/2022/05/22/git/git每次都要输入密码/</div>
+      <div>【git】git常用命令</div>
+      <div>http://example.com/2022/12/15/git/【git】git常用命令/</div>
     </div>
     <div class="license-meta">
       
@@ -342,7 +315,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年5月22日</div>
+          <div>2022年12月15日</div>
         </div>
       
       
@@ -374,15 +347,21 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/07/16/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91ubuntu20.04%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip/" title="【网络成长记】ubuntu20.04设置静态ip">
+                      <a href="/2022/12/15/linux/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="linux常用命令">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【网络成长记】ubuntu20.04设置静态ip</span>
+                        <span class="hidden-mobile">linux常用命令</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2022/12/11/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9104.obsidian%E5%A6%82%E4%BD%95%E6%8F%92%E5%85%A5%E6%A8%A1%E6%9D%BF%EF%BC%9F%E6%8F%92%E4%BB%B6%EF%BC%9Atemplater/" title="【obsidian系列】04.obsidian如何插入模板？插件：templater">
+                        <span class="hidden-mobile">【obsidian系列】04.obsidian如何插入模板？插件：templater</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
