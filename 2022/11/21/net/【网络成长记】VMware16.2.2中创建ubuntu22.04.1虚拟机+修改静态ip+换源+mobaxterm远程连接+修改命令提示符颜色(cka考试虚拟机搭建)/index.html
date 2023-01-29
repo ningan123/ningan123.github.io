@@ -284,7 +284,7 @@
         
         
         
-          25 分钟
+          26 分钟
         
       </span>
     
@@ -352,6 +352,7 @@
 <p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20221121190938.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20221121191146.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20221121191231.png" srcset="/img/loading.gif" lazyload></p>
+<p>此处可以把Download updates while installing ubuntu 关掉，不关的话，网不好，会导致虚拟机安装卡在某一个地方一动不动</p>
 <p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20221121191417.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20221121191443.png" srcset="/img/loading.gif" lazyload></p>
 <p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20221121191533.png" srcset="/img/loading.gif" lazyload></p>
@@ -420,7 +421,7 @@
 <p>找到并用#注释掉这行：PermitRootLogin prohibit-password</p>
 <p>查看是否有“PermitRootLogin yes”新建一行 添加：PermitRootLogin yes</p>
 <p>重启服务</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/etc/i</span>nit.d/ssh restart<br>systemctl restart ssh<br></code></pre></td></tr></table></figure>
+<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs awk"><span class="hljs-regexp">/etc/i</span>nit.d/ssh restart<br>sudo systemctl restart ssh<br></code></pre></td></tr></table></figure>
 
 <p>测试了一下，还是连不上</p>
 <p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20221121233948.png" srcset="/img/loading.gif" lazyload></p>
