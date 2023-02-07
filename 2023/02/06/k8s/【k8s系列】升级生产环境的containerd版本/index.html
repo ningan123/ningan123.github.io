@@ -16,22 +16,21 @@
   <meta name="author" content="ningan123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="deepcopy-gen123456go get -u k8s.io&#x2F;code-generator&#x2F;...# 上面如果不成功，手工安装各种工具git clone https:&#x2F;&#x2F;github.com&#x2F;kubernetes&#x2F;code-generatorcd code-generatorgo build -o deepcopy-gen cmd&#x2F;deepcopy-gen&#x2F;main.gocp deepco">
+    <meta name="description" content="1.驱逐pod 123kubectl cordon node2kubectl drain node2 --ignore-daemonsets --delete-emptydir-data --force  2.替换containerd的二进制，重启containerd 3.删除containerd的数据目录，重启containerd 4.恢复node 1kubectl uncordon node2">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【go语言系列】安装k8s的controller相关组件：deepcopy-gen和controller-gen">
-<meta property="og:url" content="http://example.com/2022/05/22/go/%E3%80%90go%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91%E5%AE%89%E8%A3%85k8s%E7%9A%84controller%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6%EF%BC%9Adeepcopy-gen%E5%92%8Ccontroller-gen/index.html">
+<meta property="og:title" content="ningan123">
+<meta property="og:url" content="http://example.com/2023/02/06/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91%E5%8D%87%E7%BA%A7%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E7%9A%84containerd%E7%89%88%E6%9C%AC/index.html">
 <meta property="og:site_name" content="ningan123">
-<meta property="og:description" content="deepcopy-gen123456go get -u k8s.io&#x2F;code-generator&#x2F;...# 上面如果不成功，手工安装各种工具git clone https:&#x2F;&#x2F;github.com&#x2F;kubernetes&#x2F;code-generatorcd code-generatorgo build -o deepcopy-gen cmd&#x2F;deepcopy-gen&#x2F;main.gocp deepco">
+<meta property="og:description" content="1.驱逐pod 123kubectl cordon node2kubectl drain node2 --ignore-daemonsets --delete-emptydir-data --force  2.替换containerd的二进制，重启containerd 3.删除containerd的数据目录，重启containerd 4.恢复node 1kubectl uncordon node2">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-22T03:42:00.000Z">
-<meta property="article:modified_time" content="2023-02-02T12:46:00.000Z">
+<meta property="article:published_time" content="2023-02-06T07:49:26.811Z">
+<meta property="article:modified_time" content="2023-02-06T07:50:02.422Z">
 <meta property="article:author" content="ningan123">
-<meta property="article:tag" content="go">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>【go语言系列】安装k8s的controller相关组件：deepcopy-gen和controller-gen - ningan123</title>
+  <title>ningan123</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="【go语言系列】安装k8s的controller相关组件：deepcopy-gen和controller-gen"></span>
+            <span id="subtitle" data-typed-text=""></span>
           
         </div>
 
@@ -208,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-05-22 11:42" pubdate>
-          2022年5月22日 中午
+        <time datetime="2023-02-06 15:49" pubdate>
+          2023年2月6日 下午
         </time>
       </span>
     
@@ -220,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          689 字
+          209 字
         
       </span>
     
@@ -231,7 +230,7 @@
         
         
         
-          6 分钟
+          2 分钟
         
       </span>
     
@@ -269,19 +268,20 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">【go语言系列】安装k8s的controller相关组件：deepcopy-gen和controller-gen</h1>
+            <h1 style="display: none"></h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="deepcopy-gen"><a href="#deepcopy-gen" class="headerlink" title="deepcopy-gen"></a>deepcopy-gen</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">go get -u k8s.io/code-generator/...<br><span class="hljs-comment"># 上面如果不成功，手工安装各种工具</span><br>git <span class="hljs-built_in">clone</span> https://github.com/kubernetes/code-generator<br><span class="hljs-built_in">cd</span> code-generator<br>go build -o deepcopy-gen cmd/deepcopy-gen/main.go<br><span class="hljs-built_in">cp</span> deepcopy-gen ~/go_projects/bin/   <span class="hljs-comment"># 放到/usr/local/bin下也可以</span><br></code></pre></td></tr></table></figure>
+                <p>1.驱逐pod</p>
+<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">kubectl cordon node2</span><br><span class="hljs-comment">kubectl drain node2</span> <span class="hljs-literal">--</span><span class="hljs-comment">ignore</span><span class="hljs-literal">-</span><span class="hljs-comment">daemonsets</span> <span class="hljs-literal">--</span><span class="hljs-comment">delete</span><span class="hljs-literal">-</span><span class="hljs-comment">emptydir</span><span class="hljs-literal">-</span><span class="hljs-comment">data</span> <span class="hljs-literal">--</span><span class="hljs-comment">force</span><br><br></code></pre></td></tr></table></figure>
 
-<p>参考： <a target="_blank" rel="noopener" href="https://www.cxyzjd.com/article/ch717828/106008698">https://www.cxyzjd.com/article/ch717828/106008698</a></p>
-<h2 id="controller-gen"><a href="#controller-gen" class="headerlink" title="controller-gen"></a>controller-gen</h2><p>下载地址：<a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/controller-tools/releases">https://github.com/kubernetes-sigs/controller-tools/releases</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># wget https://github.com/kubernetes-sigs/controller-tools/archive/refs/tags/v0.8.0.tar.gz</span><br><span class="hljs-comment"># tar -zxvf v0.8.0.tar.gz</span><br><span class="hljs-comment"># cd controller-tools-0.8.0</span><br><span class="hljs-comment"># go build -a -o controller-gen cmd/controller-gen/main.go</span><br><span class="hljs-comment"># mv controller-gen /usr/local/bin/</span><br><span class="hljs-comment"># controller-gen --version</span><br>Version: (devel)<br></code></pre></td></tr></table></figure>
+<p>2.替换containerd的二进制，重启containerd</p>
+<p>3.删除containerd的数据目录，重启containerd</p>
+<p>4.恢复node</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">kubectl</span> uncordon node2<br></code></pre></td></tr></table></figure>
 
-<p>参考：</p>
-<p><a target="_blank" rel="noopener" href="https://support.huaweicloud.com/devg-osc/osc_ss_0052.html">https://support.huaweicloud.com/devg-osc/osc_ss_0052.html</a></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">随时用下面命令进行测试：<br>crictl pods<br></code></pre></td></tr></table></figure>
 
                 
               </div>
@@ -290,34 +290,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/go/" class="category-chain-item">go</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/go/">#go</a>
-      
-    </div>
   
 </div>
 
@@ -327,8 +299,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>【go语言系列】安装k8s的controller相关组件：deepcopy-gen和controller-gen</div>
-      <div>http://example.com/2022/05/22/go/【go语言系列】安装k8s的controller相关组件：deepcopy-gen和controller-gen/</div>
+      <div></div>
+      <div>http://example.com/2023/02/06/k8s/【k8s系列】升级生产环境的containerd版本/</div>
     </div>
     <div class="license-meta">
       
@@ -340,7 +312,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年5月22日</div>
+          <div>2023年2月6日</div>
         </div>
       
       
@@ -372,15 +344,21 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/05/22/git/%E3%80%90git%E3%80%91git%E6%AF%8F%E6%AC%A1%E9%83%BD%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81/" title="【git】git每次都要输入密码">
+                      <a href="/2023/02/06/k8s/%E3%80%90containerd%E3%80%91crictl%E5%91%BD%E4%BB%A4/" title="">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【git】git每次都要输入密码</span>
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2023/01/29/ebpf/04/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
