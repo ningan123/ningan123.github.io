@@ -16,21 +16,23 @@
   <meta name="author" content="ningan123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1.驱逐pod 123kubectl cordon node2kubectl drain node2 --ignore-daemonsets --delete-emptydir-data --force  2.替换containerd的二进制，重启containerd 3.删除containerd的数据目录，重启containerd 4.恢复node 1kubectl uncordon node2">
+    <meta name="description" content="下载windows镜像msdn  打开迅雷软件，会自动复制链接进行下载 安装VMware Workstation Pro虚拟机安装Windows 10 系统 基本按照这个来的，只是虚拟磁盘那块选的是“拆分成多个文件”">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ningan123">
-<meta property="og:url" content="http://example.com/2023/02/06/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91%E5%8D%87%E7%BA%A7%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E7%9A%84containerd%E7%89%88%E6%9C%AC/index.html">
+<meta property="og:title" content="【网络成长记】vmware中安装windows虚拟机">
+<meta property="og:url" content="http://example.com/2023/02/08/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91vmware%E4%B8%AD%E5%AE%89%E8%A3%85windows%E8%99%9A%E6%8B%9F%E6%9C%BA/index.html">
 <meta property="og:site_name" content="ningan123">
-<meta property="og:description" content="1.驱逐pod 123kubectl cordon node2kubectl drain node2 --ignore-daemonsets --delete-emptydir-data --force  2.替换containerd的二进制，重启containerd 3.删除containerd的数据目录，重启containerd 4.恢复node 1kubectl uncordon node2">
+<meta property="og:description" content="下载windows镜像msdn  打开迅雷软件，会自动复制链接进行下载 安装VMware Workstation Pro虚拟机安装Windows 10 系统 基本按照这个来的，只是虚拟磁盘那块选的是“拆分成多个文件”">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-02-06T07:49:26.811Z">
-<meta property="article:modified_time" content="2023-02-07T07:14:33.288Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230208094440.png">
+<meta property="article:published_time" content="2023-02-08T01:43:00.000Z">
+<meta property="article:modified_time" content="2023-02-08T02:12:00.000Z">
 <meta property="article:author" content="ningan123">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230208094440.png">
   
   
   
-  <title>ningan123</title>
+  <title>【网络成长记】vmware中安装windows虚拟机 - ningan123</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +198,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="【网络成长记】vmware中安装windows虚拟机"></span>
           
         </div>
 
@@ -207,8 +209,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-02-06 15:49" pubdate>
-          2023年2月6日 下午
+        <time datetime="2023-02-08 09:43" pubdate>
+          2023年2月8日 上午
         </time>
       </span>
     
@@ -219,7 +221,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          209 字
+          100 字
         
       </span>
     
@@ -230,7 +232,7 @@
         
         
         
-          2 分钟
+          1 分钟
         
       </span>
     
@@ -268,20 +270,16 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none"></h1>
+            <h1 style="display: none">【网络成长记】vmware中安装windows虚拟机</h1>
             
             
               <div class="markdown-body">
                 
-                <p>1.驱逐pod</p>
-<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">kubectl cordon node2</span><br><span class="hljs-comment">kubectl drain node2</span> <span class="hljs-literal">--</span><span class="hljs-comment">ignore</span><span class="hljs-literal">-</span><span class="hljs-comment">daemonsets</span> <span class="hljs-literal">--</span><span class="hljs-comment">delete</span><span class="hljs-literal">-</span><span class="hljs-comment">emptydir</span><span class="hljs-literal">-</span><span class="hljs-comment">data</span> <span class="hljs-literal">--</span><span class="hljs-comment">force</span><br><br></code></pre></td></tr></table></figure>
-
-<p>2.替换containerd的二进制，重启containerd</p>
-<p>3.删除containerd的数据目录，重启containerd</p>
-<p>4.恢复node</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">kubectl</span> uncordon node2<br></code></pre></td></tr></table></figure>
-
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">随时用下面命令进行测试：<br>crictl pods<br></code></pre></td></tr></table></figure>
+                <h2 id="下载windows镜像"><a href="#下载windows镜像" class="headerlink" title="下载windows镜像"></a>下载windows镜像</h2><p><a target="_blank" rel="noopener" href="https://msdn.itellyou.cn/?lang=zh-cn">msdn</a></p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230208094440.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>打开迅雷软件，会自动复制链接进行下载</p>
+<h2 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h2><p><a target="_blank" rel="noopener" href="https://blog.51cto.com/u_14289664/5133054">VMware Workstation Pro虚拟机安装Windows 10 系统</a></p>
+<p>基本按照这个来的，只是虚拟磁盘那块选的是“拆分成多个文件”</p>
 
                 
               </div>
@@ -289,27 +287,6 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
   
   
 </div>
@@ -320,8 +297,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
-      <div>http://example.com/2023/02/06/k8s/【k8s系列】升级生产环境的containerd版本/</div>
+      <div>【网络成长记】vmware中安装windows虚拟机</div>
+      <div>http://example.com/2023/02/08/net/【网络成长记】vmware中安装windows虚拟机/</div>
     </div>
     <div class="license-meta">
       
@@ -333,7 +310,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年2月6日</div>
+          <div>2023年2月8日</div>
         </div>
       
       
@@ -365,7 +342,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/02/06/k8s/%E3%80%90containerd%E3%80%91crictl%E5%91%BD%E4%BB%A4/" title="">
+                      <a href="/2023/02/08/go/%E3%80%90go%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91%E7%94%A8go%E5%86%99%E4%B8%80%E4%B8%AAprometheus%20exporter/" title="">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile"></span>
                         <span class="visible-mobile">上一篇</span>
@@ -375,7 +352,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/01/29/ebpf/04/" title="">
+                      <a href="/2023/02/06/k8s/%E3%80%90containerd%E3%80%91crictl%E5%91%BD%E4%BB%A4/" title="">
                         <span class="hidden-mobile"></span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
