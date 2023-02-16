@@ -16,22 +16,25 @@
   <meta name="author" content="ningan123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="拉取远程分支并创建本地分支12345678# 使用该方式会在本地新建分支x，并自动切换到该本地分支xgit checkout -b 本地分支名x origin&#x2F;远程分支名xgit checkout -b master origin&#x2F;master# dev合并到master处于master分支git merge origin&#x2F;dev  # merge到本地的mastergit push     报错">
+    <meta name="description" content="2023阅读书籍《撒哈拉的故事》阅读方式：微信读书 –&gt; 阅读器阅读时间：2022.12.31 –&gt; 2023.02.02 《谁动了我的奶酪》阅读方式：微信读书阅读时间： 2023.02.16 –&gt; 2023.02.16  《硬派健身100问》阅读方式： 纸质书阅读时间： 2023.02.07  –&gt;">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【git】git常用命令">
-<meta property="og:url" content="http://example.com/2022/12/15/git/%E3%80%90git%E3%80%91git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:title" content="【books】2023阅读书籍">
+<meta property="og:url" content="http://example.com/2023/02/16/books/%E3%80%90books%E3%80%912023%E9%98%85%E8%AF%BB%E4%B9%A6%E7%B1%8D/index.html">
 <meta property="og:site_name" content="ningan123">
-<meta property="og:description" content="拉取远程分支并创建本地分支12345678# 使用该方式会在本地新建分支x，并自动切换到该本地分支xgit checkout -b 本地分支名x origin&#x2F;远程分支名xgit checkout -b master origin&#x2F;master# dev合并到master处于master分支git merge origin&#x2F;dev  # merge到本地的mastergit push     报错">
+<meta property="og:description" content="2023阅读书籍《撒哈拉的故事》阅读方式：微信读书 –&gt; 阅读器阅读时间：2022.12.31 –&gt; 2023.02.02 《谁动了我的奶酪》阅读方式：微信读书阅读时间： 2023.02.16 –&gt; 2023.02.16  《硬派健身100问》阅读方式： 纸质书阅读时间： 2023.02.07  –&gt;">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-12-15T02:26:00.000Z">
-<meta property="article:modified_time" content="2023-01-11T02:54:00.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230216135833.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230216140233.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230216140823.png">
+<meta property="article:published_time" content="2023-02-16T05:58:00.000Z">
+<meta property="article:modified_time" content="2023-02-16T06:09:00.000Z">
 <meta property="article:author" content="ningan123">
-<meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230216135833.png">
   
   
   
-  <title>【git】git常用命令 - ningan123</title>
+  <title>【books】2023阅读书籍 - ningan123</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +200,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="【git】git常用命令"></span>
+            <span id="subtitle" data-typed-text="【books】2023阅读书籍"></span>
           
         </div>
 
@@ -208,8 +211,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-12-15 10:26" pubdate>
-          2022年12月15日 上午
+        <time datetime="2023-02-16 13:58" pubdate>
+          2023年2月16日 下午
         </time>
       </span>
     
@@ -220,7 +223,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.5k 字
+          149 字
         
       </span>
     
@@ -231,7 +234,7 @@
         
         
         
-          13 分钟
+          2 分钟
         
       </span>
     
@@ -269,16 +272,16 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">【git】git常用命令</h1>
+            <h1 style="display: none">【books】2023阅读书籍</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="拉取远程分支并创建本地分支"><a href="#拉取远程分支并创建本地分支" class="headerlink" title="拉取远程分支并创建本地分支"></a>拉取远程分支并创建本地分支</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用该方式会在本地新建分支x，并自动切换到该本地分支x</span><br>git checkout -b 本地分支名x origin/远程分支名x<br>git checkout -b master origin/master<br><br><span class="hljs-comment"># dev合并到master</span><br>处于master分支<br>git merge origin/dev  <span class="hljs-comment"># merge到本地的master</span><br>git push <br></code></pre></td></tr></table></figure>
+                <h1 id="2023阅读书籍"><a href="#2023阅读书籍" class="headerlink" title="2023阅读书籍"></a>2023阅读书籍</h1><h2 id="《撒哈拉的故事》"><a href="#《撒哈拉的故事》" class="headerlink" title="《撒哈拉的故事》"></a>《撒哈拉的故事》</h2><p>阅读方式：微信读书 –&gt; 阅读器<br>阅读时间：2022.12.31 –&gt; 2023.02.02<br><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230216135833.png" srcset="/img/loading.gif" lazyload alt="image.png"><br><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230216140233.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="《谁动了我的奶酪》"><a href="#《谁动了我的奶酪》" class="headerlink" title="《谁动了我的奶酪》"></a>《谁动了我的奶酪》</h2><p>阅读方式：微信读书<br>阅读时间： 2023.02.16 –&gt; 2023.02.16</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230216140823.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="《硬派健身100问》"><a href="#《硬派健身100问》" class="headerlink" title="《硬派健身100问》"></a>《硬派健身100问》</h2><p>阅读方式： 纸质书<br>阅读时间： 2023.02.07  –&gt; </p>
 
-
-
-<h2 id="报错解决"><a href="#报错解决" class="headerlink" title="报错解决"></a>报错解决</h2><h3 id="git-checkout-b-xxx-origin-x2F-xxx-报错"><a href="#git-checkout-b-xxx-origin-x2F-xxx-报错" class="headerlink" title="git checkout -b  xxx origin&#x2F;xxx 报错"></a>git checkout -b  xxx origin&#x2F;xxx 报错</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan dubhe]<span class="hljs-comment"># git checkout -b dev_230109 origin/dev_230109</span><br>fatal: <span class="hljs-string">&#x27;origin/dev_230109&#x27;</span> is not a commit and a branch <span class="hljs-string">&#x27;dev_230109&#x27;</span> cannot be created from it<br><br>[root@ningan dubhe]<span class="hljs-comment"># git branch</span><br>* anwy-dev<br>  anwy-test<br>  master<br>  rc1<br>  rc2<br>  rc2-0.1.4<br>  rc2-testable<br>  rc2-testable2<br><br><br><span class="hljs-comment">## 解决办法</span><br>[root@ningan dubhe]<span class="hljs-comment"># git pull</span><br>remote: Enumerating objects: 39, <span class="hljs-keyword">done</span>.<br>remote: Counting objects: 100% (39/39), <span class="hljs-keyword">done</span>.<br>remote: Compressing objects: 100% (35/35), <span class="hljs-keyword">done</span>.<br>remote: Total 39 (delta 12), reused 0 (delta 0), pack-reused 0<br>Unpacking objects: 100% (39/39), <span class="hljs-keyword">done</span>.<br>From http://gitlab.tianti.tg.unicom.local/cloudStorage/tgStack/dubhe<br> * [new branch]      dev_230109 -&gt; origin/dev_230109<br>Already up to <span class="hljs-built_in">date</span>.<br>[root@ningan dubhe]<span class="hljs-comment">#</span><br>[root@ningan dubhe]<span class="hljs-comment"># git branch</span><br>* anwy-dev<br>  anwy-test<br>  master<br>  rc1<br>  rc2<br>  rc2-0.1.4<br>  rc2-testable<br>  rc2-testable2<br>[root@ningan dubhe]<span class="hljs-comment">#</span><br>[root@ningan dubhe]<span class="hljs-comment"># git checkout -b dev_230109 origin/dev_230109</span><br>M       Makefile<br>M       config/cuk-config.cue<br>D       config/kubeconfig-n2<br>M       config/regionConfig.yaml<br>M       go.mod<br>M       go.sum<br>M       pkg/utils/common_vars_insert.go<br>M       pkg/utils/common_vars_insert_test.go<br>Branch <span class="hljs-string">&#x27;dev_230109&#x27;</span> <span class="hljs-built_in">set</span> up to track remote branch <span class="hljs-string">&#x27;dev_230109&#x27;</span> from <span class="hljs-string">&#x27;origin&#x27;</span>.<br>Switched to a new branch <span class="hljs-string">&#x27;dev_230109&#x27;</span><br>[root@ningan dubhe]<span class="hljs-comment">#</span><br><br>[root@ningan dubhe]<span class="hljs-comment"># git branch</span><br>  anwy-dev<br>  anwy-test<br>* dev_230109<br>  master<br>  rc1<br>  rc2<br>  rc2-0.1.4<br>  rc2-testable<br>  rc2-testable2<br><br><br></code></pre></td></tr></table></figure>
                 
               </div>
             
@@ -286,34 +289,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/git/" class="category-chain-item">git</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/git/">#git</a>
-      
-    </div>
   
 </div>
 
@@ -323,8 +298,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>【git】git常用命令</div>
-      <div>http://example.com/2022/12/15/git/【git】git常用命令/</div>
+      <div>【books】2023阅读书籍</div>
+      <div>http://example.com/2023/02/16/books/【books】2023阅读书籍/</div>
     </div>
     <div class="license-meta">
       
@@ -336,7 +311,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年12月15日</div>
+          <div>2023年2月16日</div>
         </div>
       
       
@@ -368,18 +343,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/12/15/linux/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="linux常用命令">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">linux常用命令</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/12/11/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9104.obsidian%E5%A6%82%E4%BD%95%E6%8F%92%E5%85%A5%E6%A8%A1%E6%9D%BF%EF%BC%9F%E6%8F%92%E4%BB%B6%EF%BC%9Atemplater/" title="【obsidian系列】04.obsidian如何插入模板？插件：templater">
-                        <span class="hidden-mobile">【obsidian系列】04.obsidian如何插入模板？插件：templater</span>
+                      <a href="/2023/02/15/ebpf/%E3%80%90ebpf%E3%80%91%E5%AD%A6%E4%B9%A0%E8%B5%84%E6%96%99/" title="">
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
