@@ -220,7 +220,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          958 字
+          1.4k 字
         
       </span>
     
@@ -231,7 +231,7 @@
         
         
         
-          8 分钟
+          12 分钟
         
       </span>
     
@@ -280,6 +280,16 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@localhost ~]<span class="hljs-comment"># lvremove /dev/mapper/vgqjc-lvqjc </span><br>Do you really want to remove active logical volume vgqjc/lvqjc? [y/n]: y<br>  Logical volume <span class="hljs-string">&quot;lvqjc&quot;</span> successfully removed<br>[root@localhost ~]<span class="hljs-comment"># vgremove /dev/mapper/vgqjc</span><br>  Volume group <span class="hljs-string">&quot;vgqjc&quot;</span> successfully removed<br>[root@localhost ~]<span class="hljs-comment"># pvremove /dev/sdl</span><br>  Labels on physical volume <span class="hljs-string">&quot;/dev/sdl&quot;</span> successfully wiped.<br>[root@localhost ~]<span class="hljs-comment"># </span><br></code></pre></td></tr></table></figure>
 
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@zqzt-wx13f33-zbhx08w ~]<span class="hljs-comment"># lsblk -d -o name,rota</span><br>NAME ROTA<br>sda     1<br>sdb     1<br>[root@zqzt-wx13f33-zbhx08w ~]<span class="hljs-comment">#</span><br>[root@zqzt-wx13f33-zbhx08w ~]<span class="hljs-comment"># grep ^ /sys/block/*/queue/rotational</span><br>/sys/block/dm-0/queue/rotational:1<br>/sys/block/dm-1/queue/rotational:1<br>/sys/block/sda/queue/rotational:1<br>/sys/block/sdb/queue/rotational:1<br><br></code></pre></td></tr></table></figure>
+
+
+
+<p><code>fdisk</code>命令中device通常是<code>/dev/hda</code>、<code>/dev/hdb</code>….(IDE接口类型的硬盘设备名)或<code>/dev/sda</code>、<code>/dev/sdb</code>….(SCSI接口类型硬盘设备名)，表示整个硬盘，如果硬盘被分区，则在设备名后追加一个数字表示此设备的第几个分区。如上例中的<code>/dev/sda1</code>和<code>/dev/sda2</code></p>
+<p>疑问：<br>1.IDE接口类型的硬盘和SCSI接口类型硬盘有什么区别？<br>2.&#x2F;etc&#x2F;mtab和&#x2F;etc&#x2F;fstab的区别？</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs gcode">lvdisplay<br>pvdisplay<br>vgdisplay<br><br>可以使用pvdisplay 或者p<span class="hljs-attr">vscan查看创建的物理卷  </span><br><span class="hljs-attr">使用vgdisplay 或者vgscan 查看卷组  </span><br><span class="hljs-attr">使用lvscan 或者lvdisplay查看[逻辑卷](https://so.csdn.net/so/search?q=%E9</span><span class="hljs-meta">%</span><span class="hljs-number">80</span><span class="hljs-meta">%</span>BB<span class="hljs-meta">%</span>E<span class="hljs-number">8</span><span class="hljs-meta">%</span>BE<span class="hljs-meta">%</span><span class="hljs-number">91</span><span class="hljs-meta">%</span>E<span class="hljs-number">5</span><span class="hljs-meta">%</span><span class="hljs-number">8</span>D<span class="hljs-meta">%</span>B<span class="hljs-number">7</span>&amp;spm=<span class="hljs-number">1001.2101</span><span class="hljs-number">.3001</span><span class="hljs-number">.7020</span>)  <br>使用df -h查看是否创建成功<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lijiaman/p/12885649.html">Linux 物理卷(PV)、逻辑卷(LV)、卷组(VG)管理</a></p>
+
                 
               </div>
             
