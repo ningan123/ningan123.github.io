@@ -226,6 +226,168 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/02/06/k8s/%E3%80%90containerd%E3%80%91crictl%E5%91%BD%E4%BB%A4/" target="_self">
+          
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/06/k8s/%E3%80%90containerd%E3%80%91crictl%E5%91%BD%E4%BB%A4/" target="_self">
+        <div>
+          12345$ crictl pods # list pods - compare with kubectl get pods  $ crictl inspectp # inspect a pod (different from crictl inspect)  $ crictl info # view CRI runtime info  $ crictl stats # does everythi
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-06 15:58" pubdate>
+              2023-02-06
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/02/06/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91%E5%8D%87%E7%BA%A7%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E7%9A%84containerd%E7%89%88%E6%9C%AC/" target="_self">
+          
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/06/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91%E5%8D%87%E7%BA%A7%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E7%9A%84containerd%E7%89%88%E6%9C%AC/" target="_self">
+        <div>
+          1.驱逐pod 123kubectl cordon node2kubectl drain node2 --ignore-daemonsets --delete-emptydir-data --force  2.替换containerd的二进制，重启containerd 3.删除containerd的数据目录，重启containerd 4.恢复node 1kubectl uncordon node2
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-06 15:49" pubdate>
+              2023-02-06
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/01/29/ebpf/04/" target="_self">
+          
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/01/29/ebpf/04/" target="_self">
+        <div>
+          12345678910111213141516171819#### 04节###### bpftool，用它可以查看 eBPF 程序的运行状态# 查询系统中正在运行的 eBPF 程序sudo bpftool prog list  # 导出这个 eBPF 程序的指令sudo bpftool prog dump xlated id 89sudo bpftool prog dump jited id 8
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-01-29 22:52" pubdate>
+              2023-01-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ebpf/" class="category-chain-item">ebpf</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2023/01/29/ebpf/%E3%80%90ebpf%E3%80%91first%20try2/" target="_self">
           【ebpf】first try2
         </a>
@@ -632,191 +794,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/22/linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" target="_self">
-          Linux内核设计与实现
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/22/linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" target="_self">
-        <div>
-          本书作者：Robert Love本书译者：陈莉君 康华 Linux内核之旅：http://kerneltravel.net/内核版本：2.6.34 内核巨著《Understanding the Linux Kernel》实践经典《Linux Device Drivers》 第1章 Linux内核简介一般情况下，Linux这个词汇主要是指内核 Linux内核开发者社区 最重要的论坛 lkml(lin
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-22 23:44" pubdate>
-              2022-12-22
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95/" class="category-chain-item">linux内核调试</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/21/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91curl%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-          【网络成长记】curl常用命令
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/21/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91curl%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-        <div>
-          12345678# 这两个等价time curl 10.191.193.5:30001time curl web-nginx-entrypoint.anwenyan# 这样子可行time curl https://11.254.0.1:443/version --cacert /root/k8s/certs/ca.pem --key /root/k8s/certs/apiserver-key.pe
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-21 12:02" pubdate>
-              2022-12-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/net/" class="category-chain-item">net</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/net/">#net</a>
-            
-              <a href="/tags/curl/">#curl</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/21/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91tcpdump%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-          【网络成长记】tcpdump常用命令
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/21/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91tcpdump%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-        <div>
-          tcpdump-i 　　   指定监听的网络接口；-n 　　  指定将每个监听到数据包中的域名转换成IP地址后显示，不把网络地址转换成名字； 123456789101112131415161718192021222324252627282930tcpdump -ne -i bond0 11.254.xxxtcpdump -ne -i calixxx -c 10tcpdump -nn -i cali
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-21 11:45" pubdate>
-              2022-12-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/net/" class="category-chain-item">net</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/net/">#net</a>
-            
-              <a href="/tags/tcpdump/">#tcpdump</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><a class="page-number" href="/page/5/#board">5</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/#board">3</a><a class="page-number" href="/page/4/#board">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/#board">6</a><a class="extend next" rel="next" href="/page/3/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
