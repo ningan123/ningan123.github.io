@@ -16,22 +16,24 @@
   <meta name="author" content="ningan123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="拉取远程分支并创建本地分支1234567891011121314151617# 使用该方式会在本地新建分支x，并自动切换到该本地分支xgit checkout -b 本地分支名x origin&#x2F;远程分支名xgit checkout -b master origin&#x2F;master# dev合并到master处于master分支git merge origin&#x2F;dev  # merge到本地的mast">
+    <meta name="description" content="12345678910111213141516171819202122232425查看磁盘使用率df -h查看单个目录的挂载情况(目录属于哪个分区)df -h &#x2F;homefdisk -llsblk# 查看文件系统类型lsblk -f lvremovevgremovepvremove# fdisk &#x2F;dev&#x2F;sdb:d  # 删除:w  # 保存dos分区表 一个分区最大2Tgpt分区表 不限制查看">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【git】git常用命令">
-<meta property="og:url" content="http://example.com/2022/12/15/git/%E3%80%90git%E3%80%91git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:title" content="【linux系列】磁盘管理">
+<meta property="og:url" content="http://example.com/2022/12/28/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/index.html">
 <meta property="og:site_name" content="ningan123">
-<meta property="og:description" content="拉取远程分支并创建本地分支1234567891011121314151617# 使用该方式会在本地新建分支x，并自动切换到该本地分支xgit checkout -b 本地分支名x origin&#x2F;远程分支名xgit checkout -b master origin&#x2F;master# dev合并到master处于master分支git merge origin&#x2F;dev  # merge到本地的mast">
+<meta property="og:description" content="12345678910111213141516171819202122232425查看磁盘使用率df -h查看单个目录的挂载情况(目录属于哪个分区)df -h &#x2F;homefdisk -llsblk# 查看文件系统类型lsblk -f lvremovevgremovepvremove# fdisk &#x2F;dev&#x2F;sdb:d  # 删除:w  # 保存dos分区表 一个分区最大2Tgpt分区表 不限制查看">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-12-15T02:26:00.000Z">
-<meta property="article:modified_time" content="2023-01-11T02:54:00.000Z">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230324155257.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230324155421.png">
+<meta property="article:published_time" content="2022-12-28T07:15:00.000Z">
+<meta property="article:modified_time" content="2023-03-24T08:06:00.000Z">
 <meta property="article:author" content="ningan123">
-<meta property="article:tag" content="git">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230324155257.png">
   
   
   
-  <title>【git】git常用命令 - ningan123</title>
+  <title>【linux系列】磁盘管理 - ningan123</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +199,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="【git】git常用命令"></span>
+            <span id="subtitle" data-typed-text="【linux系列】磁盘管理"></span>
           
         </div>
 
@@ -208,8 +210,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-12-15 10:26" pubdate>
-          2022年12月15日 上午
+        <time datetime="2022-12-28 15:15" pubdate>
+          2022年12月28日 下午
         </time>
       </span>
     
@@ -220,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.8k 字
+          2.2k 字
         
       </span>
     
@@ -231,7 +233,7 @@
         
         
         
-          16 分钟
+          19 分钟
         
       </span>
     
@@ -269,20 +271,51 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">【git】git常用命令</h1>
+            <h1 style="display: none">【linux系列】磁盘管理</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="拉取远程分支并创建本地分支"><a href="#拉取远程分支并创建本地分支" class="headerlink" title="拉取远程分支并创建本地分支"></a>拉取远程分支并创建本地分支</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 使用该方式会在本地新建分支x，并自动切换到该本地分支x</span><br>git checkout -b 本地分支名x origin/远程分支名x<br>git checkout -b master origin/master<br><br><span class="hljs-comment"># dev合并到master</span><br>处于master分支<br>git merge origin/dev  <span class="hljs-comment"># merge到本地的master</span><br>git push <br><br><span class="hljs-comment"># 远程新建了一个分支feature，想在本地也建一个feature分支，但是在本地git branch -a的时候发现没有这个远程的origin/feature分支，怎么办？</span><br>1.首先将某个远程主机的更新，全部取回本地：git fetch<br>2.再次查看远程分支：git branch -a 发现远程的分支已经可以看见了。<br>3.然后拉取远程分支到本地：git checkout -b 远程分支名 origin/远程分支名<br><br><br><span class="hljs-comment"># git强制提交本地分支覆盖远程分支</span><br>git push origin 分支名 --force<br></code></pre></td></tr></table></figure>
+                <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs bash">查看磁盘使用率<br><span class="hljs-built_in">df</span> -h<br>查看单个目录的挂载情况(目录属于哪个分区)<br><span class="hljs-built_in">df</span> -h /home<br><br>fdisk -l<br>lsblk<br><span class="hljs-comment"># 查看文件系统类型</span><br>lsblk -f <br><br>lvremove<br>vgremove<br>pvremove<br><br><span class="hljs-comment"># fdisk /dev/sdb</span><br>:d  <span class="hljs-comment"># 删除</span><br>:w  <span class="hljs-comment"># 保存</span><br>dos分区表 一个分区最大2T<br>gpt分区表 不限制<br><br>查看是不是ssd<br><span class="hljs-comment"># 使用lsblk命令进行判断，参数-d表示仅显示设备本身（不显示其上分区），参数-o表示仅显示特定的列。</span><br><span class="hljs-comment"># # 0是ssd 1是hdd</span><br><span class="hljs-comment"># lsblk -d -o name,rota   </span><br><span class="hljs-comment"># grep ^ /sys/block/*/queue/rotational</span><br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@localhost ~]<span class="hljs-comment"># lvremove /dev/mapper/vgqjc-lvqjc </span><br>Do you really want to remove active logical volume vgqjc/lvqjc? [y/n]: y<br>  Logical volume <span class="hljs-string">&quot;lvqjc&quot;</span> successfully removed<br>[root@localhost ~]<span class="hljs-comment"># vgremove /dev/mapper/vgqjc</span><br>  Volume group <span class="hljs-string">&quot;vgqjc&quot;</span> successfully removed<br>[root@localhost ~]<span class="hljs-comment"># pvremove /dev/sdl</span><br>  Labels on physical volume <span class="hljs-string">&quot;/dev/sdl&quot;</span> successfully wiped.<br>[root@localhost ~]<span class="hljs-comment"># </span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@zqzt-wx13f33-zbhx08w ~]<span class="hljs-comment"># lsblk -d -o name,rota</span><br>NAME ROTA<br>sda     1<br>sdb     1<br>[root@zqzt-wx13f33-zbhx08w ~]<span class="hljs-comment">#</span><br>[root@zqzt-wx13f33-zbhx08w ~]<span class="hljs-comment"># grep ^ /sys/block/*/queue/rotational</span><br>/sys/block/dm-0/queue/rotational:1<br>/sys/block/dm-1/queue/rotational:1<br>/sys/block/sda/queue/rotational:1<br>/sys/block/sdb/queue/rotational:1<br><br></code></pre></td></tr></table></figure>
 
 
 
-<h2 id="报错解决"><a href="#报错解决" class="headerlink" title="报错解决"></a>报错解决</h2><h3 id="git-checkout-b-xxx-origin-x2F-xxx-报错"><a href="#git-checkout-b-xxx-origin-x2F-xxx-报错" class="headerlink" title="git checkout -b  xxx origin&#x2F;xxx 报错"></a>git checkout -b  xxx origin&#x2F;xxx 报错</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan dubhe]<span class="hljs-comment"># git checkout -b dev_230109 origin/dev_230109</span><br>fatal: <span class="hljs-string">&#x27;origin/dev_230109&#x27;</span> is not a commit and a branch <span class="hljs-string">&#x27;dev_230109&#x27;</span> cannot be created from it<br><br>[root@ningan dubhe]<span class="hljs-comment"># git branch</span><br>* anwy-dev<br>  anwy-test<br>  master<br>  rc1<br>  rc2<br>  rc2-0.1.4<br>  rc2-testable<br>  rc2-testable2<br><br><br><span class="hljs-comment">## 解决办法</span><br>[root@ningan dubhe]<span class="hljs-comment"># git pull</span><br>remote: Enumerating objects: 39, <span class="hljs-keyword">done</span>.<br>remote: Counting objects: 100% (39/39), <span class="hljs-keyword">done</span>.<br>remote: Compressing objects: 100% (35/35), <span class="hljs-keyword">done</span>.<br>remote: Total 39 (delta 12), reused 0 (delta 0), pack-reused 0<br>Unpacking objects: 100% (39/39), <span class="hljs-keyword">done</span>.<br>From http://gitlab.tianti.tg.unicom.local/cloudStorage/tgStack/dubhe<br> * [new branch]      dev_230109 -&gt; origin/dev_230109<br>Already up to <span class="hljs-built_in">date</span>.<br>[root@ningan dubhe]<span class="hljs-comment">#</span><br>[root@ningan dubhe]<span class="hljs-comment"># git branch</span><br>* anwy-dev<br>  anwy-test<br>  master<br>  rc1<br>  rc2<br>  rc2-0.1.4<br>  rc2-testable<br>  rc2-testable2<br>[root@ningan dubhe]<span class="hljs-comment">#</span><br>[root@ningan dubhe]<span class="hljs-comment"># git checkout -b dev_230109 origin/dev_230109</span><br>M       Makefile<br>M       config/cuk-config.cue<br>D       config/kubeconfig-n2<br>M       config/regionConfig.yaml<br>M       go.mod<br>M       go.sum<br>M       pkg/utils/common_vars_insert.go<br>M       pkg/utils/common_vars_insert_test.go<br>Branch <span class="hljs-string">&#x27;dev_230109&#x27;</span> <span class="hljs-built_in">set</span> up to track remote branch <span class="hljs-string">&#x27;dev_230109&#x27;</span> from <span class="hljs-string">&#x27;origin&#x27;</span>.<br>Switched to a new branch <span class="hljs-string">&#x27;dev_230109&#x27;</span><br>[root@ningan dubhe]<span class="hljs-comment">#</span><br><br>[root@ningan dubhe]<span class="hljs-comment"># git branch</span><br>  anwy-dev<br>  anwy-test<br>* dev_230109<br>  master<br>  rc1<br>  rc2<br>  rc2-0.1.4<br>  rc2-testable<br>  rc2-testable2<br><br><br></code></pre></td></tr></table></figure>
 
 
 
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.jianshu.com/p/811b07b129e8"># git同步远程仓库分支</a></p>
+<p><code>fdisk</code>命令中device通常是<code>/dev/hda</code>、<code>/dev/hdb</code>….(IDE接口类型的硬盘设备名)或<code>/dev/sda</code>、<code>/dev/sdb</code>….(SCSI接口类型硬盘设备名)，表示整个硬盘，如果硬盘被分区，则在设备名后追加一个数字表示此设备的第几个分区。如上例中的<code>/dev/sda1</code>和<code>/dev/sda2</code></p>
+<p>疑问：<br>1.IDE接口类型的硬盘和SCSI接口类型硬盘有什么区别？<br>2.&#x2F;etc&#x2F;mtab和&#x2F;etc&#x2F;fstab的区别？</p>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs gcode">lvdisplay<br>pvdisplay<br>vgdisplay<br><br>可以使用pvdisplay 或者p<span class="hljs-attr">vscan查看创建的物理卷  </span><br><span class="hljs-attr">使用vgdisplay 或者vgscan 查看卷组  </span><br><span class="hljs-attr">使用lvscan 或者lvdisplay查看[逻辑卷](https://so.csdn.net/so/search?q=%E9</span><span class="hljs-meta">%</span><span class="hljs-number">80</span><span class="hljs-meta">%</span>BB<span class="hljs-meta">%</span>E<span class="hljs-number">8</span><span class="hljs-meta">%</span>BE<span class="hljs-meta">%</span><span class="hljs-number">91</span><span class="hljs-meta">%</span>E<span class="hljs-number">5</span><span class="hljs-meta">%</span><span class="hljs-number">8</span>D<span class="hljs-meta">%</span>B<span class="hljs-number">7</span>&amp;spm=<span class="hljs-number">1001.2101</span><span class="hljs-number">.3001</span><span class="hljs-number">.7020</span>)  <br>使用df -h查看是否创建成功<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="需求1：扩容某一个文件系统目录"><a href="#需求1：扩容某一个文件系统目录" class="headerlink" title="需求1：扩容某一个文件系统目录"></a>需求1：扩容某一个文件系统目录</h2><h3 id="当前情况"><a href="#当前情况" class="headerlink" title="当前情况"></a>当前情况</h3><p>当前磁盘情况</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230324155257.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>查看你文件系统类型</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">lsblk -f<br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230324155421.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>当前pv，vg，lv情况：<br>当前sdb下有sdb1分区<br>基于&#x2F;dev&#x2F;sdb1创建了pv </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">pvcreate  /dev/sdb1 --force<br></code></pre></td></tr></table></figure>
+<p>基于pv创建了vg(datavg为vg的名字)                 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">vgcreate  datavg /dev/sdb1<br></code></pre></td></tr></table></figure>
+
+<p>基于datavg创建了lv(lv_data_xxx_data为lv的名字)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo lvcreate  -L 4T -n lv_data_xxx_data datavg<br>sudo mkfs.xfs  -f /dev/mapper/datavg-lv_data_xxx_data<br></code></pre></td></tr></table></figure>
+
+<p>挂载</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo mount  /dev/mapper/datavg-lv_data_xxx_data /vdata/xxx/data<br></code></pre></td></tr></table></figure>
+
+<h3 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h3><p>想把sdc到sdm这些磁盘全部挂载到&#x2F;vdata&#x2F;tg-paas&#x2F;data下，该如何实现？</p>
+<h3 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">sudo parted  -s /dev/sdc mklabel gpt<br>sudo parted  -s /dev/sdc mkpart primary xfs 0 100%<br>sudo mkfs.xfs  -f /dev/sdc1<br><br>sudo pvcreate  /dev/sdc1 --force<br><br>sudo vgextend datavg /dev/sdc1<br><br>lvresize -L +9.1T /dev/mapper/datavg-lv_data_xxx_data<br><br><span class="hljs-comment"># 使用xfs_groupfs进行在线调整xfs格式的文件系统大小</span><br><span class="hljs-comment"># lsblk -f 查看文件系统类型</span><br>xfs_growfs /dev/mapper/datavg-lv_data_xxx_data<br><br><span class="hljs-comment"># 查看已经扩容成功</span><br>lsblk<br><span class="hljs-built_in">df</span> -h<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.cnblogs.com/lijiaman/p/12885649.html">Linux 物理卷(PV)、逻辑卷(LV)、卷组(VG)管理</a></p>
 
                 
               </div>
@@ -291,34 +324,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/git/" class="category-chain-item">git</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/git/">#git</a>
-      
-    </div>
   
 </div>
 
@@ -328,8 +333,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>【git】git常用命令</div>
-      <div>http://example.com/2022/12/15/git/【git】git常用命令/</div>
+      <div>【linux系列】磁盘管理</div>
+      <div>http://example.com/2022/12/28/linux/【linux系列】磁盘管理/</div>
     </div>
     <div class="license-meta">
       
@@ -341,7 +346,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年12月15日</div>
+          <div>2022年12月28日</div>
         </div>
       
       
@@ -373,9 +378,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/12/15/linux/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" title="linux常用命令">
+                      <a href="/2022/12/28/net/%E7%BD%91%E5%8D%A1%E6%B2%A1%E6%9C%89ip/" title="">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">linux常用命令</span>
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -383,8 +388,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/12/11/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9104.obsidian%E5%A6%82%E4%BD%95%E6%8F%92%E5%85%A5%E6%A8%A1%E6%9D%BF%EF%BC%9F%E6%8F%92%E4%BB%B6%EF%BC%9Atemplater/" title="【obsidian系列】04.obsidian如何插入模板？插件：templater">
-                        <span class="hidden-mobile">【obsidian系列】04.obsidian如何插入模板？插件：templater</span>
+                      <a href="/2022/12/27/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91kube-state-metrics%E4%B8%ADkube_endpoint_address%E6%8C%87%E6%A0%87/" title="【k8s系列】kube-state-metrics中kube_endpoint_address指标">
+                        <span class="hidden-mobile">【k8s系列】kube-state-metrics中kube_endpoint_address指标</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
