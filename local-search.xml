@@ -8,8 +8,14 @@
     <link href="/2023/04/01/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91ssh-keygen%E5%92%8Cssh-copy-id%E5%AE%9E%E7%8E%B0%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/"/>
     <url>/2023/04/01/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91ssh-keygen%E5%92%8Cssh-copy-id%E5%AE%9E%E7%8E%B0%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/</url>
     
-    <content type="html"><![CDATA[<h2 id="跳板机A登录主机B"><a href="#跳板机A登录主机B" class="headerlink" title="跳板机A登录主机B"></a>跳板机A登录主机B</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1.跳板机生成公钥</span><br>执行 /bin/ssh-keygen <br>一路回车<br><br><span class="hljs-comment"># 2.跳板机的公钥拷贝到主机B的~/.ssh/authorized_keys文件中</span><br>可以手动复制<br>也可以直接命令操作ssh-copy-id<br>ssh-copy-id 用户名@主机B的ip或者hostname<br><br><span class="hljs-comment"># 3.免密登录远程主机</span><br>/bin/ssh 用户名@主机B的ip或者hostname<br></code></pre></td></tr></table></figure><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.csdn.net/feinifi/article/details/78213297"># ssh-keygen和ssh-copy-id实现免密登录远程主机</a> 讲了方法和原理</p>]]></content>
+    <content type="html"><![CDATA[<h2 id="跳板机A登录主机B"><a href="#跳板机A登录主机B" class="headerlink" title="跳板机A登录主机B"></a>跳板机A登录主机B</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1.跳板机生成公钥</span><br>执行 /bin/ssh-keygen <br>一路回车<br><br><span class="hljs-comment"># 2.跳板机的公钥拷贝到主机B的~/.ssh/authorized_keys文件中</span><br>可以手动复制<br>也可以直接命令操作ssh-copy-id<br>ssh-copy-id 用户名@主机B的ip或者hostname<br><br><span class="hljs-comment"># 3.免密登录远程主机</span><br>/bin/ssh 用户名@主机B的ip或者hostname<br>不需要输入密码，直接就可以登录了<br></code></pre></td></tr></table></figure><p>搞定~</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.csdn.net/feinifi/article/details/78213297"># ssh-keygen和ssh-copy-id实现免密登录远程主机</a> 讲了方法和原理</p>]]></content>
     
+    
+    <categories>
+      
+      <category>net</category>
+      
+    </categories>
     
     
   </entry>
@@ -23,6 +29,12 @@
     
     <content type="html"><![CDATA[<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://lailin.xyz/post/operator-07-kubebuilder-test.html">7. kubebuilder 进阶: 测试</a></p>]]></content>
     
+    
+    <categories>
+      
+      <category>k8s</category>
+      
+    </categories>
     
     
   </entry>
