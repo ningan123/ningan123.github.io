@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          753 字
+          757 字
         
       </span>
     
@@ -284,131 +284,131 @@
 <table>
 <thead>
 <tr>
-<th align="center">功能\组件</th>
-<th align="right">docker</th>
-<th align="right">crictl</th>
-<th align="right">nerdctl</th>
-<th align="right">ctr</th>
+<th align="left">功能\组件</th>
+<th align="left">docker</th>
+<th align="left">crictl</th>
+<th align="left">nerdctl</th>
+<th align="left">ctr</th>
 </tr>
 </thead>
 <tbody><tr>
-<td align="center"></td>
-<td align="right"></td>
-<td align="right">某个主机安装了 k8s 后，命令行才会有 crictl 命令</td>
-<td align="right"></td>
-<td align="right">ctr 是跟 k8s 无关的，你主机安装了 containerd 服务后就可以操作 ctr 命令</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">某个主机安装了 k8s 后，命令行才会有 crictl 命令</td>
+<td align="left"></td>
+<td align="left">ctr 是跟 k8s 无关的，你主机安装了 containerd 服务后就可以操作 ctr 命令</td>
 </tr>
 <tr>
-<td align="center"></td>
-<td align="right"></td>
-<td align="right"><code>crictl</code>操作的均在<code>k8s.io</code>命名空间</td>
-<td align="right"></td>
-<td align="right"><code>ctr</code> 客户端 主要区分了 3 个命名空间分别是<code>k8s.io</code>、<code>moby</code>和<code>default</code></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"><code>crictl</code>操作的均在<code>k8s.io</code>命名空间</td>
+<td align="left"></td>
+<td align="left"><code>ctr</code> 客户端 主要区分了 3 个命名空间分别是<code>k8s.io</code>、<code>moby</code>和<code>default</code></td>
 </tr>
 <tr>
-<td align="center">查看镜像</td>
-<td align="right"></td>
-<td align="right">crictl images</td>
-<td align="right">nerdctl images –namespace k8s.io<br>  nerdctl -n k8s.io images</td>
-<td align="right">ctr image ls</td>
+<td align="left">查看镜像</td>
+<td align="left"></td>
+<td align="left">crictl images</td>
+<td align="left">nerdctl images –namespace k8s.io<br>  nerdctl -n k8s.io images</td>
+<td align="left">ctr image ls</td>
 </tr>
 <tr>
-<td align="center">删除镜像</td>
-<td align="right">docker rmi</td>
-<td align="right">crictl rmi</td>
-<td align="right"></td>
-<td align="right">ctr image rm</td>
+<td align="left">删除镜像</td>
+<td align="left">docker rmi</td>
+<td align="left">crictl rmi</td>
+<td align="left"></td>
+<td align="left">ctr image rm</td>
 </tr>
 <tr>
-<td align="center">列出所有容器</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">nerdctl ps</td>
-<td align="right"></td>
+<td align="left">列出所有容器</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">nerdctl ps</td>
+<td align="left"></td>
 </tr>
 <tr>
-<td align="center">获取容器的详细信息</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">nerdctl inspect xxx</td>
-<td align="right"></td>
+<td align="left">获取容器的详细信息</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">nerdctl inspect xxx</td>
+<td align="left"></td>
 </tr>
 <tr>
-<td align="center">获取容器日志</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">nerdctl logs -f xxx</td>
-<td align="right"></td>
+<td align="left">获取容器日志</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">nerdctl logs -f xxx</td>
+<td align="left"></td>
 </tr>
 <tr>
-<td align="center">停止容器</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">nerdctl stop xxx</td>
-<td align="right"></td>
+<td align="left">停止容器</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">nerdctl stop xxx</td>
+<td align="left"></td>
 </tr>
 <tr>
-<td align="center">删除容器</td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right">nerdctl rm xxx</td>
-<td align="right"></td>
+<td align="left">删除容器</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">nerdctl rm xxx</td>
+<td align="left"></td>
 </tr>
 <tr>
-<td align="center"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="left">test</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr>
-<td align="center"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr>
-<td align="center"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr>
-<td align="center"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr>
-<td align="center"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr>
-<td align="center"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr>
-<td align="center"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 <tr>
-<td align="center"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
-<td align="right"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
 </tr>
 </tbody></table>
 <p><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8strain2/containerd/nerdctl/"># Containerd 高级命令行工具 nerdctl</a></p>
