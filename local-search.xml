@@ -11,6 +11,12 @@
     <content type="html"><![CDATA[<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>初始有一个json<br>需要cue文件来帮助拼接一段形成一个新的json</p><h3 id="简单版"><a href="#简单版" class="headerlink" title="简单版"></a>简单版</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230508170625.png" alt="image.png"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash">import (<br>  <span class="hljs-string">&quot;encoding/json&quot;</span><br>)<br><br>// 原json Marshal之后的字符串<br>a: <span class="hljs-string">&quot;&#123;\&quot;test1\&quot;:\&quot;1\&quot;,\&quot;test2\&quot;:\&quot;2\&quot;&#125;&quot;</span><br><br>// step1: 先unmarshal<br>b: json.Unmarshal(a)<br><br>// step2：拼接新的内容<br>c: &#123;<br>    b<br>    <span class="hljs-string">&quot;testNew&quot;</span>: <span class="hljs-string">&quot;new&quot;</span>   // 新内容<br>&#125;<br><br>// step3: 转成字符串<br>cMarshal: json.Marshal(c)<br><br><br></code></pre></td></tr></table></figure><h3 id="复杂版"><a href="#复杂版" class="headerlink" title="复杂版"></a>复杂版</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230508171655.png" alt="image.png"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs bash">import (<br>  <span class="hljs-string">&quot;encoding/json&quot;</span><br>)<br><br>// 原json Marshal之后的字符串<br>a: <span class="hljs-string">&quot;&#123;\&quot;test1\&quot;:\&quot;1\&quot;,\&quot;test2\&quot;:\&quot;2\&quot;&#125;&quot;</span><br><br>// step1: 先unmarshal<br>b: json.Unmarshal(a)<br><br>testValue:  &#123;<br>    <span class="hljs-string">&quot;111&quot;</span>: <span class="hljs-string">&quot;111&quot;</span><br>    <span class="hljs-string">&quot;222&quot;</span>: <span class="hljs-string">&quot;222&quot;</span><br>&#125;<br><br>// step2：拼接新的内容<br>c: &#123;<br>    b<br>    <span class="hljs-string">&quot;testNew&quot;</span>: testValue  // 新内容<br>&#125;<br><br>// step3: 转成字符串<br>cMarshal: json.Marshal(c)<br><br></code></pre></td></tr></table></figure><h3 id="进阶版2：一级拼接"><a href="#进阶版2：一级拼接" class="headerlink" title="进阶版2：一级拼接"></a>进阶版2：一级拼接</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230508172626.png" alt="image.png"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs bash">import (<br>  <span class="hljs-string">&quot;encoding/json&quot;</span><br>)<br><br>// 原json Marshal之后的字符串<br>a: <span class="hljs-string">&quot;&#123;\&quot;test1\&quot;:\&quot;1\&quot;,\&quot;test2\&quot;:\&quot;2\&quot;&#125;&quot;</span><br><br>// step1: 先unmarshal<br>b: json.Unmarshal(a)<br><br>testValue:  &#123;<br>    <span class="hljs-string">&quot;111&quot;</span>: <span class="hljs-string">&quot;111&quot;</span><br>    <span class="hljs-string">&quot;222&quot;</span>: <span class="hljs-string">&quot;222&quot;</span><br>    <span class="hljs-string">&quot;333&quot;</span>: b.test2<br>&#125;<br><br>// step2：拼接新的内容<br>c: &#123;<br>    b<br>    <span class="hljs-string">&quot;testNew&quot;</span>: testValue  // 新内容<br>&#125;<br><br>// step3: 转成字符串<br>cMarshal: json.Marshal(c)<br><br></code></pre></td></tr></table></figure><h3 id="进阶版2的另一种写法"><a href="#进阶版2的另一种写法" class="headerlink" title="进阶版2的另一种写法"></a>进阶版2的另一种写法</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230508182001.png" alt="image.png"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs bash">import (<br>  <span class="hljs-string">&quot;encoding/json&quot;</span><br>)<br><br>self: &#123;<br>    // step1: 先unmarshal<br>    b: json.Unmarshal(<span class="hljs-string">&quot;\(global.a)&quot;</span>)<br>    <br>    testValue:  &#123;<br>        <span class="hljs-string">&quot;111&quot;</span>: <span class="hljs-string">&quot;111&quot;</span><br>        <span class="hljs-string">&quot;222&quot;</span>: <span class="hljs-string">&quot;222&quot;</span><br>        <span class="hljs-string">&quot;333&quot;</span>: b.test2<br>    &#125;<br>    <br>    // step2：拼接新的内容<br>    c: &#123;<br>        b<br>        <span class="hljs-string">&quot;testNew&quot;</span>: testValue  // 新内容<br>    &#125;<br>&#125;<br><br>global: &#123;<br>    // 原json Marshal之后的字符串<br>    a: <span class="hljs-string">&quot;&#123;\&quot;test1\&quot;:\&quot;1\&quot;,\&quot;test2\&quot;:\&quot;2\&quot;&#125;&quot;</span><br>    <br>    <br>    // step3: 转成字符串<br>    cMarshal: json.Marshal(self.c)<br>&#125;<br></code></pre></td></tr></table></figure><h3 id="进阶版3：两级拼接"><a href="#进阶版3：两级拼接" class="headerlink" title="进阶版3：两级拼接"></a>进阶版3：两级拼接</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230508191318.png" alt="image.png"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><code class="hljs bash">import (<br>  <span class="hljs-string">&quot;encoding/json&quot;</span><br>)<br><br>// 原json Marshal之后的字符串<br>a: <span class="hljs-string">&quot;&#123;\&quot;test1\&quot;:\&quot;1\&quot;,\&quot;test2\&quot;:\&quot;2\&quot;&#125;&quot;</span><br>a2: <span class="hljs-string">&quot;&#123;\&quot;test1bbbb\&quot;:\&quot;1\&quot;,\&quot;test2bbbb\&quot;:\&quot;2\&quot;&#125;&quot;</span><br><br>// step1: 先unmarshal<br>b: json.Unmarshal(a)<br>b2: json.Unmarshal(a2)<br><br>testValue:  &#123;<br>    <span class="hljs-string">&quot;111&quot;</span>: <span class="hljs-string">&quot;111&quot;</span><br>    <span class="hljs-string">&quot;222&quot;</span>: <span class="hljs-string">&quot;222&quot;</span><br>    <span class="hljs-string">&quot;333&quot;</span>: b.test2<br>    b2<br>&#125;<br><br>// step2：拼接新的内容<br>c: &#123;<br>    b<br>    <span class="hljs-string">&quot;testNew&quot;</span>: testValue  // 新内容<br>&#125;<br><br>// step3: 转成字符串<br>cMarshal: json.Marshal(c)<br><br></code></pre></td></tr></table></figure><h3 id="进阶版3的另一种写法"><a href="#进阶版3的另一种写法" class="headerlink" title="进阶版3的另一种写法"></a>进阶版3的另一种写法</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230508191505.png" alt="image.png"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs bash">import (<br>  <span class="hljs-string">&quot;encoding/json&quot;</span><br>)<br><br>self: &#123;<br>    // step1: 先unmarshal<br>    b: json.Unmarshal(<span class="hljs-string">&quot;\(global.a)&quot;</span>)<br>    b2: json.Unmarshal(<span class="hljs-string">&quot;\(global.a2)&quot;</span>)<br>    <br>    testValue:  &#123;<br>        b2<br>        <span class="hljs-string">&quot;111&quot;</span>: <span class="hljs-string">&quot;111&quot;</span><br>        <span class="hljs-string">&quot;222&quot;</span>: <span class="hljs-string">&quot;222&quot;</span><br>        <span class="hljs-string">&quot;333&quot;</span>: b.test2<br>    &#125;<br>    <br>    // step2：拼接新的内容<br>    c: &#123;<br>        b<br>        <span class="hljs-string">&quot;testNew&quot;</span>: testValue  // 新内容<br>    &#125;<br>&#125;<br><br><br>global: &#123;<br>    // 原json Marshal之后的字符串<br>    a: <span class="hljs-string">&quot;&#123;\&quot;test1\&quot;:\&quot;1\&quot;,\&quot;test2\&quot;:\&quot;2\&quot;&#125;&quot;</span><br>    a2: <span class="hljs-string">&quot;&#123;\&quot;test1bbbb\&quot;:\&quot;1\&quot;,\&quot;test2bbbb\&quot;:\&quot;2\&quot;&#125;&quot;</span><br>    <br>    <br>    // step3: 转成字符串<br>    cMarshal: json.Marshal(self.c)<br>    <br>    <br>&#125;<br></code></pre></td></tr></table></figure>]]></content>
     
     
+    <categories>
+      
+      <category>cue</category>
+      
+    </categories>
+    
     
     <tags>
       
@@ -30,6 +36,12 @@
     <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># cat /etc/kubernetes/token.csv</span><br>12ba4f.d82a57a4433b2359,<span class="hljs-string">&quot;system:bootstrapper&quot;</span>,10001,<span class="hljs-string">&quot;system:bootstrappers&quot;</span><br><br>这些 token 的形式是 `[a-z0-9]&#123;6&#125;.[a-z0-9]&#123;16&#125;`。第一部分是 Token ID，第二部分是 Token Secret。<br><br></code></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">pwd</span><br>/etc/kubernetes<br><span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;`head -c 16 /dev/urandom | od -An -t x | tr -d &#x27; &#x27;`,kubelet-bootstrap,10001,\&quot;system:kubelet-bootstrap\&quot;&quot;</span> &gt; token.csv<br><span class="hljs-built_in">cat</span> token.csv<br><br>也可以使用上面的命令在工作中生成随机字符串<br><span class="hljs-built_in">head</span> -c 16 /dev/urandom | <span class="hljs-built_in">od</span> -An -t x | <span class="hljs-built_in">tr</span> -d <span class="hljs-string">&#x27; &#x27;</span><br></code></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">export</span> BOOTSTRAP_TOKEN=$(<span class="hljs-built_in">head</span> -c 16 /dev/urandom | <span class="hljs-built_in">od</span> -An -t x | <span class="hljs-built_in">tr</span> -d <span class="hljs-string">&#x27; &#x27;</span>)<br><span class="hljs-built_in">cat</span> &gt; token.csv &lt;&lt;<span class="hljs-string">EOF</span><br><span class="hljs-string">$&#123;BOOTSTRAP_TOKEN&#125;,kubelet-bootstrap,10001,&quot;system:kubelet-bootstrap&quot;</span><br><span class="hljs-string">EOF</span><br></code></pre></td></tr></table></figure>]]></content>
     
     
+    <categories>
+      
+      <category>k8s</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -42,6 +54,12 @@
     
     <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nc -vz -w3 11.254.0.1 443<br></code></pre></td></tr></table></figure>]]></content>
     
+    
+    <categories>
+      
+      <category>net</category>
+      
+    </categories>
     
     
   </entry>
@@ -56,6 +74,12 @@
     <content type="html"><![CDATA[<h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># uname -a</span><br>Linux ningan 5.4.0-147-generic <span class="hljs-comment">#164~18.04.1-Ubuntu SMP Tue Apr 4 00:20:20 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux</span><br><br><span class="hljs-comment"># cat /etc/os-release</span><br>NAME=<span class="hljs-string">&quot;Ubuntu&quot;</span><br>VERSION=<span class="hljs-string">&quot;18.04.6 LTS (Bionic Beaver)&quot;</span><br>ID=ubuntu<br>ID_LIKE=debian<br>PRETTY_NAME=<span class="hljs-string">&quot;Ubuntu 18.04.6 LTS&quot;</span><br>VERSION_ID=<span class="hljs-string">&quot;18.04&quot;</span><br>HOME_URL=<span class="hljs-string">&quot;https://www.ubuntu.com/&quot;</span><br>SUPPORT_URL=<span class="hljs-string">&quot;https://help.ubuntu.com/&quot;</span><br>BUG_REPORT_URL=<span class="hljs-string">&quot;https://bugs.launchpad.net/ubuntu/&quot;</span><br>PRIVACY_POLICY_URL=<span class="hljs-string">&quot;https://www.ubuntu.com/legal/terms-and-policies/privacy-policy&quot;</span><br>VERSION_CODENAME=bionic<br>UBUNTU_CODENAME=bionic<br><br></code></pre></td></tr></table></figure><h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># clang -O2 -g -target bpf -c bpf_sockops.c -o bpf_sockops.o</span><br>In file included from bpf_sockops.c:1:<br>In file included from /usr/include/linux/bpf.h:11:<br>/usr/include/linux/types.h:5:10: fatal error: <span class="hljs-string">&#x27;asm/types.h&#x27;</span> file not found<br><span class="hljs-comment">#include &lt;asm/types.h&gt;</span><br>         ^~~~~~~~~~~~~<br>1 error generated.<br><br></code></pre></td></tr></table></figure><h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># apt-get install -y gcc-multilib</span><br></code></pre></td></tr></table></figure><h2 id="参卡"><a href="#参卡" class="headerlink" title="参卡"></a>参卡</h2><p><a href="https://www.ghl.name/archives/how-to-fix-asm-types-h-no-found.html"># Debian下libbpf编译失败提示&lt;asm&#x2F;types.h&gt;文件不存在解决方法</a></p>]]></content>
     
     
+    <categories>
+      
+      <category>ebpf</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -68,6 +92,12 @@
     
     <content type="html"><![CDATA[<p><a href="https://kubernetes.io/zh-cn/docs/tasks/administer-cluster/access-cluster-api/"># 使用 Kubernetes API 访问集群</a></p>]]></content>
     
+    
+    <categories>
+      
+      <category>k8s</category>
+      
+    </categories>
     
     
   </entry>
@@ -82,6 +112,12 @@
     <content type="html"><![CDATA[<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs go"><br><span class="hljs-string">&quot;sigs.k8s.io/controller-runtime/pkg/client&quot;</span><br><br><span class="hljs-keyword">type</span> Inodes <span class="hljs-keyword">struct</span> &#123;<br>client.Client<br>&#125;<br><br><br>inodesListExpect = xxxx <span class="hljs-comment">// 有具体值</span><br><br><br><span class="hljs-comment">// get</span><br>inodes := &amp;irov1.IaasNodes&#123;&#125;<br>err = c.Get(context.TODO(), types.NamespacedName&#123;Name: inodesExpect.Name, Namespace: inodesExpect.Namespace&#125;, inodes)<br><br><span class="hljs-comment">// 创建</span><br><span class="hljs-keyword">if</span> err = c.Create(context.TODO(), &amp;inodesExpect); err != <span class="hljs-literal">nil</span> &#123;<br>klog.ErrorS(err, <span class="hljs-string">&quot;Create iaasnodes err&quot;</span>, <span class="hljs-string">&quot;iaasnodes&quot;</span>, iNodeKey)<br><span class="hljs-keyword">return</span> err<br>&#125;<br><br><span class="hljs-comment">// 更新</span><br>inodesExpect.SetResourceVersion(inodes.GetResourceVersion()) <span class="hljs-comment">// 关联资源</span><br><span class="hljs-keyword">if</span> err = c.Update(context.TODO(), &amp;inodesExpect); err != <span class="hljs-literal">nil</span> &#123;<br>klog.ErrorS(err, <span class="hljs-string">&quot;Update iaasnodes err&quot;</span>, <span class="hljs-string">&quot;iaasnodes&quot;</span>, iNodeKey)<br><span class="hljs-keyword">return</span> err<br>&#125;<br><br><span class="hljs-comment">// list</span><br></code></pre></td></tr></table></figure>]]></content>
     
     
+    <categories>
+      
+      <category>k8s</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -94,6 +130,12 @@
     
     <content type="html"><![CDATA[<p><a href="https://blog.csdn.net/dlm_bk/article/details/117324881">https://blog.csdn.net/dlm_bk/article/details/117324881</a></p>]]></content>
     
+    
+    <categories>
+      
+      <category>linux</category>
+      
+    </categories>
     
     
   </entry>
@@ -108,6 +150,12 @@
     <content type="html"><![CDATA[]]></content>
     
     
+    <categories>
+      
+      <category>systemd</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -120,6 +168,12 @@
     
     <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">[Interface]<br>Address = 192.0.0.9                                        <span class="hljs-comment"># 本机虚拟局域网IP</span><br>PrivateKey = WJzpZrMkTMPy/iO/dX2Q4+OeB39R60iUaVcsg35Ud2c=  <span class="hljs-comment"># 本机privateKey内容</span><br>ListenPort = 51820                                         <span class="hljs-comment"># 监听端口，别人连接你的时候用的端口</span><br>DNS = 192.0.0.1<br><br>[Peer]<br>PublicKey = MO6xaHTVi+VS0Aw4wBbqXE8ElpTdgZfGTqOfcS5Zeko=  <span class="hljs-comment"># 自动clien的公钥</span><br>PresharedKey = w58teEIbEfZcAmbPj7abygqIQMzl8n7+Ybr2YMOY+00=<br>Endpoint = 10.177.50.136:51820<br>AllowedIPs = 100.201.0.0/16,240.0.16.0/20                 <span class="hljs-comment"># 客户端所使用的IP</span><br></code></pre></td></tr></table></figure>]]></content>
     
+    
+    <categories>
+      
+      <category>net</category>
+      
+    </categories>
     
     
   </entry>
@@ -134,6 +188,12 @@
     <content type="html"><![CDATA[<h1 id="报错信息"><a href="#报错信息" class="headerlink" title="报错信息"></a>报错信息</h1><p>The xxxx is invalid: metadata.resourceVersion: Invalid value: 0x0: must be specified for an update</p><h2 id="解决办法"><a href="#解决办法" class="headerlink" title="解决办法"></a>解决办法</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br>getObj, err := dr.Get(obj.GetName(), metav1.GetOptions&#123;&#125;)<br><span class="hljs-keyword">if</span> errors.IsNotFound(err) &#123;<br>// This doesnt ever happen even <span class="hljs-keyword">if</span> it is already deleted or not found<br>log.Printf(<span class="hljs-string">&quot;%v not found&quot;</span>, obj.GetName())<br><span class="hljs-built_in">return</span> nil, nil<br>&#125;<br><br><span class="hljs-keyword">if</span> err != nil &#123;<br><span class="hljs-built_in">return</span> nil, err<br>&#125;<br><br>obj.SetResourceVersion(getObj.GetResourceVersion())<br><br>response, err := dr.Update(obj, metav1.UpdateOptions&#123;&#125;)<br><span class="hljs-keyword">if</span> err != nil &#123;<br><span class="hljs-built_in">return</span> nil, err<br>&#125;<br><br></code></pre></td></tr></table></figure><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://github.com/argoproj/argo-cd/issues/3657">https://github.com/argoproj/argo-cd/issues/3657</a></p>]]></content>
     
     
+    <categories>
+      
+      <category>k8s</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -147,6 +207,12 @@
     <content type="html"><![CDATA[<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/35c73430e00cc33ab5c7c9107a36c43.jpg" alt="35c73430e00cc33ab5c7c9107a36c43.jpg"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/4c87ad142cd052519e97a499726941b.jpg" alt="4c87ad142cd052519e97a499726941b.jpg"></p><p>连接电源和网线，将网线另一端接入路由器的lan口</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230422201931.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230422185322.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230422201246.png" alt="image.png"></p><p><a href="https://www.synology.cn/zh-cn/support/download/DS119j?version=6.2#system">下载中心 - DS119j | Synology 群晖科技</a></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230422201848.png" alt="image.png"></p>]]></content>
     
     
+    <categories>
+      
+      <category>nas</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -159,6 +225,12 @@
     
     <content type="html"><![CDATA[<p>白群晖</p>]]></content>
     
+    
+    <categories>
+      
+      <category>nas</category>
+      
+    </categories>
     
     
   </entry>
