@@ -16,21 +16,28 @@
   <meta name="author" content="ningan123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="1.驱逐pod 123kubectl cordon node2kubectl drain node2 --ignore-daemonsets --delete-emptydir-data --force  2.替换containerd的二进制，重启containerd 3.删除containerd的数据目录，重启containerd 4.恢复node 1kubectl uncordon node2">
+    <meta name="description" content="在线运行工具 三种不同的输出方式，输出的结果是不一样的    本地模拟base64.cue 123456[root@master base64]# cat base64.cueimport &quot;encoding&#x2F;base64&quot;t1: base64.Encode(null, &quot;foo&quot;)t2: base64.Decode(null, base64.Encode(">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ningan123">
-<meta property="og:url" content="http://example.com/2023/02/06/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91%E5%8D%87%E7%BA%A7%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E7%9A%84containerd%E7%89%88%E6%9C%AC/index.html">
+<meta property="og:title" content="【cue语言系列】(202208) base64编解码">
+<meta property="og:url" content="http://example.com/2022/08/14/cue/%E3%80%90cue%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91(202208)%20base64%E7%BC%96%E8%A7%A3%E7%A0%81/index.html">
 <meta property="og:site_name" content="ningan123">
-<meta property="og:description" content="1.驱逐pod 123kubectl cordon node2kubectl drain node2 --ignore-daemonsets --delete-emptydir-data --force  2.替换containerd的二进制，重启containerd 3.删除containerd的数据目录，重启containerd 4.恢复node 1kubectl uncordon node2">
+<meta property="og:description" content="在线运行工具 三种不同的输出方式，输出的结果是不一样的    本地模拟base64.cue 123456[root@master base64]# cat base64.cueimport &quot;encoding&#x2F;base64&quot;t1: base64.Encode(null, &quot;foo&quot;)t2: base64.Decode(null, base64.Encode(">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-02-06T07:49:26.811Z">
-<meta property="article:modified_time" content="2023-02-07T07:14:33.288Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220812151050020.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220812151109172.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220812151149851.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220812150805711.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220812151403446.png">
+<meta property="article:published_time" content="2022-08-14T13:27:00.000Z">
+<meta property="article:modified_time" content="2022-12-12T01:34:00.000Z">
 <meta property="article:author" content="ningan123">
+<meta property="article:tag" content="cue">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220812151050020.png">
   
   
   
-  <title>ningan123</title>
+  <title>【cue语言系列】(202208) base64编解码 - ningan123</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +203,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="【cue语言系列】(202208) base64编解码"></span>
           
         </div>
 
@@ -207,8 +214,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-02-06 15:49" pubdate>
-          2023年2月6日 下午
+        <time datetime="2022-08-14 21:27" pubdate>
+          2022年8月14日 晚上
         </time>
       </span>
     
@@ -219,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          209 字
+          1.5k 字
         
       </span>
     
@@ -230,7 +237,7 @@
         
         
         
-          2 分钟
+          13 分钟
         
       </span>
     
@@ -268,20 +275,35 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none"></h1>
+            <h1 style="display: none">【cue语言系列】(202208) base64编解码</h1>
             
             
               <div class="markdown-body">
                 
-                <p>1.驱逐pod</p>
-<figure class="highlight brainfuck"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs brainfuck"><span class="hljs-comment">kubectl cordon node2</span><br><span class="hljs-comment">kubectl drain node2</span> <span class="hljs-literal">--</span><span class="hljs-comment">ignore</span><span class="hljs-literal">-</span><span class="hljs-comment">daemonsets</span> <span class="hljs-literal">--</span><span class="hljs-comment">delete</span><span class="hljs-literal">-</span><span class="hljs-comment">emptydir</span><span class="hljs-literal">-</span><span class="hljs-comment">data</span> <span class="hljs-literal">--</span><span class="hljs-comment">force</span><br><br></code></pre></td></tr></table></figure>
+                <h2 id="在线运行"><a href="#在线运行" class="headerlink" title="在线运行"></a>在线运行</h2><p><a target="_blank" rel="noopener" href="https://cuelang.org/play/#cue@export@cue">工具</a></p>
+<p>三种不同的输出方式，输出的结果是不一样的</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220812151050020.png" srcset="/img/loading.gif" lazyload alt="image-20220812151050020"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220812151109172.png" srcset="/img/loading.gif" lazyload alt="image-20220812151109172"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220812151149851.png" srcset="/img/loading.gif" lazyload alt="image-20220812151149851"></p>
+<h2 id="本地模拟"><a href="#本地模拟" class="headerlink" title="本地模拟"></a>本地模拟</h2><p>base64.cue</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@master <span class="hljs-built_in">base64</span>]<span class="hljs-comment"># cat base64.cue</span><br>import <span class="hljs-string">&quot;encoding/base64&quot;</span><br><br>t1: base64.Encode(null, <span class="hljs-string">&quot;foo&quot;</span>)<br>t2: base64.Decode(null, base64.Encode(null, <span class="hljs-string">&quot;foo&quot;</span>))<br><br></code></pre></td></tr></table></figure>
 
-<p>2.替换containerd的二进制，重启containerd</p>
-<p>3.删除containerd的数据目录，重启containerd</p>
-<p>4.恢复node</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs nginx"><span class="hljs-attribute">kubectl</span> uncordon node2<br></code></pre></td></tr></table></figure>
 
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs">随时用下面命令进行测试：<br>crictl pods<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@master cuePractice]<span class="hljs-comment"># cue version</span><br>cue version v0.4.3 linux/amd64<br>[root@master cuePractice]<span class="hljs-comment"># </span><br>[root@master cuePractice]<span class="hljs-comment"># cue export base64/base64.cue</span><br>&#123;<br>    <span class="hljs-string">&quot;t1&quot;</span>: <span class="hljs-string">&quot;Zm9v&quot;</span>,<br>    <span class="hljs-string">&quot;t2&quot;</span>: <span class="hljs-string">&quot;Zm9v&quot;</span><br>&#125;<br>[root@master cuePractice]<span class="hljs-comment"># cue export base64/base64.cue --out json</span><br>&#123;<br>    <span class="hljs-string">&quot;t1&quot;</span>: <span class="hljs-string">&quot;Zm9v&quot;</span>,<br>    <span class="hljs-string">&quot;t2&quot;</span>: <span class="hljs-string">&quot;Zm9v&quot;</span><br>&#125;<br>[root@master cuePractice]<span class="hljs-comment"># cue export base64/base64.cue --out yaml</span><br>t1: Zm9v<br>t2: !!binary Zm9v<br>[root@master cuePractice]<span class="hljs-comment">#</span><br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@master cuePractice]<span class="hljs-comment"># go run base64/base64.go</span><br>scheme: <br>&#123;<br>        t1: <span class="hljs-string">&quot;Zm9v&quot;</span><br>        t2: <span class="hljs-string">&#x27;foo&#x27;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220812150805711.png" srcset="/img/loading.gif" lazyload alt="image-20220812150805711"></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-comment">// base64.go</span><br><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;errors&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;os&quot;</span><br>	<span class="hljs-string">&quot;path/filepath&quot;</span><br><br>	<span class="hljs-string">&quot;cuelang.org/go/cue&quot;</span><br>	<span class="hljs-string">&quot;cuelang.org/go/cue/cuecontext&quot;</span><br>	cueerror <span class="hljs-string">&quot;cuelang.org/go/cue/errors&quot;</span><br>)<br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br><br>	ctx := cuecontext.New()<br><br>	clusterVal := ctx.NewList()<br><br>	confPath := <span class="hljs-string">&quot;/root/cuePractice/base64&quot;</span><br>	fileData, err := os.ReadFile(filepath.Join(confPath, <span class="hljs-string">&quot;base64.cue&quot;</span>))<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		fmt.Println(err.Error())<br>	&#125;<br><br>	scheme := ctx.CompileBytes(fileData, cue.Scope(clusterVal))<br>	<span class="hljs-keyword">if</span> scheme.Err() != <span class="hljs-literal">nil</span> &#123;<br>		msg := cueerror.Details(scheme.Err(), <span class="hljs-literal">nil</span>)<br>		fmt.Println(errors.New(msg))<br>	&#125;<br>	fmt.Printf(<span class="hljs-string">&quot;scheme: \n%s\n&quot;</span>, scheme)<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220812151403446.png" srcset="/img/loading.gif" lazyload alt="image-20220812151403446"></p>
 
                 
               </div>
@@ -290,27 +312,13 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
       
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
+        <a href="/tags/cue/">#cue</a>
+      
     </div>
-  
   
 </div>
 
@@ -320,8 +328,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
-      <div>http://example.com/2023/02/06/k8s/【k8s系列】升级生产环境的containerd版本/</div>
+      <div>【cue语言系列】(202208) base64编解码</div>
+      <div>http://example.com/2022/08/14/cue/【cue语言系列】(202208) base64编解码/</div>
     </div>
     <div class="license-meta">
       
@@ -333,7 +341,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年2月6日</div>
+          <div>2022年8月14日</div>
         </div>
       
       
@@ -365,9 +373,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/02/06/k8s/%E3%80%90containerd%E3%80%91crictl%E3%80%81nerdctl%E5%91%BD%E4%BB%A4/" title="【containerd】crictl命令">
+                      <a href="/2022/08/17/go/%E3%80%90go%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91go%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E5%8C%96%E4%B8%BAuint16/" title="【go语言系列】go类型转换：字符串转化为uint16">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【containerd】crictl命令</span>
+                        <span class="hidden-mobile">【go语言系列】go类型转换：字符串转化为uint16</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -375,8 +383,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/01/29/ebpf/04/" title="">
-                        <span class="hidden-mobile"></span>
+                      <a href="/2022/08/14/cue/%E3%80%90cue%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91(202208)%20%E5%AE%89%E8%A3%85cue/" title="【cue语言系列】(202208) 安装cue">
+                        <span class="hidden-mobile">【cue语言系列】(202208) 安装cue</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
