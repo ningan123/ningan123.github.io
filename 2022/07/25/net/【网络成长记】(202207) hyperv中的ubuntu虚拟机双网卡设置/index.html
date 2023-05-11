@@ -16,21 +16,31 @@
   <meta name="author" content="ningan123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="跳板机A登录主机B123456789101112# 1.跳板机生成公钥执行 &#x2F;bin&#x2F;ssh-keygen 一路回车# 2.跳板机的公钥拷贝到主机B的~&#x2F;.ssh&#x2F;authorized_keys文件中可以手动复制也可以直接命令操作ssh-copy-idssh-copy-id 用户名@主机B的ip或者hostname# 3.免密登录远程主机&#x2F;bin&#x2F;ssh 用户名@主机B的ip或者hostname不">
+    <meta name="description" content="场景hyperv创建虚拟机的时候，默认用的是default switch，这个default switch生成的ipv4地址是变化的 需求有一个不变的ipv4地址，方便ssh远程连接 同时还可以连接外网 操作hyperv同时整两个网卡，一个网卡(新建一个内部的网卡)配置静态ip地址，一个网卡(default switch)用于连外网  主机网卡配置default switch不做任何更改，使用默认">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【网络成长记】ssh-keygen和ssh-copy-id实现免密登录">
-<meta property="og:url" content="http://example.com/2023/04/01/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91ssh-keygen%E5%92%8Cssh-copy-id%E5%AE%9E%E7%8E%B0%E5%85%8D%E5%AF%86%E7%99%BB%E5%BD%95/index.html">
+<meta property="og:title" content="【网络成长记】(202207) hyperv中的ubuntu虚拟机双网卡设置">
+<meta property="og:url" content="http://example.com/2022/07/25/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91(202207)%20hyperv%E4%B8%AD%E7%9A%84ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%8F%8C%E7%BD%91%E5%8D%A1%E8%AE%BE%E7%BD%AE/index.html">
 <meta property="og:site_name" content="ningan123">
-<meta property="og:description" content="跳板机A登录主机B123456789101112# 1.跳板机生成公钥执行 &#x2F;bin&#x2F;ssh-keygen 一路回车# 2.跳板机的公钥拷贝到主机B的~&#x2F;.ssh&#x2F;authorized_keys文件中可以手动复制也可以直接命令操作ssh-copy-idssh-copy-id 用户名@主机B的ip或者hostname# 3.免密登录远程主机&#x2F;bin&#x2F;ssh 用户名@主机B的ip或者hostname不">
+<meta property="og:description" content="场景hyperv创建虚拟机的时候，默认用的是default switch，这个default switch生成的ipv4地址是变化的 需求有一个不变的ipv4地址，方便ssh远程连接 同时还可以连接外网 操作hyperv同时整两个网卡，一个网卡(新建一个内部的网卡)配置静态ip地址，一个网卡(default switch)用于连外网  主机网卡配置default switch不做任何更改，使用默认">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-03-31T17:13:00.000Z">
-<meta property="article:modified_time" content="2023-03-31T17:36:00.000Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220725233717830.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726000455898.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726000604540.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726000941694.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726001702691.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726001057558.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726001158509.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726001316264.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220814233149347.png">
+<meta property="article:published_time" content="2022-07-25T15:28:00.000Z">
+<meta property="article:modified_time" content="2023-01-10T01:53:00.000Z">
 <meta property="article:author" content="ningan123">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220725233717830.png">
   
   
   
-  <title>【网络成长记】ssh-keygen和ssh-copy-id实现免密登录 - ningan123</title>
+  <title>【网络成长记】(202207) hyperv中的ubuntu虚拟机双网卡设置 - ningan123</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +206,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="【网络成长记】ssh-keygen和ssh-copy-id实现免密登录"></span>
+            <span id="subtitle" data-typed-text="【网络成长记】(202207) hyperv中的ubuntu虚拟机双网卡设置"></span>
           
         </div>
 
@@ -207,8 +217,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-04-01 01:13" pubdate>
-          2023年4月1日 凌晨
+        <time datetime="2022-07-25 23:28" pubdate>
+          2022年7月25日 晚上
         </time>
       </span>
     
@@ -219,7 +229,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          253 字
+          373 字
         
       </span>
     
@@ -230,7 +240,7 @@
         
         
         
-          3 分钟
+          4 分钟
         
       </span>
     
@@ -268,15 +278,33 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">【网络成长记】ssh-keygen和ssh-copy-id实现免密登录</h1>
+            <h1 style="display: none">【网络成长记】(202207) hyperv中的ubuntu虚拟机双网卡设置</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="跳板机A登录主机B"><a href="#跳板机A登录主机B" class="headerlink" title="跳板机A登录主机B"></a>跳板机A登录主机B</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 1.跳板机生成公钥</span><br>执行 /bin/ssh-keygen <br>一路回车<br><br><span class="hljs-comment"># 2.跳板机的公钥拷贝到主机B的~/.ssh/authorized_keys文件中</span><br>可以手动复制<br>也可以直接命令操作ssh-copy-id<br>ssh-copy-id 用户名@主机B的ip或者hostname<br><br><span class="hljs-comment"># 3.免密登录远程主机</span><br>/bin/ssh 用户名@主机B的ip或者hostname<br>不需要输入密码，直接就可以登录了<br></code></pre></td></tr></table></figure>
-
-<p>搞定~</p>
-<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/feinifi/article/details/78213297"># ssh-keygen和ssh-copy-id实现免密登录远程主机</a> 讲了方法和原理</p>
+                <h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>hyperv创建虚拟机的时候，默认用的是default switch，这个default switch生成的ipv4地址是变化的</p>
+<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>有一个不变的ipv4地址，方便ssh远程连接</p>
+<p>同时还可以连接外网</p>
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><p>hyperv同时整两个网卡，一个网卡(新建一个内部的网卡)配置静态ip地址，一个网卡(default switch)用于连外网</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220725233717830.png" srcset="/img/loading.gif" lazyload alt="image-20220725233717830"></p>
+<h3 id="主机网卡配置"><a href="#主机网卡配置" class="headerlink" title="主机网卡配置"></a>主机网卡配置</h3><p>default switch不做任何更改，使用默认配置，如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726000455898.png" srcset="/img/loading.gif" lazyload alt="image-20220726000455898"></p>
+<p>新建的内部网卡，配置为自定义的东西</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726000604540.png" srcset="/img/loading.gif" lazyload alt="image-20220726000604540"></p>
+<h3 id="虚拟机网卡配置"><a href="#虚拟机网卡配置" class="headerlink" title="虚拟机网卡配置"></a>虚拟机网卡配置</h3><p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726000941694.png" srcset="/img/loading.gif" lazyload alt="image-20220726000941694"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726001702691.png" srcset="/img/loading.gif" lazyload alt="image-20220726001702691"></p>
+<p>eth0不做更改</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726001057558.png" srcset="/img/loading.gif" lazyload alt="image-20220726001057558"></p>
+<p>eth1改成自定义ip地址</p>
+<p>为什么此处不写网关呢？因为不需要连接外网</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726001158509.png" srcset="/img/loading.gif" lazyload alt="image-20220726001158509"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726001316264.png" srcset="/img/loading.gif" lazyload alt="image-20220726001316264"></p>
+<p>成功用自己加的网卡对应的静态ip地址进行ssh连接，搞定！</p>
+<p>此处，感谢小王的指导，比心！ 比♥</p>
+<h1 id="——–2022-08-14——–"><a href="#——–2022-08-14——–" class="headerlink" title="——–2022.08.14——–"></a>——–2022.08.14——–</h1><h2 id="ubuntu18-04双网卡设置"><a href="#ubuntu18-04双网卡设置" class="headerlink" title="ubuntu18.04双网卡设置"></a>ubuntu18.04双网卡设置</h2><p>需要用两个profile</p>
+<p>要不然这两个网卡就只有一个生效，不能同时生效</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220814233149347.png" srcset="/img/loading.gif" lazyload alt="image-20220814233149347"></p>
 
                 
               </div>
@@ -284,27 +312,6 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/net/" class="category-chain-item">net</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
   
   
 </div>
@@ -315,8 +322,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>【网络成长记】ssh-keygen和ssh-copy-id实现免密登录</div>
-      <div>http://example.com/2023/04/01/net/【网络成长记】ssh-keygen和ssh-copy-id实现免密登录/</div>
+      <div>【网络成长记】(202207) hyperv中的ubuntu虚拟机双网卡设置</div>
+      <div>http://example.com/2022/07/25/net/【网络成长记】(202207) hyperv中的ubuntu虚拟机双网卡设置/</div>
     </div>
     <div class="license-meta">
       
@@ -328,7 +335,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年4月1日</div>
+          <div>2022年7月25日</div>
         </div>
       
       
@@ -360,9 +367,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/04/04/vscode/%E3%80%90vscode%E3%80%91%E5%B8%B8%E7%94%A8%E4%B8%94%E5%A5%BD%E7%94%A8%E6%8F%92%E4%BB%B6/" title="【vscode】常用且好用插件">
+                      <a href="/2022/08/09/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202208)%20client-go%E5%AD%A6%E4%B9%A0%E4%B8%8E%E5%AE%9E%E8%B7%B5/" title="【k8s系列】(202208) client-go学习与实践">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【vscode】常用且好用插件</span>
+                        <span class="hidden-mobile">【k8s系列】(202208) client-go学习与实践</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -370,8 +377,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/03/29/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91kubebuilder/" title="">
-                        <span class="hidden-mobile"></span>
+                      <a href="/2022/07/25/vscode/%E3%80%90%E9%9C%80%E8%A6%81%E6%94%B9%E6%97%B6%E9%97%B4%E3%80%91%E3%80%90vscode%E3%80%91Windows%E4%B8%8B%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8VScode%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8Blinux%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/" title="【vscode】Windows下如何使用VScode连接远程linux服务器进行远程开发">
+                        <span class="hidden-mobile">【vscode】Windows下如何使用VScode连接远程linux服务器进行远程开发</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

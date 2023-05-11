@@ -16,31 +16,28 @@
   <meta name="author" content="ningan123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="场景hyperv创建虚拟机的时候，默认用的是default switch，这个default switch生成的ipv4地址是变化的 需求有一个不变的ipv4地址，方便ssh远程连接 同时还可以连接外网 操作hyperv同时整两个网卡，一个网卡(新建一个内部的网卡)配置静态ip地址，一个网卡(default switch)用于连外网  主机网卡配置default switch不做任何更改，使用默认">
+    <meta name="description" content="需求问题：ssh远程连接的时候，发现连不上虚拟机。后来进到虚拟机里才看到是因为ip地址变了，所以想改成静态ip。 说明自 17.10 开始，Ubuntu 已放弃在 &#x2F;etc&#x2F;network&#x2F;interfaces 里设置静态 IP 的办法了，即使配置也不会生效，而是改成 netplan 方式 ，配置写在 &#x2F;etc&#x2F;netplan&#x2F;01-ne">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【网络成长记】hyperv中的ubuntu虚拟机双网卡设置">
-<meta property="og:url" content="http://example.com/2022/07/25/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91hyperv%E4%B8%AD%E7%9A%84ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%8F%8C%E7%BD%91%E5%8D%A1%E8%AE%BE%E7%BD%AE/index.html">
+<meta property="og:title" content="【网络成长记】(202207) ubuntu20.04设置静态ip">
+<meta property="og:url" content="http://example.com/2022/07/16/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91(202207)%20ubuntu20.04%E8%AE%BE%E7%BD%AE%E9%9D%99%E6%80%81ip/index.html">
 <meta property="og:site_name" content="ningan123">
-<meta property="og:description" content="场景hyperv创建虚拟机的时候，默认用的是default switch，这个default switch生成的ipv4地址是变化的 需求有一个不变的ipv4地址，方便ssh远程连接 同时还可以连接外网 操作hyperv同时整两个网卡，一个网卡(新建一个内部的网卡)配置静态ip地址，一个网卡(default switch)用于连外网  主机网卡配置default switch不做任何更改，使用默认">
+<meta property="og:description" content="需求问题：ssh远程连接的时候，发现连不上虚拟机。后来进到虚拟机里才看到是因为ip地址变了，所以想改成静态ip。 说明自 17.10 开始，Ubuntu 已放弃在 &#x2F;etc&#x2F;network&#x2F;interfaces 里设置静态 IP 的办法了，即使配置也不会生效，而是改成 netplan 方式 ，配置写在 &#x2F;etc&#x2F;netplan&#x2F;01-ne">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220725233717830.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726000455898.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726000604540.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726000941694.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726001702691.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726001057558.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726001158509.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726001316264.png">
-<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220814233149347.png">
-<meta property="article:published_time" content="2022-07-25T15:28:00.000Z">
-<meta property="article:modified_time" content="2022-12-28T14:40:00.000Z">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220716164159864.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220716165308432.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220716165746966.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220716165911473.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220716165204632.png">
+<meta property="og:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220716165432286.png">
+<meta property="article:published_time" content="2022-07-16T09:31:00.000Z">
+<meta property="article:modified_time" content="2023-01-10T01:53:00.000Z">
 <meta property="article:author" content="ningan123">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220725233717830.png">
+<meta name="twitter:image" content="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220716164159864.png">
   
   
   
-  <title>【网络成长记】hyperv中的ubuntu虚拟机双网卡设置 - ningan123</title>
+  <title>【网络成长记】(202207) ubuntu20.04设置静态ip - ningan123</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -206,7 +203,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="【网络成长记】hyperv中的ubuntu虚拟机双网卡设置"></span>
+            <span id="subtitle" data-typed-text="【网络成长记】(202207) ubuntu20.04设置静态ip"></span>
           
         </div>
 
@@ -217,8 +214,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-07-25 23:28" pubdate>
-          2022年7月25日 晚上
+        <time datetime="2022-07-16 17:31" pubdate>
+          2022年7月16日 下午
         </time>
       </span>
     
@@ -229,7 +226,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          373 字
+          927 字
         
       </span>
     
@@ -240,7 +237,7 @@
         
         
         
-          4 分钟
+          8 分钟
         
       </span>
     
@@ -278,33 +275,33 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">【网络成长记】hyperv中的ubuntu虚拟机双网卡设置</h1>
+            <h1 style="display: none">【网络成长记】(202207) ubuntu20.04设置静态ip</h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="场景"><a href="#场景" class="headerlink" title="场景"></a>场景</h2><p>hyperv创建虚拟机的时候，默认用的是default switch，这个default switch生成的ipv4地址是变化的</p>
-<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>有一个不变的ipv4地址，方便ssh远程连接</p>
-<p>同时还可以连接外网</p>
-<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><p>hyperv同时整两个网卡，一个网卡(新建一个内部的网卡)配置静态ip地址，一个网卡(default switch)用于连外网</p>
-<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220725233717830.png" srcset="/img/loading.gif" lazyload alt="image-20220725233717830"></p>
-<h3 id="主机网卡配置"><a href="#主机网卡配置" class="headerlink" title="主机网卡配置"></a>主机网卡配置</h3><p>default switch不做任何更改，使用默认配置，如下：</p>
-<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726000455898.png" srcset="/img/loading.gif" lazyload alt="image-20220726000455898"></p>
-<p>新建的内部网卡，配置为自定义的东西</p>
-<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726000604540.png" srcset="/img/loading.gif" lazyload alt="image-20220726000604540"></p>
-<h3 id="虚拟机网卡配置"><a href="#虚拟机网卡配置" class="headerlink" title="虚拟机网卡配置"></a>虚拟机网卡配置</h3><p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726000941694.png" srcset="/img/loading.gif" lazyload alt="image-20220726000941694"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726001702691.png" srcset="/img/loading.gif" lazyload alt="image-20220726001702691"></p>
-<p>eth0不做更改</p>
-<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726001057558.png" srcset="/img/loading.gif" lazyload alt="image-20220726001057558"></p>
-<p>eth1改成自定义ip地址</p>
-<p>为什么此处不写网关呢？因为不需要连接外网</p>
-<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726001158509.png" srcset="/img/loading.gif" lazyload alt="image-20220726001158509"></p>
-<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220726001316264.png" srcset="/img/loading.gif" lazyload alt="image-20220726001316264"></p>
-<p>成功用自己加的网卡对应的静态ip地址进行ssh连接，搞定！</p>
-<p>此处，感谢小王的指导，比心！ 比♥</p>
-<h1 id="——–2022-08-14——–"><a href="#——–2022-08-14——–" class="headerlink" title="——–2022.08.14——–"></a>——–2022.08.14——–</h1><h2 id="ubuntu18-04双网卡设置"><a href="#ubuntu18-04双网卡设置" class="headerlink" title="ubuntu18.04双网卡设置"></a>ubuntu18.04双网卡设置</h2><p>需要用两个profile</p>
-<p>要不然这两个网卡就只有一个生效，不能同时生效</p>
-<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220814233149347.png" srcset="/img/loading.gif" lazyload alt="image-20220814233149347"></p>
+                <h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>问题：ssh远程连接的时候，发现连不上虚拟机。后来进到虚拟机里才看到是因为ip地址变了，所以想改成静态ip。</p>
+<h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><p>自 17.10 开始，Ubuntu 已放弃在 &#x2F;etc&#x2F;network&#x2F;interfaces 里设置静态 IP 的办法了，即使配置也不会生效，而是改成 netplan 方式 ，配置写在 &#x2F;etc&#x2F;netplan&#x2F;01-network-manager-all.yaml 或者类似名称的 yaml 文件里</p>
+<p>Ubuntu20配置值静态ip时需要修改&#x2F;etc&#x2F;netplan下面01-network-manager-all.yaml这个文件。</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220716164159864.png" srcset="/img/loading.gif" lazyload alt="image-20220716164159864"></p>
+<h2 id="流程"><a href="#流程" class="headerlink" title="流程"></a>流程</h2><h3 id="查看原始ip地址"><a href="#查看原始ip地址" class="headerlink" title="查看原始ip地址"></a>查看原始ip地址</h3><p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220716165308432.png" srcset="/img/loading.gif" lazyload alt="image-20220716165308432"></p>
+<h3 id="要修改-x2F-etc-x2F-netplan下面01-network-manager-all-yaml这个文件"><a href="#要修改-x2F-etc-x2F-netplan下面01-network-manager-all-yaml这个文件" class="headerlink" title="要修改&#x2F;etc&#x2F;netplan下面01-network-manager-all.yaml这个文件"></a>要修改&#x2F;etc&#x2F;netplan下面01-network-manager-all.yaml这个文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br>[root@ningan ~]<span class="hljs-comment">#</span><br>[root@ningan ~]<span class="hljs-comment"># cat /etc/netplan/01-network-manager-all.yaml</span><br><span class="hljs-comment"># Let NetworkManager manage all devices on this system</span><br>network:<br>  version: 2<br>  renderer: NetworkManager<br>  ethernets:<br>    eth0:                           <span class="hljs-comment"># 配置网卡的名称,通过 ip a 命令查看</span><br>      dhcp4: <span class="hljs-literal">false</span>                    <span class="hljs-comment"># 关闭 DHCP，如果需要打开 DHCP 则写 true</span><br>      addresses: [172.24.48.67/20]    <span class="hljs-comment"># 配置的静态 IP 地址和掩码</span><br>      optional: <span class="hljs-literal">true</span><br>      gateway4: 172.24.48.1            <span class="hljs-comment"># 网关地址</span><br>      nameservers:<br>        addresses: [8.8.8.8,114.114.114.114]       <span class="hljs-comment"># DNS 服务器地址，多个 DNS 服务器地址需要用英文逗号分隔开</span><br>[root@ningan ~]<span class="hljs-comment">#</span><br><br></code></pre></td></tr></table></figure>
+
+
+
+<p>网关地址如何确定呢？</p>
+<p>我用的是hyper-v启动的虚拟机，</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220716165746966.png" srcset="/img/loading.gif" lazyload alt="image-20220716165746966"></p>
+<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220716165911473.png" srcset="/img/loading.gif" lazyload alt="image-20220716165911473"></p>
+<h3 id="重启网络"><a href="#重启网络" class="headerlink" title="重启网络"></a>重启网络</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan ~]<span class="hljs-comment"># netplan apply</span><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="查看网卡设置是否生效"><a href="#查看网卡设置是否生效" class="headerlink" title="查看网卡设置是否生效"></a>查看网卡设置是否生效</h3><p>如下：</p>
+<p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220716165204632.png" srcset="/img/loading.gif" lazyload alt="image-20220716165204632"></p>
+<p>已经生效！</p>
+<h3 id="测试网络连通性"><a href="#测试网络连通性" class="headerlink" title="测试网络连通性"></a>测试网络连通性</h3><p><img src="https://cdn.jsdelivr.net/gh/ningan123/PicGo_Images@main/img/image-20220716165432286.png" srcset="/img/loading.gif" lazyload alt="image-20220716165432286"></p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/weixin_56752399/article/details/115564741?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-1-115564741-blog-122279914.pc_relevant_sortByStrongTime&spm=1001.2101.3001.4242.2&utm_relevant_index=4">Ubuntu 20.10设置静态IP地址</a><br><a target="_blank" rel="noopener" href="https://blog.csdn.net/vincent_duan/article/details/120145526">Hyper-V 和Ubuntu Server 16.04 配置静态IP</a></p>
 
                 
               </div>
@@ -312,27 +309,6 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/net/" class="category-chain-item">net</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
   
   
 </div>
@@ -343,8 +319,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>【网络成长记】hyperv中的ubuntu虚拟机双网卡设置</div>
-      <div>http://example.com/2022/07/25/net/【网络成长记】hyperv中的ubuntu虚拟机双网卡设置/</div>
+      <div>【网络成长记】(202207) ubuntu20.04设置静态ip</div>
+      <div>http://example.com/2022/07/16/net/【网络成长记】(202207) ubuntu20.04设置静态ip/</div>
     </div>
     <div class="license-meta">
       
@@ -356,7 +332,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年7月25日</div>
+          <div>2022年7月16日</div>
         </div>
       
       
@@ -388,9 +364,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/08/09/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202208)%20client-go%E5%AD%A6%E4%B9%A0%E4%B8%8E%E5%AE%9E%E8%B7%B5/" title="【k8s系列】(202208) client-go学习与实践">
+                      <a href="/2022/07/16/net/%EF%BC%88%E9%9C%80%E8%A6%81%E6%94%B9%E6%97%B6%E9%97%B4%EF%BC%89%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91ubuntu%E9%A6%96%E6%AC%A1SSH%E4%BD%BF%E7%94%A8root%E8%B4%A6%E6%88%B7%E8%BF%9C%E7%A8%8B%E7%99%BB%E5%BD%95/" title="【网络成长记】ubuntu首次SSH使用root账户远程登录">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【k8s系列】(202208) client-go学习与实践</span>
+                        <span class="hidden-mobile">【网络成长记】ubuntu首次SSH使用root账户远程登录</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -398,8 +374,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2022/07/25/vscode/%E3%80%90%E9%9C%80%E8%A6%81%E6%94%B9%E6%97%B6%E9%97%B4%E3%80%91%E3%80%90vscode%E3%80%91Windows%E4%B8%8B%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8VScode%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8Blinux%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/" title="【vscode】Windows下如何使用VScode连接远程linux服务器进行远程开发">
-                        <span class="hidden-mobile">【vscode】Windows下如何使用VScode连接远程linux服务器进行远程开发</span>
+                      <a href="/2022/05/22/git/%E3%80%90git%E3%80%91git%E6%AF%8F%E6%AC%A1%E9%83%BD%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81/" title="【git】git每次都要输入密码">
+                        <span class="hidden-mobile">【git】git每次都要输入密码</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
