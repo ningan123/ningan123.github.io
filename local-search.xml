@@ -11,6 +11,12 @@
     <content type="html"><![CDATA[<h2 id="方法1"><a href="#方法1" class="headerlink" title="方法1"></a>方法1</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-keyword">if</span> [ ! -d <span class="hljs-string">&quot;/root/test&quot;</span> ]; <span class="hljs-keyword">then</span><br>  <span class="hljs-built_in">echo</span> -e `<span class="hljs-built_in">date</span> <span class="hljs-string">&#x27;+%Y-%m-%d %H:%M:%S %A&#x27;</span>` <span class="hljs-string">&quot;filepath doesn&#x27;t exist &quot;</span> <br>  <span class="hljs-built_in">mkdir</span> -p /root/test<br><span class="hljs-keyword">fi</span><br></code></pre></td></tr></table></figure><h2 id="方法2"><a href="#方法2" class="headerlink" title="方法2"></a>方法2</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">filePath=<span class="hljs-string">&quot;test&quot;</span><br><span class="hljs-keyword">if</span> [ ! -d <span class="hljs-string">&quot;/root/<span class="hljs-variable">$&#123;filePath&#125;</span>&quot;</span> ]; <span class="hljs-keyword">then</span><br>  <span class="hljs-built_in">echo</span> -e `<span class="hljs-built_in">date</span> <span class="hljs-string">&#x27;+%Y-%m-%d %H:%M:%S %A&#x27;</span>` <span class="hljs-string">&quot;filepath doesn&#x27;t exist &quot;</span> <br>  <span class="hljs-built_in">mkdir</span> -p /root/<span class="hljs-variable">$&#123;filePath&#125;</span><br><span class="hljs-keyword">fi</span><br></code></pre></td></tr></table></figure>]]></content>
     
     
+    <categories>
+      
+      <category>shell</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -23,6 +29,12 @@
     
     <content type="html"><![CDATA[<h2 id="2019上半年上午题-20230515-一"><a href="#2019上半年上午题-20230515-一" class="headerlink" title="2019上半年上午题 20230515(一)"></a>2019上半年上午题 20230515(一)</h2><p>06<br>一般情况下属于职务作品，按国家著作权法规定，应属于单位所有。但如果与单位事先有特别约定，应遵从约定</p><p>07<br>软件开发者拥有署名权，其他著作权归属单位</p><p>08<br>在磁盘调度管理中，应先进行移臂调度，再进行旋转调度。 ？？？</p><p>12<br>传统以太网使用的是<u>曼彻斯特编码</u>，效率50%</p><p>13 14<br>HFC是将<u>光缆</u>敷设到小区，然后通过光电转换结点，利用有线电视CATV的总线式<u>同轴电缆</u>连接到用户，提供综合电信业务的技术。</p><p>15 千兆以太网<br>(1)1000 Base-T标准使用的是5类非屏蔽双绞线，双绞线长度可以达到100m。<br>(2)1000Base-X是基于光纤通道的物理层，使用的媒体有三种：<br>1000 Base-CX标准使用的是屏蔽双绞线，双绞线长度可以达到25m；<br>1000 Base-LX标准使用的是波长为1300nm的单模光纤，光纤长度可以达到3 000m；<br>1000 Base-SX标准使用的是波长为850nm的多模光纤，光纤长度可以达到300～550m。<br>其中前三项标准是IEEE 802.3z，而1000 Base-T的标准是IEEE 802.3ab。</p><p>16 CRC<br>在原始报文的后面添加若干个0 (生成多项式的最高次幂数 最终校验位的位数)</p><p>17 CSMA&#x2F;CD<br>在以太网中为了确保发送数据站点在传输时能检测到可能存在的冲突，数据帧的传输时延要不小于两倍的传播时延。<br>$$\displaystyle 传输时延 \geq 2\times\frac{任意两点间的最长距离}{信号传播速度}$$</p><p>19 20  HDLC<br>_HDLC_（High-Level Data Link Control，高级数据链路控制）<br>HDLC有三种不同类型的帧：信息帧(I帧)、监控帧(S帧)和无编号帧(U帧)。<br>信息帧用于传送用户数据、通常简称Ｉ帧。<br>监控帧用来差错控制和流量控制，<br>无编号帧用于提供对链路的建立、拆除以及多种控制功能。</p><p>21<br>发送方的拥塞窗口cwnd</p><p>26<br>OSPF报文封装在IP包中，协议号89<br><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230515200249.png" width="50%" height="50%"></p>]]></content>
     
+    
+    <categories>
+      
+      <category>net</category>
+      
+    </categories>
     
     
   </entry>
@@ -37,6 +49,12 @@
     <content type="html"><![CDATA[<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>套件中心中没有docker，想要安装一个docker</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512220109.png" alt="image.png"></p><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230513000221.png" alt="image.png"></p><h2 id="添加第三方源"><a href="#添加第三方源" class="headerlink" title="添加第三方源"></a>添加第三方源</h2><p>修改配置</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512233229.png" alt="image.png"></p><p>套件中心—设置—套件来源—新增：名称随便取，位置把网址复制进去确认即可</p><p>DSM6.x矿神SPK套件源：<a href="https://imnks.com/go/aHR0cHM6Ly9zcGsuaW1ua3MuY29tLw">https://spk.imnks.com/</a></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512235104.png" alt="image.png"></p><p>添加之后，可以看到左侧多了一个社群，然后在套件中心的社群搜索即可。</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512235200.png" alt="image.png"></p><p>点击“社群”，如果右侧没有东西的话，可以点击一下“刷新”</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512235234.png" alt="image.png"></p><p>搜索“docker”，直接安装</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512235427.png" alt="image.png"></p><p>安装不上docker，为什么呢？显示下载docker失败</p><p>找<br>找<br>找</p><h3 id="尝试1：安装猫盘三合一修复"><a href="#尝试1：安装猫盘三合一修复" class="headerlink" title="尝试1：安装猫盘三合一修复"></a>尝试1：安装猫盘三合一修复</h3><p>安装完系统之后，发现指示灯不亮</p><p>不知道是否跟这个有关，安装下面套件</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230513001425.png" alt="image.png"></p><p>安装完之后，就可以看到猫盘的指示灯亮了</p><p>但是docker还是显示下载失败</p><h3 id="尝试2：切换用户"><a href="#尝试2：切换用户" class="headerlink" title="尝试2：切换用户"></a>尝试2：切换用户</h3><p>刚开始是用一个自定义用户登录的系统<br>切换到admin用户下安装</p><p>安装docker还是显示下载失败</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://post.smzdm.com/p/akmv452r/"># NAS 篇一：群晖DSM7.0 安装docker</a><br><a href="https://imnks.com/1780.html"># 矿神群晖SPK套件中心 上线啦！支持DSM6、DSM7</a></p>]]></content>
     
     
+    <categories>
+      
+      <category>nas</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -49,6 +67,12 @@
     
     <content type="html"><![CDATA[<p>第三方下载工具，配置麻烦</p>]]></content>
     
+    
+    <categories>
+      
+      <category>nas</category>
+      
+    </categories>
     
     
   </entry>
@@ -63,6 +87,12 @@
     <content type="html"><![CDATA[<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512213150.png" alt="image.png"></p><p>到“已安装”，点击“打开”</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512213239.png" alt="image.png"></p><p>会跳转到一个新的界面，显示如下：</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512213312.png" alt="image.png"></p><p>回到nas首页，点击“控制面板” “用户账号”</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512213435.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512213708.png" alt="image.png"></p><p>回到moments界面，重新刷新，就可以进来啦~</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512213834.png" alt="image.png"></p><p>然后就可以创建文件夹，上传照片啦~</p>]]></content>
     
     
+    <categories>
+      
+      <category>nas</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -75,6 +105,12 @@
     
     <content type="html"><![CDATA[<p>在Kubernetes中，kubeconfig是用于指定如何连接到Kubernetes集群的配置文件。kubeconfig包含了以下信息：</p><ol><li>Kubernetes API服务器的地址和访问凭据（用户名和密码、客户端证书和私钥等）。</li><li>用于授权访问Kubernetes API的凭据（例如，Token、BasicAuth等）。</li><li>Kubernetes集群的CA（证书颁发机构）证书，用于验证API服务器的TLS证书。</li></ol><p>kubeconfig中的证书包括客户端证书和CA证书。客户端证书用于对与Kubernetes API服务器的通信进行身份验证，它通常由CA证书签发。CA证书用于验证Kubernetes API服务器的TLS证书，以确保与服务器之间的通信是安全的。在kubeconfig中配置正确的客户端证书和CA证书可以确保与Kubernetes API服务器的连接是安全的，并且只有授权用户才能访问集群资源。</p><p>Kubernetes使用TLS来保护API服务器和各个组件之间的通信。客户端证书和CA证书都是X.509格式的数字证书，用于验证和加密这些通信。因此，在kubeconfig中正确配置这些证书是确保Kubernetes集群安全性的关键之一。</p>]]></content>
     
+    
+    <categories>
+      
+      <category>k8s</category>
+      
+    </categories>
     
     
   </entry>
@@ -1226,11 +1262,11 @@
       
       <tag>k8s</tag>
       
+      <tag>cka</tag>
+      
       <tag>kubeadm</tag>
       
       <tag>ubuntu</tag>
-      
-      <tag>cka</tag>
       
     </tags>
     
@@ -1255,9 +1291,9 @@
     
     <tags>
       
-      <tag>ubuntu</tag>
-      
       <tag>cka</tag>
+      
+      <tag>ubuntu</tag>
       
       <tag>net</tag>
       
