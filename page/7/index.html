@@ -226,6 +226,388 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/11/28/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202211)%20vmware%E4%B8%ADubuntu22.04%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85k8s%E9%9B%86%E7%BE%A4(1.24.4%20or%20higher)(cka%E8%80%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA)/" target="_self">
+          【k8s系列】(202211) vmware中ubuntu22.04使用kubeadm安装k8s集群(1.24.4 or higher)(cka考试环境搭建)
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/28/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202211)%20vmware%E4%B8%ADubuntu22.04%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85k8s%E9%9B%86%E7%BE%A4(1.24.4%20or%20higher)(cka%E8%80%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA)/" target="_self">
+        <div>
+          部署环境准备ubuntu22.04虚拟机3台 环境修改修改hostname(各修改各的)123hostnamectl set-hostname k8s-master // master节点hostnamectl set-hostname k8s-node1  // node1节点hostnamectl set-hostname k8s-node2  // node2节点   重启虚拟机，可以看到h
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-28 22:53" pubdate>
+              2022-11-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/k8s/">#k8s</a>
+            
+              <a href="/tags/kubeadm/">#kubeadm</a>
+            
+              <a href="/tags/ubuntu/">#ubuntu</a>
+            
+              <a href="/tags/cka/">#cka</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/11/21/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91(202211)%20VMware16.2.2%E4%B8%AD%E5%88%9B%E5%BB%BAubuntu22.04.1%E8%99%9A%E6%8B%9F%E6%9C%BA+%E4%BF%AE%E6%94%B9%E9%9D%99%E6%80%81ip+%E6%8D%A2%E6%BA%90+mobaxterm%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5+%E4%BF%AE%E6%94%B9%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E7%AC%A6%E9%A2%9C%E8%89%B2(cka%E8%80%83%E8%AF%95%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%90%AD%E5%BB%BA)/" target="_self">
+          【网络成长记】(202211) VMware16.2.2中创建ubuntu22.04.1虚拟机+修改静态ip+换源+mobaxterm远程连接+修改命令提示符颜色(cka考试虚拟机搭建)
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/21/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91(202211)%20VMware16.2.2%E4%B8%AD%E5%88%9B%E5%BB%BAubuntu22.04.1%E8%99%9A%E6%8B%9F%E6%9C%BA+%E4%BF%AE%E6%94%B9%E9%9D%99%E6%80%81ip+%E6%8D%A2%E6%BA%90+mobaxterm%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5+%E4%BF%AE%E6%94%B9%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E7%AC%A6%E9%A2%9C%E8%89%B2(cka%E8%80%83%E8%AF%95%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%90%AD%E5%BB%BA)/" target="_self">
+        <div>
+          准备镜像：https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/22.04.1/ubuntu-22.04.1-desktop-amd64.isohttps://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/22.04.1/     vmware：16.2.2 步骤 创建虚新的虚拟机
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-21 22:34" pubdate>
+              2022-11-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/net/" class="category-chain-item">net</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ubuntu/">#ubuntu</a>
+            
+              <a href="/tags/cka/">#cka</a>
+            
+              <a href="/tags/net/">#net</a>
+            
+              <a href="/tags/vmware/">#vmware</a>
+            
+              <a href="/tags/mobaxterm/">#mobaxterm</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/23/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9103.obsidian%E4%B8%AD%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE%E5%9B%BE%E5%BA%8A%EF%BC%9F%E6%8F%92%E4%BB%B6%EF%BC%9AImage%20auto%20upload%20Plugin/" target="_self">
+          【obsidian系列】03.obsidian中如何配置图床？插件：Image auto upload Plugin
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/23/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9103.obsidian%E4%B8%AD%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE%E5%9B%BE%E5%BA%8A%EF%BC%9F%E6%8F%92%E4%BB%B6%EF%BC%9AImage%20auto%20upload%20Plugin/" target="_self">
+        <div>
+          背景刚刚从typora转到obsidian，之前在typora用的搭配是：PicGo +typora + GitHub，现在换成了PicGo +obsidian+ GitHub。 关于picgo和github图床的配置参考我的另一篇博文：【实用工具】PicGo +typora + GitHub 搭建个人图床工具 解决typora中的markdown图片自动上传 obsidian配置流程打开 Obs
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-23 20:18" pubdate>
+              2022-10-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/obsidian/" class="category-chain-item">obsidian</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/obsidian/">#obsidian</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/23/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9102.obsidian%E4%B8%AD%E5%A6%82%E4%BD%95%E5%AE%9A%E4%B9%89%E9%99%84%E4%BB%B6(eg.%E5%9B%BE%E7%89%87)%E4%BD%8D%E7%BD%AE%EF%BC%9F%E6%8F%92%E4%BB%B6%EF%BC%9Acustom%20attachment%20location/" target="_self">
+          【obsidian系列】02.obsidian中如何定义附件(eg.图片)位置？插件：custom attachment location
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/23/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9102.obsidian%E4%B8%AD%E5%A6%82%E4%BD%95%E5%AE%9A%E4%B9%89%E9%99%84%E4%BB%B6(eg.%E5%9B%BE%E7%89%87)%E4%BD%8D%E7%BD%AE%EF%BC%9F%E6%8F%92%E4%BB%B6%EF%BC%9Acustom%20attachment%20location/" target="_self">
+        <div>
+          背景我想让插入的图片放到相对位置下，这样更方便查找图片，而且在移动文件夹或者换电脑的时候，也不会丢失图片。 目的：实现一个类似于typora的assets文件夹存放图片。 下图为typora的图像文件位置设置： 操作流程 打开插件左下角设置 –&gt; 第三方插件 –&gt; 社区插件市场 搜索：custom attachment location 打开插件，安装的所有插件都会显示在左侧 可以看到
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-23 16:38" pubdate>
+              2022-10-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/obsidian/" class="category-chain-item">obsidian</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/obsidian/">#obsidian</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/23/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9101.obsidian%E4%BB%8B%E7%BB%8D/" target="_self">
+          【obsidian系列】01.obsidian介绍
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/23/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9101.obsidian%E4%BB%8B%E7%BB%8D/" target="_self">
+        <div>
+          介绍中文名：黑曜石 一款强大的markdown编辑器 模式选择打开命令面板，选择“使用浅色模式” 设置完成之后，就变成了这样
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-23 16:37" pubdate>
+              2022-10-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/obsidian/" class="category-chain-item">obsidian</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/obsidian/">#obsidian</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/24/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91dig%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
+          【网络成长记】dig常用命令
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/24/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91dig%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
+        <div>
+          dig命令123456789101112dig 常用命令格式dig [@server] [-p port] [-t type] [-4] [-6] [+trace] name@ 指定 DNS 查询使用的服务器名称或 IP ，IP 地址可以是用点分隔的 IPv4 地址也可以是冒号分隔的 IPv6 地址。当参数指定的值是服务器的主机名时，dig 命令会在查询该域名服务器前先解析该主机名；-p 指定 D
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-24 12:31" pubdate>
+              2022-09-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/net/" class="category-chain-item">net</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/net/">#net</a>
+            
+              <a href="/tags/dig/">#dig</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/08/17/go/%E3%80%90go%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91go%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E5%8C%96%E4%B8%BAuint16/" target="_self">
           【go语言系列】go类型转换：字符串转化为uint16
         </a>
@@ -457,344 +839,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/08/09/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202208)%20client-go%E5%AD%A6%E4%B9%A0%E4%B8%8E%E5%AE%9E%E8%B7%B5/" target="_self">
-          【k8s系列】(202208) client-go学习与实践
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/08/09/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202208)%20client-go%E5%AD%A6%E4%B9%A0%E4%B8%8E%E5%AE%9E%E8%B7%B5/" target="_self">
-        <div>
-          client-go客户端对象client-go支持RESTClient、ClientSet、DynamicClient、DiscoveryClient四种客户端与Kubernetes Api Server进行交互。  RESTClient：最基础的客户端，主要是对HTTP请求进行了封装，支持Json和Protobuf格式的数据。  DiscoveryClient：发现客户端，负责发现APIServ
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-08-09 21:43" pubdate>
-              2022-08-09
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/k8s/">#k8s</a>
-            
-              <a href="/tags/client-go/">#client-go</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/07/25/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91(202207)%20hyperv%E4%B8%AD%E7%9A%84ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%8F%8C%E7%BD%91%E5%8D%A1%E8%AE%BE%E7%BD%AE/" target="_self">
-          【网络成长记】(202207) hyperv中的ubuntu虚拟机双网卡设置
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/07/25/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91(202207)%20hyperv%E4%B8%AD%E7%9A%84ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%8F%8C%E7%BD%91%E5%8D%A1%E8%AE%BE%E7%BD%AE/" target="_self">
-        <div>
-          场景hyperv创建虚拟机的时候，默认用的是default switch，这个default switch生成的ipv4地址是变化的 需求有一个不变的ipv4地址，方便ssh远程连接 同时还可以连接外网 操作hyperv同时整两个网卡，一个网卡(新建一个内部的网卡)配置静态ip地址，一个网卡(default switch)用于连外网  主机网卡配置default switch不做任何更改，使用默认
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-25 23:28" pubdate>
-              2022-07-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/net/" class="category-chain-item">net</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/07/25/vscode/%E3%80%90%E9%9C%80%E8%A6%81%E6%94%B9%E6%97%B6%E9%97%B4%E3%80%91%E3%80%90vscode%E3%80%91Windows%E4%B8%8B%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8VScode%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8Blinux%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/" target="_self">
-          【vscode】Windows下如何使用VScode连接远程linux服务器进行远程开发
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/07/25/vscode/%E3%80%90%E9%9C%80%E8%A6%81%E6%94%B9%E6%97%B6%E9%97%B4%E3%80%91%E3%80%90vscode%E3%80%91Windows%E4%B8%8B%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8VScode%E8%BF%9E%E6%8E%A5%E8%BF%9C%E7%A8%8Blinux%E6%9C%8D%E5%8A%A1%E5%99%A8%E8%BF%9B%E8%A1%8C%E8%BF%9C%E7%A8%8B%E5%BC%80%E5%8F%91/" target="_self">
-        <div>
-          release author: ningan123 release time: 2022-05-05 1. 先上手-成功连接1.vscode下载安装所需插件：vscode中的remote-ssh插件 安装之后，就会出现上图黄色所示的图标 2.点击远程图标中的配置按钮，选择config文件 3.配置config文件 Host部分输入服务器的外号（如“test”）HostName部分输入服务器的地址U
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-25 17:30" pubdate>
-              2022-07-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/vscode/" class="category-chain-item">vscode</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/07/25/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91hyperv%E5%88%9B%E5%BB%BAubuntu20.10%E8%99%9A%E6%8B%9F%E6%9C%BA/" target="_self">
-          【网络成长记】hyperv创建ubuntu20.10虚拟机
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/07/25/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91hyperv%E5%88%9B%E5%BB%BAubuntu20.10%E8%99%9A%E6%8B%9F%E6%9C%BA/" target="_self">
-        <div>
-          下面以20.10为例： (18.04在后面，只做了部分修改) 准备工作 镜像下载Ubuntu 20.10 (Groovy Gorilla) 操作步骤(成功创建)开始-&gt;设置-&gt;应用-&gt;程序和功能-&gt;启用或关闭Windows功能。在打开的窗口中，选择“Hyper-V” 新建虚拟机，流程如下：       这一块不敢点呀不敢点，就害怕把自己windows的硬盘格式化了 从网上查
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-25 13:33" pubdate>
-              2022-07-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/net/" class="category-chain-item">net</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/07/25/ebpf/%E3%80%90ebpf%E3%80%91first%20try/" target="_self">
-          【ebpf】first try
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/07/25/ebpf/%E3%80%90ebpf%E3%80%91first%20try/" target="_self">
-        <div>
-          03 | 初窥门径：开发并运行你的第一个 eBPF 程序环境123456789101112131415161718[root@ningan ~]# uname -aLinux ningan 5.13.0-51-generic #58~20.04.1-Ubuntu SMP Tue Jun 14 11:29:12 UTC 2022 x86_64 x86_64 x86_64 GNU/Linux[root
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-25 09:27" pubdate>
-              2022-07-25
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/ebpf/" class="category-chain-item">ebpf</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/07/23/vscode/%E3%80%90vscode%E3%80%91vscode%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/" target="_self">
-          【vscode】vscode远程调试
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/07/23/vscode/%E3%80%90vscode%E3%80%91vscode%E8%BF%9C%E7%A8%8B%E8%B0%83%E8%AF%95/" target="_self">
-        <div>
-          使用Delve调试时将参数传递给可执行文件在有main.go的地方执行： 1CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build  -gcflags=&quot;all=-N -l&quot;  1go build -gcflags=&quot;all=-N -l&quot; 会生成二进制文件 Add -- to tell dlv that all subs
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-07-23 13:40" pubdate>
-              2022-07-23
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/vscode/" class="category-chain-item">vscode</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/6/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/#board">8</a><a class="extend next" rel="next" href="/page/8/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/6/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><a class="extend next" rel="next" href="/page/8/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
