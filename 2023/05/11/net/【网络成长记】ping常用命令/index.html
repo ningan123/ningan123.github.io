@@ -16,21 +16,21 @@
   <meta name="author" content="ningan123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="ningan123的blog">
+    <meta name="description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354# ping -hUsage: ping [-aAbBdDfhLnOqrRUvV64] [-c count] [-i interval] [-I interface]            [-m ma">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ningan123">
-<meta property="og:url" content="http://example.com/2023/04/26/systemd/%E3%80%90%E3%80%91/index.html">
+<meta property="og:title" content="【网络成长记】ping常用命令">
+<meta property="og:url" content="http://example.com/2023/05/11/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91ping%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="ningan123">
-<meta property="og:description" content="ningan123的blog">
+<meta property="og:description" content="123456789101112131415161718192021222324252627282930313233343536373839404142434445464748495051525354# ping -hUsage: ping [-aAbBdDfhLnOqrRUvV64] [-c count] [-i interval] [-I interface]            [-m ma">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-04-26T06:49:59.819Z">
-<meta property="article:modified_time" content="2023-05-08T11:17:03.475Z">
+<meta property="article:published_time" content="2023-05-11T05:23:00.000Z">
+<meta property="article:modified_time" content="2023-05-11T05:36:00.000Z">
 <meta property="article:author" content="ningan123">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>ningan123</title>
+  <title>【网络成长记】ping常用命令 - ningan123</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="【网络成长记】ping常用命令"></span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-04-26 14:49" pubdate>
-          2023年4月26日 下午
+        <time datetime="2023-05-11 13:23" pubdate>
+          2023年5月11日 下午
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          3.5k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          1 分钟
+          29 分钟
         
       </span>
     
@@ -268,39 +268,25 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none"></h1>
+            <h1 style="display: none">【网络成长记】ping常用命令</h1>
             
             
               <div class="markdown-body">
                 
-                
+                <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># ping -h</span><br>Usage: ping [-aAbBdDfhLnOqrRUvV64] [-c count] [-i interval] [-I interface]<br>            [-m mark] [-M pmtudisc_option] [-l preload] [-p pattern] [-Q tos]<br>            [-s packetsize] [-S sndbuf] [-t ttl] [-T timestamp_option]<br>            [-w deadline] [-W <span class="hljs-built_in">timeout</span>] [hop1 ...] destination<br>Usage: ping -6 [-aAbBdDfhLnOqrRUvV] [-c count] [-i interval] [-I interface]<br>             [-l preload] [-m mark] [-M pmtudisc_option]<br>             [-N nodeinfo_option] [-p pattern] [-Q tclass] [-s packetsize]<br>             [-S sndbuf] [-t ttl] [-T timestamp_option] [-w deadline]<br>             [-W <span class="hljs-built_in">timeout</span>] destination<br><br><br><br><span class="hljs-comment"># 01. 每隔0.6秒ping一次，一共ping 5次</span><br><span class="hljs-comment"># ping -c 5 -i 0.6 qq.com</span><br>PING qq.com (58.247.214.47) 56(84) bytes of data.<br>64 bytes from 58.247.214.47 (58.247.214.47): icmp_seq=1 ttl=49 time=25.9 ms<br>64 bytes from 58.247.214.47 (58.247.214.47): icmp_seq=2 ttl=49 time=25.2 ms<br>64 bytes from 58.247.214.47 (58.247.214.47): icmp_seq=3 ttl=49 time=25.2 ms<br>64 bytes from 58.247.214.47 (58.247.214.47): icmp_seq=4 ttl=49 time=25.3 ms<br>64 bytes from 58.247.214.47 (58.247.214.47): icmp_seq=5 ttl=49 time=25.3 ms<br><br>--- qq.com ping statistics ---<br>5 packets transmitted, 5 received, 0% packet loss, time 2404ms<br>rtt min/avg/max/mdev = 25.266/25.432/25.964/0.302 ms<br>  <br><br><span class="hljs-comment">## 02. 测试-I</span><br><span class="hljs-comment"># ping -I 172.28.157.146 qq.com</span><br>PING qq.com (58.250.137.36) from 172.28.157.146 : 56(84) bytes of data.<br>64 bytes from 58.250.137.36 (58.250.137.36): icmp_seq=1 ttl=47 time=42.6 ms<br>64 bytes from 58.250.137.36 (58.250.137.36): icmp_seq=2 ttl=47 time=42.3 ms<br>64 bytes from 58.250.137.36 (58.250.137.36): icmp_seq=3 ttl=47 time=42.2 ms<br>64 bytes from 58.250.137.36 (58.250.137.36): icmp_seq=4 ttl=47 time=42.1 ms<br>64 bytes from 58.250.137.36 (58.250.137.36): icmp_seq=5 ttl=47 time=42.1 ms<br>64 bytes from 58.250.137.36 (58.250.137.36): icmp_seq=6 ttl=47 time=43.2 ms<br>64 bytes from 58.250.137.36 (58.250.137.36): icmp_seq=7 ttl=47 time=42.1 ms<br>64 bytes from 58.250.137.36 (58.250.137.36): icmp_seq=8 ttl=47 time=42.1 ms<br>64 bytes from 58.250.137.36 (58.250.137.36): icmp_seq=9 ttl=47 time=51.2 ms<br>^C<br>--- qq.com ping statistics ---<br>9 packets transmitted, 9 received, 0% packet loss, time 8008ms<br>rtt min/avg/max/mdev = 42.162/43.368/51.248/2.805 ms<br><br><br><span class="hljs-comment"># ping -I 192.168.20.201 qq.com</span><br>PING qq.com (58.247.214.47) from 192.168.20.201 : 56(84) bytes of data.<br>^C<br>--- qq.com ping statistics ---<br>6 packets transmitted, 0 received, 100% packet loss, time 5108ms<br><br><br>mdev 就是 Mean Deviation 的缩写，它表示这些 ICMP 包的 RTT 偏离平均值的程度，这个值越大说明你的网速越不稳定。<br><br></code></pre></td></tr></table></figure>
+
+<h2 id="ping-t"><a href="#ping-t" class="headerlink" title="ping -t"></a>ping -t</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># ping -t www.baidu.com</span><br>Usage: ping [-aAbBdDfhLnOqrRUvV64] [-c count] [-i interval] [-I interface]<br>            [-m mark] [-M pmtudisc_option] [-l preload] [-p pattern] [-Q tos]<br>            [-s packetsize] [-S sndbuf] [-t ttl] [-T timestamp_option]<br>            [-w deadline] [-W <span class="hljs-built_in">timeout</span>] [hop1 ...] destination<br>Usage: ping -6 [-aAbBdDfhLnOqrRUvV] [-c count] [-i interval] [-I interface]<br>             [-l preload] [-m mark] [-M pmtudisc_option]<br>             [-N nodeinfo_option] [-p pattern] [-Q tclass] [-s packetsize]<br>             [-S sndbuf] [-t ttl] [-T timestamp_option] [-w deadline]<br>             [-W <span class="hljs-built_in">timeout</span>] destination<br><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="ping-n"><a href="#ping-n" class="headerlink" title="ping -n"></a>ping -n</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># ping -n 2 10.237.3.166</span><br>PING 10.237.3.166 (10.237.3.166) 56(124) bytes of data.<br>^C<br>--- 10.237.3.166 ping statistics ---<br>9 packets transmitted, 0 received, 100% packet loss, time 8179ms<br><br><br><br><span class="hljs-comment"># ping 10.237.3.166 -n 2</span><br>PING 2 (0.0.0.2) 56(124) bytes of data.<br>^C<br>--- 2 ping statistics ---<br>7 packets transmitted, 0 received, 100% packet loss, time 6139ms<br><br>[root@ningan dubhe-manager]<span class="hljs-comment">#</span><br><br></code></pre></td></tr></table></figure>
+
+<h2 id="ping-c"><a href="#ping-c" class="headerlink" title="ping -c"></a>ping -c</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># ping 10.237.3.166 -c 5</span><br>PING 10.237.3.166 (10.237.3.166) 56(84) bytes of data.<br>64 bytes from 10.237.3.166: icmp_seq=1 ttl=52 time=26.0 ms<br>64 bytes from 10.237.3.166: icmp_seq=2 ttl=52 time=26.5 ms<br>64 bytes from 10.237.3.166: icmp_seq=3 ttl=52 time=25.7 ms<br>64 bytes from 10.237.3.166: icmp_seq=4 ttl=52 time=26.9 ms<br>64 bytes from 10.237.3.166: icmp_seq=5 ttl=52 time=26.6 ms<br><br>--- 10.237.3.166 ping statistics ---<br>5 packets transmitted, 5 received, 0% packet loss, time 4005ms<br>rtt min/avg/max/mdev = 25.753/26.369/26.920/0.443 ms<br></code></pre></td></tr></table></figure>
                 
               </div>
             
             <hr/>
             <div>
               <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/systemd/" class="category-chain-item">systemd</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
   
   
 </div>
@@ -311,8 +297,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
-      <div>http://example.com/2023/04/26/systemd/【】/</div>
+      <div>【网络成长记】ping常用命令</div>
+      <div>http://example.com/2023/05/11/net/【网络成长记】ping常用命令/</div>
     </div>
     <div class="license-meta">
       
@@ -324,7 +310,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年4月26日</div>
+          <div>2023年5月11日</div>
         </div>
       
       
@@ -356,7 +342,7 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/04/26/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91systemd%20limit/" title="">
+                      <a href="/2023/05/12/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91todo(202305)%20kubeconfig%E6%96%87%E4%BB%B6/" title="">
                         <i class="iconfont icon-arrowleft"></i>
                         <span class="hidden-mobile"></span>
                         <span class="visible-mobile">上一篇</span>
@@ -366,7 +352,7 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/04/24/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91wireguard/" title="">
+                      <a href="/2023/05/09/net/%E3%80%90%E8%BD%AF%E8%80%83%E3%80%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/" title="">
                         <span class="hidden-mobile"></span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
