@@ -16,22 +16,21 @@
   <meta name="author" content="ningan123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="deepcopy-gen123456go get -u k8s.io&#x2F;code-generator&#x2F;...# 上面如果不成功，手工安装各种工具git clone https:&#x2F;&#x2F;github.com&#x2F;kubernetes&#x2F;code-generatorcd code-generatorgo build -o deepcopy-gen cmd&#x2F;deepcopy-gen&#x2F;main.gocp deepco">
+    <meta name="description" content="12345678910111213kubectl get svc svctest -oyamlkubectl describe svc svctestkubectl get ep svctest -oyamlkubectl describe ep svctestnslookup svctest.default.svc.cluster.localkubectl apply -f testsvc01.">
 <meta property="og:type" content="article">
-<meta property="og:title" content="【go语言系列】安装k8s的controller相关组件：deepcopy-gen和controller-gen">
-<meta property="og:url" content="http://example.com/2022/05/22/go/%E3%80%90go%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91%E5%AE%89%E8%A3%85k8s%E7%9A%84controller%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6%EF%BC%9Adeepcopy-gen%E5%92%8Ccontroller-gen/index.html">
+<meta property="og:title" content="ningan123">
+<meta property="og:url" content="http://example.com/2023/05/19/cue/dns/index.html">
 <meta property="og:site_name" content="ningan123">
-<meta property="og:description" content="deepcopy-gen123456go get -u k8s.io&#x2F;code-generator&#x2F;...# 上面如果不成功，手工安装各种工具git clone https:&#x2F;&#x2F;github.com&#x2F;kubernetes&#x2F;code-generatorcd code-generatorgo build -o deepcopy-gen cmd&#x2F;deepcopy-gen&#x2F;main.gocp deepco">
+<meta property="og:description" content="12345678910111213kubectl get svc svctest -oyamlkubectl describe svc svctestkubectl get ep svctest -oyamlkubectl describe ep svctestnslookup svctest.default.svc.cluster.localkubectl apply -f testsvc01.">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-05-22T03:42:00.000Z">
-<meta property="article:modified_time" content="2023-02-02T12:46:00.000Z">
+<meta property="article:published_time" content="2023-05-19T04:58:42.808Z">
+<meta property="article:modified_time" content="2023-05-19T05:54:44.670Z">
 <meta property="article:author" content="ningan123">
-<meta property="article:tag" content="go">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>【go语言系列】安装k8s的controller相关组件：deepcopy-gen和controller-gen - ningan123</title>
+  <title>ningan123</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -197,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="【go语言系列】安装k8s的controller相关组件：deepcopy-gen和controller-gen"></span>
+            <span id="subtitle" data-typed-text=""></span>
           
         </div>
 
@@ -208,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2022-05-22 11:42" pubdate>
-          2022年5月22日 中午
+        <time datetime="2023-05-19 12:58" pubdate>
+          2023年5月19日 下午
         </time>
       </span>
     
@@ -220,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          689 字
+          3.2k 字
         
       </span>
     
@@ -231,7 +230,7 @@
         
         
         
-          6 分钟
+          27 分钟
         
       </span>
     
@@ -269,19 +268,25 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none">【go语言系列】安装k8s的controller相关组件：deepcopy-gen和controller-gen</h1>
+            <h1 style="display: none"></h1>
             
             
               <div class="markdown-body">
                 
-                <h2 id="deepcopy-gen"><a href="#deepcopy-gen" class="headerlink" title="deepcopy-gen"></a>deepcopy-gen</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">go get -u k8s.io/code-generator/...<br><span class="hljs-comment"># 上面如果不成功，手工安装各种工具</span><br>git <span class="hljs-built_in">clone</span> https://github.com/kubernetes/code-generator<br><span class="hljs-built_in">cd</span> code-generator<br>go build -o deepcopy-gen cmd/deepcopy-gen/main.go<br><span class="hljs-built_in">cp</span> deepcopy-gen ~/go_projects/bin/   <span class="hljs-comment"># 放到/usr/local/bin下也可以</span><br></code></pre></td></tr></table></figure>
+                <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl get svc svctest -oyaml<br>kubectl describe svc svctest<br><br>kubectl get ep svctest -oyaml<br>kubectl describe ep svctest<br><br>nslookup svctest.default.svc.cluster.local<br><br>kubectl apply -f testsvc01.yaml<br>kubectl apply -f testep01.yaml<br><br>kubectl apply -f svc01.yaml<br>kubectl apply -f ep01-1.yaml<br></code></pre></td></tr></table></figure>
 
-<p>参考： <a target="_blank" rel="noopener" href="https://www.cxyzjd.com/article/ch717828/106008698">https://www.cxyzjd.com/article/ch717828/106008698</a></p>
-<h2 id="controller-gen"><a href="#controller-gen" class="headerlink" title="controller-gen"></a>controller-gen</h2><p>下载地址：<a target="_blank" rel="noopener" href="https://github.com/kubernetes-sigs/controller-tools/releases">https://github.com/kubernetes-sigs/controller-tools/releases</a></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># wget https://github.com/kubernetes-sigs/controller-tools/archive/refs/tags/v0.8.0.tar.gz</span><br><span class="hljs-comment"># tar -zxvf v0.8.0.tar.gz</span><br><span class="hljs-comment"># cd controller-tools-0.8.0</span><br><span class="hljs-comment"># go build -a -o controller-gen cmd/controller-gen/main.go</span><br><span class="hljs-comment"># mv controller-gen /usr/local/bin/</span><br><span class="hljs-comment"># controller-gen --version</span><br>Version: (devel)<br></code></pre></td></tr></table></figure>
 
-<p>参考：</p>
-<p><a target="_blank" rel="noopener" href="https://support.huaweicloud.com/devg-osc/osc_ss_0052.html">https://support.huaweicloud.com/devg-osc/osc_ss_0052.html</a></p>
+
+<h2 id="情况1"><a href="#情况1" class="headerlink" title="情况1"></a>情况1</h2><p>############################## 分割线  </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># cat testsvc.yaml </span><br>apiVersion: v1<br>kind: Service<br>metadata:<br>  name: svctest<br>  namespace: default<br>spec:<br>  ports:<br>  - name: n1<br>    port: 3600<br>    targetPort: 9100  <br>    protocol: TCP<br>  - name: n2<br>    port: 3601<br>    targetPort: 9100<br>    protocol: TCP<br>  <span class="hljs-built_in">type</span>: ClusterIP<br><br><br><br><br><br><span class="hljs-comment"># cat testep.yaml </span><br>apiVersion: v1<br>kind: Endpoints<br>metadata:<br>  labels:<br>    kubernetes.io/service-name: svctest<br>  name: svctest<br>  namespace: default<br>subsets:<br>- addresses:<br>  - ip: 10.191.193.3<br>  ports:<br>  - name: n1<br>    port: 6443<br>    protocol: TCP<br>- addresses:<br>  - ip: 10.191.193.4<br>  ports:<br>  - name: n1<br>    port: 9100<br>    protocol: TCP<br></code></pre></td></tr></table></figure>
+
+<h2 id="test-noname"><a href="#test-noname" class="headerlink" title="test noname"></a>test noname</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># cat testep-noname.yaml</span><br>apiVersion: v1<br>kind: Endpoints<br>metadata:<br>  labels:<br>    kubernetes.io/service-name: svctest<br>  name: svctest<br>  namespace: default<br>subsets:<br>- addresses:<br>  - ip: 10.191.193.3<br>  ports:<br>  - port: 6443<br>    protocol: TCP<br>- addresses:<br>  - ip: 10.191.193.4<br>  ports:<br>  - port: 6443<br>    protocol: TCP<br><br><br></code></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><code class="hljs go"><br><span class="hljs-keyword">type</span> ServiceSpec <span class="hljs-keyword">struct</span> &#123;<br>    <span class="hljs-comment">// The list of ports that are exposed by this service.</span><br>	<span class="hljs-comment">// More info: [https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies](https://kubernetes.io/docs/concepts/services-networking/service/#virtual-ips-and-service-proxies)</span><br>	<span class="hljs-comment">// +patchMergeKey=port</span><br>	<span class="hljs-comment">// +patchStrategy=merge</span><br>	<span class="hljs-comment">// +listType=map</span><br>	<span class="hljs-comment">// +listMapKey=port</span><br>	<span class="hljs-comment">// +listMapKey=protocol</span><br>	Ports [][ServicePort](https:<span class="hljs-comment">//pkg.go.dev/k8s.io/api@v0.26.1/core/v1#ServicePort) `json:&quot;ports,omitempty&quot; patchStrategy:&quot;merge&quot; patchMergeKey:&quot;port&quot; protobuf:&quot;bytes,1,rep,name=ports&quot;`</span><br>	...<br>&#125;<br><br><span class="hljs-keyword">type</span> ServicePort <span class="hljs-keyword">struct</span> &#123;<br>	<span class="hljs-comment">// The name of this port within the service. This must be a DNS_LABEL.</span><br>	<span class="hljs-comment">// All ports within a ServiceSpec must have unique names. When considering</span><br>	<span class="hljs-comment">// the endpoints for a Service, this must match the &#x27;name&#x27; field in the</span><br>	<span class="hljs-comment">// EndpointPort.</span><br>	<span class="hljs-comment">// Optional if only one ServicePort is defined on this service.</span><br>	<span class="hljs-comment">// +optional</span><br>	Name <span class="hljs-type">string</span> <span class="hljs-string">`json:&quot;name,omitempty&quot; protobuf:&quot;bytes,1,opt,name=name&quot;`</span><br><br>	<span class="hljs-comment">// The IP protocol for this port. Supports &quot;TCP&quot;, &quot;UDP&quot;, and &quot;SCTP&quot;.</span><br>	<span class="hljs-comment">// Default is TCP.</span><br>	<span class="hljs-comment">// +default=&quot;TCP&quot;</span><br>	<span class="hljs-comment">// +optional</span><br>	Protocol Protocol <span class="hljs-string">`json:&quot;protocol,omitempty&quot; protobuf:&quot;bytes,2,opt,name=protocol,casttype=Protocol&quot;`</span><br><br>	...<br><br>	<span class="hljs-comment">// The port that will be exposed by this service.</span><br>	Port <span class="hljs-type">int32</span> <span class="hljs-string">`json:&quot;port&quot; protobuf:&quot;varint,3,opt,name=port&quot;`</span><br><br>	<span class="hljs-comment">// Number or name of the port to access on the pods targeted by the service.</span><br>	<span class="hljs-comment">// Number must be in the range 1 to 65535. Name must be an IANA_SVC_NAME.</span><br>	<span class="hljs-comment">// If this is a string, it will be looked up as a named port in the</span><br>	<span class="hljs-comment">// target Pod&#x27;s container ports. If this is not specified, the value</span><br>	<span class="hljs-comment">// of the &#x27;port&#x27; field is used (an identity map).</span><br>	<span class="hljs-comment">// This field is ignored for services with clusterIP=None, and should be</span><br>	<span class="hljs-comment">// omitted or set equal to the &#x27;port&#x27; field.</span><br>	<span class="hljs-comment">// More info: https://kubernetes.io/docs/concepts/services-networking/service/#defining-a-service</span><br>	<span class="hljs-comment">// +optional</span><br>	TargetPort intstr.IntOrString <span class="hljs-string">`json:&quot;targetPort,omitempty&quot; protobuf:&quot;bytes,4,opt,name=targetPort&quot;`</span><br><br>	...<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><a target="_blank" rel="noopener" href="https://pkg.go.dev/k8s.io/api@v0.26.1/core/v1#ServiceSpec">https://pkg.go.dev/k8s.io/api@v0.26.1/core/v1#ServiceSpec</a></p>
 
                 
               </div>
@@ -290,34 +295,6 @@
             <div>
               <div class="post-metas my-3">
   
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/go/" class="category-chain-item">go</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
-  
-  
-    <div class="post-meta">
-      <i class="iconfont icon-tags"></i>
-      
-        <a href="/tags/go/">#go</a>
-      
-    </div>
   
 </div>
 
@@ -327,8 +304,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>【go语言系列】安装k8s的controller相关组件：deepcopy-gen和controller-gen</div>
-      <div>http://example.com/2022/05/22/go/【go语言系列】安装k8s的controller相关组件：deepcopy-gen和controller-gen/</div>
+      <div></div>
+      <div>http://example.com/2023/05/19/cue/dns/</div>
     </div>
     <div class="license-meta">
       
@@ -340,7 +317,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2022年5月22日</div>
+          <div>2023年5月19日</div>
         </div>
       
       
@@ -372,15 +349,21 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2022/05/22/git/%E3%80%90git%E3%80%91git%E6%AF%8F%E6%AC%A1%E9%83%BD%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81/" title="【git】git每次都要输入密码">
+                      <a href="/2023/05/22/go/%E3%80%90go%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91%E6%95%B0%E7%BB%84%20%E5%88%87%E7%89%87%20map/" title="">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【git】git每次都要输入密码</span>
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
                   </article>
                   <article class="post-next col-6">
                     
+                    
+                      <a href="/2023/05/18/cue/%E3%80%90cue%E3%80%91/" title="">
+                        <span class="hidden-mobile"></span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
                     
                   </article>
                 </div>
