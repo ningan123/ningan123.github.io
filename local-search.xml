@@ -11,6 +11,12 @@
     <content type="html"><![CDATA[]]></content>
     
     
+    <categories>
+      
+      <category>go</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -93,56 +99,38 @@
   
   
   <entry>
-    <title></title>
+    <title>【nas】docker</title>
     <link href="/2023/05/12/nas/%E3%80%90nas%E3%80%91docker/"/>
     <url>/2023/05/12/nas/%E3%80%90nas%E3%80%91docker/</url>
     
     <content type="html"><![CDATA[<h2 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h2><p>套件中心中没有docker，想要安装一个docker</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512220109.png" alt="image.png"></p><h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230513000221.png" alt="image.png"></p><h2 id="添加第三方源"><a href="#添加第三方源" class="headerlink" title="添加第三方源"></a>添加第三方源</h2><p>修改配置</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512233229.png" alt="image.png"></p><p>套件中心—设置—套件来源—新增：名称随便取，位置把网址复制进去确认即可</p><p>DSM6.x矿神SPK套件源：<a href="https://imnks.com/go/aHR0cHM6Ly9zcGsuaW1ua3MuY29tLw">https://spk.imnks.com/</a></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512235104.png" alt="image.png"></p><p>添加之后，可以看到左侧多了一个社群，然后在套件中心的社群搜索即可。</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512235200.png" alt="image.png"></p><p>点击“社群”，如果右侧没有东西的话，可以点击一下“刷新”</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512235234.png" alt="image.png"></p><p>搜索“docker”，直接安装</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512235427.png" alt="image.png"></p><p>安装不上docker，为什么呢？显示下载docker失败</p><p>找<br>找<br>找</p><h3 id="尝试1：安装猫盘三合一修复"><a href="#尝试1：安装猫盘三合一修复" class="headerlink" title="尝试1：安装猫盘三合一修复"></a>尝试1：安装猫盘三合一修复</h3><p>安装完系统之后，发现指示灯不亮</p><p>不知道是否跟这个有关，安装下面套件</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230513001425.png" alt="image.png"></p><p>安装完之后，就可以看到猫盘的指示灯亮了</p><p>但是docker还是显示下载失败</p><h3 id="尝试2：切换用户"><a href="#尝试2：切换用户" class="headerlink" title="尝试2：切换用户"></a>尝试2：切换用户</h3><p>刚开始是用一个自定义用户登录的系统<br>切换到admin用户下安装</p><p>安装docker还是显示下载失败</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://post.smzdm.com/p/akmv452r/"># NAS 篇一：群晖DSM7.0 安装docker</a><br><a href="https://imnks.com/1780.html"># 矿神群晖SPK套件中心 上线啦！支持DSM6、DSM7</a></p>]]></content>
     
     
-    <categories>
-      
-      <category>nas</category>
-      
-    </categories>
-    
     
   </entry>
   
   
   
   <entry>
-    <title></title>
+    <title>【nas】docker安装qBittorrent</title>
     <link href="/2023/05/12/nas/%E3%80%90nas%E3%80%91docker%E5%AE%89%E8%A3%85qBittorrent/"/>
     <url>/2023/05/12/nas/%E3%80%90nas%E3%80%91docker%E5%AE%89%E8%A3%85qBittorrent/</url>
     
     <content type="html"><![CDATA[<p>第三方下载工具，配置麻烦</p>]]></content>
     
     
-    <categories>
-      
-      <category>nas</category>
-      
-    </categories>
-    
     
   </entry>
   
   
   
   <entry>
-    <title></title>
+    <title>【nas】moments</title>
     <link href="/2023/05/12/nas/%E3%80%90nas%E3%80%91moments/"/>
     <url>/2023/05/12/nas/%E3%80%90nas%E3%80%91moments/</url>
     
     <content type="html"><![CDATA[<h2 id="下载"><a href="#下载" class="headerlink" title="下载"></a>下载</h2><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512213150.png" alt="image.png"></p><p>到“已安装”，点击“打开”</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512213239.png" alt="image.png"></p><p>会跳转到一个新的界面，显示如下：</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512213312.png" alt="image.png"></p><p>回到nas首页，点击“控制面板” “用户账号”</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512213435.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512213708.png" alt="image.png"></p><p>回到moments界面，重新刷新，就可以进来啦~</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230512213834.png" alt="image.png"></p><p>然后就可以创建文件夹，上传照片啦~</p>]]></content>
     
-    
-    <categories>
-      
-      <category>nas</category>
-      
-    </categories>
     
     
   </entry>
@@ -390,18 +378,12 @@
   
   
   <entry>
-    <title></title>
+    <title>【nas】nas初体验</title>
     <link href="/2023/04/22/nas/%E3%80%90nas%E3%80%91nas%E5%88%9D%E4%BD%93%E9%AA%8C/"/>
     <url>/2023/04/22/nas/%E3%80%90nas%E3%80%91nas%E5%88%9D%E4%BD%93%E9%AA%8C/</url>
     
     <content type="html"><![CDATA[<h2 id="准备"><a href="#准备" class="headerlink" title="准备"></a>准备</h2><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/35c73430e00cc33ab5c7c9107a36c43.jpg" alt="35c73430e00cc33ab5c7c9107a36c43.jpg"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/4c87ad142cd052519e97a499726941b.jpg" alt="4c87ad142cd052519e97a499726941b.jpg"></p><p>连接电源和网线，将网线另一端接入路由器的lan口</p><h2 id="下载Synology-Assistant"><a href="#下载Synology-Assistant" class="headerlink" title="下载Synology Assistant"></a>下载Synology Assistant</h2><p>群晖助手Synology Assistant，下载安装：<a href="https://imnks.com/go/aHR0cHM6Ly9jbmRsLnN5bm9sb2d5LmNuL2Rvd25sb2FkL1V0aWxpdHkvQXNzaXN0YW50LzYuMi0yNDkyMi9XaW5kb3dzL3N5bm9sb2d5LWFzc2lzdGFudC02LjItMjQ5MjIuZXhl">Windows版本</a>，<a href="https://imnks.com/go/aHR0cHM6Ly9jbmRsLnN5bm9sb2d5LmNuL2Rvd25sb2FkL1V0aWxpdHkvQXNzaXN0YW50LzYuMi0yNDkyMi9NYWMvc3lub2xvZ3ktYXNzaXN0YW50LTYuMi0yNDkyMi5kbWc">Mac版本</a></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230422201931.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230422185322.png" alt="image.png"></p><p>点击“同意” “确定”</p><p>进行系统初始化</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230422201246.png" alt="image.png"></p><p>点击设置，选择手动安装</p><p><a href="https://www.synology.cn/zh-cn/support/download/DS119j?version=6.2#system">下载中心 - DS119j | Synology 群晖科技</a></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230422201848.png" alt="image.png"></p><p>安装完之后，基本信息如下</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230513001652.png" alt="image.png"></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://imnks.com/597.html">https://imnks.com/597.html</a></p><p><a href="https://imnks.com/mp/">https://imnks.com/mp/</a>   </p>]]></content>
     
-    
-    <categories>
-      
-      <category>nas</category>
-      
-    </categories>
     
     
   </entry>
@@ -409,18 +391,12 @@
   
   
   <entry>
-    <title></title>
+    <title>【nas】nas常用术语</title>
     <link href="/2023/04/22/nas/%E3%80%90nas%E3%80%91nas%E5%B8%B8%E7%94%A8%E6%9C%AF%E8%AF%AD/"/>
     <url>/2023/04/22/nas/%E3%80%90nas%E3%80%91nas%E5%B8%B8%E7%94%A8%E6%9C%AF%E8%AF%AD/</url>
     
     <content type="html"><![CDATA[<p>白群晖</p>]]></content>
     
-    
-    <categories>
-      
-      <category>nas</category>
-      
-    </categories>
     
     
   </entry>
@@ -434,6 +410,12 @@
     
     <content type="html"><![CDATA[<h3 id="安装插件"><a href="#安装插件" class="headerlink" title="安装插件"></a>安装插件</h3><p>左下角设置 –&gt; 第三方插件 –&gt; 社区插件市场，搜索：Markdown Table Editor</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230509094257.png" alt="image.png"><br>点击安装</p><p>在下面的位置启用</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230509094333.png" alt="image.png"></p>]]></content>
     
+    
+    <categories>
+      
+      <category>obsidian</category>
+      
+    </categories>
     
     
   </entry>
@@ -778,6 +760,12 @@
     
     <content type="html"><![CDATA[<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a href="https://blog.51cto.com/luoguoling/5145886">用go写一个prometheus exporter</a></p>]]></content>
     
+    
+    <categories>
+      
+      <category>go</category>
+      
+    </categories>
     
     
   </entry>
