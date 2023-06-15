@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          757 字
+          1.6k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          7 分钟
+          13 分钟
         
       </span>
     
@@ -277,8 +277,11 @@
 
 
 
-<p><strong>某个主机安装了 k8s 后，命令行才会有 crictl 命令。而 ctr 是跟 k8s 无关的，你主机安装了 containerd 服务后就可以操作 ctr 命令</strong></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">crictl images <br>nerdctl images --namespace k8s.io<br></code></pre></td></tr></table></figure>
+
+
+
+
+
 
 
 <table>
@@ -301,9 +304,9 @@
 <tr>
 <td align="left"></td>
 <td align="left"></td>
-<td align="left"><code>crictl</code>操作的均在<code>k8s.io</code>命名空间</td>
+<td align="left">crictl操作的均在k8s.io命名空间</td>
 <td align="left"></td>
-<td align="left"><code>ctr</code> 客户端 主要区分了 3 个命名空间分别是<code>k8s.io</code>、<code>moby</code>和<code>default</code></td>
+<td align="left">ctr客户端 主要区分了 3 个命名空间分别是k8s.io、moby和default</td>
 </tr>
 <tr>
 <td align="left">查看镜像</td>
@@ -311,6 +314,20 @@
 <td align="left">crictl images</td>
 <td align="left">nerdctl images –namespace k8s.io<br>  nerdctl -n k8s.io images</td>
 <td align="left">ctr image ls</td>
+</tr>
+<tr>
+<td align="left">查看k8s的镜像</td>
+<td align="left"></td>
+<td align="left">crictl images list</td>
+<td align="left"></td>
+<td align="left">ctr -n&#x3D;k8s.io image list</td>
+</tr>
+<tr>
+<td align="left">拉取镜像</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">ctr i pull –user admin:password –skip-verify &lt;YOUR REGISTRY&gt;&#x2F;app&#x2F;web1:latest</td>
 </tr>
 <tr>
 <td align="left">删除镜像</td>
@@ -361,56 +378,18 @@
 <td align="left"></td>
 <td align="left"></td>
 </tr>
-<tr>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
 </tbody></table>
+<h2 id="crictl"><a href="#crictl" class="headerlink" title="crictl"></a>crictl</h2><p><code>/etc/containerd/config.toml</code>配置文件中的内容仅会对crictl生效。</p>
+<p>在&#x2F;etc&#x2F;containerd&#x2F;config.toml 文件中添加需要加速的镜像信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">[plugins.<span class="hljs-string">&quot;io.containerd.grpc.v1.cri&quot;</span>.registry.mirrors.<span class="hljs-string">&quot;k8s.gcr.io&quot;</span>]<br> endpoint = [<span class="hljs-string">&quot;https://registry.aliyuncs.com/k8sxio&quot;</span>]<br></code></pre></td></tr></table></figure>
+
+<p>其中，<code>registry.mirrors.&quot;xxx&quot;</code>表示需要配置 mirror 的镜像仓库原镜像仓库，<code>endpoint</code>表示提供 mirror 的镜像加速服务。</p>
+<h3 id="镜像验证"><a href="#镜像验证" class="headerlink" title="镜像验证"></a>镜像验证</h3><h4 id="tls验证"><a href="#tls验证" class="headerlink" title="tls验证"></a>tls验证</h4><p>跳过tls验证：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">[plugins.<span class="hljs-string">&quot;io.containerd.grpc.v1.cri&quot;</span>.registry.configs.<span class="hljs-string">&quot;&lt;YOUR REGISTRY&gt;&quot;</span>.tls]<br>  insecure_skip_verify = <span class="hljs-literal">true</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="用户验证"><a href="#用户验证" class="headerlink" title="用户验证"></a>用户验证</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">[plugins.<span class="hljs-string">&quot;io.containerd.grpc.v1.cri&quot;</span>.registry.configs.<span class="hljs-string">&quot;&lt;YOUR REGISTRY&gt;&quot;</span>.auth]<br>  username = <span class="hljs-string">&quot;&lt;YOUR USERNAME&gt;&quot;</span><br>  password = <span class="hljs-string">&#x27;&lt;USERNAME PASSWORD&gt;&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>作者：橘子基因<br>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/07a2b4b74d63">https://www.jianshu.com/p/07a2b4b74d63</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 <p><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8strain2/containerd/nerdctl/"># Containerd 高级命令行工具 nerdctl</a></p>
 
                 
