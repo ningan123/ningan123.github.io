@@ -8,14 +8,8 @@
     <link href="/2023/06/19/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91%E5%B8%B8%E8%A7%81%E7%BD%91%E7%BB%9C%E5%8C%85/"/>
     <url>/2023/06/19/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91%E5%B8%B8%E8%A7%81%E7%BD%91%E7%BB%9C%E5%8C%85/</url>
     
-    <content type="html"><![CDATA[<table><thead><tr><th align="left"></th><th align="left">centos</th><th align="left">ubuntu</th></tr></thead><tbody><tr><td align="left">dig</td><td align="left">yum install -y bind-utils</td><td align="left"></td></tr><tr><td align="left"></td><td align="left"></td><td align="left"></td></tr></tbody></table>]]></content>
+    <content type="html"><![CDATA[<table><thead><tr><th align="left"></th><th align="left">centos</th><th align="left">ubuntu</th></tr></thead><tbody><tr><td align="left">dig nslookup</td><td align="left">yum install -y bind-utils</td><td align="left"></td></tr><tr><td align="left">telnet</td><td align="left">yum install -y telnet</td><td align="left"></td></tr><tr><td align="left"><font face="??, Bookerly, 霞鹜文楷 GB, LXGW WenKai, Segoe UI Emoji, ??, ??, ??, Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Microsoft YaHei, sans-serif"><span style="letter-spacing: 0.45px;">ifconfig route arp netstat</span></font><br></td><td align="left"><font face="??, Bookerly, 霞鹜文楷 GB, LXGW WenKai, Segoe UI Emoji, ??, ??, ??, Inter, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Helvetica, Arial, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol, Microsoft YaHei, sans-serif"><span style="letter-spacing: 0.45px;">net-tools</span></font><br></td><td align="left"></td></tr></tbody></table>]]></content>
     
-    
-    <categories>
-      
-      <category>net</category>
-      
-    </categories>
     
     
   </entry>
@@ -826,14 +820,8 @@
     <link href="/2023/02/16/books/%E3%80%90books%E3%80%912023%E9%98%85%E8%AF%BB%E4%B9%A6%E7%B1%8D/"/>
     <url>/2023/02/16/books/%E3%80%90books%E3%80%912023%E9%98%85%E8%AF%BB%E4%B9%A6%E7%B1%8D/</url>
     
-    <content type="html"><![CDATA[<h1 id="2023阅读书籍"><a href="#2023阅读书籍" class="headerlink" title="2023阅读书籍"></a>2023阅读书籍</h1><h2 id="01《撒哈拉的故事》"><a href="#01《撒哈拉的故事》" class="headerlink" title="01《撒哈拉的故事》"></a>01《撒哈拉的故事》</h2><p>阅读方式：微信读书 –&gt; 阅读器<br>阅读时间：2022.12.31 –&gt; 2023.02.02<br><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230216135833.png" alt="image.png"><br><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230216140233.png" alt="image.png"></p><h2 id="02《谁动了我的奶酪》"><a href="#02《谁动了我的奶酪》" class="headerlink" title="02《谁动了我的奶酪》"></a>02《谁动了我的奶酪》</h2><p>阅读方式：微信读书<br>阅读时间： 2023.02.16 –&gt; 2023.02.16</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230216140823.png" alt="image.png"></p><h2 id="《硬派健身100问》"><a href="#《硬派健身100问》" class="headerlink" title="《硬派健身100问》"></a>《硬派健身100问》</h2><p>阅读方式： 纸质书<br>阅读时间： 2023.02.07  –&gt; </p><h2 id="03《德米安-彷徨少年时》"><a href="#03《德米安-彷徨少年时》" class="headerlink" title="03《德米安-彷徨少年时》"></a>03《德米安-彷徨少年时》</h2><p>阅读方式： 纸质书<br>阅读时间：2023.06.10-2023.06.11</p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/4d914420e783e7650e3ea8b783f87c4.jpg" width="50%" height="50%">]]></content>
+    <content type="html"><![CDATA[<h1 id="2023阅读书籍"><a href="#2023阅读书籍" class="headerlink" title="2023阅读书籍"></a>2023阅读书籍</h1><h2 id="01《撒哈拉的故事》"><a href="#01《撒哈拉的故事》" class="headerlink" title="01《撒哈拉的故事》"></a>01《撒哈拉的故事》</h2><p>阅读方式：微信读书 –&gt; 阅读器<br>阅读时间：2022.12.31 –&gt; 2023.02.02<br><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230216135833.png" alt="image.png"><br><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230216140233.png" alt="image.png"></p><h2 id="02《谁动了我的奶酪》"><a href="#02《谁动了我的奶酪》" class="headerlink" title="02《谁动了我的奶酪》"></a>02《谁动了我的奶酪》</h2><p>阅读方式：微信读书<br>阅读时间： 2023.02.16 –&gt; 2023.02.16</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230216140823.png" alt="image.png"></p><h2 id="03《德米安-彷徨少年时》"><a href="#03《德米安-彷徨少年时》" class="headerlink" title="03《德米安-彷徨少年时》"></a>03《德米安-彷徨少年时》</h2><p>阅读方式： 纸质书<br>阅读时间：2023.06.10-2023.06.11</p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/4d914420e783e7650e3ea8b783f87c4.jpg" width="50%" height="50%"><h2 id="04《悉达多》"><a href="#04《悉达多》" class="headerlink" title="04《悉达多》"></a>04《悉达多》</h2><p>阅读方式： 纸质书<br>阅读时间：2023.06.22-2023.06.28</p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/094db4f6d50607928e640ceb7a6b96b.jpg" width="50%" height="50%"><h2 id="《硬派健身100问》"><a href="#《硬派健身100问》" class="headerlink" title="《硬派健身100问》"></a>《硬派健身100问》</h2><p>阅读方式： 纸质书<br>阅读时间： 2023.02.07  –&gt; </p><h2 id="《平凡的世界》"><a href="#《平凡的世界》" class="headerlink" title="《平凡的世界》"></a>《平凡的世界》</h2>]]></content>
     
-    
-    <categories>
-      
-      <category>books</category>
-      
-    </categories>
     
     
   </entry>
