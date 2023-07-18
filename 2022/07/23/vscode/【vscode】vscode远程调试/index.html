@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          5.6k 字
+          4.7k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          47 分钟
+          40 分钟
         
       </span>
     
@@ -281,12 +281,6 @@
 <p>Add <code>--</code> to tell <code>dlv</code> that all subsequent arguments should be passed verbatim to the binary, without trying to parse them:</p>
 <figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs routeros">dlv <span class="hljs-attribute">--listen</span>=:5432 exec /mypath/binary -- <span class="hljs-attribute">--config</span>=config.toml<br></code></pre></td></tr></table></figure>
 
-
-<p>wrapper启动命令：</p>
-<figure class="highlight gradle"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs gradle"><span class="hljs-regexp">/root/g</span>o<span class="hljs-regexp">/bin/</span>dlv --listen=:<span class="hljs-number">5432</span> --headless=<span class="hljs-keyword">true</span> --api-version=<span class="hljs-number">2</span>   exec .<span class="hljs-regexp">/wrapper-debug -- --kubeconfig ./</span>config<span class="hljs-regexp">/kubeconfig-201 --nodename 192.168.20.201 --metrics-addr 192.168.20.201:10355  --internal-ip 192.168.20.201 --ca /</span>root<span class="hljs-regexp">/bink8s/</span>certs<span class="hljs-regexp">/ca.pem --cert /</span>root<span class="hljs-regexp">/bink8s/</span>certs<span class="hljs-regexp">/apiserver-kubelet-client.pem --key /</span>root<span class="hljs-regexp">/bink8s/</span>certs/apiserver-kubelet-client-key.pem --port <span class="hljs-number">17896</span><br>API server listening at: [::]:<span class="hljs-number">5432</span><br></code></pre></td></tr></table></figure>
-
-<p>vscode的workspace：</p>
-<figure class="highlight awk"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs awk">      &#123;<br>        <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;WrapperLocal&quot;</span>,<br>        <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;go&quot;</span>,<br>        <span class="hljs-string">&quot;request&quot;</span>: <span class="hljs-string">&quot;attach&quot;</span>,<br>        <span class="hljs-string">&quot;mode&quot;</span>: <span class="hljs-string">&quot;remote&quot;</span>,<br>        <span class="hljs-string">&quot;remotePath&quot;</span>: <span class="hljs-string">&quot;$&#123;workspaceFolder&#125;&quot;</span>,<br>        <span class="hljs-string">&quot;host&quot;</span>: <span class="hljs-string">&quot;192.168.20.201&quot;</span>,<span class="hljs-regexp">//</span> <span class="hljs-string">&quot;host&quot;</span>: <span class="hljs-string">&quot;10.191.193.6&quot;</span>, <span class="hljs-regexp">//</span><span class="hljs-string">&quot;host&quot;</span>: <span class="hljs-string">&quot;dlv 监听的地址&quot;</span>,<br>        <span class="hljs-string">&quot;port&quot;</span>: <span class="hljs-number">5432</span>, <span class="hljs-regexp">//</span> <span class="hljs-string">&quot;port&quot;</span>: <span class="hljs-string">&quot;dlv 监听的端口（此处应该是数字）&quot;</span>,<br>        <span class="hljs-string">&quot;cwd&quot;</span>: <span class="hljs-string">&quot;$&#123;workspaceFolder&#125;&quot;</span>,<br>      &#125;,<br></code></pre></td></tr></table></figure>
 
 
 

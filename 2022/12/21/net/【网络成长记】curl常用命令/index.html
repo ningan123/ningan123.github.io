@@ -16,12 +16,12 @@
   <meta name="author" content="ningan123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="12345678# 这两个等价time curl 10.191.193.5:30001time curl web-nginx-entrypoint.anwenyan# 这样子可行time curl https:&#x2F;&#x2F;11.254.0.1:443&#x2F;version --cacert &#x2F;root&#x2F;k8s&#x2F;certs&#x2F;ca.pem --key &#x2F;root&#x2F;k8s&#x2F;certs&#x2F;apiserver-key.pe">
+    <meta name="description" content="12345678# 这两个等价time curl 191.168.10.10:30001time curl web-nginx-entrypoint.default# 这样子可行time curl https:&#x2F;&#x2F;11.254.0.1:443&#x2F;version --cacert &#x2F;root&#x2F;k8s&#x2F;certs&#x2F;ca.pem --key &#x2F;root&#x2F;k8s&#x2F;certs&#x2F;apiserver-key.pe">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【网络成长记】curl常用命令">
 <meta property="og:url" content="http://example.com/2022/12/21/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91curl%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="ningan123">
-<meta property="og:description" content="12345678# 这两个等价time curl 10.191.193.5:30001time curl web-nginx-entrypoint.anwenyan# 这样子可行time curl https:&#x2F;&#x2F;11.254.0.1:443&#x2F;version --cacert &#x2F;root&#x2F;k8s&#x2F;certs&#x2F;ca.pem --key &#x2F;root&#x2F;k8s&#x2F;certs&#x2F;apiserver-key.pe">
+<meta property="og:description" content="12345678# 这两个等价time curl 191.168.10.10:30001time curl web-nginx-entrypoint.default# 这样子可行time curl https:&#x2F;&#x2F;11.254.0.1:443&#x2F;version --cacert &#x2F;root&#x2F;k8s&#x2F;certs&#x2F;ca.pem --key &#x2F;root&#x2F;k8s&#x2F;certs&#x2F;apiserver-key.pe">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-12-21T04:02:00.000Z">
 <meta property="article:modified_time" content="2022-12-21T04:03:00.000Z">
@@ -275,7 +275,7 @@
             
               <div class="markdown-body">
                 
-                <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 这两个等价</span><br>time curl 10.191.193.5:30001<br>time curl web-nginx-entrypoint.anwenyan<br><br><span class="hljs-comment"># 这样子可行</span><br>time curl https://11.254.0.1:443/version --cacert /root/k8s/certs/ca.pem --key /root/k8s/certs/apiserver-key.pem --cert /root/k8s/certs/apiserver.pem<br><span class="hljs-comment"># 这样子不行</span><br>time curl kubernetes.default/version --cacert /root/k8s/certs/ca.pem --key /root/k8s/certs/apiserver-key.pem --cert /root/k8s/certs/apiserver.pem<br></code></pre></td></tr></table></figure>
+                <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 这两个等价</span><br>time curl 191.168.10.10:30001<br>time curl web-nginx-entrypoint.default<br><br><span class="hljs-comment"># 这样子可行</span><br>time curl https://11.254.0.1:443/version --cacert /root/k8s/certs/ca.pem --key /root/k8s/certs/apiserver-key.pem --cert /root/k8s/certs/apiserver.pem<br><span class="hljs-comment"># 这样子不行</span><br>time curl kubernetes.default/version --cacert /root/k8s/certs/ca.pem --key /root/k8s/certs/apiserver-key.pem --cert /root/k8s/certs/apiserver.pem<br></code></pre></td></tr></table></figure>
                 
               </div>
             
