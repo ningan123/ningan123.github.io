@@ -11,6 +11,12 @@
     <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">cat</span> ca.pem | <span class="hljs-built_in">base64</span> -w 0<br></code></pre></td></tr></table></figure>]]></content>
     
     
+    <categories>
+      
+      <category>linux</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -23,6 +29,12 @@
     
     <content type="html"><![CDATA[]]></content>
     
+    
+    <categories>
+      
+      <category>linux</category>
+      
+    </categories>
     
     
   </entry>
@@ -783,6 +795,12 @@
     
     <content type="html"><![CDATA[<p>下载链接：<a href="https://github.com/kingToolbox/WindTerm/releases">https://github.com/kingToolbox/WindTerm/releases</a></p><p>windows免安装解压即用</p><h2 id="添加快捷命令（20230324）"><a href="#添加快捷命令（20230324）" class="headerlink" title="添加快捷命令（20230324）"></a>添加快捷命令（20230324）</h2><h3 id="添加"><a href="#添加" class="headerlink" title="添加"></a>添加</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230324004239.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230324004419.png" alt="image.png"></p><h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230324004502.png" alt="image.png"></p><p>如需回车，可以写成</p><figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs sh">systemctl list-units\r<br></code></pre></td></tr></table></figure><h2 id="开启右键粘贴（20230717）"><a href="#开启右键粘贴（20230717）" class="headerlink" title="开启右键粘贴（20230717）"></a>开启右键粘贴（20230717）</h2><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230717190533.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230717190641.png" alt="image.png"></p><h2 id="自动复制选中内容（20230717）"><a href="#自动复制选中内容（20230717）" class="headerlink" title="自动复制选中内容（20230717）"></a>自动复制选中内容（20230717）</h2><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230717190759.png" alt="image.png"></p><h2 id="新建会话（20230717）"><a href="#新建会话（20230717）" class="headerlink" title="新建会话（20230717）"></a>新建会话（20230717）</h2><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230717191610.png" alt="image.png"></p><h2 id="放大字体（20230717）"><a href="#放大字体（20230717）" class="headerlink" title="放大字体（20230717）"></a>放大字体（20230717）</h2><p>如果感觉字体比较小的话，可以直接按住「ctrl +」两个组合键放大字体。</p><p>放大之后，关闭软件，重新打开，还是放大后的字体。</p><h2 id="切换标签（20230717）"><a href="#切换标签（20230717）" class="headerlink" title="切换标签（20230717）"></a>切换标签（20230717）</h2><p><code>Alt + 1</code>：切换到第一个标签，其他标签用<code>Alt+标签序号</code>即可。</p><h2 id="隐藏-x2F-打开菜单栏：Alt-w-Alt-m（20230717）"><a href="#隐藏-x2F-打开菜单栏：Alt-w-Alt-m（20230717）" class="headerlink" title="隐藏&#x2F;打开菜单栏：Alt+w Alt+m（20230717）"></a>隐藏&#x2F;打开菜单栏：Alt+w Alt+m（20230717）</h2><p>原样</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230717194719.png" alt="image.png"></p><p>按键：Alt+w Alt+m， 显示如下，菜单栏没有了</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230717194839.png" alt="image.png"></p><p>再次按键：Alt+w Alt+m</p><p>菜单栏又回来了</p><h2 id="隐藏-x2F-打开状态栏：Alt-w-Alt-u（20230717）"><a href="#隐藏-x2F-打开状态栏：Alt-w-Alt-u（20230717）" class="headerlink" title="隐藏&#x2F;打开状态栏：Alt+w Alt+u（20230717）"></a>隐藏&#x2F;打开状态栏：Alt+w Alt+u（20230717）</h2><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230717195201.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230717195121.png" alt="image.png"></p><h2 id="隐藏-x2F-打开快捷栏：Alt-w-Alt-q（20230717）"><a href="#隐藏-x2F-打开快捷栏：Alt-w-Alt-q（20230717）" class="headerlink" title="隐藏&#x2F;打开快捷栏：Alt+w Alt+q（20230717）"></a>隐藏&#x2F;打开快捷栏：Alt+w Alt+q（20230717）</h2><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230717195333.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230717195441.png" alt="image.png"></p>]]></content>
     
+    
+    <categories>
+      
+      <category>tools</category>
+      
+    </categories>
     
     
   </entry>
