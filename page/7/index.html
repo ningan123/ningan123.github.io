@@ -226,6 +226,393 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2023/02/06/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202302)%20%E5%8D%87%E7%BA%A7%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E7%9A%84containerd%E7%89%88%E6%9C%AC/" target="_self">
+          【k8s系列】(202302) 升级生产环境的containerd版本
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/02/06/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202302)%20%E5%8D%87%E7%BA%A7%E7%94%9F%E4%BA%A7%E7%8E%AF%E5%A2%83%E7%9A%84containerd%E7%89%88%E6%9C%AC/" target="_self">
+        <div>
+          1.驱逐pod 123kubectl cordon node2kubectl drain node2 --ignore-daemonsets --delete-emptydir-data --force  2.替换containerd的二进制，重启containerd 3.删除containerd的数据目录，重启containerd 4.恢复node 1kubectl uncordon node2
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-02-06 15:49" pubdate>
+              2023-02-06
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/01/29/ebpf/04/" target="_self">
+          
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/01/29/ebpf/04/" target="_self">
+        <div>
+          12345678910111213141516171819#### 04节###### bpftool，用它可以查看 eBPF 程序的运行状态# 查询系统中正在运行的 eBPF 程序sudo bpftool prog list  # 导出这个 eBPF 程序的指令sudo bpftool prog dump xlated id 89sudo bpftool prog dump jited id 8
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-01-29 22:52" pubdate>
+              2023-01-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ebpf/" class="category-chain-item">ebpf</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/01/29/ebpf/%E3%80%90ebpf%E3%80%91first%20try2/" target="_self">
+          【ebpf】first try2
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/01/29/ebpf/%E3%80%90ebpf%E3%80%91first%20try2/" target="_self">
+        <div>
+          虚拟机基本环境信息12345678910111213[root@ubuntu-22 ~]# uname -aLinux ubuntu-22 5.15.0-58-generic #64-Ubuntu SMP Thu Jan 5 11:43:13 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux[root@ubuntu-22 ~]# uname -r5.15.0-58-g
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-01-29 14:36" pubdate>
+              2023-01-29
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ebpf/" class="category-chain-item">ebpf</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/01/11/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202301)%20gvisor%E5%AE%89%E8%A3%85%E4%B8%8Econtainerd%E9%9B%86%E6%88%90/" target="_self">
+          【k8s系列】(202301) gvisor安装与containerd集成
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/01/11/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202301)%20gvisor%E5%AE%89%E8%A3%85%E4%B8%8Econtainerd%E9%9B%86%E6%88%90/" target="_self">
+        <div>
+          安装安装地址：Installation - gVisor 12345678910ARCH=$(uname -m)URL=https://storage.googleapis.com/gvisor/releases/release/latest/$&#123;ARCH&#125;wget $&#123;URL&#125;/runsc $&#123;URL&#125;/runsc.sha512 \
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-01-11 21:23" pubdate>
+              2023-01-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/k8s/">#k8s</a>
+            
+              <a href="/tags/gvisor/">#gvisor</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2023/01/03/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91cks/" target="_self">
+          【k8s系列】cks
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2023/01/03/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91cks/" target="_self">
+        <div>
+          CIS安全基准互联网安全中心（CIS，Center for Internet Security），是一个非盈利组织，致力于为互联网提供免费的安全防御解决方案。 官网：https://www.cisecurity.org/kubernetes CIS标准：https://www.cisecurity.org/benchmark/kubernetes   CIS基准测试工具kube-bench是容器安
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2023-01-03 23:10" pubdate>
+              2023-01-03
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/12/28/net/%E7%BD%91%E5%8D%A1%E6%B2%A1%E6%9C%89ip/" target="_self">
+          
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/28/net/%E7%BD%91%E5%8D%A1%E6%B2%A1%E6%9C%89ip/" target="_self">
+        <div>
+          123456789101112131415161718192021222324252627282930313233[root@ningan netplan]# cat 01-network-manager-all.yaml# Let NetworkManager manage all devices on this systemnetwork:  version: 2  renderer: Ne
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-12-28 22:48" pubdate>
+              2022-12-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/net/" class="category-chain-item">net</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/12/28/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91(202212)%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" target="_self">
+          【linux系列】(202212)磁盘管理
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/28/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91(202212)%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" target="_self">
+        <div>
+          12345678910111213141516171819202122232425查看磁盘使用率df -h查看单个目录的挂载情况(目录属于哪个分区)df -h /homefdisk -llsblk# 查看文件系统类型lsblk -f lvremovevgremovepvremove# fdisk /dev/sdb:d  # 删除:w  # 保存dos分区表 一个分区最大2Tgpt分区表 不限制查看
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-12-28 15:15" pubdate>
+              2022-12-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/linux/" class="category-chain-item">linux</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/12/27/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202212)%20kube-state-metrics%E4%B8%ADkube_endpoint_address%E6%8C%87%E6%A0%87/" target="_self">
           【k8s系列】(202212) kube-state-metrics中kube_endpoint_address指标
         </a>
@@ -391,430 +778,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/21/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91curl%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-          【网络成长记】curl常用命令
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/21/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91curl%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-        <div>
-          12345678# 这两个等价time curl 191.168.10.10:30001time curl web-nginx-entrypoint.default# 这样子可行time curl https://11.254.0.1:443/version --cacert /root/k8s/certs/ca.pem --key /root/k8s/certs/apiserver-key.pe
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-21 12:02" pubdate>
-              2022-12-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/net/" class="category-chain-item">net</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/net/">#net</a>
-            
-              <a href="/tags/curl/">#curl</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/21/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91tcpdump%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-          【网络成长记】tcpdump常用命令
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/21/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91tcpdump%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-        <div>
-          tcpdump-i 　　   指定监听的网络接口；-n 　　  指定将每个监听到数据包中的域名转换成IP地址后显示，不把网络地址转换成名字； 1234567891011121314151617181920212223242526272829303132333435tcpdump -ne -i bond0 11.254.xxxtcpdump -ne -i calixxx -c 10tcpdump -
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-21 11:45" pubdate>
-              2022-12-21
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/net/" class="category-chain-item">net</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/net/">#net</a>
-            
-              <a href="/tags/tcpdump/">#tcpdump</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/20/linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95/linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95%E8%BF%BD%E8%B8%AA%E6%8A%80%E6%9C%AF/" target="_self">
-          linux内核调试追踪技术
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/20/linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95/linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95%E8%BF%BD%E8%B8%AA%E6%8A%80%E6%9C%AF/" target="_self">
-        <div>
-          文件源b站地址思维导图地址     密码：linux 如何调试linux内核？ 内核调试日志：日志采集–日志分类和处理-用户查看日志  debugfs是一种虚拟的文件系统 linux内核追踪系统之事件源linux追踪框架之ftrace可以实现对热点函数详细的追踪分析执行和跟踪内核里某一个函数的调用过程 前端工具：debugfs123456789101112131415161718192021222
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-20 15:33" pubdate>
-              2022-12-20
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95/" class="category-chain-item">linux内核调试</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/18/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91k8s%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-          【k8s系列】k8s常用命令
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/18/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91k8s%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-        <div>
-          12345kubectl rollout restart k2 get pod -n welkin-system |grep dubhe-manager |grep ContainerStatusUnknown | awk &#x27;&#123;print $1&#125;&#x27; | xargs kubectl --kubeconfig /root/kubeconfig/kubeconfi
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-18 15:49" pubdate>
-              2022-12-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/18/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202212)%20cka%E8%80%83%E8%AF%95%E5%BF%85%E5%A4%87%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8%E5%8F%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" target="_self">
-          【k8s系列】(202212) cka考试必备命令大全及注意事项
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/18/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202212)%20cka%E8%80%83%E8%AF%95%E5%BF%85%E5%A4%87%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8%E5%8F%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" target="_self">
-        <div>
-          必备命令主机层面12345678910111213141516# bash completionapt install bash-completionsource &lt;(kubectl completion bash)# vim ~/.bahsrcalias k=kubectlalias kgn=&quot;kubectl get node -owide&quot;alias kgp=&quo
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-18 11:01" pubdate>
-              2022-12-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/k8s/">#k8s</a>
-            
-              <a href="/tags/cka/">#cka</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/15/linux/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-          linux常用命令
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/15/linux/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-        <div>
-          12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849nccurl xxx -I systemctl is-enabled xxx## 20221218lsof -w |wc -lpkill fluentbitgrep xxx  ./  rsqlite3 xx.db.head
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-15 15:22" pubdate>
-              2022-12-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/linux/" class="category-chain-item">linux</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/linux/">#linux</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/15/git/%E3%80%90git%E3%80%91git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-          【git】git常用命令
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/15/git/%E3%80%90git%E3%80%91git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-        <div>
-          拉取远程分支并创建本地分支1234567891011121314151617181920212223242526272829# 使用该方式会在本地新建分支x，并自动切换到该本地分支xgit checkout -b 本地分支名x origin/远程分支名xgit checkout -b master origin/master# dev合并到master处于master分支git merge ori
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-15 10:26" pubdate>
-              2022-12-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/git/" class="category-chain-item">git</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/git/">#git</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/6/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><a class="page-number" href="/page/10/#board">10</a><a class="extend next" rel="next" href="/page/8/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/6/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/#board">5</a><a class="page-number" href="/page/6/#board">6</a><span class="page-number current">7</span><a class="page-number" href="/page/8/#board">8</a><a class="page-number" href="/page/9/#board">9</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/#board">11</a><a class="extend next" rel="next" href="/page/8/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
