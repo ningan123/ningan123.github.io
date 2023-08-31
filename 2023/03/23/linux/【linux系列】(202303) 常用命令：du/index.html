@@ -16,21 +16,21 @@
   <meta name="author" content="ningan123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="ningan123的blog">
+    <meta name="description" content="1234-s, --summarize       display only a total for each argument-h, --human-readable       print sizes in human readable format (e.g., 1K 234M 2G)   123456789101112131415# 计算当前文件夹的总磁盘占用量# -s选项表示计算总和,">
 <meta property="og:type" content="article">
-<meta property="og:title" content="ningan123">
-<meta property="og:url" content="http://example.com/2023/08/11/ctf/unsupported/%E3%80%90ctf%E7%B3%BB%E5%88%97%E3%80%91%E6%96%87%E4%BB%B6%E5%8C%85%E5%90%AB%E6%BC%8F%E6%B4%9E/index.html">
+<meta property="og:title" content="【linux系列】(202303) 常用命令：du">
+<meta property="og:url" content="http://example.com/2023/03/23/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91(202303)%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%9Adu/index.html">
 <meta property="og:site_name" content="ningan123">
-<meta property="og:description" content="ningan123的blog">
+<meta property="og:description" content="1234-s, --summarize       display only a total for each argument-h, --human-readable       print sizes in human readable format (e.g., 1K 234M 2G)   123456789101112131415# 计算当前文件夹的总磁盘占用量# -s选项表示计算总和,">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-08-11T14:15:36.393Z">
-<meta property="article:modified_time" content="2023-08-23T06:02:55.301Z">
+<meta property="article:published_time" content="2023-03-23T14:50:00.000Z">
+<meta property="article:modified_time" content="2023-06-20T05:22:00.000Z">
 <meta property="article:author" content="ningan123">
 <meta name="twitter:card" content="summary_large_image">
   
   
   
-  <title>ningan123</title>
+  <title>【linux系列】(202303) 常用命令：du - ningan123</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -196,7 +196,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text=""></span>
+            <span id="subtitle" data-typed-text="【linux系列】(202303) 常用命令：du"></span>
           
         </div>
 
@@ -207,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-08-11 22:15" pubdate>
-          2023年8月11日 晚上
+        <time datetime="2023-03-23 22:50" pubdate>
+          2023年3月23日 晚上
         </time>
       </span>
     
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          335 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          1 分钟
+          3 分钟
         
       </span>
     
@@ -268,46 +268,21 @@
         <div id="board">
           <article class="post-content mx-auto">
             <!-- SEO header -->
-            <h1 style="display: none"></h1>
+            <h1 style="display: none">【linux系列】(202303) 常用命令：du</h1>
             
             
               <div class="markdown-body">
                 
-                
+                <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">-s, --summarize<br>       display only a total <span class="hljs-keyword">for</span> each argument<br>-h, --human-readable<br>       <span class="hljs-built_in">print</span> sizes <span class="hljs-keyword">in</span> human readable format (e.g., 1K 234M 2G)<br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 计算当前文件夹的总磁盘占用量</span><br><span class="hljs-comment"># -s选项表示计算总和, -h选项表示以恰当的K/M/G单位展示</span><br>[root@ningan ~]<span class="hljs-comment"># du -sh</span><br>13G     .<br>[root@ningan ~]<span class="hljs-comment"># du -sh .</span><br>13G     .<br><br><br><br><span class="hljs-comment"># 展示每一个参数对应的磁盘空间使用量</span><br><span class="hljs-comment"># 通配形式的参数首先被Shell解析, 然后-s选项发挥作用, 展示每一个参数对应的磁盘空间使用量</span><br>[root@ningan ~]<span class="hljs-comment"># du -sh *</span><br>564M    bcc<br>31M     bpftrace<br><br></code></pre></td></tr></table></figure>
                 
               </div>
             
             <hr/>
             <div>
               <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/ctf/" class="category-chain-item">ctf</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/ctf/unsupported/" class="category-chain-item">unsupported</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
   
   
 </div>
@@ -318,8 +293,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div></div>
-      <div>http://example.com/2023/08/11/ctf/unsupported/【ctf系列】文件包含漏洞/</div>
+      <div>【linux系列】(202303) 常用命令：du</div>
+      <div>http://example.com/2023/03/23/linux/【linux系列】(202303) 常用命令：du/</div>
     </div>
     <div class="license-meta">
       
@@ -331,7 +306,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年8月11日</div>
+          <div>2023年3月23日</div>
         </div>
       
       
@@ -363,9 +338,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/08/12/ctf/unsupported/%E3%80%90ctf%E7%B3%BB%E5%88%97%E3%80%91metasploit/" title="">
+                      <a href="/2023/03/24/tools/%E3%80%90WindTerm%E3%80%91%E5%85%A8%E5%AE%B6%E6%A1%B6/" title="【WindTerm】全家桶">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile"></span>
+                        <span class="hidden-mobile">【WindTerm】全家桶</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -373,8 +348,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/08/09/ctf/unsupported/%E3%80%90ctf%E7%B3%BB%E5%88%97%E3%80%91%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="">
-                        <span class="hidden-mobile"></span>
+                      <a href="/2023/03/23/git/%E3%80%90git%E3%80%91git%20graph/" title="【git】git graph">
+                        <span class="hidden-mobile">【git】git graph</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>

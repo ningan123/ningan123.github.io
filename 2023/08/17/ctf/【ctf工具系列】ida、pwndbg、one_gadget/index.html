@@ -16,12 +16,12 @@
   <meta name="author" content="ningan123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="ida下面两个视图的切换，按下空格键就可以   有LOAD的表示程序装入内存的控制信息  plt在代码段每个表项都是16字节  例如下面的： xxx26-&gt;xxx36  got在数据段got.plt在数据段       shift+F12    找到字符串   双击 点函数，输入n，进行重命名  pwndbggdb常用 12345678910111213gdb linkninfo bd 1">
+    <meta name="description" content="ida下面两个视图的切换，按下空格键就可以   有LOAD的表示程序装入内存的控制信息  plt在代码段每个表项都是16字节  例如下面的： xxx26-&gt;xxx36  got在数据段got.plt在数据段       shift+F12    找到字符串   双击 点函数，输入n，进行重命名  pwndbggdb常用 1234567891011121314151617gdb linknin">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【ctf工具系列】pwndbg">
 <meta property="og:url" content="http://example.com/2023/08/17/ctf/%E3%80%90ctf%E5%B7%A5%E5%85%B7%E7%B3%BB%E5%88%97%E3%80%91ida%E3%80%81pwndbg%E3%80%81one_gadget/index.html">
 <meta property="og:site_name" content="ningan123">
-<meta property="og:description" content="ida下面两个视图的切换，按下空格键就可以   有LOAD的表示程序装入内存的控制信息  plt在代码段每个表项都是16字节  例如下面的： xxx26-&gt;xxx36  got在数据段got.plt在数据段       shift+F12    找到字符串   双击 点函数，输入n，进行重命名  pwndbggdb常用 12345678910111213gdb linkninfo bd 1">
+<meta property="og:description" content="ida下面两个视图的切换，按下空格键就可以   有LOAD的表示程序装入内存的控制信息  plt在代码段每个表项都是16字节  例如下面的： xxx26-&gt;xxx36  got在数据段got.plt在数据段       shift+F12    找到字符串   双击 点函数，输入n，进行重命名  pwndbggdb常用 1234567891011121314151617gdb linknin">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817193929.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817193947.png">
@@ -233,7 +233,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          978 字
+          1k 字
         
       </span>
     
@@ -302,7 +302,7 @@
 <p>点函数，输入n，进行重命名</p>
 <p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230822215158.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
 <h2 id="pwndbg"><a href="#pwndbg" class="headerlink" title="pwndbg"></a>pwndbg</h2><p>gdb常用</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">gdb <span class="hljs-built_in">link</span><br>n<br>info b<br>d 1           <span class="hljs-comment"># 删除断点</span><br>b *0xxxxx<br>b 函数名<br>c             <span class="hljs-comment"># continue</span><br>plt<br>got<br>backtrace<br><span class="hljs-built_in">return</span>    <span class="hljs-comment"># 把这个库函数退出</span><br><br>fastbin<br></code></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs bash">gdb <span class="hljs-built_in">link</span><br>n<br>info b<br>d 1           <span class="hljs-comment"># 删除断点</span><br>b *0xxxxx<br>b 函数名<br>c             <span class="hljs-comment"># continue</span><br>plt<br>got<br>backtrace<br><span class="hljs-built_in">return</span>    <span class="hljs-comment"># 把这个库函数退出</span><br><br>fastbin<br><br>pwndbg&gt; distance 源地址 目的地址<br>pwndbg&gt; p/d 0x6c<br><br></code></pre></td></tr></table></figure>
 
 
 

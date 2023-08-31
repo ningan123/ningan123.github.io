@@ -24,7 +24,7 @@
 <meta property="og:description" content="1 sendlineafter  当收到第一个参数之后，就发送第二个参数+&#x2F;n输出 cyclic是用来填充垃圾数据的 123456789&gt;&gt;&gt; from pwn import *&gt;&gt;&gt;&gt;&gt;&gt; cyclic(60)b&amp;#x27;aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaa">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-08-18T15:10:56.824Z">
-<meta property="article:modified_time" content="2023-08-23T06:02:55.301Z">
+<meta property="article:modified_time" content="2023-08-30T12:36:54.170Z">
 <meta property="article:author" content="ningan123">
 <meta name="twitter:card" content="summary_large_image">
   
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          294 字
+          689 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          3 分钟
+          6 分钟
         
       </span>
     
@@ -277,6 +277,9 @@
 <p>sendlineafter  当收到第一个参数之后，就发送第二个参数+&#x2F;n输出</p>
 <h2 id="cyclic"><a href="#cyclic" class="headerlink" title="cyclic"></a>cyclic</h2><p>是用来填充垃圾数据的</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">&gt;&gt;&gt; from pwn import *<br>&gt;&gt;&gt;<br>&gt;&gt;&gt; cyclic(60)<br>b<span class="hljs-string">&#x27;aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaa&#x27;</span><br>&gt;&gt;&gt;<br>&gt;&gt;&gt; cyclic(0x16 + 8)<br>b<span class="hljs-string">&#x27;aaaabaaacaaadaaaeaaafaaagaaaha&#x27;</span><br>&gt;&gt;&gt;<br><br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *         <span class="hljs-comment"># 用于创建与二进制文件进行交互的脚本。它提供了许多用于漏洞利用的功能。 </span><br>p=process(<span class="hljs-string">&#x27;./ret2libc3&#x27;</span>)  <span class="hljs-comment"># 这创建了一个新的进程，执行名为 `ret2libc3` 的可执行文件。这通常用于在本地系统上调试和测试漏洞利用脚本。</span><br>elf=ELF(<span class="hljs-string">&#x27;ret2libc3&#x27;</span>)      <span class="hljs-comment"># 这将二进制文件 `ret2libc3` 加载到一个对象 `elf` 中，以便可以从中获取有关二进制文件的信息，例如函数地址、GOT（Global Offset Table）等。</span><br>put_plt=elf.plt[<span class="hljs-string">&#x27;puts&#x27;</span>]   <span class="hljs-comment"># 获取了在二进制文件的 PLT 表中 `puts` 函数的地址。</span><br>put_got=elf.got[<span class="hljs-string">&#x27;puts&#x27;</span>]<br>start_addr=elf.symbols[<span class="hljs-string">&#x27;_start&#x27;</span>]<br></code></pre></td></tr></table></figure>
                 
               </div>
             
