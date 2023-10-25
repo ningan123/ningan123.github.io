@@ -16,12 +16,12 @@
   <meta name="author" content="ningan123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="ningan123的blog">
+    <meta name="description" content="ctfwiki-格式化字符串-总入口 基础知识%08x在C语言中，%08x是一个格式化字符串，通常用于格式化输出或输入十六进制数字。它的含义如下：  %：这是格式化字符串的起始标志。 0：表示使用零填充字段，即在数字前面用零填充，以达到指定的字段宽度。 8：表示字段宽度为8个字符，包括填充的零和十六进制数字。 x：表示以十六进制格式输出整数。  因此，%08x用于以八个字符的宽度，使用零填充的方式">
 <meta property="og:type" content="article">
 <meta property="og:title" content="【ctf题目系列】ctfwiki pwn类型 格式化字符串">
 <meta property="og:url" content="http://example.com/2023/09/01/ctf/%E3%80%90ctf%E9%A2%98%E7%9B%AE%E7%B3%BB%E5%88%97%E3%80%91ctfwiki%20pwn%E7%B1%BB%E5%9E%8B%20%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2/index.html">
 <meta property="og:site_name" content="ningan123">
-<meta property="og:description" content="ningan123的blog">
+<meta property="og:description" content="ctfwiki-格式化字符串-总入口 基础知识%08x在C语言中，%08x是一个格式化字符串，通常用于格式化输出或输入十六进制数字。它的含义如下：  %：这是格式化字符串的起始标志。 0：表示使用零填充字段，即在数字前面用零填充，以达到指定的字段宽度。 8：表示字段宽度为8个字符，包括填充的零和十六进制数字。 x：表示以十六进制格式输出整数。  因此，%08x用于以八个字符的宽度，使用零填充的方式">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2023-09-01T06:39:00.000Z">
 <meta property="article:modified_time" content="2023-09-01T06:39:00.000Z">
@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          0 字
+          1k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          1 分钟
+          9 分钟
         
       </span>
     
@@ -273,7 +273,41 @@
             
               <div class="markdown-body">
                 
-                
+                <p><a target="_blank" rel="noopener" href="https://ctf-wiki.org/pwn/linux/user-mode/fmtstr/fmtstr-intro/">ctfwiki-格式化字符串-总入口</a></p>
+<h1 id="基础知识"><a href="#基础知识" class="headerlink" title="基础知识"></a>基础知识</h1><h2 id="08x"><a href="#08x" class="headerlink" title="%08x"></a>%08x</h2><p>在C语言中，<code>%08x</code>是一个格式化字符串，通常用于格式化输出或输入十六进制数字。它的含义如下：</p>
+<ul>
+<li><code>%</code>：这是格式化字符串的起始标志。</li>
+<li><code>0</code>：表示使用零填充字段，即在数字前面用零填充，以达到指定的字段宽度。</li>
+<li><code>8</code>：表示字段宽度为8个字符，包括填充的零和十六进制数字。</li>
+<li><code>x</code>：表示以十六进制格式输出整数。</li>
+</ul>
+<p>因此，<code>%08x</code>用于以八个字符的宽度，使用零填充的方式输出一个整数的十六进制表示。如果整数的十六进制表示不足8个字符，将在前面用零填充。这种格式通常用于确保输出的十六进制数具有一致的宽度，便于阅读和比较。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> num = <span class="hljs-number">42</span>; <span class="hljs-comment">// 假设你有一个整数</span><br><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%08x&quot;</span>, num); <span class="hljs-comment">// 打印整数num的十六进制表示，确保宽度为8个字符</span><br></code></pre></td></tr></table></figure>
+
+<p>在这个示例中，<code>num</code>是一个整数变量，<code>printf</code>函数将会将其格式化为一个8个字符宽度的十六进制字符串，并在前面用零填充，然后将结果打印出来。</p>
+<h2 id="printf"><a href="#printf" class="headerlink" title="printf"></a>printf</h2><p>printf(“%p”,a) 用地址的格式打印变量 a 的值<br>printf(“%p”, &amp;a) 打印变量 a 所在的地址。</p>
+<h2 id="3-x"><a href="#3-x" class="headerlink" title="%3$x"></a>%3$x</h2><p>在C语言的格式化字符串中，%3$x表示使用参数列表中的第3个参数，并以十六进制格式打印它。这是一种格式化输出的方式，通常在处理多个参数的情况下使用。</p>
+<ul>
+<li><code>%</code>：格式化字符串的起始标志。</li>
+<li><code>3$</code>：表示使用参数列表中的第3个参数。</li>
+<li><code>x</code>：表示以十六进制格式输出参数的值。</li>
+</ul>
+<p>例如，考虑以下代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> a = <span class="hljs-number">10</span>;<br><span class="hljs-type">int</span> b = <span class="hljs-number">20</span>;<br><span class="hljs-type">int</span> c = <span class="hljs-number">30</span>;<br><span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;%3$x\n&quot;</span>, a, b, c);<br></code></pre></td></tr></table></figure>
+
+<p>在这个示例中，%3$x将会打印参数列表中的第3个参数 c（它的值是30）的十六进制表示。所以输出将是：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs">1e<br></code></pre></td></tr></table></figure>
+
+<p>请注意，使用%3$x这样的格式化字符串可以很有用，特别是在处理多个参数的情况下，可以选择性地选择要打印的参数，以及以不同的格式打印它们。</p>
+<h2 id="isoc99-scanf-“-6s”-format"><a href="#isoc99-scanf-“-6s”-format" class="headerlink" title="__isoc99_scanf(“%6s”, format);"></a>__isoc99_scanf(“%6s”, format);</h2><p>使用<code>scanf</code>从输入中读取最多6个字符，并将它们存储在名为<code>format</code>的变量中。输入将在读取了6个字符或遇到空白字符（例如空格或换行符）时停止。</p>
+<h2 id="小技巧总结"><a href="#小技巧总结" class="headerlink" title="小技巧总结"></a><strong>小技巧总结</strong></h2><blockquote>
+<ol>
+<li>利用 %x 来获取对应栈的内存，但建议使用 %p，可以不用考虑位数的区别。</li>
+<li>利用 %s 来获取变量所对应地址的内容，只不过有零截断。</li>
+<li>利用 %order$x 来获取指定参数的值，利用 %order$s 来获取指定参数对应地址的内容。</li>
+</ol>
+</blockquote>
+
                 
               </div>
             
@@ -355,6 +389,12 @@
                 <div class="post-prevnext my-3">
                   <article class="post-prev col-6">
                     
+                    
+                      <a href="/2023/09/04/ctf/%E3%80%90ctf%E9%A2%98%E7%9B%AE%E7%B3%BB%E5%88%97%E3%80%91pwn%E7%B1%BB%E5%9E%8B%20canary/" title="【ctf题目系列】pwn类型 canary">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【ctf题目系列】pwn类型 canary</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
                     
                   </article>
                   <article class="post-next col-6">
