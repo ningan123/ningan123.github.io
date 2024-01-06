@@ -11,6 +11,12 @@
     <content type="html"><![CDATA[<p><a href="https://www.toutiao.com/article/7315361744254861874/?app=news_article&timestamp=1703474209&use_new_style=1&req_id=20231225111648F919B5981AB74F493147&group_id=7315361744254861874&wxshare_count=1&tt_from=weixin&utm_source=weixin&utm_medium=toutiao_android&utm_campaign=client_share&share_token=05f0881f-b2b2-4fc4-98f4-41c189c55d13&source=m_redirect&wid=1704176093219">腾讯工作13年之所思所想，那些优秀程序员的共性特征-今日头条 (toutiao.com)</a></p><p><strong>偏执</strong><br>对于一个方案，一个实现，请不要说出“好像这样也可以”。你一定要选出一个更好的做法，并且一直坚持这个做法，并且要求别人也这样做。</p><p><strong>控制软件的熵</strong></p><p><strong>为测试做设计</strong><br>以及，如果没有强大的外部驱动力，“以后再测”实际上意味着“永远不测”。大家务实一点，在编码时就考虑怎么测试。不然，你永远没有机会考虑了。当面对着测试性低的代码，需要编写自动化测试的时候，你会感觉很难受。</p><p><strong>尽早测试, 经常测试, 自动测试</strong></p><p>一旦代码写出来，就要尽早开始测试。这些小鱼的恶心之处在于，它们很快就会变成巨大的食人鲨，而捕捉鲨鱼则相当困难。所以我们要写单元测试，写很多单元测试。</p><p><strong>项目中使用统一的术语</strong></p><p><strong>不要面向需求编程</strong></p><p><strong>写代码要有对于“美”的追求</strong></p><p><strong>应用程序框架是实现细节</strong></p>]]></content>
     
     
+    <categories>
+      
+      <category>code</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -23,6 +29,12 @@
     
     <content type="html"><![CDATA[<h2 id="第一章-秀出魅力：优秀领导者所具备的能力"><a href="#第一章-秀出魅力：优秀领导者所具备的能力" class="headerlink" title="第一章 秀出魅力：优秀领导者所具备的能力"></a>第一章 秀出魅力：优秀领导者所具备的能力</h2><p>赢得下属信任的能力<br>提高领导微信的能力</p>]]></content>
     
+    
+    <categories>
+      
+      <category>books</category>
+      
+    </categories>
     
     
   </entry>
@@ -37,6 +49,12 @@
     <content type="html"><![CDATA[<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">nerdctl ps<br>nerdctl logs containerID/<span class="hljs-type">NAME</span><br>nerdctl <span class="hljs-keyword">restart</span> containerID/<span class="hljs-type">NAME</span><br><br>ip a <span class="hljs-keyword">show</span> wg0<br><br>nc -vz -w3 <span class="hljs-number">240.2</span><span class="hljs-number">.0</span><span class="hljs-number">.1</span> <span class="hljs-number">443</span><br></code></pre></td></tr></table></figure>]]></content>
     
     
+    <categories>
+      
+      <category>net</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -49,6 +67,12 @@
     
     <content type="html"><![CDATA[]]></content>
     
+    
+    <categories>
+      
+      <category>cue</category>
+      
+    </categories>
     
     
   </entry>
@@ -63,6 +87,12 @@
     <content type="html"><![CDATA[<p>前期要想明白怎么做这件事情<br>做完汇报，最后要给出一个下一步行动，这个很重要</p><p>支点框架</p><ul><li>清醒 坚定 努力</li><li>白色 红色 黑色</li><li>小草 竹子 …</li><li>前端的html css js<br>三种动物 三种植物 三种饮料 …</li></ul><h2 id="钟摆框架-太冷-太热-刚刚好"><a href="#钟摆框架-太冷-太热-刚刚好" class="headerlink" title="钟摆框架- 太冷 太热 刚刚好"></a>钟摆框架<br>- 太冷 太热 刚刚好</h2><p>TODO: 想自己合适的自我介绍</p><p>在很久很久以前，有一个吸血魔头，他天生嗜血成性，经常装扮成一个帅气多金的男孩子，</p>]]></content>
     
     
+    <categories>
+      
+      <category>沟通课程</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -75,6 +105,12 @@
     
     <content type="html"><![CDATA[<h1 id="1"><a href="#1" class="headerlink" title="1"></a>1</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">## 脚本</span><br>lines=(<br><span class="hljs-string">&quot;* 12 34&quot;</span><br><span class="hljs-string">&quot;* 56 78&quot;</span><br>)<br><span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> <span class="hljs-variable">$&#123;lines[@]&#125;</span><br><span class="hljs-keyword">do</span><br>  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$line</span><br><span class="hljs-keyword">done</span><br><br><br><span class="hljs-comment">## 执行</span><br><span class="hljs-comment"># ll</span><br>total 4<br>-rw------- 1 root root 1805 Jul  7 18:07 anaconda-ks.cfg<br><span class="hljs-comment"># lines=(</span><br><span class="hljs-string">&quot;* 12 34&quot;</span><br><span class="hljs-string">&quot;* 56 78&quot;</span><br>)<br><span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> <span class="hljs-variable">$&#123;lines[@]&#125;</span><br><span class="hljs-keyword">do</span><br>  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$line</span><br><span class="hljs-keyword">done</span><br>anaconda-ks.cfg<br>12<br>34<br>anaconda-ks.cfg<br>56<br>78<br><br><br><br></code></pre></td></tr></table></figure><h1 id="2"><a href="#2" class="headerlink" title="2"></a>2</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">## 脚本</span><br>lines=(<br><span class="hljs-string">&quot;* 12 34&quot;</span><br><span class="hljs-string">&quot;* 56 78&quot;</span><br>)<br><span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> <span class="hljs-variable">$&#123;lines[@]&#125;</span><br><span class="hljs-keyword">do</span><br>  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$line</span>&quot;</span> <br><span class="hljs-keyword">done</span><br><br><br><span class="hljs-comment">## 执行</span><br><span class="hljs-comment"># ll</span><br>total 4<br>-rw------- 1 root root 1805 Jul  7 18:07 anaconda-ks.cfg<br><span class="hljs-comment"># lines=(</span><br><span class="hljs-string">&quot;* 12 34&quot;</span><br><span class="hljs-string">&quot;* 56 78&quot;</span><br>)<br><span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> <span class="hljs-variable">$&#123;lines[@]&#125;</span><br><span class="hljs-keyword">do</span><br>  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$line</span>&quot;</span> <br><span class="hljs-keyword">done</span><br>anaconda-ks.cfg<br>12<br>34<br>anaconda-ks.cfg<br>56<br>78<br><br><br><br></code></pre></td></tr></table></figure><h1 id="3"><a href="#3" class="headerlink" title="3"></a>3</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">## 脚本</span><br>lines=(<br><span class="hljs-string">&quot;* 12 34&quot;</span><br><span class="hljs-string">&quot;* 56 78&quot;</span><br>)<br><span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;lines[@]&#125;</span>&quot;</span><br><span class="hljs-keyword">do</span><br>  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$line</span> <br><span class="hljs-keyword">done</span><br><br><br><span class="hljs-comment">## 执行</span><br><span class="hljs-comment"># ll</span><br>total 4<br>-rw------- 1 root root 1805 Jul  7 18:07 anaconda-ks.cfg<br><span class="hljs-comment"># lines=(</span><br><span class="hljs-string">&quot;* 12 34&quot;</span><br><span class="hljs-string">&quot;* 56 78&quot;</span><br>)<br><span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;lines[@]&#125;</span>&quot;</span><br><span class="hljs-keyword">do</span><br>  <span class="hljs-built_in">echo</span> <span class="hljs-variable">$line</span> <br><span class="hljs-keyword">done</span><br>anaconda-ks.cfg 12 34<br>anaconda-ks.cfg 56 78<br><br><br><br><br><br></code></pre></td></tr></table></figure><h1 id="4"><a href="#4" class="headerlink" title="4"></a>4</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">## 脚本</span><br>lines=(<br><span class="hljs-string">&quot;* 12 34&quot;</span><br><span class="hljs-string">&quot;* 56 78&quot;</span><br>)<br><span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;lines[@]&#125;</span>&quot;</span><br><span class="hljs-keyword">do</span><br>  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$line</span>&quot;</span> <br><span class="hljs-keyword">done</span><br><br><br><span class="hljs-comment">## 执行</span><br><span class="hljs-comment"># ll</span><br>total 4<br>-rw------- 1 root root 1805 Jul  7 18:07 anaconda-ks.cfg<br><span class="hljs-comment"># lines=(</span><br><span class="hljs-string">&quot;* 12 34&quot;</span><br><span class="hljs-string">&quot;* 56 78&quot;</span><br>)<br><span class="hljs-keyword">for</span> line <span class="hljs-keyword">in</span> <span class="hljs-string">&quot;<span class="hljs-variable">$&#123;lines[@]&#125;</span>&quot;</span><br><span class="hljs-keyword">do</span><br>  <span class="hljs-built_in">echo</span> <span class="hljs-string">&quot;<span class="hljs-variable">$line</span>&quot;</span> <br><span class="hljs-keyword">done</span><br>* 12 34<br>* 56 78<br></code></pre></td></tr></table></figure><h1 id="解释"><a href="#解释" class="headerlink" title="解释"></a>解释</h1><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs php"><span class="hljs-keyword">var</span>=<span class="hljs-string">&quot;* 12 23&quot;</span> <br><span class="hljs-keyword">echo</span> <span class="hljs-variable">$var</span>和<span class="hljs-keyword">echo</span> <span class="hljs-string">&quot;<span class="hljs-subst">$var</span>&quot;</span>为什么输出不一样?<br></code></pre></td></tr></table></figure><p><code>echo $var</code> 和 <code>echo &quot;$var&quot;</code> 之所以输出不一样，是因为它们在处理变量时对空白字符（空格、制表符、换行符等）的方式不同。在Shell中，双引号 <code>&quot;</code> 和不使用引号之间的差异是关键。</p><ol><li><p><code>echo $var</code>: 当您使用 <code>echo $var</code> 时，Shell会对变量进行参数扩展（Word Splitting）。这意味着空白字符被用作分隔符，将变量的值分割成多个参数，然后将这些参数传递给<code>echo</code>命令。在这种情况下，<code>$var</code> 中的空白字符将被用作分隔符，所以 <code>*</code>、<code>12</code> 和 <code>23</code> 会被视为不同的参数，而不是单个参数。</p></li><li><p><code>echo &quot;$var&quot;</code>: 当您使用 <code>echo &quot;$var&quot;</code> 时，双引号将变量的值视为一个整体，不会进行参数扩展。因此，<code>$var</code> 中的空白字符保持不变，作为一个整体传递给<code>echo</code>命令，所以输出将是 <code>* 12 23</code>，而不是分解成多个参数。<br>这个差异在处理包含空白字符的字符串时非常重要，因为它影响到如何处理字符串中的空白字符。如果您希望保留字符串中的空白字符并将整个字符串作为一个参数传递给<code>echo</code>或其他命令，您应该使用双引号 <code>&quot;$var&quot;</code> 来引用变量。如果需要将字符串拆分为多个参数，可以不使用引号 <code>echo $var</code>，以便Shell执行参数扩展。</p></li></ol>]]></content>
     
+    
+    <categories>
+      
+      <category>shell</category>
+      
+    </categories>
     
     
   </entry>
@@ -222,6 +258,12 @@
     <content type="html"><![CDATA[<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230809203556.png" alt="image.png"></p>]]></content>
     
     
+    <categories>
+      
+      <category>ctf</category>
+      
+    </categories>
+    
     
   </entry>
   
@@ -234,6 +276,12 @@
     
     <content type="html"><![CDATA[<p><a href="https://www.bilibili.com/video/BV1Pv4y1F73K/?spm_id_from=333.999.0.0&vd_source=3d4bc6a91e11c12d0e3b57b4e50c9818">https://www.bilibili.com/video/BV1Pv4y1F73K/?spm_id_from=333.999.0.0&amp;vd_source=3d4bc6a91e11c12d0e3b57b4e50c9818</a></p>]]></content>
     
+    
+    <categories>
+      
+      <category>ctf</category>
+      
+    </categories>
     
     
   </entry>
@@ -1992,9 +2040,9 @@
   
   
   <entry>
-    <title>【linux系列】(202303)常用命令：du</title>
-    <link href="/2023/03/23/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91(202303)%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%9Adu/"/>
-    <url>/2023/03/23/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91(202303)%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%9Adu/</url>
+    <title>【linux系列】(202303) 常用命令：du</title>
+    <link href="/2023/03/23/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91(202303)%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%9Adu/"/>
+    <url>/2023/03/23/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91(202303)%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%9Adu/</url>
     
     <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">-s, --summarize<br>       display only a total <span class="hljs-keyword">for</span> each argument<br>-h, --human-readable<br>       <span class="hljs-built_in">print</span> sizes <span class="hljs-keyword">in</span> human readable format (e.g., 1K 234M 2G)<br></code></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 计算当前文件夹的总磁盘占用量</span><br><span class="hljs-comment"># -s选项表示计算总和, -h选项表示以恰当的K/M/G单位展示</span><br>[root@ningan ~]<span class="hljs-comment"># du -sh</span><br>13G     .<br>[root@ningan ~]<span class="hljs-comment"># du -sh .</span><br>13G     .<br><br><br><br><span class="hljs-comment"># 展示每一个参数对应的磁盘空间使用量</span><br><span class="hljs-comment"># 通配形式的参数首先被Shell解析, 然后-s选项发挥作用, 展示每一个参数对应的磁盘空间使用量</span><br>[root@ningan ~]<span class="hljs-comment"># du -sh *</span><br>564M    bcc<br>31M     bpftrace<br><br></code></pre></td></tr></table></figure>]]></content>
     
@@ -2011,9 +2059,9 @@
   
   
   <entry>
-    <title>【linux系列】(202303) 常用命令：du</title>
-    <link href="/2023/03/23/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91(202303)%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%9Adu/"/>
-    <url>/2023/03/23/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91(202303)%20%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%9Adu/</url>
+    <title>【linux系列】(202303)常用命令：du</title>
+    <link href="/2023/03/23/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91(202303)%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%9Adu/"/>
+    <url>/2023/03/23/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91(202303)%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%EF%BC%9Adu/</url>
     
     <content type="html"><![CDATA[<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">-s, --summarize<br>       display only a total <span class="hljs-keyword">for</span> each argument<br>-h, --human-readable<br>       <span class="hljs-built_in">print</span> sizes <span class="hljs-keyword">in</span> human readable format (e.g., 1K 234M 2G)<br></code></pre></td></tr></table></figure><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 计算当前文件夹的总磁盘占用量</span><br><span class="hljs-comment"># -s选项表示计算总和, -h选项表示以恰当的K/M/G单位展示</span><br>[root@ningan ~]<span class="hljs-comment"># du -sh</span><br>13G     .<br>[root@ningan ~]<span class="hljs-comment"># du -sh .</span><br>13G     .<br><br><br><br><span class="hljs-comment"># 展示每一个参数对应的磁盘空间使用量</span><br><span class="hljs-comment"># 通配形式的参数首先被Shell解析, 然后-s选项发挥作用, 展示每一个参数对应的磁盘空间使用量</span><br>[root@ningan ~]<span class="hljs-comment"># du -sh *</span><br>564M    bcc<br>31M     bpftrace<br><br></code></pre></td></tr></table></figure>]]></content>
     
@@ -2894,11 +2942,11 @@
       
       <tag>k8s</tag>
       
+      <tag>cka</tag>
+      
       <tag>kubeadm</tag>
       
       <tag>ubuntu</tag>
-      
-      <tag>cka</tag>
       
     </tags>
     
@@ -2923,9 +2971,9 @@
     
     <tags>
       
-      <tag>ubuntu</tag>
-      
       <tag>cka</tag>
+      
+      <tag>ubuntu</tag>
       
       <tag>net</tag>
       
@@ -2956,9 +3004,9 @@
     
     <tags>
       
-      <tag>ubuntu</tag>
-      
       <tag>cka</tag>
+      
+      <tag>ubuntu</tag>
       
       <tag>net</tag>
       
