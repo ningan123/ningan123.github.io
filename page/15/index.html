@@ -226,6 +226,409 @@
     <article class="col-12 col-md-12 mx-auto index-info">
       <h1 class="index-header">
         
+        <a href="/2022/12/28/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91(202212)%20%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" target="_self">
+          【linux系列】(202212) 磁盘管理
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/28/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91(202212)%20%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" target="_self">
+        <div>
+          12345678910111213141516171819202122232425查看磁盘使用率df -h查看单个目录的挂载情况(目录属于哪个分区)df -h /homefdisk -llsblk# 查看文件系统类型lsblk -f lvremovevgremovepvremove# fdisk /dev/sdb:d  # 删除:w  # 保存dos分区表 一个分区最大2Tgpt分区表 不限制查看
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-12-28 15:15" pubdate>
+              2022-12-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/linux/" class="category-chain-item">linux</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/12/28/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91(202212)%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" target="_self">
+          【linux系列】(202212)磁盘管理
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/28/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91(202212)%E7%A3%81%E7%9B%98%E7%AE%A1%E7%90%86/" target="_self">
+        <div>
+          12345678910111213141516171819202122232425查看磁盘使用率df -h查看单个目录的挂载情况(目录属于哪个分区)df -h /homefdisk -llsblk# 查看文件系统类型lsblk -f lvremovevgremovepvremove# fdisk /dev/sdb:d  # 删除:w  # 保存dos分区表 一个分区最大2Tgpt分区表 不限制查看
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-12-28 15:15" pubdate>
+              2022-12-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/linux/" class="category-chain-item">linux</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/12/27/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202212)%20kube-state-metrics%E4%B8%ADkube_endpoint_address%E6%8C%87%E6%A0%87/" target="_self">
+          【k8s系列】(202212) kube-state-metrics中kube_endpoint_address指标
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/27/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202212)%20kube-state-metrics%E4%B8%ADkube_endpoint_address%E6%8C%87%E6%A0%87/" target="_self">
+        <div>
+          背景需要一个指标来告警k8s中endpoints中没有ip的项 类似于下面图中，有些ep是没有ip的，想要把这些项及时告警，及时处理查看原因  可以看到，总共有7个ep，有4个是正常的，有3个是异常的(kube-dns、kubernetes-dashboard和metrics-server) 环境kube-state-metrics版本：v2.6.0 操作12345678# HELP kube_e
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-12-27 10:13" pubdate>
+              2022-12-27
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/k8s/">#k8s</a>
+            
+              <a href="/tags/kube-state-metrics/">#kube-state-metrics</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/12/24/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202212)cka%E6%A8%A1%E6%8B%9F%E5%99%A8/" target="_self">
+          【k8s系列】(202212)cka模拟器
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/24/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202212)cka%E6%A8%A1%E6%8B%9F%E5%99%A8/" target="_self">
+        <div>
+          1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 参考答案：https://killer.sh/attendee/07579e88-c73f-4925-9c55-3d4aba3b012a/content
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-12-24 15:52" pubdate>
+              2022-12-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/12/22/linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" target="_self">
+          Linux内核设计与实现
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/22/linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" target="_self">
+        <div>
+          本书作者：Robert Love本书译者：陈莉君 康华 Linux内核之旅：http://kerneltravel.net/内核版本：2.6.34 内核巨著《Understanding the Linux Kernel》实践经典《Linux Device Drivers》 第1章 Linux内核简介一般情况下，Linux这个词汇主要是指内核 Linux内核开发者社区 最重要的论坛 lkml(lin
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-12-22 23:44" pubdate>
+              2022-12-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95/" class="category-chain-item">linux内核调试</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/12/22/linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95/unsupported/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" target="_self">
+          Linux内核设计与实现
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/22/linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95/unsupported/Linux%E5%86%85%E6%A0%B8%E8%AE%BE%E8%AE%A1%E4%B8%8E%E5%AE%9E%E7%8E%B0/" target="_self">
+        <div>
+          本书作者：Robert Love本书译者：陈莉君 康华 Linux内核之旅：http://kerneltravel.net/内核版本：2.6.34 内核巨著《Understanding the Linux Kernel》实践经典《Linux Device Drivers》 第1章 Linux内核简介一般情况下，Linux这个词汇主要是指内核 Linux内核开发者社区 最重要的论坛 lkml(lin
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-12-22 23:44" pubdate>
+              2022-12-22
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95/" class="category-chain-item">linux内核调试</a>
+  
+  
+    <span>></span>
+    
+  <a href="/categories/linux%E5%86%85%E6%A0%B8%E8%B0%83%E8%AF%95/unsupported/" class="category-chain-item">unsupported</a>
+  
+  
+
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/12/21/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91curl%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
+          【网络成长记】curl常用命令
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/21/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91curl%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
+        <div>
+          12345678# 这两个等价time curl 191.168.3.100:30001time curl web-nginx-entrypoint.default# 这样子可行time curl https://11.254.0.1:443/version --cacert /root/k8s/certs/ca.pem --key /root/k8s/certs/apiserver-key.pe
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-12-21 12:02" pubdate>
+              2022-12-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/net/" class="category-chain-item">net</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/net/">#net</a>
+            
+              <a href="/tags/curl/">#curl</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
         <a href="/2022/12/21/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91tcpdump%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
           【网络成长记】tcpdump常用命令
         </a>
@@ -391,442 +794,11 @@
     </article>
   </div>
 
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/18/k8s/unsupported/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91k8s%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-          【k8s系列】k8s常用命令
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/18/k8s/unsupported/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91k8s%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-        <div>
-          12345kubectl rollout restart k2 get pod -n welkin-system |grep dubhe-manager |grep ContainerStatusUnknown | awk &#x27;&#123;print $1&#125;&#x27; | xargs kubectl --kubeconfig /root/kubeconfig/kubeconfi
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-18 15:49" pubdate>
-              2022-12-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
-  
-  
-    <span>></span>
-    
-  <a href="/categories/k8s/unsupported/" class="category-chain-item">unsupported</a>
-  
-  
-
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/18/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202212)%20cka%E8%80%83%E8%AF%95%E5%BF%85%E5%A4%87%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8%E5%8F%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" target="_self">
-          【k8s系列】(202212) cka考试必备命令大全及注意事项
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/18/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202212)%20cka%E8%80%83%E8%AF%95%E5%BF%85%E5%A4%87%E5%91%BD%E4%BB%A4%E5%A4%A7%E5%85%A8%E5%8F%8A%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9/" target="_self">
-        <div>
-          必备命令主机层面12345678910111213141516# bash completionapt install bash-completionsource &lt;(kubectl completion bash)# vim ~/.bahsrcalias k=kubectlalias kgn=&quot;kubectl get node -owide&quot;alias kgp=&quo
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-18 11:01" pubdate>
-              2022-12-18
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/k8s/">#k8s</a>
-            
-              <a href="/tags/cka/">#cka</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/15/linux/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-          linux常用命令
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/15/linux/linux%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-        <div>
-          12345678910111213141516171819202122232425262728293031323334353637383940414243444546474849nccurl xxx -I systemctl is-enabled xxx## 20221218lsof -w |wc -lpkill fluentbitgrep xxx  ./  rsqlite3 xx.db.head
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-15 15:22" pubdate>
-              2022-12-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/linux/" class="category-chain-item">linux</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/linux/">#linux</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/15/git/%E3%80%90git%E3%80%91git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-          【git】git常用命令
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/15/git/%E3%80%90git%E3%80%91git%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
-        <div>
-          拉取远程分支并创建本地分支1234567891011121314151617181920212223242526272829# 使用该方式会在本地新建分支x，并自动切换到该本地分支xgit checkout -b 本地分支名x origin/远程分支名xgit checkout -b master origin/master# dev合并到master处于master分支git merge ori
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-15 10:26" pubdate>
-              2022-12-15
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/git/" class="category-chain-item">git</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/git/">#git</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/11/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9104.obsidian%E5%A6%82%E4%BD%95%E6%8F%92%E5%85%A5%E6%A8%A1%E6%9D%BF%EF%BC%9F%E6%8F%92%E4%BB%B6%EF%BC%9Atemplater/" target="_self">
-          【obsidian系列】04.obsidian如何插入模板？插件：templater
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/11/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9104.obsidian%E5%A6%82%E4%BD%95%E6%8F%92%E5%85%A5%E6%A8%A1%E6%9D%BF%EF%BC%9F%E6%8F%92%E4%BB%B6%EF%BC%9Atemplater/" target="_self">
-        <div>
-          背景我在使用github.io创作自己的博客，使用了hexo主题，hexo主题需要有一些元数据才能正确的识别，想通过obsidian的模板插件来定制一个专属于hexo元数据的模板。 操作安装插件打开插件左下角设置 –&gt; 第三方插件 –&gt; 社区插件市场，搜索：templater  点击安装，然后启用。 配置插件在仓库下新建一个文件夹，随意取名  在插件的配置处，将刚刚的文件夹填上。  定
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-11 19:27" pubdate>
-              2022-12-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/obsidian/" class="category-chain-item">obsidian</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/obsidian/">#obsidian</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/11/hexo/%E3%80%90hexo%E7%B3%BB%E5%88%97%E3%80%9102.hexo%E5%92%8Cobsidian%E5%AE%9E%E7%8E%B0%E7%AC%94%E8%AE%B0%E4%B8%9D%E6%BB%91/" target="_self">
-          【hexo系列】02.hexo和obsidian实现笔记丝滑
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/11/hexo/%E3%80%90hexo%E7%B3%BB%E5%88%97%E3%80%9102.hexo%E5%92%8Cobsidian%E5%AE%9E%E7%8E%B0%E7%AC%94%E8%AE%B0%E4%B8%9D%E6%BB%91/" target="_self">
-        <div>
-          hexo主题hexo主题大全 12cd bloggit clone https://github.com/yelog/hexo-theme-3-hexo.git themes/3-hexo  这是将3-hexo主题下载到blog目录的themes主题下的3-hexo文件夹中。 打开博客目录下的_config.yml配置文件，修改主题为3-hexo  123hexo cleanhexo ghexo
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-11 00:14" pubdate>
-              2022-12-11
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/hexo/" class="category-chain-item">hexo</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/hexo/">#hexo</a>
-            
-              <a href="/tags/obsidian/">#obsidian</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
-  <div class="row mx-auto index-card">
-    
-    
-    <article class="col-12 col-md-12 mx-auto index-info">
-      <h1 class="index-header">
-        
-        <a href="/2022/12/10/hexo/%E3%80%90hexo%E7%B3%BB%E5%88%97%E3%80%9101.hexo%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%8F%8Agithub.io%E6%90%AD%E5%BB%BA/" target="_self">
-          【hexo系列】01.hexo环境搭建及github.io搭建
-        </a>
-      </h1>
-
-      
-      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/10/hexo/%E3%80%90hexo%E7%B3%BB%E5%88%97%E3%80%9101.hexo%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%8F%8Agithub.io%E6%90%AD%E5%BB%BA/" target="_self">
-        <div>
-          基础环境要求检测Node.js是否安装成功，在命令行中输入 node -v检测npm是否安装成功，在命令行中输入npm -v因为我之前安装过  安装hexo1234# 安装npm install -g hexo-cli# 安装之后验证hexo --version     hexo初体验我的笔记根目录是 E:\SynologyDrive 创建hexo工程方法1：在根目录下操作 1hexo init
-        </div>
-      </a>
-
-      <div class="index-btm post-metas">
-        
-          <div class="post-meta mr-3">
-            <i class="iconfont icon-date"></i>
-            <time datetime="2022-12-10 13:55" pubdate>
-              2022-12-10
-            </time>
-          </div>
-        
-        
-          <div class="post-meta mr-3 d-flex align-items-center">
-            <i class="iconfont icon-category"></i>
-            
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/hexo/" class="category-chain-item">hexo</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-          </div>
-        
-        
-          <div class="post-meta">
-            <i class="iconfont icon-tags"></i>
-            
-              <a href="/tags/hexo/">#hexo</a>
-            
-          </div>
-        
-      </div>
-    </article>
-  </div>
-
 
 
   <nav aria-label="navigation">
     <span class="pagination" id="pagination">
-      <a class="extend prev" rel="prev" href="/page/14/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/#board">13</a><a class="page-number" href="/page/14/#board">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/#board">16</a><a class="page-number" href="/page/17/#board">17</a><a class="page-number" href="/page/18/#board">18</a><a class="extend next" rel="next" href="/page/16/#board"><i class="iconfont icon-arrowright"></i></a>
+      <a class="extend prev" rel="prev" href="/page/14/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/13/#board">13</a><a class="page-number" href="/page/14/#board">14</a><span class="page-number current">15</span><a class="page-number" href="/page/16/#board">16</a><a class="page-number" href="/page/17/#board">17</a><span class="space">&hellip;</span><a class="page-number" href="/page/19/#board">19</a><a class="extend next" rel="next" href="/page/16/#board"><i class="iconfont icon-arrowright"></i></a>
     </span>
   </nav>
 
