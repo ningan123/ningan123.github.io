@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          208 字
+          362 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          2 分钟
+          4 分钟
         
       </span>
     
@@ -274,6 +274,8 @@
               <div class="markdown-body">
                 
                 <figure class="highlight vim"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs vim">kubectl rollout restart <br><br>k2 <span class="hljs-built_in">get</span> pod -n welkin-<span class="hljs-built_in">system</span> |<span class="hljs-keyword">grep</span> dubhe-manager |<span class="hljs-keyword">grep</span> ContainerStatusUnknown | awk <span class="hljs-string">&#x27;&#123;print $1&#125;&#x27;</span> | xargs kubectl --kubeconfig /root/kubeconfig/kubeconfig-n2  <span class="hljs-keyword">delete</span> pod -n welkin-<span class="hljs-built_in">system</span><br><br><br></code></pre></td></tr></table></figure>
+
+<h2 id="查看某个ns下node0上内存占用高的pod"><a href="#查看某个ns下node0上内存占用高的pod" class="headerlink" title="查看某个ns下node0上内存占用高的pod"></a>查看某个ns下node0上内存占用高的pod</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl top pod -n [xxxxxx] --sort-by=<span class="hljs-string">&#x27;memory&#x27;</span> | awk <span class="hljs-string">&#x27;&#123;print $1&#125;&#x27;</span> | xargs  kubectl get pod -n [xxxxxx]  -owide | grep node0<br></code></pre></td></tr></table></figure>
                 
               </div>
             
