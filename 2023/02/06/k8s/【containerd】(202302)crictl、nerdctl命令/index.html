@@ -219,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          1.6k 字
+          2k 字
         
       </span>
     
@@ -230,7 +230,7 @@
         
         
         
-          13 分钟
+          18 分钟
         
       </span>
     
@@ -299,27 +299,27 @@
 <td align="left"></td>
 <td align="left">某个主机安装了 k8s 后，命令行才会有 crictl 命令</td>
 <td align="left"></td>
-<td align="left">ctr 是跟 k8s 无关的，你主机安装了 containerd 服务后就可以操作 ctr 命令</td>
+<td align="left">ctr 是跟 k8s 无关的，主机安装了 containerd 服务后就可以操作 ctr 命令</td>
 </tr>
 <tr>
 <td align="left"></td>
 <td align="left"></td>
 <td align="left">crictl操作的均在k8s.io命名空间</td>
 <td align="left"></td>
-<td align="left">ctr客户端 主要区分了 3 个命名空间分别是k8s.io、moby和default</td>
+<td align="left">ctr客户端主要区分了3个命名空间，分别是k8s.io、moby和default</td>
 </tr>
 <tr>
 <td align="left">查看镜像</td>
 <td align="left"></td>
 <td align="left">crictl images</td>
-<td align="left">nerdctl images –namespace k8s.io<br>  nerdctl -n k8s.io images</td>
+<td align="left"></td>
 <td align="left">ctr image ls</td>
 </tr>
 <tr>
 <td align="left">查看k8s的镜像</td>
 <td align="left"></td>
 <td align="left">crictl images list</td>
-<td align="left"></td>
+<td align="left">nerdctl images –namespace k8s.io<br>  nerdctl -n k8s.io images</td>
 <td align="left">ctr -n&#x3D;k8s.io image list</td>
 </tr>
 <tr>
@@ -391,7 +391,10 @@
 
 <p>作者：橘子基因<br>链接：<a target="_blank" rel="noopener" href="https://www.jianshu.com/p/07a2b4b74d63">https://www.jianshu.com/p/07a2b4b74d63</a><br>来源：简书<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
 <p><a target="_blank" rel="noopener" href="https://www.qikqiak.com/k8strain2/containerd/nerdctl/"># Containerd 高级命令行工具 nerdctl</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查看本机containerd加载的插件</span><br>ctr plugin <span class="hljs-built_in">ls</span> <br></code></pre></td></tr></table></figure>
 
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@cdp-10-191-193-5 ~]<span class="hljs-comment"># cd /run/containerd</span><br>[root@cdp-10-191-193-5 containerd]<span class="hljs-comment"># ll</span><br>总用量 0<br>srw-rw---- 1 root root     0 6月  24 11:43 containerd.sock<br>srw-rw---- 1 root root     0 6月  24 11:43 containerd.sock.ttrpc<br>drwxr-xr-x 4 root root    80 9月  19 2023 io.containerd.grpc.v1.cri<br>drwx--x--x 2 root root    40 9月  11 2023 io.containerd.runtime.v1.linux<br>drwx--x--x 3 root root    60 9月  19 2023 io.containerd.runtime.v2.task<br>drwx------ 3 root root    60 9月  19 2023 runc <span class="hljs-comment"># 容器的状态</span><br>drw------- 2 root root 46300 6月  25 22:31 s  <span class="hljs-comment"># containerd与shim通信的socker地址</span><br></code></pre></td></tr></table></figure>
                 
               </div>
             

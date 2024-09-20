@@ -16,20 +16,17 @@
   <meta name="author" content="ningan123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="社区时长安装插件 右键，选择“新建思维导图”  按照图示直接新建即可，大概效果如下：">
+    <meta name="description" content="123456789101112131415161718[root@ubuntu-22 ~]# man dpkg...       -P, --purge package...|-a|--pending           Purge an installed or already removed package. This removes everything, including conffil">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ningan123">
-<meta property="og:url" content="http://example.com/2024/01/31/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9107.obsidian%E4%B8%AD%E5%A6%82%E4%BD%95%E6%96%B0%E5%BB%BA%E6%80%9D%E7%BB%B4%E5%AF%BC%E5%9B%BE%EF%BC%9FEnhancing%20Mindmap/index.html">
+<meta property="og:url" content="http://example.com/2024/07/29/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91dpkg/index.html">
 <meta property="og:site_name" content="ningan123">
-<meta property="og:description" content="社区时长安装插件 右键，选择“新建思维导图”  按照图示直接新建即可，大概效果如下：">
+<meta property="og:description" content="123456789101112131415161718[root@ubuntu-22 ~]# man dpkg...       -P, --purge package...|-a|--pending           Purge an installed or already removed package. This removes everything, including conffil">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20240131132551.png">
-<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20240131132516.png">
-<meta property="article:published_time" content="2024-01-31T05:25:14.812Z">
-<meta property="article:modified_time" content="2024-02-20T04:02:10.070Z">
+<meta property="article:published_time" content="2024-07-29T01:17:27.902Z">
+<meta property="article:modified_time" content="2024-07-27T10:28:58.000Z">
 <meta property="article:author" content="ningan123">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20240131132551.png">
   
   
   
@@ -210,8 +207,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2024-01-31 13:25" pubdate>
-          2024年1月31日 下午
+        <time datetime="2024-07-29 09:17" pubdate>
+          2024年7月29日 上午
         </time>
       </span>
     
@@ -222,7 +219,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          39 字
+          923 字
         
       </span>
     
@@ -233,7 +230,7 @@
         
         
         
-          1 分钟
+          8 分钟
         
       </span>
     
@@ -276,38 +273,13 @@
             
               <div class="markdown-body">
                 
-                <p>社区时长安装插件</p>
-<p>右键，选择“新建思维导图”</p>
-<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20240131132551.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
-<p>按照图示直接新建即可，大概效果如下：<br><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20240131132516.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
-
+                <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 ~]<span class="hljs-comment"># man dpkg</span><br>...<br>       -P, --purge package...|-a|--pending<br>           Purge an installed or already removed package. This removes everything, including conffiles, and anything <span class="hljs-keyword">else</span> cleaned up from postrm.  If -a or --pending is given<br>           instead of a package name, <span class="hljs-keyword">then</span> all packages unpacked or removed, but marked to be purged <span class="hljs-keyword">in</span> file /var/lib/dpkg/status, are purged.<br><br>           Note: Some configuration files might be unknown to dpkg because they are created and handled separately through the configuration scripts. In that <span class="hljs-keyword">case</span>, dpkg won<span class="hljs-string">&#x27;t</span><br><span class="hljs-string">           remove them by itself, but the package&#x27;</span>s postrm script (<span class="hljs-built_in">which</span> is called by dpkg), has to take care of their removal during purge. Of course, this only applies to files<br>           <span class="hljs-keyword">in</span> system directories, not configuration files written to individual <span class="hljs-built_in">users</span><span class="hljs-string">&#x27; home directories.</span><br><span class="hljs-string"></span><br><span class="hljs-string">           Purging of a package consists of the following steps:</span><br><span class="hljs-string"></span><br><span class="hljs-string">           1. Remove the package, if not already removed. See --remove for detailed information about how this is done.</span><br><span class="hljs-string"></span><br><span class="hljs-string">           2. Run postrm script.</span><br><span class="hljs-string">...</span><br><span class="hljs-string"></span><br><span class="hljs-string"># Purge an installed or already removed package.   清除已安装或已删除的软件包。</span><br></code></pre></td></tr></table></figure>
                 
               </div>
             
             <hr/>
             <div>
               <div class="post-metas my-3">
-  
-    <div class="post-meta mr-3 d-flex align-items-center">
-      <i class="iconfont icon-category"></i>
-      
-
-<span class="category-chains">
-  
-  
-    
-      <span class="category-chain">
-        
-  <a href="/categories/obsidian/" class="category-chain-item">obsidian</a>
-  
-  
-
-      </span>
-    
-  
-</span>
-
-    </div>
   
   
 </div>
@@ -319,7 +291,7 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div></div>
-      <div>http://example.com/2024/01/31/obsidian/【obsidian系列】07.obsidian中如何新建思维导图？Enhancing Mindmap/</div>
+      <div>http://example.com/2024/07/29/linux/【linux系列】dpkg/</div>
     </div>
     <div class="license-meta">
       
@@ -331,7 +303,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2024年1月31日</div>
+          <div>2024年7月29日</div>
         </div>
       
       
@@ -363,9 +335,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2024/02/04/windows/%E3%80%90%E7%A1%AC%E7%9B%98%E3%80%91(202402)%E7%BA%AA%E5%BF%B5%E7%AC%AC%E4%B8%80%E6%AC%A1%E6%8D%A2%E7%AC%94%E8%AE%B0%E6%9C%AC%E7%A1%AC%E7%9B%98/" title="【硬盘】(202402)纪念第一次换笔记本硬盘">
+                      <a href="/2024/07/29/linux/%E3%80%90linux%E7%B3%BB%E5%88%97%E3%80%91(202407)%20binfmt-misc/" title="">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">【硬盘】(202402)纪念第一次换笔记本硬盘</span>
+                        <span class="hidden-mobile"></span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -373,8 +345,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2024/01/31/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9106.obsidian%E4%B8%AD%E5%A6%82%E4%BD%95%E7%BB%9F%E8%AE%A1%E6%AF%8F%E4%B8%AA%E6%96%87%E4%BB%B6%E5%A4%B9%E4%B8%8B%E6%96%87%E4%BB%B6%E7%9A%84%E4%B8%AA%E6%95%B0%EF%BC%9FFile%20Explorer%20Note%20Count/" title="">
-                        <span class="hidden-mobile"></span>
+                      <a href="/2024/07/27/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9108.obsidian%E4%B8%AD%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%E8%83%8C%E6%99%AF%EF%BC%9F%E6%8F%92%E4%BB%B6%EF%BC%9AStyle%20Settings%EF%BC%88Blue%20Topaz%E4%B8%BB%E9%A2%98%EF%BC%89/" title="【obsidian系列】08.obsidian中如何设置背景？插件：Style Settings（Blue Topaz主题）">
+                        <span class="hidden-mobile">【obsidian系列】08.obsidian中如何设置背景？插件：Style Settings（Blue Topaz主题）</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
