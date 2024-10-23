@@ -16,16 +16,17 @@
   <meta name="author" content="ningan123">
   <meta name="keywords" content="">
   
-    <meta name="description" content="背景工作中写的一个go代码被安全中心检查出来了pprof漏洞，想要避免这个问题，故做了如下实验。 步骤代码如下左边的代码没有pprof包，右边的代码有pprof包，两边各起了两个httpServer  分别开两个shell启动进程 1234# go run hEqual1&#x2F;main.go -a&#x3D;&quot;0.0.0.0:6010&quot; -b&#x3D;&quot;0.0.0.0:6011&quot;">
+    <meta name="description" content="背景工作中写的一个go代码被安全中心检查出来了pprof漏洞，想要避免这个问题，故做了如下实验。 解决方案1：直接去掉pprof代码如下左边的代码没有pprof包，右边的代码有pprof包，两边各起了两个httpServer  分别开两个shell启动进程 1234# go run hEqual1&#x2F;main.go -a&#x3D;&quot;0.0.0.0:6010&quot; -b&#x3D;&quot;0.0.0">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ningan123">
 <meta property="og:url" content="http://example.com/2024/10/23/go/%E3%80%90go%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91(202410)%20go%E8%AF%AD%E8%A8%80%E4%B8%ADhttpServer%E7%9A%84pprof%E6%BC%8F%E6%B4%9E%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D/index.html">
 <meta property="og:site_name" content="ningan123">
-<meta property="og:description" content="背景工作中写的一个go代码被安全中心检查出来了pprof漏洞，想要避免这个问题，故做了如下实验。 步骤代码如下左边的代码没有pprof包，右边的代码有pprof包，两边各起了两个httpServer  分别开两个shell启动进程 1234# go run hEqual1&#x2F;main.go -a&#x3D;&quot;0.0.0.0:6010&quot; -b&#x3D;&quot;0.0.0.0:6011&quot;">
+<meta property="og:description" content="背景工作中写的一个go代码被安全中心检查出来了pprof漏洞，想要避免这个问题，故做了如下实验。 解决方案1：直接去掉pprof代码如下左边的代码没有pprof包，右边的代码有pprof包，两边各起了两个httpServer  分别开两个shell启动进程 1234# go run hEqual1&#x2F;main.go -a&#x3D;&quot;0.0.0.0:6010&quot; -b&#x3D;&quot;0.0.0">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20241023115400.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20241023172345.png">
 <meta property="article:published_time" content="2024-10-23T03:53:39.994Z">
-<meta property="article:modified_time" content="2024-10-23T04:10:42.021Z">
+<meta property="article:modified_time" content="2024-10-23T09:24:56.736Z">
 <meta property="article:author" content="ningan123">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20241023115400.png">
@@ -221,7 +222,7 @@
       <span class="post-meta mr-2">
         <i class="iconfont icon-chart"></i>
         
-          8.3k 字
+          13k 字
         
       </span>
     
@@ -232,7 +233,7 @@
         
         
         
-          69 分钟
+          106 分钟
         
       </span>
     
@@ -276,7 +277,7 @@
               <div class="markdown-body">
                 
                 <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>工作中写的一个go代码被安全中心检查出来了pprof漏洞，想要避免这个问题，故做了如下实验。</p>
-<h1 id="步骤"><a href="#步骤" class="headerlink" title="步骤"></a>步骤</h1><h2 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h2><p>左边的代码没有pprof包，右边的代码有pprof包，两边各起了两个httpServer</p>
+<h1 id="解决方案1：直接去掉pprof"><a href="#解决方案1：直接去掉pprof" class="headerlink" title="解决方案1：直接去掉pprof"></a>解决方案1：直接去掉pprof</h1><h2 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h2><p>左边的代码没有pprof包，右边的代码有pprof包，两边各起了两个httpServer</p>
 <p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20241023115400.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
 <p>分别开两个shell启动进程</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># go run hEqual1/main.go -a=&quot;0.0.0.0:6010&quot; -b=&quot;0.0.0.0:6011&quot; </span><br>2024/10/22 06:36:47 Starting server on  0.0.0.0:6010<br>2024/10/22 06:36:47 Starting server on  0.0.0.0:6011<br><br></code></pre></td></tr></table></figure>
@@ -292,7 +293,17 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan chapter58-httpserver]<span class="hljs-comment"># curl http://192.168.20.201:6020/debug/pprof/goroutine?debug=1</span><br>404 page not found<br>[root@ningan chapter58-httpserver]<span class="hljs-comment"># curl http://192.168.20.201:6021/debug/pprof/goroutine?debug=1</span><br>404 page not found<br></code></pre></td></tr></table></figure>
 
 <p>结果证明，只要把引用的pprof包删除，便可以解决这个问题~</p>
+<h1 id="解决方案2"><a href="#解决方案2" class="headerlink" title="解决方案2"></a>解决方案2</h1><p>正常服务端口改为http.NewServeMux</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20241023172345.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>启动程序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">go run perfect/main.go -a=<span class="hljs-string">&quot;0.0.0.0:6030&quot;</span> -b=<span class="hljs-string">&quot;127.0.0.1:6031&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>最终结果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan ~]<span class="hljs-comment"># curl http://192.168.20.201:6030/debug/pprof/goroutine?debug=1</span><br>404 page not found<br>[root@ningan ~]<span class="hljs-comment"># curl http://192.168.20.201:6031/debug/pprof/goroutine?debug=1</span><br>curl: (7) Failed to connect to 192.168.20.201 port 6031: Connection refused<br>[root@ningan ~]<span class="hljs-comment"># curl http://127.0.0.1:6031/debug/pprof/goroutine?debug=1</span><br>goroutine profile: total 4<br>1 @ 0x433911 0x46f09d 0x678b91 0x6789c5 0x6757eb 0x68590f 0x6863fe 0x637489 0x63930d 0x63a34e 0x6360c8 0x474921<br><span class="hljs-comment">#       0x46f09c        runtime/pprof.runtime_goroutineProfileWithLabels+0x1c   /usr/local/go/src/runtime/mprof.go:1079</span><br><span class="hljs-comment">#       0x678b90        runtime/pprof.writeRuntimeProfile+0xb0                  /usr/local/go/src/runtime/pprof/pprof.go:774</span><br><span class="hljs-comment">#       0x6789c4        runtime/pprof.writeGoroutine+0x44                       /usr/local/go/src/runtime/pprof/pprof.go:734</span><br><span class="hljs-comment">#       0x6757ea        runtime/pprof.(*Profile).WriteTo+0x14a                  /usr/local/go/src/runtime/pprof/pprof.go:369</span><br><span class="hljs-comment">#       0x68590e        net/http/pprof.handler.ServeHTTP+0x52e                  /usr/local/go/src/net/http/pprof/pprof.go:267</span><br><span class="hljs-comment">#       0x6863fd        net/http/pprof.Index+0xdd                               /usr/local/go/src/net/http/pprof/pprof.go:384</span><br><span class="hljs-comment">#       0x637488        net/http.HandlerFunc.ServeHTTP+0x28                     /usr/local/go/src/net/http/server.go:2171</span><br><span class="hljs-comment">#       0x63930c        net/http.(*ServeMux).ServeHTTP+0x1ac                    /usr/local/go/src/net/http/server.go:2688</span><br><span class="hljs-comment">#       0x63a34d        net/http.serverHandler.ServeHTTP+0x8d                   /usr/local/go/src/net/http/server.go:3142</span><br><span class="hljs-comment">#       0x6360c7        net/http.(*conn).serve+0x5e7                            /usr/local/go/src/net/http/server.go:2044</span><br><br>1 @ 0x43e1ce 0x436f37 0x46f465 0x4bcb27 0x4bd67a 0x4bd668 0x5657e5 0x56f745 0x6300f7 0x474921<br><span class="hljs-comment">#       0x46f464        internal/poll.runtime_pollWait+0x84             /usr/local/go/src/runtime/netpoll.go:345</span><br><span class="hljs-comment">#       0x4bcb26        internal/poll.(*pollDesc).wait+0x26             /usr/local/go/src/internal/poll/fd_poll_runtime.go:84</span><br><span class="hljs-comment">#       0x4bd679        internal/poll.(*pollDesc).waitRead+0x279        /usr/local/go/src/internal/poll/fd_poll_runtime.go:89</span><br><span class="hljs-comment">#       0x4bd667        internal/poll.(*FD).Read+0x267                  /usr/local/go/src/internal/poll/fd_unix.go:164</span><br><span class="hljs-comment">#       0x5657e4        net.(*netFD).Read+0x24                          /usr/local/go/src/net/fd_posix.go:55</span><br><span class="hljs-comment">#       0x56f744        net.(*conn).Read+0x44                           /usr/local/go/src/net/net.go:185</span><br><span class="hljs-comment">#       0x6300f6        net/http.(*connReader).backgroundRead+0x36      /usr/local/go/src/net/http/server.go:681</span><br><br>1 @ 0x43e1ce 0x436f37 0x46f465 0x4bcb27 0x4be1cc 0x4be1ba 0x5668e9 0x57727e 0x5765d0 0x63a77e 0x63a411 0x68d8e7 0x68d87b 0x43dd7d 0x474921<br><span class="hljs-comment">#       0x46f464        internal/poll.runtime_pollWait+0x84             /usr/local/go/src/runtime/netpoll.go:345</span><br><span class="hljs-comment">#       0x4bcb26        internal/poll.(*pollDesc).wait+0x26             /usr/local/go/src/internal/poll/fd_poll_runtime.go:84</span><br><span class="hljs-comment">#       0x4be1cb        internal/poll.(*pollDesc).waitRead+0x2ab        /usr/local/go/src/internal/poll/fd_poll_runtime.go:89</span><br><span class="hljs-comment">#       0x4be1b9        internal/poll.(*FD).Accept+0x299                /usr/local/go/src/internal/poll/fd_unix.go:611</span><br><span class="hljs-comment">#       0x5668e8        net.(*netFD).accept+0x28                        /usr/local/go/src/net/fd_unix.go:172</span><br><span class="hljs-comment">#       0x57727d        net.(*TCPListener).accept+0x1d                  /usr/local/go/src/net/tcpsock_posix.go:159</span><br><span class="hljs-comment">#       0x5765cf        net.(*TCPListener).Accept+0x2f                  /usr/local/go/src/net/tcpsock.go:327</span><br><span class="hljs-comment">#       0x63a77d        net/http.(*Server).Serve+0x33d                  /usr/local/go/src/net/http/server.go:3260</span><br><span class="hljs-comment">#       0x63a410        net/http.(*Server).ListenAndServe+0x70          /usr/local/go/src/net/http/server.go:3189</span><br><span class="hljs-comment">#       0x68d8e6        net/http.ListenAndServe+0x2e6                   /usr/local/go/src/net/http/server.go:3443</span><br><span class="hljs-comment">#       0x68d87a        main.main+0x27a                                 /root/go-practice/chapter58-httpserver/perfect/main.go:36</span><br><span class="hljs-comment">#       0x43dd7c        runtime.main+0x29c                              /usr/local/go/src/runtime/proc.go:271</span><br><br>1 @ 0x43e1ce 0x436f37 0x46f465 0x4bcb27 0x4be1cc 0x4be1ba 0x5668e9 0x57727e 0x5765d0 0x63a77e 0x63a411 0x68daaa 0x68da55 0x474921<br><span class="hljs-comment">#       0x46f464        internal/poll.runtime_pollWait+0x84             /usr/local/go/src/runtime/netpoll.go:345</span><br><span class="hljs-comment">#       0x4bcb26        internal/poll.(*pollDesc).wait+0x26             /usr/local/go/src/internal/poll/fd_poll_runtime.go:84</span><br><span class="hljs-comment">#       0x4be1cb        internal/poll.(*pollDesc).waitRead+0x2ab        /usr/local/go/src/internal/poll/fd_poll_runtime.go:89</span><br><span class="hljs-comment">#       0x4be1b9        internal/poll.(*FD).Accept+0x299                /usr/local/go/src/internal/poll/fd_unix.go:611</span><br><span class="hljs-comment">#       0x5668e8        net.(*netFD).accept+0x28                        /usr/local/go/src/net/fd_unix.go:172</span><br><span class="hljs-comment">#       0x57727d        net.(*TCPListener).accept+0x1d                  /usr/local/go/src/net/tcpsock_posix.go:159</span><br><span class="hljs-comment">#       0x5765cf        net.(*TCPListener).Accept+0x2f                  /usr/local/go/src/net/tcpsock.go:327</span><br><span class="hljs-comment">#       0x63a77d        net/http.(*Server).Serve+0x33d                  /usr/local/go/src/net/http/server.go:3260</span><br><span class="hljs-comment">#       0x63a410        net/http.(*Server).ListenAndServe+0x70          /usr/local/go/src/net/http/server.go:3189</span><br><span class="hljs-comment">#       0x68daa9        net/http.ListenAndServe+0x109                   /usr/local/go/src/net/http/server.go:3443</span><br><span class="hljs-comment">#       0x68da54        main.main.func1+0xb4                            /root/go-practice/chapter58-httpserver/perfect/main.go:27</span><br><br>[root@ningan ~]<span class="hljs-comment"># </span><br>[root@ningan ~]<span class="hljs-comment"># </span><br></code></pre></td></tr></table></figure>
+
+
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>源码参考：<br><a target="_blank" rel="noopener" href="https://github.com/ningan123/go-practice/tree/master/chapter58-httpserver">go-practice&#x2F;chapter58-httpserver at master · ningan123&#x2F;go-practice</a></p>
+<p>解决方案参考：<br><a target="_blank" rel="noopener" href="https://studygolang.com/articles/12568">你的 pprof 暴露了 - Go语言中文网 - Golang中文社区</a></p>
 
                 
               </div>
@@ -300,6 +311,27 @@
             <hr/>
             <div>
               <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
   
   
 </div>
