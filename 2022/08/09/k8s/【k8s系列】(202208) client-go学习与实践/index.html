@@ -1,0 +1,745 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ningan123">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="client-go客户端对象client-go支持RESTClient、ClientSet、DynamicClient、DiscoveryClient四种客户端与Kubernetes Api Server进行交互。  RESTClient：最基础的客户端，主要是对HTTP请求进行了封装，支持Json和Protobuf格式的数据。  DiscoveryClient：发现客户端，负责发现APIServ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【k8s系列】(202208) client-go学习与实践">
+<meta property="og:url" content="http://example.com/2022/08/09/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202208)%20client-go%E5%AD%A6%E4%B9%A0%E4%B8%8E%E5%AE%9E%E8%B7%B5/index.html">
+<meta property="og:site_name" content="ningan123">
+<meta property="og:description" content="client-go客户端对象client-go支持RESTClient、ClientSet、DynamicClient、DiscoveryClient四种客户端与Kubernetes Api Server进行交互。  RESTClient：最基础的客户端，主要是对HTTP请求进行了封装，支持Json和Protobuf格式的数据。  DiscoveryClient：发现客户端，负责发现APIServ">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-08-09T21:43:00.000Z">
+<meta property="article:modified_time" content="2023-05-09T15:04:00.000Z">
+<meta property="article:author" content="ningan123">
+<meta property="article:tag" content="k8s">
+<meta property="article:tag" content="client-go">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>【k8s系列】(202208) client-go学习与实践 - ningan123</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【k8s系列】(202208) client-go学习与实践"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-08-09 21:43" pubdate>
+          2022年8月9日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          19k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          163 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【k8s系列】(202208) client-go学习与实践</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="client-go客户端对象"><a href="#client-go客户端对象" class="headerlink" title="client-go客户端对象"></a>client-go客户端对象</h2><p>client-go支持RESTClient、ClientSet、DynamicClient、DiscoveryClient四种客户端与Kubernetes Api Server进行交互。</p>
+<ul>
+<li><p>RESTClient：最基础的客户端，主要是对HTTP请求进行了封装，支持Json和Protobuf格式的数据。</p>
+</li>
+<li><p>DiscoveryClient：发现客户端，负责发现APIServer支持的资源组、资源版本和资源信息的(GVR)。</p>
+</li>
+<li><p>ClientSet：负责操作Kubernetes内置的资源对象，例如：Pod、Services等。</p>
+</li>
+<li><p>DynamicClient：动态客户端，可以对任意的Kubernetes资源对象进行通用操作，包括CRD。</p>
+</li>
+</ul>
+<h2 id="client-go-demo-工程初始化"><a href="#client-go-demo-工程初始化" class="headerlink" title="client-go-demo 工程初始化"></a>client-go-demo 工程初始化</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@master ~]<span class="hljs-comment"># mkdir client-go-demo</span><br>[root@master ~]<span class="hljs-comment">#</span><br>[root@master ~]<span class="hljs-comment">#</span><br>[root@master ~]<span class="hljs-comment"># cd client-go-demo/</span><br>[root@master client-go-demo]<span class="hljs-comment">#</span><br>[root@master client-go-demo]<span class="hljs-comment"># ll</span><br>总用量 0<br>[root@master client-go-demo]<span class="hljs-comment">#</span><br>[root@master client-go-demo]<span class="hljs-comment">#</span><br>[root@master client-go-demo]<span class="hljs-comment"># go mod init ningan.com/client-go-demo</span><br>go: creating new go.mod: module ningan.com/client-go-demo<br>[root@master client-go-demo]<span class="hljs-comment">#</span><br>[root@master client-go-demo]<span class="hljs-comment"># ll</span><br>总用量 4<br>-rw-r--r-- 1 root root 42 8月   9 04:06 go.mod<br>[root@master client-go-demo]<span class="hljs-comment">#</span><br>[root@master client-go-demo]<span class="hljs-comment"># cat go.mod</span><br>module ningan.com/client-go-demo<br><br>go 1.17<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="RESTClient"><a href="#RESTClient" class="headerlink" title="RESTClient"></a>RESTClient</h2><h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>RESTClient是最基础的客户端，其他的ClientSet、DynamicClient即DscoveryClient都是基于RESTClient实现的。</p>
+<p>RESTClient对HTTP Client进行了封装，实现了Restful风格的API。</p>
+<p>它具有很高的灵活性，数据不依赖于方法和资源，因此RESTClient能够处理多种类型的调用，返回不同的数据格式。</p>
+<p>demo示例：通过RESTClient示例列出某一命名空间下的Pod资源对象</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br><br>	corev1 <span class="hljs-string">&quot;k8s.io/api/core/v1&quot;</span><br>	metav1 <span class="hljs-string">&quot;k8s.io/apimachinery/pkg/apis/meta/v1&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/client-go/kubernetes/scheme&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/client-go/rest&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/client-go/tools/clientcmd&quot;</span><br>)<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">	@Author: ningan</span><br><span class="hljs-comment">	@Desc: 获取kube-system命名空间下的Pod列表</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">/*</span><br><span class="hljs-comment">		1. k8s的配置文件</span><br><span class="hljs-comment">		2. 保证开发机能通过这个配置文件连接到k8s集群</span><br><span class="hljs-comment">	*/</span><br><br>	<span class="hljs-comment">// 1. 加载配置文件，生成config对象</span><br>	config, err := clientcmd.BuildConfigFromFlags(<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;/root/.kube/config&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err)<br>		<span class="hljs-comment">// panic(err.Error())</span><br>	&#125;<br><br>	<span class="hljs-comment">// 2. 配置API路径  请求的HTTP路径</span><br>	config.APIPath = <span class="hljs-string">&quot;api&quot;</span> <span class="hljs-comment">// pods,  /api/v1/pods</span><br>	<span class="hljs-comment">// config.APIPath = &quot;apis&quot; // deployments,  /apis/apps/v1/namespaces/&#123;namespace&#125;/deployments/&#123;deployment&#125;</span><br><br>	<span class="hljs-comment">// 3. 配置请求的资源组/资源版本 GV</span><br>	config.GroupVersion = &amp;corev1.SchemeGroupVersion <span class="hljs-comment">// 无名资源组, group: &quot; &quot;, version: &quot;v1&quot;</span><br><br>	<span class="hljs-comment">// 4. 配置数据的编解码工具  序列化和反序列化</span><br>	config.NegotiatedSerializer = scheme.Codecs<br><br>	<span class="hljs-comment">// 5. 通过kubeconfg配置信息实例化RESTClient对象</span><br>	restClient, err := rest.RESTClientFor(config)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err)<br>	&#125;<br><br>	<span class="hljs-comment">// 6. 定义接收返回值的变量</span><br>	result := &amp;corev1.PodList&#123;&#125;<br><br>	<span class="hljs-comment">// 跟APIServer交互</span><br>	err = restClient.<br>		Get().                                                                  <span class="hljs-comment">// RESTClient对象构建HTTP请求参数  请求方法：Get、Post、Put、Delete、Patch</span><br>		Namespace(<span class="hljs-string">&quot;kube-system&quot;</span>).                                               <span class="hljs-comment">// 命名空间</span><br>		Resource(<span class="hljs-string">&quot;pods&quot;</span>).                                                       <span class="hljs-comment">// 资源名</span><br>		VersionedParams(&amp;metav1.ListOptions&#123;Limit: <span class="hljs-number">50</span>&#125;, scheme.ParameterCodec). <span class="hljs-comment">// 将一些查询选项(如limit、TimeoutSeconds)添加到请求参数中 limit参数表示最多检索出多少信息</span><br>		Do(context.TODO()).                                                     <span class="hljs-comment">// 执行该请求</span><br>		Into(result)                                                            <span class="hljs-comment">// 将kube-apiserver返回的结果（Result对象）解析到corev1.PodList对象中</span><br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err)<br>	&#125;<br><br>	<span class="hljs-comment">/*</span><br><span class="hljs-comment">		1）Get定义请求方式，返回了一个Request结构体对象。这个Request结构体对象，就是构建访问APIServer用的。</span><br><span class="hljs-comment">		2）依次执行了Namespace、Resource、VersionedParams，构建与APIServer交互的参数。</span><br><span class="hljs-comment">		3）Do方法通过requets发起请求，然后通过transformResponse解析请求返回，并绑定到对应资源对象的结构体对象上。这里的话，表示的是corev1.PodList对象。</span><br><span class="hljs-comment">		4）request先是检查了有没有可用的client，在这里开始调用net/http包的功能。</span><br><span class="hljs-comment">	*/</span><br><br>	<span class="hljs-comment">/*</span><br><span class="hljs-comment">		1) RESTClient发送请求的过程对Go语言标准库net/http进行了封装，由Do -&gt; Request函数实现。</span><br><span class="hljs-comment">		2) 请求发送之前需要根据请求参数生成请求的RESTful URL，由r.URL().String()函数完成。 http://xxxx:x/api/v1/namespaces/kube-system/pods?limit=1</span><br><span class="hljs-comment">		3) 通过Go语言标准库net/http向RESTful URL(即kube-apiserver)发送请求，请求得到的结果存放在http.Response的Body对象中，fn函数（即transformResponse）将结果转化为资源对象。</span><br><span class="hljs-comment">	*/</span><br><br>	<span class="hljs-comment">// 格式化输出结果</span><br>	<span class="hljs-keyword">for</span> _, item := <span class="hljs-keyword">range</span> result.Items &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;namespace: %v, name: %v, status: %v\n&quot;</span>, item.Namespace, item.Name, item.Status.Phase)<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+<p>运行：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@master demo1]<span class="hljs-comment"># go run main.go</span><br>namespace: kube-system, name: calico-kube-controllers-67878b879f-2x5xg, status: Running<br>namespace: kube-system, name: calico-node-4xwrz, status: Running<br>namespace: kube-system, name: metrics-server-68955dc6f-xvv9t, status: Running<br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="ClientSet"><a href="#ClientSet" class="headerlink" title="ClientSet"></a>ClientSet</h2><p>RESTClient是一种最基础的客户端，使用时需要指定Resource和Version等信息，编写代码需要提前知道Resource所在的Group和对应的Version信息。</p>
+<p>相比RESTClient，ClientSet使用起来更加便捷，一般情况下，开发者对Kubernetes进行二次开发时通常使用ClientSet。</p>
+<p>ClientSet在RESTClient的基础上封装了对Resource和Version的管理方法。每一个Resource可以理解为一个客户端，而ClientSet则是多个客户端的集合，每一个Resource和Version都以函数的方法暴露给开发者，例如ClientSet提供的RbacV1、CoreV1、NetworkingV1等接口参数。</p>
+<p>demo示例：通过ClientSet示例列出某一命名空间下的Pod资源对象</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br><br>	metav1 <span class="hljs-string">&quot;k8s.io/apimachinery/pkg/apis/meta/v1&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/client-go/kubernetes&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/client-go/tools/clientcmd&quot;</span><br>)<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">	@Author: ningan</span><br><span class="hljs-comment">	@Desc: 获取kube-system命名空间下的Pod列表</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// 1. 加载配置文件，生成config对象</span><br>	config, err := clientcmd.BuildConfigFromFlags(<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;/root/.kube/config&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err.Error())<br>	&#125;<br><br>	<span class="hljs-comment">// 2. 通过kubeconfig配置信息实例化ClientSet 该对象用于管理所有Resource的客户端</span><br>	clientset, err := kubernetes.NewForConfig(config)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err.Error())<br>	&#125;<br><br>	<span class="hljs-comment">// 3. 查询</span><br>	result, err := clientset.<br>		CoreV1().            <span class="hljs-comment">// 返回CoreV1Client实例</span><br>		Pods(<span class="hljs-string">&quot;kube-system&quot;</span>). <span class="hljs-comment">// 指定查询的资源预计指定资源的namespace，namespace如果为空，表示查询所有namespace</span><br>		<span class="hljs-comment">// Namespaces().     // 查询namespace</span><br>		List(context.TODO(), metav1.ListOptions&#123;Limit: <span class="hljs-number">50</span>&#125;)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err.Error())<br>	&#125;<br>	<span class="hljs-comment">/*</span><br><span class="hljs-comment">		1) CoreV1返回CoreV1Client实例对象</span><br><span class="hljs-comment">		2) Pods 调用了newPods函数，该函数返回的试PodInterface对象，PodInterface对象实现了Pods资源相关的全部方法，同时再newPods里面还将RESTClient实例对象赋值给了对应的Client属性</span><br><span class="hljs-comment">		3) List内部使用RestClient与k8s APIServer进行了交互</span><br><span class="hljs-comment">	*/</span><br><br>	<span class="hljs-comment">/*</span><br><span class="hljs-comment">		1) clientset.CoreV1().Pods表示请求core核心资源组的v1资源版本下的Pod资源对象，其内部设置了APIPath请求的HTTP路径，GroupVersion请求的资源组、资源版本，NegotiatedSerializer数据的编解码器。</span><br><span class="hljs-comment">		2) Pods函数是一个资源对象接口，用于Pod资源对象的管理。例如，对Pod资源执行Create、Update、Delete、Get、List、Watch、Patch等操作，这些操作实际上是对RESTClient进行了封装，可以设置选项（如Limit、TimeoutSeconds等）。</span><br><span class="hljs-comment">	*/</span><br><br>	<span class="hljs-comment">// 4. 格式化输出结果</span><br>	<span class="hljs-keyword">for</span> _, item := <span class="hljs-keyword">range</span> result.Items &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;namespace: %v, name: %v, status: %v\n&quot;</span>, item.Namespace, item.Name, item.Status.Phase)<br>	&#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+
+
+<h2 id="DynamicClient"><a href="#DynamicClient" class="headerlink" title="DynamicClient"></a>DynamicClient</h2><p>DynamicClient是一种动态客户端，它可以对任意Kubernetes资源进行RESTFul操作，包括CRD自定义资源。</p>
+<p>DynamicClient与ClientSet操作类似，同样封装了RESTClient，同样提供了Create、Update、Delete、Get、List、Watch、Patch等方法。</p>
+<p>DynamicClient与ClientSet最大的不同之处在于：</p>
+<ul>
+<li><p>ClientSet仅能访问Kubernetes自带的资源（即客户端几核内的资源），不能直接访问CRD自定义资源。ClientSet需要预先实现每种Resource和Version的操作，其内部的数据都是结构化数据（即已知数据结构）</p>
+</li>
+<li><p>DynamicClient内部实现了Unstructured，用于处理非结构化数据结构（即无法提前预知数据结构），这也是DynamicClient能够处理CRD自定义资源的关键。</p>
+</li>
+</ul>
+<p>DynamicClient的处理过程将Resource（例如PodList）转化成Unstructured结构类型，Kubernetes的所有Resource都可以转化为该结构类型。处理完成后，再将Unstructured转换成PodList。整个过程类似于Go语言的interface{}断言转换过程。另外，Unstructured结构类型是通过map[string]interface{}转换的。</p>
+<p>两个重要的知识点：</p>
+<ul>
+<li>Object.runtime：Kubernetes中的所有资源对象都实现了这个接口，其中包含DeepCopyObject和GetObjectKind的方法，分别用于对象深拷贝和获取对象的具体资源类型。</li>
+<li>Unstructured：包含map[string]interface{}类型字段，在处理无法预知结构的数据时，将数据值存入interface{}中，待运行时利用反射判断。该结构体提供了大量的工具方法，便于处理非结构化的数据。</li>
+</ul>
+<p>demo示例：通过DynamicClient示例列出某一命名空间下的Pod资源对象</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;context&quot;</span><br>	<span class="hljs-string">&quot;fmt&quot;</span><br><br>	corev1 <span class="hljs-string">&quot;k8s.io/api/core/v1&quot;</span><br>	metav1 <span class="hljs-string">&quot;k8s.io/apimachinery/pkg/apis/meta/v1&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/apimachinery/pkg/runtime&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/apimachinery/pkg/runtime/schema&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/client-go/dynamic&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/client-go/tools/clientcmd&quot;</span><br>)<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">	@Author: ningan</span><br><span class="hljs-comment">	@Desc: 获取kube-system命名空间下的Pod列表</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// 1. 加载配置文件，生成config对象</span><br>	config, err := clientcmd.BuildConfigFromFlags(<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;/root/.kube/config&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err.Error())<br>	&#125;<br><br>	<span class="hljs-comment">// 2. 通过kubeconfig配置信息实例化客户端对象，这里是实例化动态客户端对象。该对象用于管理Kubernetes的所有Resource的客户端，例如对Resource执行Create、Update、Delete、Get、List、Watch、Patch等操作。</span><br>	dynamicClient, err := dynamic.NewForConfig(config)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err.Error())<br>	&#125;<br><br>	<span class="hljs-comment">// 3. 配置需要调用的GVR</span><br>	gvr := schema.GroupVersionResource&#123;<br>		Group:    <span class="hljs-string">&quot;&quot;</span>,<br>		Version:  <span class="hljs-string">&quot;v1&quot;</span>,<br>		Resource: <span class="hljs-string">&quot;pods&quot;</span>,<br>	&#125;<br><br>	<span class="hljs-comment">// 4. 发送请求，并得到返回结果</span><br>	unstructedObj, err := dynamicClient.<br>		Resource(gvr).<br>		Namespace(<span class="hljs-string">&quot;kube-system&quot;</span>).<br>		List(context.TODO(), metav1.ListOptions&#123;&#125;)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err.Error())<br>	&#125;<br><br>	<span class="hljs-comment">// 5. unstructedObj转化为结构化数据</span><br>	podList := &amp;corev1.PodList&#123;&#125;<br>	err = runtime.DefaultUnstructuredConverter.FromUnstructured(<br>		unstructedObj.UnstructuredContent(),<br>		podList,<br>	)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err.Error())<br>	&#125;<br>	<span class="hljs-comment">/*</span><br><span class="hljs-comment">		1) Resource：基于gvr生成了一个针对于资源的客户端，也可以称之为动态资源客户端，dynamicResourceClient</span><br><span class="hljs-comment">		2) Namespace：指定一个可操作的命名空间，同时它是dynamicResourceClient的方法</span><br><span class="hljs-comment">		3) List：首先通过RESTClient调用k8s APIServer的接口返回了Pod的数据，返回的数据格式是二进制的Json格式，然后通过一些列的解析方法，转换成unstructured.UnstructuredList</span><br><span class="hljs-comment">	*/</span><br><br>	<span class="hljs-comment">/*</span><br><span class="hljs-comment">		1) dynamicClient.Resource()函数用于设置请求的资源组、资源版本、资源名称。</span><br><span class="hljs-comment">		2) Namespace函数用于设置请求的命名空间。</span><br><span class="hljs-comment">		3) List函数用户获取Pod列表，得到的Pod列表为unstructured.UnstructuredList指针类型</span><br><span class="hljs-comment">		4) 然后通过runtime.DefaultUnstructuredConverter.FromUnstructured函数将unstructured.UnstructuredList转换为PodList类型。</span><br><span class="hljs-comment">	*/</span><br><br>	<span class="hljs-comment">// 6. 格式化输出结果</span><br>	<span class="hljs-keyword">for</span> _, item := <span class="hljs-keyword">range</span> podList.Items &#123;<br>		fmt.Printf(<span class="hljs-string">&quot;namespace: %v, name: %v, status: %v\n&quot;</span>, item.Namespace, item.Name, item.Status.Phase)<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="DiscoveryClient"><a href="#DiscoveryClient" class="headerlink" title="DiscoveryClient"></a>DiscoveryClient</h2><p>DiscoveryClient是发现客户端，它主要用于发现Kubernetes API Server所支持的资源组、资源版本、资源信息。</p>
+<p>Kubernetes API Server支持很多资源组、资源版本、资源信息，开发者可以通过DiscoveryClient进行查看。</p>
+<p>kuectlde api-versions和api-resources命令输出也是通过DiscoveryClient实现的。另外，DiscoveryClient也是子啊RESTClient的基础上进行了封装。</p>
+<p>DiscoveryClient除了可以发现Kubernetes API Server所支持的资源组、资源版本、资源信息，还可以将这些信息存储到本地，用于本地缓存（cache），以减轻对Kubernetes API Server访问的压力。在运行Kubernetes组件的机器上，缓存信息默认存储与<del>&#x2F;.kube&#x2F;cache和</del>&#x2F;.kube&#x2F;http-cache下。</p>
+<p>demo示例：通过DynamicClient列出Kubernetes API Server所支持的资源组、资源版本、资源信息</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br><br>	<span class="hljs-string">&quot;k8s.io/apimachinery/pkg/runtime/schema&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/client-go/discovery&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/client-go/tools/clientcmd&quot;</span><br>)<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">	@Author: ningan</span><br><span class="hljs-comment">	@Desc: 通过DynamicClient列出Kubernetes API Server所支持的资源组、资源版本、资源信息</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// 1. 加载配置文件，生成config对象</span><br>	config, err := clientcmd.BuildConfigFromFlags(<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;/root/.kube/config&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err.Error())<br>	&#125;<br><br>	<span class="hljs-comment">// 2. 通过kubeconfig配置信息实例化discoveryClient对象，这个对象是用于发现Kubernetes API Server所支持的资源组、资源版本、资源信息的客户端。</span><br>	discoveryClient, err := discovery.NewDiscoveryClientForConfig(config)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err.Error())<br>	&#125;<br><br>	<span class="hljs-comment">// 3. 发送请求，获取GVR数据</span><br>	_, apiResourcesList, err := discoveryClient.ServerGroupsAndResources()<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err.Error())<br>	&#125;<br>	<span class="hljs-comment">/*</span><br><span class="hljs-comment">		1) ServerGroups负责获取gv数据</span><br><span class="hljs-comment">		2) 然后调用fetchGroupVersionResources，且给这个方法传递gv参数，通过调用ServerResourcesForGroupVersion方法获取gv对应的Resource数据，同时返回一个map[gv]resourceList的数据格式</span><br><span class="hljs-comment">		3) 处理map-&gt;slice，然后返回GCR slice</span><br><span class="hljs-comment">	*/</span><br><br>	<span class="hljs-comment">/*</span><br><span class="hljs-comment">		Kubernetes API Server暴露出/api和/apis接口。DiscoveryClient通过RESTClient分别请求/api和/apis接口，从而获取Kubernetes API Server所支持的资源组、资源版本、资源信息。核心实现位于：ServerGroupsAndResources-&gt;ServerGroups中</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">	*/</span><br><br>	<span class="hljs-keyword">for</span> _, list := <span class="hljs-keyword">range</span> apiResourcesList &#123;<br>		gv, err := schema.ParseGroupVersion(list.GroupVersion)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-built_in">panic</span>(err.Error())<br>		&#125;<br><br>		<span class="hljs-keyword">for</span> _, resource := <span class="hljs-keyword">range</span> list.APIResources &#123;<br>			fmt.Printf(<span class="hljs-string">&quot;name: %v, group: %v, version: %v\n&quot;</span>, resource.Name, gv.Group, gv.Version)<br>		&#125;<br>	&#125;<br><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@master demo1]<span class="hljs-comment"># go run main.go</span><br>name: bindings, group: , version: v1<br>name: componentstatuses, group: , version: v1<br>name: configmaps, group: , version: v1<br>name: endpoints, group: , version: v1<br>name: events, group: , version: v1<br>name: limitranges, group: , version: v1<br>name: namespaces, group: , version: v1<br>name: namespaces/finalize, group: , version: v1<br>name: namespaces/status, group: , version: v1<br>name: nodes, group: , version: v1<br>name: nodes/proxy, group: , version: v1<br>name: nodes/status, group: , version: v1<br>name: persistentvolumeclaims, group: , version: v1<br>name: persistentvolumeclaims/status, group: , version: v1<br>name: persistentvolumes, group: , version: v1<br>name: persistentvolumes/status, group: , version: v1<br>name: pods, group: , version: v1<br>name: pods/attach, group: , version: v1<br>name: pods/binding, group: , version: v1<br>name: pods/eviction, group: , version: v1<br>name: pods/exec, group: , version: v1<br>name: pods/log, group: , version: v1<br>name: pods/portforward, group: , version: v1<br>name: pods/proxy, group: , version: v1<br>name: pods/status, group: , version: v1<br>name: podtemplates, group: , version: v1<br>name: replicationcontrollers, group: , version: v1<br>name: replicationcontrollers/scale, group: , version: v1<br>name: replicationcontrollers/status, group: , version: v1<br>name: resourcequotas, group: , version: v1<br>name: resourcequotas/status, group: , version: v1<br>name: secrets, group: , version: v1<br>name: serviceaccounts, group: , version: v1<br>name: services, group: , version: v1<br>name: services/proxy, group: , version: v1<br>name: services/status, group: , version: v1<br>name: apiservices, group: apiregistration.k8s.io, version: v1<br>name: apiservices/status, group: apiregistration.k8s.io, version: v1<br>name: apiservices, group: apiregistration.k8s.io, version: v1beta1<br>name: apiservices/status, group: apiregistration.k8s.io, version: v1beta1<br>name: ingresses, group: extensions, version: v1beta1<br>name: ingresses/status, group: extensions, version: v1beta1<br>name: controllerrevisions, group: apps, version: v1<br>name: daemonsets, group: apps, version: v1<br>name: daemonsets/status, group: apps, version: v1<br>name: deployments, group: apps, version: v1<br>name: deployments/scale, group: apps, version: v1<br>name: deployments/status, group: apps, version: v1<br>name: replicasets, group: apps, version: v1<br>name: replicasets/scale, group: apps, version: v1<br>name: replicasets/status, group: apps, version: v1<br>name: statefulsets, group: apps, version: v1<br>name: statefulsets/scale, group: apps, version: v1<br>name: statefulsets/status, group: apps, version: v1<br>name: events, group: events.k8s.io, version: v1<br>name: events, group: events.k8s.io, version: v1beta1<br>name: tokenreviews, group: authentication.k8s.io, version: v1<br>name: tokenreviews, group: authentication.k8s.io, version: v1beta1<br>name: localsubjectaccessreviews, group: authorization.k8s.io, version: v1<br>name: selfsubjectaccessreviews, group: authorization.k8s.io, version: v1<br>name: selfsubjectrulesreviews, group: authorization.k8s.io, version: v1<br>name: subjectaccessreviews, group: authorization.k8s.io, version: v1<br>name: localsubjectaccessreviews, group: authorization.k8s.io, version: v1beta1<br>name: selfsubjectaccessreviews, group: authorization.k8s.io, version: v1beta1<br>name: selfsubjectrulesreviews, group: authorization.k8s.io, version: v1beta1<br>name: subjectaccessreviews, group: authorization.k8s.io, version: v1beta1<br>name: horizontalpodautoscalers, group: autoscaling, version: v1<br>name: horizontalpodautoscalers/status, group: autoscaling, version: v1<br>name: horizontalpodautoscalers, group: autoscaling, version: v2beta1<br>name: horizontalpodautoscalers/status, group: autoscaling, version: v2beta1<br>name: horizontalpodautoscalers, group: autoscaling, version: v2beta2<br>name: horizontalpodautoscalers/status, group: autoscaling, version: v2beta2<br>name: <span class="hljs-built_in">jobs</span>, group: batch, version: v1<br>name: <span class="hljs-built_in">jobs</span>/status, group: batch, version: v1<br>name: cronjobs, group: batch, version: v1beta1<br>name: cronjobs/status, group: batch, version: v1beta1<br>name: certificatesigningrequests, group: certificates.k8s.io, version: v1<br>name: certificatesigningrequests/approval, group: certificates.k8s.io, version: v1<br>name: certificatesigningrequests/status, group: certificates.k8s.io, version: v1<br>name: certificatesigningrequests, group: certificates.k8s.io, version: v1beta1<br>name: certificatesigningrequests/approval, group: certificates.k8s.io, version: v1beta1<br>name: certificatesigningrequests/status, group: certificates.k8s.io, version: v1beta1<br>name: ingressclasses, group: networking.k8s.io, version: v1<br>name: ingresses, group: networking.k8s.io, version: v1<br>name: ingresses/status, group: networking.k8s.io, version: v1<br>name: networkpolicies, group: networking.k8s.io, version: v1<br>name: ingressclasses, group: networking.k8s.io, version: v1beta1<br>name: ingresses, group: networking.k8s.io, version: v1beta1<br>name: ingresses/status, group: networking.k8s.io, version: v1beta1<br>name: poddisruptionbudgets, group: policy, version: v1beta1<br>name: poddisruptionbudgets/status, group: policy, version: v1beta1<br>name: podsecuritypolicies, group: policy, version: v1beta1<br>name: clusterrolebindings, group: rbac.authorization.k8s.io, version: v1<br>name: clusterroles, group: rbac.authorization.k8s.io, version: v1<br>name: rolebindings, group: rbac.authorization.k8s.io, version: v1<br>name: roles, group: rbac.authorization.k8s.io, version: v1<br>name: clusterrolebindings, group: rbac.authorization.k8s.io, version: v1beta1<br>name: clusterroles, group: rbac.authorization.k8s.io, version: v1beta1<br>name: rolebindings, group: rbac.authorization.k8s.io, version: v1beta1<br>name: roles, group: rbac.authorization.k8s.io, version: v1beta1<br>name: csidrivers, group: storage.k8s.io, version: v1<br>name: csinodes, group: storage.k8s.io, version: v1<br>name: storageclasses, group: storage.k8s.io, version: v1<br>name: volumeattachments, group: storage.k8s.io, version: v1<br>name: volumeattachments/status, group: storage.k8s.io, version: v1<br>name: csidrivers, group: storage.k8s.io, version: v1beta1<br>name: csinodes, group: storage.k8s.io, version: v1beta1<br>name: storageclasses, group: storage.k8s.io, version: v1beta1<br>name: volumeattachments, group: storage.k8s.io, version: v1beta1<br>name: mutatingwebhookconfigurations, group: admissionregistration.k8s.io, version: v1<br>name: validatingwebhookconfigurations, group: admissionregistration.k8s.io, version: v1<br>name: mutatingwebhookconfigurations, group: admissionregistration.k8s.io, version: v1beta1<br>name: validatingwebhookconfigurations, group: admissionregistration.k8s.io, version: v1beta1<br>name: customresourcedefinitions, group: apiextensions.k8s.io, version: v1<br>name: customresourcedefinitions/status, group: apiextensions.k8s.io, version: v1<br>name: customresourcedefinitions, group: apiextensions.k8s.io, version: v1beta1<br>name: customresourcedefinitions/status, group: apiextensions.k8s.io, version: v1beta1<br>name: priorityclasses, group: scheduling.k8s.io, version: v1<br>name: priorityclasses, group: scheduling.k8s.io, version: v1beta1<br>name: leases, group: coordination.k8s.io, version: v1<br>name: leases, group: coordination.k8s.io, version: v1beta1<br>name: runtimeclasses, group: node.k8s.io, version: v1beta1<br>name: endpointslices, group: discovery.k8s.io, version: v1beta1<br>name: cukclusters, group: dubhe.welkin, version: v1alpha1<br>name: cukclusters/status, group: dubhe.welkin, version: v1alpha1<br>name: cuknodes, group: dubhe.welkin, version: v1alpha1<br>name: cuknodes/status, group: dubhe.welkin, version: v1alpha1<br>name: cuksets, group: dubhe.welkin, version: v1alpha1<br>name: cuksets/status, group: dubhe.welkin, version: v1alpha1<br>name: nodes, group: metrics.k8s.io, version: v1beta1<br>name: pods, group: metrics.k8s.io, version: v1beta1<br><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h3 id="将GVR缓存到本地"><a href="#将GVR缓存到本地" class="headerlink" title="将GVR缓存到本地"></a>将GVR缓存到本地</h3><p>可以发现，GVR数据其实是很少变动的，因此我们可以将GVR的数据缓存到本地，来减少Client与Apiserver交互。</p>
+<p>在discovery&#x2F;cached中，有另外两个客户端是来实现将GVR数据缓存到本地文件中和内存中的，分别是CachedDiscoveryClient和memCacheClient。</p>
+<p>平时管理集群的kubectl命令也是使用这种方式来使用GVR与APIServer交互的。</p>
+<p>DiscoveryClient除了可以发现Kubernetes API Server所支持的资源组、资源版本、资源信息，还可以将这些信息存储到本地，用于本地缓存（cache），以减轻对Kubernetes API Server访问的压力。在运行Kubernetes组件的机器上，缓存信息默认存储与<del>&#x2F;.kube&#x2F;cache和</del>&#x2F;.kube&#x2F;http-cache下。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs go"><span class="hljs-keyword">package</span> main<br><br><span class="hljs-keyword">import</span> (<br>	<span class="hljs-string">&quot;fmt&quot;</span><br>	<span class="hljs-string">&quot;time&quot;</span><br><br>	<span class="hljs-string">&quot;k8s.io/apimachinery/pkg/runtime/schema&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/client-go/discovery/cached/disk&quot;</span><br>	<span class="hljs-string">&quot;k8s.io/client-go/tools/clientcmd&quot;</span><br>)<br><br><span class="hljs-comment">/*</span><br><span class="hljs-comment">	@Author: ningan</span><br><span class="hljs-comment">	@Desc: 将GVR数据缓存到本地</span><br><span class="hljs-comment">*/</span><br><br><span class="hljs-function"><span class="hljs-keyword">func</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span> &#123;<br>	<span class="hljs-comment">// 1. 加载配置文件，生成config对象</span><br>	config, err := clientcmd.BuildConfigFromFlags(<span class="hljs-string">&quot;&quot;</span>, <span class="hljs-string">&quot;/root/.kube/config&quot;</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err.Error())<br>	&#125;<br><br>	<span class="hljs-comment">// 2. 实例化客户端，本客户端负责将GVR数据缓存到本地文件中</span><br>	cachedDiscoveryClient, err := disk.NewCachedDiscoveryClientForConfig(config, <span class="hljs-string">&quot;./cache/discovery&quot;</span>, <span class="hljs-string">&quot;./cache/http&quot;</span>, time.Minute*<span class="hljs-number">60</span>)<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err.Error())<br>	&#125;<br><br>	_, apiResourcesList, err := cachedDiscoveryClient.ServerGroupsAndResources()<br>	<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>		<span class="hljs-built_in">panic</span>(err.Error())<br>	&#125;<br><br>	<span class="hljs-comment">/*</span><br><span class="hljs-comment">		1) 先从缓存文件中找GVR数据，有则直接返回，没有则调用APIServer</span><br><span class="hljs-comment">		2) 嗲用APIServer获取GVR数据</span><br><span class="hljs-comment">		3) 将获取到的GVR数据缓存到本地，然后返回给客户端</span><br><span class="hljs-comment"></span><br><span class="hljs-comment">	*/</span><br><br>	<span class="hljs-keyword">for</span> _, list := <span class="hljs-keyword">range</span> apiResourcesList &#123;<br>		gv, err := schema.ParseGroupVersion(list.GroupVersion)<br>		<span class="hljs-keyword">if</span> err != <span class="hljs-literal">nil</span> &#123;<br>			<span class="hljs-built_in">panic</span>(err.Error())<br>		&#125;<br><br>		<span class="hljs-keyword">for</span> _, resource := <span class="hljs-keyword">range</span> list.APIResources &#123;<br>			fmt.Printf(<span class="hljs-string">&quot;name: %v, group: %v, version: %v\n&quot;</span>, resource.Name, gv.Group, gv.Version)<br>		&#125;<br>	&#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+
+<p>执行go run main.go之后，确实生成了cache目录</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@master demo2]<span class="hljs-comment"># tree -L 2</span><br>.<br>├── cache<br>│   ├── discovery<br>│   └── http<br>└── main.go<br><br>3 directories, 1 file<br><br></code></pre></td></tr></table></figure>
+
+
+
+
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>Kubernetes源码剖析 5.2节 Client客户端对象</p>
+<p>b站视频：<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV11e4y197Ft/?spm_id_from=pageDriver&vd_source=504b7dbe5398664dd37d144b1bdfc0a1">Client-go实战教程</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/k8s/">#k8s</a>
+      
+        <a href="/tags/client-go/">#client-go</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【k8s系列】(202208) client-go学习与实践</div>
+      <div>http://example.com/2022/08/09/k8s/【k8s系列】(202208) client-go学习与实践/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ningan123</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年8月9日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/08/14/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91linux%E4%B8%AD%E4%BD%BF%E7%94%A8windows%E7%9A%84clash/" title="【网络成长记】linux中使用windows的clash">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【网络成长记】linux中使用windows的clash</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/07/25/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91(202207)%20hyperv%E4%B8%AD%E7%9A%84ubuntu%E8%99%9A%E6%8B%9F%E6%9C%BA%E5%8F%8C%E7%BD%91%E5%8D%A1%E8%AE%BE%E7%BD%AE/" title="【网络成长记】(202207) hyperv中的ubuntu虚拟机双网卡设置">
+                        <span class="hidden-mobile">【网络成长记】(202207) hyperv中的ubuntu虚拟机双网卡设置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
