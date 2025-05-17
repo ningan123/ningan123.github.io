@@ -1,0 +1,645 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ningan123">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="生成kubernetes集群最高权限admin用户的token 1234567891011121314151617181920212223kind: ClusterRoleBindingapiVersion: rbac.authorization.k8s.io&#x2F;v1beta1metadata:  name: admin  annotations:    rbac.authorization.kub">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【k8s系列】(改时间202205) k8s中的 secret token">
+<meta property="og:url" content="http://example.com/2024/02/21/k8s/unsupported/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(%E6%94%B9%E6%97%B6%E9%97%B4202205)%20k8s%E4%B8%AD%E7%9A%84%20secret%20token/index.html">
+<meta property="og:site_name" content="ningan123">
+<meta property="og:description" content="生成kubernetes集群最高权限admin用户的token 1234567891011121314151617181920212223kind: ClusterRoleBindingapiVersion: rbac.authorization.k8s.io&#x2F;v1beta1metadata:  name: admin  annotations:    rbac.authorization.kub">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-02-21T17:24:00.000Z">
+<meta property="article:modified_time" content="2024-11-02T15:55:00.000Z">
+<meta property="article:author" content="ningan123">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>【k8s系列】(改时间202205) k8s中的 secret token - ningan123</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【k8s系列】(改时间202205) k8s中的 secret token"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-02-21 17:24" pubdate>
+          2024年2月21日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          25k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          209 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【k8s系列】(改时间202205) k8s中的 secret token</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <p>生成kubernetes集群最高权限admin用户的token</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs yaml"><span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterRoleBinding</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">rbac.authorization.k8s.io/v1beta1</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">admin</span><br>  <span class="hljs-attr">annotations:</span><br>    <span class="hljs-attr">rbac.authorization.kubernetes.io/autoupdate:</span> <span class="hljs-string">&quot;true&quot;</span><br><span class="hljs-attr">roleRef:</span><br>  <span class="hljs-attr">kind:</span> <span class="hljs-string">ClusterRole</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">cluster-admin</span><br>  <span class="hljs-attr">apiGroup:</span> <span class="hljs-string">rbac.authorization.k8s.io</span><br><span class="hljs-attr">subjects:</span><br><span class="hljs-bullet">-</span> <span class="hljs-attr">kind:</span> <span class="hljs-string">ServiceAccount</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">admin</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span><br><span class="hljs-meta">---</span><br><span class="hljs-attr">apiVersion:</span> <span class="hljs-string">v1</span><br><span class="hljs-attr">kind:</span> <span class="hljs-string">ServiceAccount</span><br><span class="hljs-attr">metadata:</span><br>  <span class="hljs-attr">name:</span> <span class="hljs-string">admin</span><br>  <span class="hljs-attr">namespace:</span> <span class="hljs-string">kube-system</span><br>  <span class="hljs-attr">labels:</span><br>    <span class="hljs-attr">kubernetes.io/cluster-service:</span> <span class="hljs-string">&quot;true&quot;</span><br>    <span class="hljs-attr">addonmanager.kubernetes.io/mode:</span> <span class="hljs-string">Reconcile</span><br></code></pre></td></tr></table></figure>
+
+<p>然后执行下面的命令创建 serviceaccount 和角色绑定，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">kubectl create -f admin-role.yaml<br></code></pre></td></tr></table></figure>
+
+<p>创建完成后获取secret中token的值。</p>
+<h1 id="获取admin-token的secret名字"><a href="#获取admin-token的secret名字" class="headerlink" title="获取admin-token的secret名字"></a>获取admin-token的secret名字</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ kubectl -n kube-system get secret|grep admin-token<br>admin-token-2qdsz                          kubernetes.io/service-account-token   3         6m<br></code></pre></td></tr></table></figure>
+
+<h1 id="获取token的值"><a href="#获取token的值" class="headerlink" title="获取token的值"></a>获取token的值</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 注意：token是base64解码后的值</span><br><span class="hljs-comment"># kubectl -n kube-system describe secret admin-token-2qdsz</span><br>Name:         admin-token-2qdsz<br>Namespace:    kube-system<br>Labels:       &lt;none&gt;<br>Annotations:  kubernetes.io/service-account.name: admin<br>              kubernetes.io/service-account.uid: 4fe95396-6de8-4097-9ff9-4232f0151c71<br><br>Type:  kubernetes.io/service-account-token<br><br>Data<br>====<br>ca.crt:     1359 bytes<br>namespace:  11 bytes<br>token:      eyJhbGciOiJSUzI1NiIsImtpZCI6Im9IQXYtZkpERlB0V0JHRnFwa2w1czR1Zzhja2lRWTU1cjhpWW1uaEo3cmsifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi10b2tlbi0ycWRzeiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJhZG1pbiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjRmZTk1Mzk2LTZkZTgtNDA5Ny05ZmY5LTQyMzJmMDE1MWM3MSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTphZG1pbiJ9.Xsd8Oo4EYEe3eL4GQweDvnuEfsRoFF0O1RXo_HjACgsj8FMQtU2TdaBhaJk3p7Rvuc_gAz3FqJS9YOWHVlSQKqfL68RCEPfbqb-dXqnKuijFyUKD4NyhnQH42oMf9fWD0NuquhTlNASQSIXdl1WW0u0bY8cOxmQHOOIJvuHMeqLTLG3oQYSgdjdfhHUtrqF1EztORGQKYFoJEv0gZRnXhuUC30MNjVptKPPC8hEzGWaVkcMwTJVIYQ6IYWsoH3o9Z_kDveJpbiOwQO4bV39bfNuefuGZY2SoJTfnyz7ERdT7LZLZ153E14vFbxeaF-_ITD-7cSGqxLZNifv-fmSKzQ   <br><br><span class="hljs-comment"># 注意：token是base64编码后的值</span><br><span class="hljs-comment"># kubectl -n kube-system get secret admin-token-2qdsz -oyaml</span><br>apiVersion: v1<br>data:<br>  ca.crt: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUR2akNDQXFhZ0F3SUJBZ0lVTVBFY1pDb3graHJPMlJzNk1oblNmTndzV3lJd0RRWUpLb1pJaHZjTkFRRUwKQlFBd1pURUxNQWtHQTFVRUJoTUNRMDR4RURBT0JnTlZCQWdUQjBKbGFVcHBibWN4RURBT0JnTlZCQWNUQjBKbAphVXBwYm1jeEREQUtCZ05WQkFvVEEyczRjekVQTUEwR0ExVUVDeE1HVTNsemRHVnRNUk13RVFZRFZRUURFd3ByCmRXSmxjbTVsZEdWek1CNFhEVEl4TVRJeE16QXlOVEV3TUZvWERUSTJNVEl4TWpBeU5URXdNRm93WlRFTE1Ba0cKQTFVRUJoTUNRMDR4RURBT0JnTlZCQWdUQjBKbGFVcHBibWN4RURBT0JnTlZCQWNUQjBKbGFVcHBibWN4RERBSwpCZ05WQkFvVEEyczRjekVQTUEwR0ExVUVDeE1HVTNsemRHVnRNUk13RVFZRFZRUURFd3ByZFdKbGNtNWxkR1Z6Ck1JSUJJakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBUThBTUlJQkNnS0NBUUVBeVBsTmJlT2loa1Q0ZHZPVjBxT0QKbnhmSThxQUNFczV3RkZHZUUxamltcFJHZDJ2UVdEWHkwNVdJYVAzNnZrMzlNUGhXTndyVlJlTTQ1SG1VdFZMVApZZVF0TCtqZzJXNUtFVC9ENnBIRmFLalc4VG9CVHdXTUI4dFNSZ0JpTnRKRm5PTUp2Z2tZVDhqdlNTdUhnZjd1ClBvdWFLMUhrUFJYQjFpSi9OSDNQYzMwcTJBV1RmTmNFM21DYU9VMkQrWlBaWUpncGRIV0JCK1pOeHo0R1BCZjcKa2dwbSthQUdydmpzOGZMZFh5MzhhdzNwbitSWGtNNzN5M0w2dDEvbDFvQ0JKcjlQS2pVK0JVa0s1VkdORzFFNAoxQWppQVRUZ3U2S1JKRDV2SGNZeDBHRnJ3dnZDMzRwSCs2Uk1yUWtxZ2RpRlJZVVhEYi9BYjR6RzFlUmRaazArClJRSURBUUFCbzJZd1pEQU9CZ05WSFE4QkFmOEVCQU1DQVFZd0VnWURWUjBUQVFIL0JBZ3dCZ0VCL3dJQkFqQWQKQmdOVkhRNEVGZ1FVY3JvMFdxZ3l1VjJKbTlvbXd6UDlPS25scjN3d0h3WURWUjBqQkJnd0ZvQVVjcm8wV3FneQp1VjJKbTlvbXd6UDlPS25scjN3d0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFKK01HU1BvbHU4VGhkOE1jQTZjCm9EVGdGWTc1MU5RcmlXVXd5a2FBQ2xDZXY2YWp0RU1FdmFDWXZUOXhsaUUrM2lmZDlQTXlPYTB3dDlSUWhLVXIKc01WanVBcUxrWTBhbjhiTm5HeDdkc2IweThBS2JIYXlDQkVBb1ludUtiSXcxUlMvTEpTakJqa1NYS2dsN1c3SwpzNWlzTzBFRFBIS3BOM1lSN3ZiZDdzT2krOTgxTFBWMk4vb2x6TUd3VVNCSUJXTFliZHZveHY2N3JEc1YvZ1lXCjFSZklnOU9USThTVEZhM0RjcHZUNElaTHlIMFhaeisrdjRrK0NZVEptTG9mM0VibWVhQjBya2tNNTZNSFVYWFUKY3pKMi9ETmdhKzNTNU40N0RRYVUvRVlTQXpJWG05a2lYYncwbWZoNnJFcjhHQm9DQzRBWTVOcUJWWUhETjQ1MQpzdG89Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K<br>  namespace: a3ViZS1zeXN0ZW0=<br>  token: ZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNkltOUlRWFl0WmtwRVJsQjBWMEpIUm5Gd2EydzFjelIxWnpoamEybFJXVFUxY2pocFdXMXVhRW8zY21zaWZRLmV5SnBjM01pT2lKcmRXSmxjbTVsZEdWekwzTmxjblpwWTJWaFkyTnZkVzUwSWl3aWEzVmlaWEp1WlhSbGN5NXBieTl6WlhKMmFXTmxZV05qYjNWdWRDOXVZVzFsYzNCaFkyVWlPaUpyZFdKbExYTjVjM1JsYlNJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZqY21WMExtNWhiV1VpT2lKaFpHMXBiaTEwYjJ0bGJpMHljV1J6ZWlJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZ5ZG1salpTMWhZMk52ZFc1MExtNWhiV1VpT2lKaFpHMXBiaUlzSW10MVltVnlibVYwWlhNdWFXOHZjMlZ5ZG1salpXRmpZMjkxYm5RdmMyVnlkbWxqWlMxaFkyTnZkVzUwTG5WcFpDSTZJalJtWlRrMU16azJMVFprWlRndE5EQTVOeTA1Wm1ZNUxUUXlNekptTURFMU1XTTNNU0lzSW5OMVlpSTZJbk41YzNSbGJUcHpaWEoyYVdObFlXTmpiM1Z1ZERwcmRXSmxMWE41YzNSbGJUcGhaRzFwYmlKOS5Yc2Q4T280RVlFZTNlTDRHUXdlRHZudUVmc1JvRkYwTzFSWG9fSGpBQ2dzajhGTVF0VTJUZGFCaGFKazNwN1J2dWNfZ0F6M0ZxSlM5WU9XSFZsU1FLcWZMNjhSQ0VQZmJxYi1kWHFuS3VpakZ5VUtENE55aG5RSDQyb01mOWZXRDBOdXF1aFRsTkFTUVNJWGRsMVdXMHUwYlk4Y094bVFIT09JSnZ1SE1lcUxUTEczb1FZU2dkamRmaEhVdHJxRjFFenRPUkdRS1lGb0pFdjBnWlJuWGh1VUMzME1OalZwdEtQUEM4aEV6R1dhVmtjTXdUSlZJWVE2SVlXc29IM285Wl9rRHZlSnBiaU93UU80YlYzOWJmTnVlZnVHWlkyU29KVGZueXo3RVJkVDdMWkxaMTUzRTE0dkZieGVhRi1fSVRELTdjU0dxeExaTmlmdi1mbVNLelE=<br>kind: Secret<br>metadata:<br>  annotations:<br>    kubernetes.io/service-account.name: admin<br>    kubernetes.io/service-account.uid: 4fe95396-6de8-4097-9ff9-4232f0151c71<br>  creationTimestamp: <span class="hljs-string">&quot;2022-05-07T03:41:41Z&quot;</span><br>  name: admin-token-2qdsz<br>  namespace: kube-system<br>  resourceVersion: <span class="hljs-string">&quot;2962635&quot;</span><br>  selfLink: /api/v1/namespaces/kube-system/secrets/admin-token-2qdsz<br>  uid: 41e80ab2-3840-4cde-bad8-cdad915bbcc9<br><span class="hljs-built_in">type</span>: kubernetes.io/service-account-token<br><br><br></code></pre></td></tr></table></figure>
+
+<p>也可以使用 jsonpath 的方式直接获取 token 的值，如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># kubectl -n kube-system get secret admin-token-2qdsz -o jsonpath=&#123;.data.token&#125;</span><br>ZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNkltOUlRWFl0WmtwRVJsQjBWMEpIUm5Gd2EydzFjelIxWnpoamEybFJXVFUxY2pocFdXMXVhRW8zY21zaWZRLmV5SnBjM01pT2lKcmRXSmxjbTVsZEdWekwzTmxjblpwWTJWaFkyTnZkVzUwSWl3aWEzVmlaWEp1WlhSbGN5NXBieTl6WlhKMmFXTmxZV05qYjNWdWRDOXVZVzFsYzNCaFkyVWlPaUpyZFdKbExYTjVjM1JsYlNJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZqY21WMExtNWhiV1VpT2lKaFpHMXBiaTEwYjJ0bGJpMHljV1J6ZWlJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZ5ZG1salpTMWhZMk52ZFc1MExtNWhiV1VpT2lKaFpHMXBiaUlzSW10MVltVnlibVYwWlhNdWFXOHZjMlZ5ZG1salpXRmpZMjkxYm5RdmMyVnlkbWxqWlMxaFkyTnZkVzUwTG5WcFpDSTZJalJtWlRrMU16azJMVFprWlRndE5EQTVOeTA1Wm1ZNUxUUXlNekptTURFMU1XTTNNU0lzSW5OMVlpSTZJbk41YzNSbGJUcHpaWEoyYVdObFlXTmpiM1Z1ZERwcmRXSmxMWE41YzNSbGJUcGhaRzFwYmlKOS5Yc2Q4T280RVlFZTNlTDRHUXdlRHZudUVmc1JvRkYwTzFSWG9fSGpBQ2dzajhGTVF0VTJUZGFCaGFKazNwN1J2dWNfZ0F6M0ZxSlM5WU9XSFZsU1FLcWZMNjhSQ0VQZmJxYi1kWHFuS3VpakZ5VUtENE55aG5RSDQyb01mOWZXRDBOdXF1aFRsTkFTUVNJWGRsMVdXMHUwYlk4Y094bVFIT09JSnZ1SE1lcUxUTEczb1FZU2dkamRmaEhVdHJxRjFFenRPUkdRS1lGb0pFdjBnWlJuWGh1VUMzME1OalZwdEtQUEM4aEV6R1dhVmtjTXdUSlZJWVE2SVlXc29IM285Wl9rRHZlSnBiaU93UU80YlYzOWJmTnVlZnVHWlkyU29KVGZueXo3RVJkVDdMWkxaMTUzRTE0dkZieGVhRi1fSVRELTdjU0dxeExaTmlmdi1mbVNLelE=<br><br><br><span class="hljs-comment"># kubectl -n kube-system get secret admin-token-2qdsz -o jsonpath=&#123;.data.token&#125;|base64 -d</span><br><span class="hljs-comment"># kubectl -n kube-system get secret admin-token-2qdsz -o jsonpath=&#123;.data.token&#125;|base64 --decode</span><br>eyJhbGciOiJSUzI1NiIsImtpZCI6Im9IQXYtZkpERlB0V0JHRnFwa2w1czR1Zzhja2lRWTU1cjhpWW1uaEo3cmsifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi10b2tlbi0ycWRzeiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJhZG1pbiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjRmZTk1Mzk2LTZkZTgtNDA5Ny05ZmY5LTQyMzJmMDE1MWM3MSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTphZG1pbiJ9.Xsd8Oo4EYEe3eL4GQweDvnuEfsRoFF0O1RXo_HjACgsj8FMQtU2TdaBhaJk3p7Rvuc_gAz3FqJS9YOWHVlSQKqfL68RCEPfbqb-dXqnKuijFyUKD4NyhnQH42oMf9fWD0NuquhTlNASQSIXdl1WW0u0bY8cOxmQHOOIJvuHMeqLTLG3oQYSgdjdfhHUtrqF1EztORGQKYFoJEv0gZRnXhuUC30MNjVptKPPC8hEzGWaVkcMwTJVIYQ6IYWsoH3o9Z_kDveJpbiOwQO4bV39bfNuefuGZY2SoJTfnyz7ERdT7LZLZ153E14vFbxeaF-_ITD-7cSGqxLZNifv-fmSKzQ<br></code></pre></td></tr></table></figure>
+
+<p>注意：Linux 和 Mac 有自带的 base64 命令也可以直接使用，输入 base64 是进行编码，Linux 中base64 -d 表示解码，Mac 中使用 base64 -D。</p>
+<h1 id="api访问"><a href="#api访问" class="headerlink" title="api访问"></a>api访问</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># curl https://192.168.56.168:6443/api --header &quot;Authorization: Bearer eyJhbGciOiJSUzI1NiIsImtpZCI6Im9IQXYtZkpERlB0V0JHRnFwa2w1czR1Zzhja2lRWTU1cjhpWW1uaEo3cmsifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi10b2tlbi0ycWRzeiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJhZG1pbiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjRmZTk1Mzk2LTZkZTgtNDA5Ny05ZmY5LTQyMzJmMDE1MWM3MSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTphZG1pbiJ9.Xsd8Oo4EYEe3eL4GQweDvnuEfsRoFF0O1RXo_HjACgsj8FMQtU2TdaBhaJk3p7Rvuc_gAz3FqJS9YOWHVlSQKqfL68RCEPfbqb-dXqnKuijFyUKD4NyhnQH42oMf9fWD0NuquhTlNASQSIXdl1WW0u0bY8cOxmQHOOIJvuHMeqLTLG3oQYSgdjdfhHUtrqF1EztORGQKYFoJEv0gZRnXhuUC30MNjVptKPPC8hEzGWaVkcMwTJVIYQ6IYWsoH3o9Z_kDveJpbiOwQO4bV39bfNuefuGZY2SoJTfnyz7ERdT7LZLZ153E14vFbxeaF-_ITD-7cSGqxLZNifv-fmSKzQ&quot; --insecure</span><br>&#123;<br>  <span class="hljs-string">&quot;kind&quot;</span>: <span class="hljs-string">&quot;APIVersions&quot;</span>,<br>  <span class="hljs-string">&quot;versions&quot;</span>: [<br>    <span class="hljs-string">&quot;v1&quot;</span><br>  ],<br>  <span class="hljs-string">&quot;serverAddressByClientCIDRs&quot;</span>: [<br>    &#123;<br>      <span class="hljs-string">&quot;clientCIDR&quot;</span>: <span class="hljs-string">&quot;0.0.0.0/0&quot;</span>,<br>      <span class="hljs-string">&quot;serverAddress&quot;</span>: <span class="hljs-string">&quot;192.168.56.168:6443&quot;</span><br>    &#125;<br>  ]<br>&#125;<br><br><br><span class="hljs-comment"># TOKEN=$(kubectl -n kube-system get secret admin-token-2qdsz -o jsonpath=&#123;.data.token&#125;|base64 --decode)</span><br><span class="hljs-comment"># APISERVER=https://192.168.56.168:6443</span><br><span class="hljs-comment"># curl -X GET $APISERVER/api --header &quot;Authorization: Bearer $TOKEN&quot; --insecure</span><br>&#123;<br>  <span class="hljs-string">&quot;kind&quot;</span>: <span class="hljs-string">&quot;APIVersions&quot;</span>,<br>  <span class="hljs-string">&quot;versions&quot;</span>: [<br>    <span class="hljs-string">&quot;v1&quot;</span><br>  ],<br>  <span class="hljs-string">&quot;serverAddressByClientCIDRs&quot;</span>: [<br>    &#123;<br>      <span class="hljs-string">&quot;clientCIDR&quot;</span>: <span class="hljs-string">&quot;0.0.0.0/0&quot;</span>,<br>      <span class="hljs-string">&quot;serverAddress&quot;</span>: <span class="hljs-string">&quot;192.168.56.168:6443&quot;</span><br>    &#125;<br>  ]<br>&#125;<br><br><br><span class="hljs-comment"># curl -X GET $APISERVER/api/v1/nodes --header &quot;Authorization: Bearer $TOKEN&quot; --insecure </span><br><span class="hljs-comment"># curl -X GET $APISERVER/api/v1/namespaces/default/secrets --header &quot;Authorization: Bearer $TOKEN&quot; --insecure</span><br><span class="hljs-comment"># curl -X GET $APISERVER/api/v1/namespaces/kube-system/secrets --header &quot;Authorization: Bearer $TOKEN&quot; --insecure</span><br><span class="hljs-comment"># curl -X GET $APISERVER/api/v1/namespaces/kube-system/secrets/admin-token-2qdsz --header &quot;Authorization: Bearer $TOKEN&quot; --insecure</span><br>&#123;<br>  <span class="hljs-string">&quot;kind&quot;</span>: <span class="hljs-string">&quot;Secret&quot;</span>,<br>  <span class="hljs-string">&quot;apiVersion&quot;</span>: <span class="hljs-string">&quot;v1&quot;</span>,<br>  <span class="hljs-string">&quot;metadata&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;admin-token-2qdsz&quot;</span>,<br>    <span class="hljs-string">&quot;namespace&quot;</span>: <span class="hljs-string">&quot;kube-system&quot;</span>,<br>    <span class="hljs-string">&quot;selfLink&quot;</span>: <span class="hljs-string">&quot;/api/v1/namespaces/kube-system/secrets/admin-token-2qdsz&quot;</span>,<br>    <span class="hljs-string">&quot;uid&quot;</span>: <span class="hljs-string">&quot;41e80ab2-3840-4cde-bad8-cdad915bbcc9&quot;</span>,<br>    <span class="hljs-string">&quot;resourceVersion&quot;</span>: <span class="hljs-string">&quot;2962635&quot;</span>,<br>    <span class="hljs-string">&quot;creationTimestamp&quot;</span>: <span class="hljs-string">&quot;2022-05-07T03:41:41Z&quot;</span>,<br>    <span class="hljs-string">&quot;annotations&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;kubernetes.io/service-account.name&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,<br>      <span class="hljs-string">&quot;kubernetes.io/service-account.uid&quot;</span>: <span class="hljs-string">&quot;4fe95396-6de8-4097-9ff9-4232f0151c71&quot;</span><br>    &#125;,<br>    <span class="hljs-string">&quot;managedFields&quot;</span>: [<br>      &#123;<br>        <span class="hljs-string">&quot;manager&quot;</span>: <span class="hljs-string">&quot;kube-controller-manager&quot;</span>,<br>        <span class="hljs-string">&quot;operation&quot;</span>: <span class="hljs-string">&quot;Update&quot;</span>,<br>        <span class="hljs-string">&quot;apiVersion&quot;</span>: <span class="hljs-string">&quot;v1&quot;</span>,<br>        <span class="hljs-string">&quot;time&quot;</span>: <span class="hljs-string">&quot;2022-05-07T03:41:41Z&quot;</span>,<br>        <span class="hljs-string">&quot;fieldsType&quot;</span>: <span class="hljs-string">&quot;FieldsV1&quot;</span>,<br>        <span class="hljs-string">&quot;fieldsV1&quot;</span>: &#123;<span class="hljs-string">&quot;f:data&quot;</span>:&#123;<span class="hljs-string">&quot;.&quot;</span>:&#123;&#125;,<span class="hljs-string">&quot;f:ca.crt&quot;</span>:&#123;&#125;,<span class="hljs-string">&quot;f:namespace&quot;</span>:&#123;&#125;,<span class="hljs-string">&quot;f:token&quot;</span>:&#123;&#125;&#125;,<span class="hljs-string">&quot;f:metadata&quot;</span>:&#123;<span class="hljs-string">&quot;f:annotations&quot;</span>:&#123;<span class="hljs-string">&quot;.&quot;</span>:&#123;&#125;,<span class="hljs-string">&quot;f:kubernetes.io/service-account.name&quot;</span>:&#123;&#125;,<span class="hljs-string">&quot;f:kubernetes.io/service-account.uid&quot;</span>:&#123;&#125;&#125;&#125;,<span class="hljs-string">&quot;f:type&quot;</span>:&#123;&#125;&#125;<br>      &#125;<br>    ]<br>  &#125;,<br>  <span class="hljs-string">&quot;data&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;ca.crt&quot;</span>: <span class="hljs-string">&quot;LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUR2akNDQXFhZ0F3SUJBZ0lVTVBFY1pDb3graHJPMlJzNk1oblNmTndzV3lJd0RRWUpLb1pJaHZjTkFRRUwKQlFBd1pURUxNQWtHQTFVRUJoTUNRMDR4RURBT0JnTlZCQWdUQjBKbGFVcHBibWN4RURBT0JnTlZCQWNUQjBKbAphVXBwYm1jeEREQUtCZ05WQkFvVEEyczRjekVQTUEwR0ExVUVDeE1HVTNsemRHVnRNUk13RVFZRFZRUURFd3ByCmRXSmxjbTVsZEdWek1CNFhEVEl4TVRJeE16QXlOVEV3TUZvWERUSTJNVEl4TWpBeU5URXdNRm93WlRFTE1Ba0cKQTFVRUJoTUNRMDR4RURBT0JnTlZCQWdUQjBKbGFVcHBibWN4RURBT0JnTlZCQWNUQjBKbGFVcHBibWN4RERBSwpCZ05WQkFvVEEyczRjekVQTUEwR0ExVUVDeE1HVTNsemRHVnRNUk13RVFZRFZRUURFd3ByZFdKbGNtNWxkR1Z6Ck1JSUJJakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBUThBTUlJQkNnS0NBUUVBeVBsTmJlT2loa1Q0ZHZPVjBxT0QKbnhmSThxQUNFczV3RkZHZUUxamltcFJHZDJ2UVdEWHkwNVdJYVAzNnZrMzlNUGhXTndyVlJlTTQ1SG1VdFZMVApZZVF0TCtqZzJXNUtFVC9ENnBIRmFLalc4VG9CVHdXTUI4dFNSZ0JpTnRKRm5PTUp2Z2tZVDhqdlNTdUhnZjd1ClBvdWFLMUhrUFJYQjFpSi9OSDNQYzMwcTJBV1RmTmNFM21DYU9VMkQrWlBaWUpncGRIV0JCK1pOeHo0R1BCZjcKa2dwbSthQUdydmpzOGZMZFh5MzhhdzNwbitSWGtNNzN5M0w2dDEvbDFvQ0JKcjlQS2pVK0JVa0s1VkdORzFFNAoxQWppQVRUZ3U2S1JKRDV2SGNZeDBHRnJ3dnZDMzRwSCs2Uk1yUWtxZ2RpRlJZVVhEYi9BYjR6RzFlUmRaazArClJRSURBUUFCbzJZd1pEQU9CZ05WSFE4QkFmOEVCQU1DQVFZd0VnWURWUjBUQVFIL0JBZ3dCZ0VCL3dJQkFqQWQKQmdOVkhRNEVGZ1FVY3JvMFdxZ3l1VjJKbTlvbXd6UDlPS25scjN3d0h3WURWUjBqQkJnd0ZvQVVjcm8wV3FneQp1VjJKbTlvbXd6UDlPS25scjN3d0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFKK01HU1BvbHU4VGhkOE1jQTZjCm9EVGdGWTc1MU5RcmlXVXd5a2FBQ2xDZXY2YWp0RU1FdmFDWXZUOXhsaUUrM2lmZDlQTXlPYTB3dDlSUWhLVXIKc01WanVBcUxrWTBhbjhiTm5HeDdkc2IweThBS2JIYXlDQkVBb1ludUtiSXcxUlMvTEpTakJqa1NYS2dsN1c3SwpzNWlzTzBFRFBIS3BOM1lSN3ZiZDdzT2krOTgxTFBWMk4vb2x6TUd3VVNCSUJXTFliZHZveHY2N3JEc1YvZ1lXCjFSZklnOU9USThTVEZhM0RjcHZUNElaTHlIMFhaeisrdjRrK0NZVEptTG9mM0VibWVhQjBya2tNNTZNSFVYWFUKY3pKMi9ETmdhKzNTNU40N0RRYVUvRVlTQXpJWG05a2lYYncwbWZoNnJFcjhHQm9DQzRBWTVOcUJWWUhETjQ1MQpzdG89Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K&quot;</span>,<br>    <span class="hljs-string">&quot;namespace&quot;</span>: <span class="hljs-string">&quot;a3ViZS1zeXN0ZW0=&quot;</span>,<br>    <span class="hljs-string">&quot;token&quot;</span>: <span class="hljs-string">&quot;ZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNkltOUlRWFl0WmtwRVJsQjBWMEpIUm5Gd2EydzFjelIxWnpoamEybFJXVFUxY2pocFdXMXVhRW8zY21zaWZRLmV5SnBjM01pT2lKcmRXSmxjbTVsZEdWekwzTmxjblpwWTJWaFkyTnZkVzUwSWl3aWEzVmlaWEp1WlhSbGN5NXBieTl6WlhKMmFXTmxZV05qYjNWdWRDOXVZVzFsYzNCaFkyVWlPaUpyZFdKbExYTjVjM1JsYlNJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZqY21WMExtNWhiV1VpT2lKaFpHMXBiaTEwYjJ0bGJpMHljV1J6ZWlJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZ5ZG1salpTMWhZMk52ZFc1MExtNWhiV1VpT2lKaFpHMXBiaUlzSW10MVltVnlibVYwWlhNdWFXOHZjMlZ5ZG1salpXRmpZMjkxYm5RdmMyVnlkbWxqWlMxaFkyTnZkVzUwTG5WcFpDSTZJalJtWlRrMU16azJMVFprWlRndE5EQTVOeTA1Wm1ZNUxUUXlNekptTURFMU1XTTNNU0lzSW5OMVlpSTZJbk41YzNSbGJUcHpaWEoyYVdObFlXTmpiM1Z1ZERwcmRXSmxMWE41YzNSbGJUcGhaRzFwYmlKOS5Yc2Q4T280RVlFZTNlTDRHUXdlRHZudUVmc1JvRkYwTzFSWG9fSGpBQ2dzajhGTVF0VTJUZGFCaGFKazNwN1J2dWNfZ0F6M0ZxSlM5WU9XSFZsU1FLcWZMNjhSQ0VQZmJxYi1kWHFuS3VpakZ5VUtENE55aG5RSDQyb01mOWZXRDBOdXF1aFRsTkFTUVNJWGRsMVdXMHUwYlk4Y094bVFIT09JSnZ1SE1lcUxUTEczb1FZU2dkamRmaEhVdHJxRjFFenRPUkdRS1lGb0pFdjBnWlJuWGh1VUMzME1OalZwdEtQUEM4aEV6R1dhVmtjTXdUSlZJWVE2SVlXc29IM285Wl9rRHZlSnBiaU93UU80YlYzOWJmTnVlZnVHWlkyU29KVGZueXo3RVJkVDdMWkxaMTUzRTE0dkZieGVhRi1fSVRELTdjU0dxeExaTmlmdi1mbVNLelE=&quot;</span>   <span class="hljs-comment"># base64编码后的</span><br>  &#125;,<br>  <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;kubernetes.io/service-account-token&quot;</span><br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+
+<h1 id="kubeconfig-token"><a href="#kubeconfig-token" class="headerlink" title="kubeconfig (token)"></a>kubeconfig (token)</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash">apiVersion: v1<br>clusters:<br>- cluster:<br>    insecure-skip-tls-verify: <span class="hljs-literal">true</span><br>    server: https://192.168.56.168:6443<br>  name: kubernetes<br>contexts:<br>- context:<br>    cluster: kubernetes<br>    user: system:admin<br>  name: system:admin<br>current-context: system:admin<br>kind: Config<br>preferences: &#123;&#125;<br><span class="hljs-built_in">users</span>:<br>- name: system:admin<br>  user:<br>    token: eyJhbGciOiJSUzI1NiIsImtpZCI6Im9IQXYtZkpERlB0V0JHRnFwa2w1czR1Zzhja2lRWTU1cjhpWW1uaEo3cmsifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi10b2tlbi0ycWRzeiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJhZG1pbiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjRmZTk1Mzk2LTZkZTgtNDA5Ny05ZmY5LTQyMzJmMDE1MWM3MSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTphZG1pbiJ9.Xsd8Oo4EYEe3eL4GQweDvnuEfsRoFF0O1RXo_HjACgsj8FMQtU2TdaBhaJk3p7Rvuc_gAz3FqJS9YOWHVlSQKqfL68RCEPfbqb-dXqnKuijFyUKD4NyhnQH42oMf9fWD0NuquhTlNASQSIXdl1WW0u0bY8cOxmQHOOIJvuHMeqLTLG3oQYSgdjdfhHUtrqF1EztORGQKYFoJEv0gZRnXhuUC30MNjVptKPPC8hEzGWaVkcMwTJVIYQ6IYWsoH3o9Z_kDveJpbiOwQO4bV39bfNuefuGZY2SoJTfnyz7ERdT7LZLZ153E14vFbxeaF-_ITD-7cSGqxLZNifv-fmSKzQ<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># kubectl --kubeconfig kubeconfig-168-token get secret -A 可用</span><br><span class="hljs-comment"># kubectl --kubeconfig kubeconfig-168-token get pod -A    可用</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="总结：token编解码"><a href="#总结：token编解码" class="headerlink" title="总结：token编解码"></a>总结：token编解码</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 注意：token是base64解码后的值</span><br><span class="hljs-comment"># kubectl -n kube-system describe secret admin-token-2qdsz</span><br>Name:         admin-token-2qdsz<br>Namespace:    kube-system<br>Labels:       &lt;none&gt;<br>Annotations:  kubernetes.io/service-account.name: admin<br>              kubernetes.io/service-account.uid: 4fe95396-6de8-4097-9ff9-4232f0151c71<br><br>Type:  kubernetes.io/service-account-token<br><br>Data<br>====<br>ca.crt:     1359 bytes<br>namespace:  11 bytes<br>token:      eyJhbGciOiJSUzI1NiIsImtpZCI6Im9IQXYtZkpERlB0V0JHRnFwa2w1czR1Zzhja2lRWTU1cjhpWW1uaEo3cmsifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi10b2tlbi0ycWRzeiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJhZG1pbiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjRmZTk1Mzk2LTZkZTgtNDA5Ny05ZmY5LTQyMzJmMDE1MWM3MSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTphZG1pbiJ9.Xsd8Oo4EYEe3eL4GQweDvnuEfsRoFF0O1RXo_HjACgsj8FMQtU2TdaBhaJk3p7Rvuc_gAz3FqJS9YOWHVlSQKqfL68RCEPfbqb-dXqnKuijFyUKD4NyhnQH42oMf9fWD0NuquhTlNASQSIXdl1WW0u0bY8cOxmQHOOIJvuHMeqLTLG3oQYSgdjdfhHUtrqF1EztORGQKYFoJEv0gZRnXhuUC30MNjVptKPPC8hEzGWaVkcMwTJVIYQ6IYWsoH3o9Z_kDveJpbiOwQO4bV39bfNuefuGZY2SoJTfnyz7ERdT7LZLZ153E14vFbxeaF-_ITD-7cSGqxLZNifv-fmSKzQ   <br><br><br><br><br><span class="hljs-comment"># 注意：token是base64解码后的值</span><br><span class="hljs-comment"># kubectl -n kube-system get secret admin-token-2qdsz -o jsonpath=&#123;.data.token&#125;|base64 -d</span><br><span class="hljs-comment"># kubectl -n kube-system get secret admin-token-2qdsz -o jsonpath=&#123;.data.token&#125;|base64 --decode</span><br>eyJhbGciOiJSUzI1NiIsImtpZCI6Im9IQXYtZkpERlB0V0JHRnFwa2w1czR1Zzhja2lRWTU1cjhpWW1uaEo3cmsifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJhZG1pbi10b2tlbi0ycWRzeiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50Lm5hbWUiOiJhZG1pbiIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VydmljZS1hY2NvdW50LnVpZCI6IjRmZTk1Mzk2LTZkZTgtNDA5Ny05ZmY5LTQyMzJmMDE1MWM3MSIsInN1YiI6InN5c3RlbTpzZXJ2aWNlYWNjb3VudDprdWJlLXN5c3RlbTphZG1pbiJ9.Xsd8Oo4EYEe3eL4GQweDvnuEfsRoFF0O1RXo_HjACgsj8FMQtU2TdaBhaJk3p7Rvuc_gAz3FqJS9YOWHVlSQKqfL68RCEPfbqb-dXqnKuijFyUKD4NyhnQH42oMf9fWD0NuquhTlNASQSIXdl1WW0u0bY8cOxmQHOOIJvuHMeqLTLG3oQYSgdjdfhHUtrqF1EztORGQKYFoJEv0gZRnXhuUC30MNjVptKPPC8hEzGWaVkcMwTJVIYQ6IYWsoH3o9Z_kDveJpbiOwQO4bV39bfNuefuGZY2SoJTfnyz7ERdT7LZLZ153E14vFbxeaF-_ITD-7cSGqxLZNifv-fmSKzQ<br><br><br><br><br><span class="hljs-comment"># 注意：token是base64编码后的值</span><br><span class="hljs-comment"># kubectl -n kube-system get secret admin-token-2qdsz -o jsonpath=&#123;.data.token&#125;</span><br>ZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNkltOUlRWFl0WmtwRVJsQjBWMEpIUm5Gd2EydzFjelIxWnpoamEybFJXVFUxY2pocFdXMXVhRW8zY21zaWZRLmV5SnBjM01pT2lKcmRXSmxjbTVsZEdWekwzTmxjblpwWTJWaFkyTnZkVzUwSWl3aWEzVmlaWEp1WlhSbGN5NXBieTl6WlhKMmFXTmxZV05qYjNWdWRDOXVZVzFsYzNCaFkyVWlPaUpyZFdKbExYTjVjM1JsYlNJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZqY21WMExtNWhiV1VpT2lKaFpHMXBiaTEwYjJ0bGJpMHljV1J6ZWlJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZ5ZG1salpTMWhZMk52ZFc1MExtNWhiV1VpT2lKaFpHMXBiaUlzSW10MVltVnlibVYwWlhNdWFXOHZjMlZ5ZG1salpXRmpZMjkxYm5RdmMyVnlkbWxqWlMxaFkyTnZkVzUwTG5WcFpDSTZJalJtWlRrMU16azJMVFprWlRndE5EQTVOeTA1Wm1ZNUxUUXlNekptTURFMU1XTTNNU0lzSW5OMVlpSTZJbk41YzNSbGJUcHpaWEoyYVdObFlXTmpiM1Z1ZERwcmRXSmxMWE41YzNSbGJUcGhaRzFwYmlKOS5Yc2Q4T280RVlFZTNlTDRHUXdlRHZudUVmc1JvRkYwTzFSWG9fSGpBQ2dzajhGTVF0VTJUZGFCaGFKazNwN1J2dWNfZ0F6M0ZxSlM5WU9XSFZsU1FLcWZMNjhSQ0VQZmJxYi1kWHFuS3VpakZ5VUtENE55aG5RSDQyb01mOWZXRDBOdXF1aFRsTkFTUVNJWGRsMVdXMHUwYlk4Y094bVFIT09JSnZ1SE1lcUxUTEczb1FZU2dkamRmaEhVdHJxRjFFenRPUkdRS1lGb0pFdjBnWlJuWGh1VUMzME1OalZwdEtQUEM4aEV6R1dhVmtjTXdUSlZJWVE2SVlXc29IM285Wl9rRHZlSnBiaU93UU80YlYzOWJmTnVlZnVHWlkyU29KVGZueXo3RVJkVDdMWkxaMTUzRTE0dkZieGVhRi1fSVRELTdjU0dxeExaTmlmdi1mbVNLelE=<br><br><span class="hljs-comment"># 注意：token是base64编码后的值</span><br><span class="hljs-comment"># curl -X GET $APISERVER/api/v1/namespaces/kube-system/secrets/admin-token-2qdsz --header &quot;Authorization: Bearer $TOKEN&quot; --insecure</span><br>&#123;<br>  <span class="hljs-string">&quot;kind&quot;</span>: <span class="hljs-string">&quot;Secret&quot;</span>,<br>  <span class="hljs-string">&quot;apiVersion&quot;</span>: <span class="hljs-string">&quot;v1&quot;</span>,<br>  <span class="hljs-string">&quot;metadata&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;name&quot;</span>: <span class="hljs-string">&quot;admin-token-2qdsz&quot;</span>,<br>    <span class="hljs-string">&quot;namespace&quot;</span>: <span class="hljs-string">&quot;kube-system&quot;</span>,<br>    <span class="hljs-string">&quot;selfLink&quot;</span>: <span class="hljs-string">&quot;/api/v1/namespaces/kube-system/secrets/admin-token-2qdsz&quot;</span>,<br>    <span class="hljs-string">&quot;uid&quot;</span>: <span class="hljs-string">&quot;41e80ab2-3840-4cde-bad8-cdad915bbcc9&quot;</span>,<br>    <span class="hljs-string">&quot;resourceVersion&quot;</span>: <span class="hljs-string">&quot;2962635&quot;</span>,<br>    <span class="hljs-string">&quot;creationTimestamp&quot;</span>: <span class="hljs-string">&quot;2022-05-07T03:41:41Z&quot;</span>,<br>    <span class="hljs-string">&quot;annotations&quot;</span>: &#123;<br>      <span class="hljs-string">&quot;kubernetes.io/service-account.name&quot;</span>: <span class="hljs-string">&quot;admin&quot;</span>,<br>      <span class="hljs-string">&quot;kubernetes.io/service-account.uid&quot;</span>: <span class="hljs-string">&quot;4fe95396-6de8-4097-9ff9-4232f0151c71&quot;</span><br>    &#125;,<br>    <span class="hljs-string">&quot;managedFields&quot;</span>: [<br>      &#123;<br>        <span class="hljs-string">&quot;manager&quot;</span>: <span class="hljs-string">&quot;kube-controller-manager&quot;</span>,<br>        <span class="hljs-string">&quot;operation&quot;</span>: <span class="hljs-string">&quot;Update&quot;</span>,<br>        <span class="hljs-string">&quot;apiVersion&quot;</span>: <span class="hljs-string">&quot;v1&quot;</span>,<br>        <span class="hljs-string">&quot;time&quot;</span>: <span class="hljs-string">&quot;2022-05-07T03:41:41Z&quot;</span>,<br>        <span class="hljs-string">&quot;fieldsType&quot;</span>: <span class="hljs-string">&quot;FieldsV1&quot;</span>,<br>        <span class="hljs-string">&quot;fieldsV1&quot;</span>: &#123;<span class="hljs-string">&quot;f:data&quot;</span>:&#123;<span class="hljs-string">&quot;.&quot;</span>:&#123;&#125;,<span class="hljs-string">&quot;f:ca.crt&quot;</span>:&#123;&#125;,<span class="hljs-string">&quot;f:namespace&quot;</span>:&#123;&#125;,<span class="hljs-string">&quot;f:token&quot;</span>:&#123;&#125;&#125;,<span class="hljs-string">&quot;f:metadata&quot;</span>:&#123;<span class="hljs-string">&quot;f:annotations&quot;</span>:&#123;<span class="hljs-string">&quot;.&quot;</span>:&#123;&#125;,<span class="hljs-string">&quot;f:kubernetes.io/service-account.name&quot;</span>:&#123;&#125;,<span class="hljs-string">&quot;f:kubernetes.io/service-account.uid&quot;</span>:&#123;&#125;&#125;&#125;,<span class="hljs-string">&quot;f:type&quot;</span>:&#123;&#125;&#125;<br>      &#125;<br>    ]<br>  &#125;,<br>  <span class="hljs-string">&quot;data&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;ca.crt&quot;</span>: <span class="hljs-string">&quot;LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUR2akNDQXFhZ0F3SUJBZ0lVTVBFY1pDb3graHJPMlJzNk1oblNmTndzV3lJd0RRWUpLb1pJaHZjTkFRRUwKQlFBd1pURUxNQWtHQTFVRUJoTUNRMDR4RURBT0JnTlZCQWdUQjBKbGFVcHBibWN4RURBT0JnTlZCQWNUQjBKbAphVXBwYm1jeEREQUtCZ05WQkFvVEEyczRjekVQTUEwR0ExVUVDeE1HVTNsemRHVnRNUk13RVFZRFZRUURFd3ByCmRXSmxjbTVsZEdWek1CNFhEVEl4TVRJeE16QXlOVEV3TUZvWERUSTJNVEl4TWpBeU5URXdNRm93WlRFTE1Ba0cKQTFVRUJoTUNRMDR4RURBT0JnTlZCQWdUQjBKbGFVcHBibWN4RURBT0JnTlZCQWNUQjBKbGFVcHBibWN4RERBSwpCZ05WQkFvVEEyczRjekVQTUEwR0ExVUVDeE1HVTNsemRHVnRNUk13RVFZRFZRUURFd3ByZFdKbGNtNWxkR1Z6Ck1JSUJJakFOQmdrcWhraUc5dzBCQVFFRkFBT0NBUThBTUlJQkNnS0NBUUVBeVBsTmJlT2loa1Q0ZHZPVjBxT0QKbnhmSThxQUNFczV3RkZHZUUxamltcFJHZDJ2UVdEWHkwNVdJYVAzNnZrMzlNUGhXTndyVlJlTTQ1SG1VdFZMVApZZVF0TCtqZzJXNUtFVC9ENnBIRmFLalc4VG9CVHdXTUI4dFNSZ0JpTnRKRm5PTUp2Z2tZVDhqdlNTdUhnZjd1ClBvdWFLMUhrUFJYQjFpSi9OSDNQYzMwcTJBV1RmTmNFM21DYU9VMkQrWlBaWUpncGRIV0JCK1pOeHo0R1BCZjcKa2dwbSthQUdydmpzOGZMZFh5MzhhdzNwbitSWGtNNzN5M0w2dDEvbDFvQ0JKcjlQS2pVK0JVa0s1VkdORzFFNAoxQWppQVRUZ3U2S1JKRDV2SGNZeDBHRnJ3dnZDMzRwSCs2Uk1yUWtxZ2RpRlJZVVhEYi9BYjR6RzFlUmRaazArClJRSURBUUFCbzJZd1pEQU9CZ05WSFE4QkFmOEVCQU1DQVFZd0VnWURWUjBUQVFIL0JBZ3dCZ0VCL3dJQkFqQWQKQmdOVkhRNEVGZ1FVY3JvMFdxZ3l1VjJKbTlvbXd6UDlPS25scjN3d0h3WURWUjBqQkJnd0ZvQVVjcm8wV3FneQp1VjJKbTlvbXd6UDlPS25scjN3d0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFKK01HU1BvbHU4VGhkOE1jQTZjCm9EVGdGWTc1MU5RcmlXVXd5a2FBQ2xDZXY2YWp0RU1FdmFDWXZUOXhsaUUrM2lmZDlQTXlPYTB3dDlSUWhLVXIKc01WanVBcUxrWTBhbjhiTm5HeDdkc2IweThBS2JIYXlDQkVBb1ludUtiSXcxUlMvTEpTakJqa1NYS2dsN1c3SwpzNWlzTzBFRFBIS3BOM1lSN3ZiZDdzT2krOTgxTFBWMk4vb2x6TUd3VVNCSUJXTFliZHZveHY2N3JEc1YvZ1lXCjFSZklnOU9USThTVEZhM0RjcHZUNElaTHlIMFhaeisrdjRrK0NZVEptTG9mM0VibWVhQjBya2tNNTZNSFVYWFUKY3pKMi9ETmdhKzNTNU40N0RRYVUvRVlTQXpJWG05a2lYYncwbWZoNnJFcjhHQm9DQzRBWTVOcUJWWUhETjQ1MQpzdG89Ci0tLS0tRU5EIENFUlRJRklDQVRFLS0tLS0K&quot;</span>,<br>    <span class="hljs-string">&quot;namespace&quot;</span>: <span class="hljs-string">&quot;a3ViZS1zeXN0ZW0=&quot;</span>,<br>    <span class="hljs-string">&quot;token&quot;</span>: <span class="hljs-string">&quot;ZXlKaGJHY2lPaUpTVXpJMU5pSXNJbXRwWkNJNkltOUlRWFl0WmtwRVJsQjBWMEpIUm5Gd2EydzFjelIxWnpoamEybFJXVFUxY2pocFdXMXVhRW8zY21zaWZRLmV5SnBjM01pT2lKcmRXSmxjbTVsZEdWekwzTmxjblpwWTJWaFkyTnZkVzUwSWl3aWEzVmlaWEp1WlhSbGN5NXBieTl6WlhKMmFXTmxZV05qYjNWdWRDOXVZVzFsYzNCaFkyVWlPaUpyZFdKbExYTjVjM1JsYlNJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZqY21WMExtNWhiV1VpT2lKaFpHMXBiaTEwYjJ0bGJpMHljV1J6ZWlJc0ltdDFZbVZ5Ym1WMFpYTXVhVzh2YzJWeWRtbGpaV0ZqWTI5MWJuUXZjMlZ5ZG1salpTMWhZMk52ZFc1MExtNWhiV1VpT2lKaFpHMXBiaUlzSW10MVltVnlibVYwWlhNdWFXOHZjMlZ5ZG1salpXRmpZMjkxYm5RdmMyVnlkbWxqWlMxaFkyTnZkVzUwTG5WcFpDSTZJalJtWlRrMU16azJMVFprWlRndE5EQTVOeTA1Wm1ZNUxUUXlNekptTURFMU1XTTNNU0lzSW5OMVlpSTZJbk41YzNSbGJUcHpaWEoyYVdObFlXTmpiM1Z1ZERwcmRXSmxMWE41YzNSbGJUcGhaRzFwYmlKOS5Yc2Q4T280RVlFZTNlTDRHUXdlRHZudUVmc1JvRkYwTzFSWG9fSGpBQ2dzajhGTVF0VTJUZGFCaGFKazNwN1J2dWNfZ0F6M0ZxSlM5WU9XSFZsU1FLcWZMNjhSQ0VQZmJxYi1kWHFuS3VpakZ5VUtENE55aG5RSDQyb01mOWZXRDBOdXF1aFRsTkFTUVNJWGRsMVdXMHUwYlk4Y094bVFIT09JSnZ1SE1lcUxUTEczb1FZU2dkamRmaEhVdHJxRjFFenRPUkdRS1lGb0pFdjBnWlJuWGh1VUMzME1OalZwdEtQUEM4aEV6R1dhVmtjTXdUSlZJWVE2SVlXc29IM285Wl9rRHZlSnBiaU93UU80YlYzOWJmTnVlZnVHWlkyU29KVGZueXo3RVJkVDdMWkxaMTUzRTE0dkZieGVhRi1fSVRELTdjU0dxeExaTmlmdi1mbVNLelE=&quot;</span>   <span class="hljs-comment"># base64编码后的</span><br>  &#125;,<br>  <span class="hljs-string">&quot;type&quot;</span>: <span class="hljs-string">&quot;kubernetes.io/service-account-token&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+
+
+<p>参考：<br><a target="_blank" rel="noopener" href="https://jimmysong.io/kubernetes-handbook/guide/auth-with-kubeconfig-or-token.html#%E7%94%9F%E6%88%90kubernetes%E9%9B%86%E7%BE%A4%E6%9C%80%E9%AB%98%E6%9D%83%E9%99%90admin%E7%94%A8%E6%88%B7%E7%9A%84token">使用 kubeconfig 或 token 进行用户身份认证</a><br><a target="_blank" rel="noopener" href="https://support.huaweicloud.com/api-cce/cce_02_0045.html">获取Secret信息</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【k8s系列】(改时间202205) k8s中的 secret token</div>
+      <div>http://example.com/2024/02/21/k8s/unsupported/【k8s系列】(改时间202205) k8s中的 secret token/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ningan123</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年2月21日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/02/27/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91kwok%E5%88%9D%E4%BD%93%E9%AA%8C/" title="【k8s系列】kwok初体验">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【k8s系列】kwok初体验</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/02/21/software/%E3%80%90vscode%E3%80%91(202402)%20plantuml%E6%97%A0%E6%B3%95%E6%AD%A3%E5%B8%B8%E6%98%BE%E7%A4%BA%E9%A2%84%E8%A7%88/" title="【vscode】(202402) plantuml无法正常显示预览">
+                        <span class="hidden-mobile">【vscode】(202402) plantuml无法正常显示预览</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

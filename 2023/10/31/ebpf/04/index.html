@@ -1,0 +1,624 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ningan123">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="12345678910111213141516171819#### 04节###### bpftool，用它可以查看 eBPF 程序的运行状态# 查询系统中正在运行的 eBPF 程序sudo bpftool prog list  # 导出这个 eBPF 程序的指令sudo bpftool prog dump xlated id 89sudo bpftool prog dump jited id 8">
+<meta property="og:type" content="article">
+<meta property="og:title" content="4">
+<meta property="og:url" content="http://example.com/2023/10/31/ebpf/04/index.html">
+<meta property="og:site_name" content="ningan123">
+<meta property="og:description" content="12345678910111213141516171819#### 04节###### bpftool，用它可以查看 eBPF 程序的运行状态# 查询系统中正在运行的 eBPF 程序sudo bpftool prog list  # 导出这个 eBPF 程序的指令sudo bpftool prog dump xlated id 89sudo bpftool prog dump jited id 8">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-10-31T21:32:00.000Z">
+<meta property="article:modified_time" content="2024-11-02T15:55:00.000Z">
+<meta property="article:author" content="ningan123">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>4 - ningan123</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="4"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-10-31 21:32" pubdate>
+          2023年10月31日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          10k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          87 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">4</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment">#### 04节</span><br><span class="hljs-comment">###### bpftool，用它可以查看 eBPF 程序的运行状态</span><br><span class="hljs-comment"># 查询系统中正在运行的 eBPF 程序</span><br>sudo bpftool prog list  <br><span class="hljs-comment"># 导出这个 eBPF 程序的指令</span><br>sudo bpftool prog dump xlated <span class="hljs-built_in">id</span> 89<br><br>sudo bpftool prog dump jited <span class="hljs-built_in">id</span> 89<br><br><br><span class="hljs-comment"># 跟踪系统调用 -ebpf表示只跟踪bpf系统调用</span><br>strace -v -f -ebpf ./hello-opennat.py<br><br>strace -v -f ./hello-opennat.py<br><br><br>用高级语言开发的 eBPF 程序，需要首先编译为 BPF 字节码（即 BPF 指令），然后借助 bpf 系统调用加载到内核中，最后再通过性能监控等接口，与具体的内核事件进行绑定。这样，内核的性能监控模块才会在内核事件发生时，自动执行我们开发的 eBPF 程序。<br><br><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="环境信息"><a href="#环境信息" class="headerlink" title="环境信息"></a>环境信息</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 ~]<span class="hljs-comment"># uname -a</span><br>Linux ubuntu-22 5.15.0-58-generic <span class="hljs-comment">#64-Ubuntu SMP Thu Jan 5 11:43:13 UTC 2023 x86_64 x86_64 x86_64 GNU/Linux</span><br><br>[root@ubuntu-22 ~]<span class="hljs-comment"># uname -r</span><br>5.15.0-58-generic<br><br>[root@ubuntu-22 ~]<span class="hljs-comment"># lsb_release -a</span><br>No LSB modules are available.<br>Distributor ID: Ubuntu<br>Description:    Ubuntu 22.04.1 LTS<br>Release:        22.04<br>Codename:       jammy<br></code></pre></td></tr></table></figure>
+
+<h2 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h2><h3 id="BPF-指令是什么样的？"><a href="#BPF-指令是什么样的？" class="headerlink" title="BPF 指令是什么样的？"></a>BPF 指令是什么样的？</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 geektime]<span class="hljs-comment"># sudo bpftool prog list</span><br>...<br>170: kprobe  name hello_world  tag 38dd440716c4900f  gpl<br>        loaded_at 2023-01-29T22:53:07+0800  uid 0<br>        xlated 104B  jited 74B  memlock 4096B<br>        btf_id 103<br><br><br>[root@ubuntu-22 geektime]<span class="hljs-comment"># sudo bpftool prog dump xlated id 170</span><br>int hello_world(void * ctx):<br>; int hello_world(void *ctx)<br>   0: (b7) r1 = 33<br>; (&#123; char _fmt[] = <span class="hljs-string">&quot;Hello, World!&quot;</span>; bpf_trace_printk_(_fmt, sizeof(_fmt)); &#125;);  // 最常用的 BPF 辅助函数，它的作用是输出一段字符串。不过，由于 eBPF 运行在内核中，它的输出并不是通常的标准输出（stdout），而是内核调试文件 /sys/kernel/debug/tracing/trace_pipe<br>   1: (6b) *(u16 *)(r10 -4) = r1<br>   2: (b7) r1 = 1684828783<br>   3: (63) *(u32 *)(r10 -8) = r1<br>   4: (18) r1 = 0x57202c6f6c6c6548<br>   6: (7b) *(u64 *)(r10 -16) = r1<br>   7: (bf) r1 = r10<br>;<br>   8: (07) r1 += -16<br>; (&#123; char _fmt[] = <span class="hljs-string">&quot;Hello, World!&quot;</span>; bpf_trace_printk_(_fmt, sizeof(_fmt)); &#125;);  // 最常用的 BPF 辅助函数，它的作用是输出一段字符串。不过，由于 eBPF 运行在内核中，它的输出并不是通常的标准输出（stdout），而是内核调试文件 /sys/kernel/debug/tracing/trace_pipe<br>   9: (b7) r2 = 14<br>  10: (85) call bpf_trace_printk<span class="hljs-comment">#-65424</span><br>; <span class="hljs-built_in">return</span> 0;<br>  11: (b7) r0 = 0<br>  12: (95) <span class="hljs-built_in">exit</span><br><br><br>[root@ubuntu-22 geektime]<span class="hljs-comment"># sudo bpftool prog dump jited id 170</span><br>Error: No libbfd support<br><br>[root@ubuntu-22 geektime]<span class="hljs-comment"># sudo bpftool version -p</span><br>&#123;<br>    <span class="hljs-string">&quot;version&quot;</span>: <span class="hljs-string">&quot;5.15.74&quot;</span>,<br>    <span class="hljs-string">&quot;features&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;libbfd&quot;</span>: <span class="hljs-literal">false</span>,<br>        <span class="hljs-string">&quot;skeletons&quot;</span>: <span class="hljs-literal">false</span><br>    &#125;<br>&#125;<br><br></code></pre></td></tr></table></figure>
+
+<h3 id="eBPF-程序是什么时候执行的？"><a href="#eBPF-程序是什么时候执行的？" class="headerlink" title="eBPF 程序是什么时候执行的？"></a>eBPF 程序是什么时候执行的？</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 geektime]<span class="hljs-comment"># sudo strace -v -f -ebpf ./hello.py</span><br>strace: <span class="hljs-built_in">exec</span>: Permission denied<br>+++ exited with 1 +++<br><br>[root@ubuntu-22 geektime]<span class="hljs-comment"># chmod +x hello.py</span><br><br>[root@ubuntu-22 geektime]<span class="hljs-comment"># sudo strace -v -f -ebpf ./hello.py</span><br>In file included from &lt;built-in&gt;:2:<br>In file included from /virtual/include/bcc/bpf.h:12:<br>In file included from include/linux/types.h:6:<br>In file included from include/uapi/linux/types.h:14:<br>In file included from include/uapi/linux/posix_types.h:5:<br>In file included from include/linux/stddef.h:5:<br>In file included from include/uapi/linux/stddef.h:5:<br>In file included from include/linux/compiler_types.h:80:<br>include/linux/compiler-clang.h:41:9: warning: <span class="hljs-string">&#x27;__HAVE_BUILTIN_BSWAP32__&#x27;</span> macro redefined [-Wmacro-redefined]<br><span class="hljs-comment">#define __HAVE_BUILTIN_BSWAP32__</span><br>        ^<br>&lt;<span class="hljs-built_in">command</span> line&gt;:4:9: note: previous definition is here<br><span class="hljs-comment">#define __HAVE_BUILTIN_BSWAP32__ 1</span><br>        ^<br>In file included from &lt;built-in&gt;:2:<br>In file included from /virtual/include/bcc/bpf.h:12:<br>In file included from include/linux/types.h:6:<br>In file included from include/uapi/linux/types.h:14:<br>In file included from include/uapi/linux/posix_types.h:5:<br>In file included from include/linux/stddef.h:5:<br>In file included from include/uapi/linux/stddef.h:5:<br>In file included from include/linux/compiler_types.h:80:<br>include/linux/compiler-clang.h:42:9: warning: <span class="hljs-string">&#x27;__HAVE_BUILTIN_BSWAP64__&#x27;</span> macro redefined [-Wmacro-redefined]<br><span class="hljs-comment">#define __HAVE_BUILTIN_BSWAP64__</span><br>        ^<br>&lt;<span class="hljs-built_in">command</span> line&gt;:5:9: note: previous definition is here<br><span class="hljs-comment">#define __HAVE_BUILTIN_BSWAP64__ 1</span><br>        ^<br>In file included from &lt;built-in&gt;:2:<br>In file included from /virtual/include/bcc/bpf.h:12:<br>In file included from include/linux/types.h:6:<br>In file included from include/uapi/linux/types.h:14:<br>In file included from include/uapi/linux/posix_types.h:5:<br>In file included from include/linux/stddef.h:5:<br>In file included from include/uapi/linux/stddef.h:5:<br>In file included from include/linux/compiler_types.h:80:<br>include/linux/compiler-clang.h:43:9: warning: <span class="hljs-string">&#x27;__HAVE_BUILTIN_BSWAP16__&#x27;</span> macro redefined [-Wmacro-redefined]<br><span class="hljs-comment">#define __HAVE_BUILTIN_BSWAP16__</span><br>        ^<br>&lt;<span class="hljs-built_in">command</span> line&gt;:3:9: note: previous definition is here<br><span class="hljs-comment">#define __HAVE_BUILTIN_BSWAP16__ 1</span><br>        ^<br>3 warnings generated.<br>bpf(BPF_BTF_LOAD, &#123;btf=<span class="hljs-string">&quot;\237\353\1\0\30\0\0\0\0\0\0\0\230\2\0\0\230\2\0\0\315\t\0\0\0\0\0\0\0\0\0\2&quot;</span>..., btf_log_buf=NULL, btf_size=3197, btf_log_size=0, btf_log_level=0&#125;, 128) = 3<br>bpf(BPF_PROG_LOAD, &#123;prog_type=BPF_PROG_TYPE_KPROBE, insn_cnt=13, insns=[&#123;code=BPF_ALU64|BPF_K|BPF_MOV, dst_reg=BPF_REG_1, src_reg=BPF_REG_0, off=0, imm=0x21&#125;, &#123;code=BPF_STX|BPF_H|BPF_MEM, dst_reg=BPF_REG_10, src_reg=BPF_REG_1, off=-4, imm=0&#125;, &#123;code=BPF_ALU64|BPF_K|BPF_MOV, dst_reg=BPF_REG_1, src_reg=BPF_REG_0, off=0, imm=0x646c726f&#125;, &#123;code=BPF_STX|BPF_W|BPF_MEM, dst_reg=BPF_REG_10, src_reg=BPF_REG_1, off=-8, imm=0&#125;, &#123;code=BPF_LD|BPF_DW|BPF_IMM, dst_reg=BPF_REG_1, src_reg=BPF_REG_0, off=0, imm=0x6c6c6548&#125;, &#123;code=BPF_LD|BPF_W|BPF_IMM, dst_reg=BPF_REG_0, src_reg=BPF_REG_0, off=0, imm=0x57202c6f&#125;, &#123;code=BPF_STX|BPF_DW|BPF_MEM, dst_reg=BPF_REG_10, src_reg=BPF_REG_1, off=-16, imm=0&#125;, &#123;code=BPF_ALU64|BPF_X|BPF_MOV, dst_reg=BPF_REG_1, src_reg=BPF_REG_10, off=0, imm=0&#125;, &#123;code=BPF_ALU64|BPF_K|BPF_ADD, dst_reg=BPF_REG_1, src_reg=BPF_REG_0, off=0, imm=0xfffffff0&#125;, &#123;code=BPF_ALU64|BPF_K|BPF_MOV, dst_reg=BPF_REG_2, src_reg=BPF_REG_0, off=0, imm=0xe&#125;, &#123;code=BPF_JMP|BPF_K|BPF_CALL, dst_reg=BPF_REG_0, src_reg=BPF_REG_0, off=0, imm=0x6&#125;, &#123;code=BPF_ALU64|BPF_K|BPF_MOV, dst_reg=BPF_REG_0, src_reg=BPF_REG_0, off=0, imm=0&#125;, &#123;code=BPF_JMP|BPF_K|BPF_EXIT, dst_reg=BPF_REG_0, src_reg=BPF_REG_0, off=0, imm=0&#125;], license=<span class="hljs-string">&quot;GPL&quot;</span>, log_level=0, log_size=0, log_buf=NULL, kern_version=KERNEL_VERSION(5, 15, 74), prog_flags=0, prog_name=<span class="hljs-string">&quot;hello_world&quot;</span>, prog_ifindex=0, expected_attach_type=BPF_CGROUP_INET_INGRESS, prog_btf_fd=3, func_info_rec_size=8, func_info=0x55cd34bb8700, func_info_cnt=1, line_info_rec_size=16, line_info=0x55cd34b42800, line_info_cnt=5, attach_btf_id=0, attach_prog_fd=0, fd_array=NULL&#125;, 128) = 4<br>b<span class="hljs-string">&#x27;            head-165284  [000] d...1 27977.168992: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;            head-165284  [000] d...1 27977.169022: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;            head-165284  [000] d...1 27977.169047: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;            head-165284  [000] d...1 27977.169050: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27978.006685: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27978.006702: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;             who-165294  [000] d...1 27978.193472: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;             who-165294  [000] d...1 27978.193486: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;             who-165294  [000] d...1 27978.193505: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;             who-165294  [000] d...1 27978.193505: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;             who-165294  [000] d...1 27978.193711: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;             who-165294  [000] d...1 27978.193712: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;             who-165294  [000] d...1 27978.193806: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;             who-165294  [000] d...1 27978.193807: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;             who-165294  [000] d...1 27978.193900: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;             who-165294  [000] d...1 27978.193902: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27978.257082: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27978.257119: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27978.506782: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27978.506819: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27978.757435: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27978.757476: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.006600: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.006637: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;            head-165297  [000] d...1 27979.203999: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;            head-165297  [000] dN..1 27979.204040: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;            head-165297  [000] d...1 27979.204324: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;            head-165297  [000] dN..1 27979.204347: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;            head-165297  [000] d...1 27979.204716: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;            head-165297  [000] dN..1 27979.204729: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;            head-165297  [000] d...1 27979.205191: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;            head-165297  [000] dN..1 27979.205215: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;            tail-165298  [001] d...1 27979.212232: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;            tail-165298  [001] dN..1 27979.212317: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257070: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257121: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257315: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257323: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257356: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257357: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257426: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257428: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257496: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257497: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257515: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257516: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257626: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257627: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257699: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257700: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257716: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257717: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257732: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257733: bpf_trace_printk: Hello, World!&#x27;</span><br>b<span class="hljs-string">&#x27;    systemd-oomd-636     [001] d...1 27979.257748: bpf_trace_printk: Hello, World!&#x27;</span><br><br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>4</div>
+      <div>http://example.com/2023/10/31/ebpf/04/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ningan123</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年10月31日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/10/31/docker/%E3%80%90docker%E7%B3%BB%E5%88%97%E3%80%91%E6%9E%84%E5%BB%BAdashboard%E7%9A%84arm%E9%95%9C%E5%83%8F/" title="【docker系列】构建dashboard的arm镜像">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【docker系列】构建dashboard的arm镜像</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/10/31/ebpf/%E3%80%90ebpf%E3%80%91%E7%BC%96%E8%AF%91/" title="【ebpf】编译">
+                        <span class="hidden-mobile">【ebpf】编译</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

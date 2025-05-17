@@ -1,0 +1,668 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ningan123">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="A卷DHCP服务器的租约文件通常存储在服务器的硬盘上。 在大多数常见的操作系统中，租约文件的默认位置如下： Windows Server：C:\Windows\System32*dhcp*. Linux（ISC DHCP服务器）：&#x2F;var&#x2F;lib&#x2F;dhcpd&#x2F;dhcpd.leases. 12# nfs[root@localhost ~]#&#x2F;usr&#x2F;sbin&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="比赛题目">
+<meta property="og:url" content="http://example.com/2024/08/12/%E4%BF%A1%E5%88%9B/%E6%AF%94%E8%B5%9B%E9%A2%98%E7%9B%AE/index.html">
+<meta property="og:site_name" content="ningan123">
+<meta property="og:description" content="A卷DHCP服务器的租约文件通常存储在服务器的硬盘上。 在大多数常见的操作系统中，租约文件的默认位置如下： Windows Server：C:\Windows\System32*dhcp*. Linux（ISC DHCP服务器）：&#x2F;var&#x2F;lib&#x2F;dhcpd&#x2F;dhcpd.leases. 12# nfs[root@localhost ~]#&#x2F;usr&#x2F;sbin&#x2F;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-08-12T09:34:00.000Z">
+<meta property="article:modified_time" content="2024-11-02T15:50:00.000Z">
+<meta property="article:author" content="ningan123">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>比赛题目 - ningan123</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="比赛题目"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-08-12 09:34" pubdate>
+          2024年8月12日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          3.5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          30 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">比赛题目</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="A卷"><a href="#A卷" class="headerlink" title="A卷"></a>A卷</h2><p><strong>DHCP</strong>服务器的<strong>租约文件</strong>通常存储在服务器的硬盘上。 在大多数常见的操作系统中，<strong>租约文件</strong>的默认位置如下： Windows Server：C:\Windows\System32*<em>dhcp</em>*. Linux（ISC <strong>DHCP</strong>服务器）：&#x2F;var&#x2F;lib&#x2F;dhcpd&#x2F;dhcpd.leases.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># nfs</span><br>[root@localhost ~]<span class="hljs-comment">#/usr/sbin/exportfs –au 全部卸载</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs powershell">首先要明确<span class="hljs-variable">$</span>符号用在什么地方，使用在不同的地方，其所代表的定义也就不同。比如在bash里<span class="hljs-variable">$</span>符号表示当前用户为普通用户；在bash脚本里。<span class="hljs-variable">$</span>开头表示变量。<br><br>以下是一些特殊变量：<br><br><span class="hljs-number">1</span>、<span class="hljs-variable">$</span><span class="hljs-comment"># 表示参数个数。</span><br><br><span class="hljs-number">2</span>、<span class="hljs-variable">$0</span> 是脚本本身的名字。<br><br><span class="hljs-number">3</span>、<span class="hljs-variable">$1</span> 是传递给该shell脚本的第一个参数。<br><br><span class="hljs-number">4</span>、<span class="hljs-variable">$2</span> 是传递给该shell脚本的第二个参数。<br><br><span class="hljs-number">5</span>、<span class="hljs-variable">$</span><span class="hljs-selector-tag">@</span> 表示所有参数，并且所有参数都是独立的。<br><br><span class="hljs-number">6</span>、<span class="hljs-variable">$</span><span class="hljs-variable">$</span> 是脚本运行的当前进程ID号。<br><br><span class="hljs-number">7</span>、<span class="hljs-variable">$</span>? 是显示最后命令的退出状态，<span class="hljs-number">0</span>表示没有错误，其他表示有错误。<br></code></pre></td></tr></table></figure>
+
+
+<p>金仓数据库     在创建数据库时，_默认_的_端口_为54321</p>
+<p>关系数据库管理系统（Relational Database Management System：RDBMS）</p>
+<h2 id="B卷-00-01-56"><a href="#B卷-00-01-56" class="headerlink" title="B卷 00:01:56"></a>B卷 00:01:56</h2><p>若要修改1个事务的事务隔离级别，则应在事务开始时执行？<br>BEGIN TRANSACTION ISOLATION LEVEL repeatable read</p>
+<p>grep命令总如果希望正则表达式中使用\d字符，则需要使用命令选项 -P</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan kubeconfig]<span class="hljs-comment"># grep --help</span><br>Usage: grep [OPTION]... PATTERN [FILE]...<br>Search <span class="hljs-keyword">for</span> PATTERN <span class="hljs-keyword">in</span> each FILE.<br>Example: grep -i <span class="hljs-string">&#x27;hello world&#x27;</span> menu.h main.c<br><br>Pattern selection and interpretation:<br>  -E, --extended-regexp     PATTERN is an extended regular expression<br>  -F, --fixed-strings       PATTERN is a <span class="hljs-built_in">set</span> of newline-separated strings<br>  -G, --basic-regexp        PATTERN is a basic regular expression (default)<br>  -P, --perl-regexp         PATTERN is a Perl regular expression<br>  -e, --regexp=PATTERN      use PATTERN <span class="hljs-keyword">for</span> matching<br>  -f, --file=FILE           obtain PATTERN from FILE<br>  -i, --ignore-case         ignore <span class="hljs-keyword">case</span> distinctions<br>  -w, --word-regexp         force PATTERN to match only whole words<br>  -x, --line-regexp         force PATTERN to match only whole lines<br>  -z, --null-data           a data line ends <span class="hljs-keyword">in</span> 0 byte, not newline<br><br>Miscellaneous:<br>  -s, --no-messages         suppress error messages<br>  -v, --invert-match        select non-matching lines<br>  -V, --version             display version information and <span class="hljs-built_in">exit</span><br>      --<span class="hljs-built_in">help</span>                display this <span class="hljs-built_in">help</span> text and <span class="hljs-built_in">exit</span><br><br>Output control:<br>  -m, --max-count=NUM       stop after NUM selected lines<br>  -b, --byte-offset         <span class="hljs-built_in">print</span> the byte offset with output lines<br>  -n, --line-number         <span class="hljs-built_in">print</span> line number with output lines<br>      --line-buffered       flush output on every line<br>  -H, --with-filename       <span class="hljs-built_in">print</span> file name with output lines<br>  -h, --no-filename         suppress the file name prefix on output<br>      --label=LABEL         use LABEL as the standard input file name prefix<br>  -o, --only-matching       show only the part of a line matching PATTERN<br>  -q, --quiet, --silent     suppress all normal output<br>      --binary-files=TYPE   assume that binary files are TYPE;<br>                            TYPE is <span class="hljs-string">&#x27;binary&#x27;</span>, <span class="hljs-string">&#x27;text&#x27;</span>, or <span class="hljs-string">&#x27;without-match&#x27;</span><br>  -a, --text                equivalent to --binary-files=text<br>  -I                        equivalent to --binary-files=without-match<br>  -d, --directories=ACTION  how to handle directories;<br>                            ACTION is <span class="hljs-string">&#x27;read&#x27;</span>, <span class="hljs-string">&#x27;recurse&#x27;</span>, or <span class="hljs-string">&#x27;skip&#x27;</span><br>  -D, --devices=ACTION      how to handle devices, FIFOs and sockets;<br>                            ACTION is <span class="hljs-string">&#x27;read&#x27;</span> or <span class="hljs-string">&#x27;skip&#x27;</span><br>  -r, --recursive           like --directories=recurse<br>  -R, --dereference-recursive  likewise, but follow all symlinks<br>      --include=FILE_PATTERN  search only files that match FILE_PATTERN<br>      --exclude=FILE_PATTERN  skip files and directories matching FILE_PATTERN<br>      --exclude-from=FILE   skip files matching any file pattern from FILE<br>      --exclude-dir=PATTERN  directories that match PATTERN will be skipped.<br>  -L, --files-without-match  <span class="hljs-built_in">print</span> only names of FILEs with no selected lines<br>  -l, --files-with-matches  <span class="hljs-built_in">print</span> only names of FILEs with selected lines<br>  -c, --count               <span class="hljs-built_in">print</span> only a count of selected lines per FILE<br>  -T, --initial-tab         make tabs line up (<span class="hljs-keyword">if</span> needed)<br>  -Z, --null                <span class="hljs-built_in">print</span> 0 byte after FILE name<br></code></pre></td></tr></table></figure>
+
+
+<p>SQL语言共分为四大类：数据定义语言DDL，数据操纵语言DML，数据查询语言DQL，数据控制语言DCL。 </p>
+<ol>
+<li>数据定义语言DDL</li>
+</ol>
+<p> 数据定义语言DDL用来创建数据库中的各种对象—–表、视图、索引、同义词、聚簇等如： </p>
+<p> CREATE TABLE&#x2F;VIEW&#x2F;INDEX&#x2F;SYN&#x2F;CLUSTER </p>
+<p> DDL操作是隐性提交的！不能rollback </p>
+<p> 2 .数据操纵语言DML </p>
+<p> 数据操纵语言DML主要有三种形式： </p>
+<ol>
+<li><p>插入：INSERT </p>
+</li>
+<li><p>更新：UPDATE </p>
+</li>
+<li><p>删除：DELETE</p>
+</li>
+</ol>
+<ol start="3">
+<li>数据查询语言DQL</li>
+</ol>
+<p> 数据查询语言DQL基本结构是由SELECT子句，FROM子句，WHERE子句组成的查询块： </p>
+<p> SELECT &lt;字段名表&gt; </p>
+<p> FROM &lt;表或视图名&gt; </p>
+<p> WHERE &lt;查询条件&gt; </p>
+<ol start="4">
+<li>数据控制语言DCL</li>
+</ol>
+<p> 数据控制语言DCL用来授予或回收访问数据库的某种特权，并控制数据库操纵事务发生的时间及效果，对数据库实行监视等。如： </p>
+<ol>
+<li><p>GRANT：授权。 </p>
+</li>
+<li><p>ROLLBACK [WORK] TO [SAVEPOINT]：回退到某一点。</p>
+</li>
+</ol>
+<p> 回滚—ROLLBACK </p>
+<p> 回滚命令使数据库状态回到上次最后提交的状态。其格式为： </p>
+<p> SQL&gt;ROLLBACK 
+ </p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>比赛题目</div>
+      <div>http://example.com/2024/08/12/信创/比赛题目/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ningan123</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年8月12日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/08/22/containerd/%E3%80%90containerd%E3%80%91(202408)%2006.kubelet%E3%80%81containerd%E3%80%81runc%E3%80%81%E5%AE%B9%E5%99%A8%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/" title="【containerd】(202408) 06.kubelet、containerd、runc、容器之间的关系">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【containerd】(202408) 06.kubelet、containerd、runc、容器之间的关系</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/29/containerd/%E3%80%90containerd%E3%80%91(202407)%2001.%E5%AE%89%E8%A3%85containerd/" title="【containerd】(202407) 01.安装containerd">
+                        <span class="hidden-mobile">【containerd】(202407) 01.安装containerd</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
