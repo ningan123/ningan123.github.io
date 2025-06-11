@@ -1,0 +1,676 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ningan123">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="环境12345# cat &#x2F;etc&#x2F;redhat-releaseCentOS Linux release 8.0.1905 (Core) # uname -r4.18.0-348.rt7.130.el8.x86_64  问题及现象 pod的状态全部都是ContainerCreating的状态    containerd进程有大量报错，主要有：  failed to create container">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【containerd错误解决系列】(202303)failed to create shim task, OCI runtime create failed,  unable to retrieve OCI runtime error, runc did not terminate successfully">
+<meta property="og:url" content="http://example.com/2023/03/28/k8s/%E3%80%90containerd%E9%94%99%E8%AF%AF%E8%A7%A3%E5%86%B3%E7%B3%BB%E5%88%97%E3%80%91(202303)failed%20to%20create%20shim%20task,%20OCI%20runtime%20create%20failed,%20%20unable%20to%20retrieve%20OCI%20runtime%20error,%20runc%20did%20not%20terminate%20successfully/index.html">
+<meta property="og:site_name" content="ningan123">
+<meta property="og:description" content="环境12345# cat &#x2F;etc&#x2F;redhat-releaseCentOS Linux release 8.0.1905 (Core) # uname -r4.18.0-348.rt7.130.el8.x86_64  问题及现象 pod的状态全部都是ContainerCreating的状态    containerd进程有大量报错，主要有：  failed to create container">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230328144639.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230328144856.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230328145416.png">
+<meta property="article:published_time" content="2023-03-28T14:39:00.000Z">
+<meta property="article:modified_time" content="2023-06-29T10:15:00.000Z">
+<meta property="article:author" content="ningan123">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230328144639.png">
+  
+  
+  
+  <title>【containerd错误解决系列】(202303)failed to create shim task, OCI runtime create failed,  unable to retrieve OCI runtime error, runc did not terminate successfully - ningan123</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【containerd错误解决系列】(202303)failed to create shim task, OCI runtime create failed,  unable to retrieve OCI runtime error, runc did not terminate successfully"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-03-28 14:39" pubdate>
+          2023年3月28日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.1k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          51 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【containerd错误解决系列】(202303)failed to create shim task, OCI runtime create failed,  unable to retrieve OCI runtime error, runc did not terminate successfully</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="环境"><a href="#环境" class="headerlink" title="环境"></a>环境</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># cat /etc/redhat-release</span><br>CentOS Linux release 8.0.1905 (Core) <br><br><span class="hljs-comment"># uname -r</span><br>4.18.0-348.rt7.130.el8.x86_64<br></code></pre></td></tr></table></figure>
+
+<h2 id="问题及现象"><a href="#问题及现象" class="headerlink" title="问题及现象"></a>问题及现象</h2><ol>
+<li>pod的状态全部都是ContainerCreating的状态</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230328144639.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<ol start="2">
+<li>containerd进程有大量报错，主要有：</li>
+</ol>
+<p><code>failed to create containerd task: failed to create shim task: OCI runtime create failed: unable to retrieve OCI runtime error (open /run/containerd/io.containerd.runtime.v2.task/k8s.io/c4847070fad34a8da9b16b5c20cdc38e28a15cfcf9913d712e4fe60d8c9029f7/log.json: no such file or directory): runc did not terminate successfully: exit status 127: unknown</code></p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230328144856.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h2><h3 id="查看现有libseccomp版本"><a href="#查看现有libseccomp版本" class="headerlink" title="查看现有libseccomp版本"></a>查看现有libseccomp版本</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># sudo rpm -qa | grep libseccomp</span><br>libseccomp-2.3.3-3.el8.x86_64<br><br><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="卸载低版本libseccomp"><a href="#卸载低版本libseccomp" class="headerlink" title="卸载低版本libseccomp"></a>卸载低版本libseccomp</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># sudo rpm -e libseccomp-2.3.3-3.el8.x86_64 --nodeps</span><br><br><span class="hljs-comment"># sudo rpm -qa | grep libseccomp</span><br><span class="hljs-comment">#</span><br></code></pre></td></tr></table></figure>
+
+<h3 id="安装高版本libseccomp"><a href="#安装高版本libseccomp" class="headerlink" title="安装高版本libseccomp"></a>安装高版本libseccomp</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># yum provides libseccomp</span><br>Last metadata expiration check: 0:48:39 ago on Tue 28 Mar 2023 01:49:06 PM CST.<br>libseccomp-2.5.2-1.el8.i686 : Enhanced seccomp library<br>Repo        : Base<br>Matched from:<br>Provide    : libseccomp = 2.5.2-1.el8<br><br>libseccomp-2.5.2-1.el8.x86_64 : Enhanced seccomp library<br>Repo        : Base<br>Matched from:<br>Provide    : libseccomp = 2.5.2-1.el8<br><br><br><span class="hljs-comment"># yum install libseccomp-2.5.2-1.el8.x86_64</span><br>Last metadata expiration check: 0:49:46 ago on Tue 28 Mar 2023 01:49:06 PM CST.<br>Dependencies resolved.<br>======================================================================================================================================================================<br> Package                                   Arch                                  Version                                    Repository                           Size<br>======================================================================================================================================================================<br>Installing:<br> libseccomp                                x86_64                                2.5.2-1.el8                                Base                                 71 k<br><br>Transaction Summary<br>======================================================================================================================================================================<br>Install  1 Package<br><br>Total download size: 71 k<br>Installed size: 166 k<br>Is this ok [y/N]: y<br>Downloading Packages:<br>libseccomp-2.5.2-1.el8.x86_64.rpm                                                                                                      38 MB/s |  71 kB     00:00    <br>----------------------------------------------------------------------------------------------------------------------------------------------------------------------<br>Total                                                                                                                                 7.0 MB/s |  71 kB     00:00     <br>Running transaction check<br>Transaction check succeeded.<br>Running transaction <span class="hljs-built_in">test</span><br>Transaction <span class="hljs-built_in">test</span> succeeded.<br>Running transaction<br>  Preparing        :                                                                                                                                              1/1 <br>  Installing       : libseccomp-2.5.2-1.el8.x86_64                                                                                                                1/1 <br>  Running scriptlet: libseccomp-2.5.2-1.el8.x86_64                                                                                                                1/1 <br>  Verifying        : libseccomp-2.5.2-1.el8.x86_64                                                                                                                1/1 <br><br>Installed:<br>  libseccomp-2.5.2-1.el8.x86_64                                                                                                                                       <br><br>Complete!<br><br><br><span class="hljs-comment"># sudo rpm -qa | grep libseccomp</span><br>libseccomp-2.5.2-1.el8.x86_64<br></code></pre></td></tr></table></figure>
+
+<h2 id="解决后现象"><a href="#解决后现象" class="headerlink" title="解决后现象"></a>解决后现象</h2><ol>
+<li>pod状态</li>
+</ol>
+<p>安装之后，不用重启containerd进程，就看到了目前pod的状态都正常了</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230328145416.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<ol start="2">
+<li>runc中依赖的libseccomp<br>libseccomp已经是高版本的了</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># runc --version</span><br>runc version 1.1.4<br>commit: v1.1.4-0-g5fd4c4d1<br>spec: 1.0.2-dev<br>go: go1.18.10<br>libseccomp: 2.5.2<br></code></pre></td></tr></table></figure>
+
+<h2 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h2><p>libseccomp需要高于<code>2.4版本</code></p>
+<p>containerd.io 要求安装版本为 2.4.0 的 libseccomp</p>
+<p>具体官方依据还未找到，后续找到补充</p>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://blog.51cto.com/u_12386780/5084112">k8s系列-06-containerd的基本操作</a>  卸载安装libeseccomp<br><a target="_blank" rel="noopener" href="https://juejin.cn/s/containerd.io%20depends%20libseccomp2%20(%20%3D%202.4.0)%20but%202.3.1-2.1ubuntu4%20is%20to%20be%20installed">containerd.io depends libseccomp2 ( &#x3D; 2.4.0) but 2.3.1-2.1ubuntu4 is to be installed</a></p>
+<h2 id="yum相关命令"><a href="#yum相关命令" class="headerlink" title="yum相关命令"></a>yum相关命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs bash">yum clean all<br>yum makecache<br>yum list --showduplicates  | grep libseccomp<br>yum install --downloadonly --downloaddir . libseccomp<br>yum install --downloadonly --downloaddir . libseccomp*<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><code class="hljs bash"><br><br>[root@ltypaas-xx24b003-zhyw03w temp]<span class="hljs-comment"># yum install --downloadonly --downloaddir . libseccomp</span><br>Last metadata expiration check: 0:01:35 ago on Thu 15 Jun 2023 02:21:25 PM CST.<br>Package libseccomp-2.5.1-1.uelc20.01.aarch64 is already installed.<br>Dependencies resolved.<br>==================================================================================================================================================================<br> Package                           Architecture                   Version                                      Repository                                    Size<br>==================================================================================================================================================================<br>Upgrading:<br> libseccomp                        aarch64                        2.5.2-1.0.4.uelc20.01                        UniontechOS-20-BaseOS                         69 k<br><br>Transaction Summary<br>==================================================================================================================================================================<br>Upgrade  1 Package<br><br>Total download size: 69 k<br>YUM will only download packages <span class="hljs-keyword">for</span> the transaction.<br>Is this ok [y/N]: N<br>Operation aborted.<br><br><br>[root@ltypaas-xx24b003-zhyw03w temp]<span class="hljs-comment"># yum install --downloadonly --downloaddir . libseccomp*</span><br>Last metadata expiration check: 0:01:46 ago on Thu 15 Jun 2023 02:21:25 PM CST.<br>Package libseccomp-2.5.1-1.uelc20.01.aarch64 is already installed.<br>Dependencies resolved.<br>==================================================================================================================================================================<br> Package                               Architecture                Version                                     Repository                                    Size<br>==================================================================================================================================================================<br>Installing:<br> libseccomp-devel                      aarch64                     2.5.2-1.0.4.uelc20.01                       UniontechOS-20-AppStream                      56 k<br> libseccomp-static                     aarch64                     2.5.2-1.0.4.uelc20.01                       UniontechOS-20-Plus                           67 k<br>Upgrading:<br> libseccomp                            aarch64                     2.5.2-1.0.4.uelc20.01                       UniontechOS-20-BaseOS                         69 k<br><br>Transaction Summary<br>==================================================================================================================================================================<br>Install  2 Packages<br>Upgrade  1 Package<br><br>Total download size: 192 k<br>YUM will only download packages <span class="hljs-keyword">for</span> the transaction.<br>Is this ok [y/N]: y<br>Downloading Packages:<br>(1/3): libseccomp-2.5.2-1.0.4.uelc20.01.aarch64.rpm                                                                                34 MB/s |  69 kB     00:00    <br>(2/3): libseccomp-devel-2.5.2-1.0.4.uelc20.01.aarch64.rpm                                                                         3.1 MB/s |  56 kB     00:00    <br>(3/3): libseccomp-static-2.5.2-1.0.4.uelc20.01.aarch64.rpm                                                                        286 kB/s |  67 kB     00:00    <br>------------------------------------------------------------------------------------------------------------------------------------------------------------------<br>Total                                                                                                                             822 kB/s | 192 kB     00:00     <br>Complete!<br>The downloaded packages were saved <span class="hljs-keyword">in</span> cache until the next successful transaction.<br>You can remove cached packages by executing <span class="hljs-string">&#x27;yum clean packages&#x27;</span>.<br><br><br><br>[root@ltypaas-xx24b003-zhyw03w temp]<span class="hljs-comment"># ll</span><br>total 200<br>-rw-r----- 1 root root 71080 Jun 15 14:23 libseccomp-2.5.2-1.0.4.uelc20.01.aarch64.rpm<br>-rw-r----- 1 root root 57748 Jun 15 14:23 libseccomp-devel-2.5.2-1.0.4.uelc20.01.aarch64.rpm<br>-rw-r----- 1 root root 68128 Jun 15 14:23 libseccomp-static-2.5.2-1.0.4.uelc20.01.aarch64.rpm<br>[root@ltypaas-xx24b003-zhyw03w temp]<span class="hljs-comment"># </span><br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【containerd错误解决系列】(202303)failed to create shim task, OCI runtime create failed,  unable to retrieve OCI runtime error, runc did not terminate successfully</div>
+      <div>http://example.com/2023/03/28/k8s/【containerd错误解决系列】(202303)failed to create shim task, OCI runtime create failed,  unable to retrieve OCI runtime error, runc did not terminate successfully/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ningan123</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年3月28日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/03/29/k8s/unsupported/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91kubebuilder/" title="【k8s系列】kubebuilder">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【k8s系列】kubebuilder</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/03/24/software/%E3%80%90WindTerm%E3%80%91(202303)%20WindTerm%E5%85%A8%E5%AE%B6%E6%A1%B6/" title="【WindTerm】(202303) WindTerm全家桶">
+                        <span class="hidden-mobile">【WindTerm】(202303) WindTerm全家桶</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

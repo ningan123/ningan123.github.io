@@ -1,0 +1,688 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ningan123">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="第7章 containerd核心组件解析7.2 containerd API和core7.2.1 GRPC API不同于nerdctl和crictl，ctr提供的基本是containerd GRPC接口的原生能力。 containerd GRPC API的定义在目录containerd\api\services中 123456789101112131415161718192021222324252">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【containerd】(202407) 05.containerd核心组件解析">
+<meta property="og:url" content="http://example.com/2024/07/29/containerd/%E3%80%90containerd%E3%80%91(202407)%2005.containerd%E6%A0%B8%E5%BF%83%E7%BB%84%E4%BB%B6%E8%A7%A3%E6%9E%90/index.html">
+<meta property="og:site_name" content="ningan123">
+<meta property="og:description" content="第7章 containerd核心组件解析7.2 containerd API和core7.2.1 GRPC API不同于nerdctl和crictl，ctr提供的基本是containerd GRPC接口的原生能力。 containerd GRPC API的定义在目录containerd\api\services中 123456789101112131415161718192021222324252">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-07-29T09:17:00.000Z">
+<meta property="article:modified_time" content="2024-11-02T15:51:00.000Z">
+<meta property="article:author" content="ningan123">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>【containerd】(202407) 05.containerd核心组件解析 - ningan123</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【containerd】(202407) 05.containerd核心组件解析"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-07-29 09:17" pubdate>
+          2024年7月29日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          20k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          163 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【containerd】(202407) 05.containerd核心组件解析</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="第7章-containerd核心组件解析"><a href="#第7章-containerd核心组件解析" class="headerlink" title="第7章 containerd核心组件解析"></a>第7章 containerd核心组件解析</h1><h2 id="7-2-containerd-API和core"><a href="#7-2-containerd-API和core" class="headerlink" title="7.2 containerd API和core"></a>7.2 containerd API和core</h2><h3 id="7-2-1-GRPC-API"><a href="#7-2-1-GRPC-API" class="headerlink" title="7.2.1 GRPC API"></a>7.2.1 GRPC API</h3><p>不同于nerdctl和crictl，ctr提供的基本是containerd GRPC接口的原生能力。</p>
+<p>containerd GRPC API的定义在目录<code>containerd\api\services</code>中</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 open-source]<span class="hljs-comment"># ctr -h</span><br>NAME:<br>   ctr - <br>        __<br>  _____/ /______<br> / ___/ __/ ___/<br>/ /__/ /_/ /<br>\___/\__/_/<br><br>containerd CLI<br><br><br>USAGE:<br>   ctr [global options] <span class="hljs-built_in">command</span> [<span class="hljs-built_in">command</span> options] [arguments...]<br><br>VERSION:<br>   v1.7.18<br><br>DESCRIPTION:<br>   <br>ctr is an unsupported debug and administrative client <span class="hljs-keyword">for</span> interacting<br>with the containerd daemon. Because it is unsupported, the commands,<br>options, and operations are not guaranteed to be backward compatible or<br>stable from release to release of the containerd project.<br><br>COMMANDS:<br>   plugins, plugin            Provides information about containerd plugins<br>   version                    Print the client and server versions<br>   containers, c, container   Manage containers<br>   content                    Manage content<br>   events, event              Display containerd events<br>   images, image, i           Manage images<br>   leases                     Manage leases<br>   namespaces, namespace, ns  Manage namespaces<br>   pprof                      Provide golang pprof outputs <span class="hljs-keyword">for</span> containerd<br>   run                        Run a container<br>   snapshots, snapshot        Manage snapshots<br>   tasks, t, task             Manage tasks<br>   install                    Install a new package<br>   oci                        OCI tools<br>   sandboxes, sandbox, sb, s  Manage sandboxes<br>   info                       Print the server info<br>   deprecations               <br>   shim                       Interact with a shim directly<br>   <span class="hljs-built_in">help</span>, h                    Shows a list of commands or <span class="hljs-built_in">help</span> <span class="hljs-keyword">for</span> one <span class="hljs-built_in">command</span><br><br>GLOBAL OPTIONS:<br>   --debug                      Enable debug output <span class="hljs-keyword">in</span> logs<br>   --address value, -a value    Address <span class="hljs-keyword">for</span> containerd<span class="hljs-string">&#x27;s GRPC server (default: &quot;/run/containerd/containerd.sock&quot;) [$CONTAINERD_ADDRESS]</span><br><span class="hljs-string">   --timeout value              Total timeout for ctr commands (default: 0s)</span><br><span class="hljs-string">   --connect-timeout value      Timeout for connecting to containerd (default: 0s)</span><br><span class="hljs-string">   --namespace value, -n value  Namespace to use with commands (default: &quot;default&quot;) [$CONTAINERD_NAMESPACE]</span><br><span class="hljs-string">   --help, -h                   show help</span><br><span class="hljs-string">   --version, -v                print the version</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="container"><a href="#container" class="headerlink" title="container"></a>container</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 open-source]<span class="hljs-comment"># ctr container -h</span><br>NAME:<br>   ctr containers - Manage containers<br><br>USAGE:<br>   ctr containers <span class="hljs-built_in">command</span> [<span class="hljs-built_in">command</span> options] [arguments...]<br><br>COMMANDS:<br>   create                   Create container<br>   delete, del, remove, <span class="hljs-built_in">rm</span>  Delete one or more existing containers<br>   info                     Get info about a container<br>   list, <span class="hljs-built_in">ls</span>                 List containers<br>   label                    Set and clear labels <span class="hljs-keyword">for</span> a container<br>   checkpoint               Checkpoint a container<br>   restore                  Restore a container from checkpoint<br><br>OPTIONS:<br>   --<span class="hljs-built_in">help</span>, -h  show <span class="hljs-built_in">help</span><br>   <br>[root@ubuntu-22 open-source]<span class="hljs-comment"># </span><br>[root@ubuntu-22 open-source]<span class="hljs-comment"># ctr c -h</span><br>NAME:<br>   ctr containers - Manage containers<br><br>USAGE:<br>   ctr containers <span class="hljs-built_in">command</span> [<span class="hljs-built_in">command</span> options] [arguments...]<br><br>COMMANDS:<br>   create                   Create container<br>   delete, del, remove, <span class="hljs-built_in">rm</span>  Delete one or more existing containers<br>   info                     Get info about a container<br>   list, <span class="hljs-built_in">ls</span>                 List containers<br>   label                    Set and clear labels <span class="hljs-keyword">for</span> a container<br>   checkpoint               Checkpoint a container<br>   restore                  Restore a container from checkpoint<br><br>OPTIONS:<br>   --<span class="hljs-built_in">help</span>, -h  show <span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+
+
+<h4 id="content"><a href="#content" class="headerlink" title="content"></a>content</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 open-source]<span class="hljs-comment"># ctr content -h</span><br>NAME:<br>   ctr content - Manage content<br><br>USAGE:<br>   ctr content <span class="hljs-built_in">command</span> [<span class="hljs-built_in">command</span> options] [arguments...]<br><br>COMMANDS:<br>   active                   Display active transfers<br>   delete, del, remove, <span class="hljs-built_in">rm</span>  Permanently delete one or more blobs<br>   edit                     Edit a blob and <span class="hljs-built_in">return</span> a new digest<br>   fetch                    Fetch all content <span class="hljs-keyword">for</span> an image into containerd<br>   fetch-object             Retrieve objects from a remote<br>   fetch-blob               Retrieve blobs from a remote<br>   get                      Get the data <span class="hljs-keyword">for</span> an object<br>   ingest                   Accept content into the store<br>   list, <span class="hljs-built_in">ls</span>                 List all blobs <span class="hljs-keyword">in</span> the store<br>   push-object              Push an object to a remote<br>   label                    Add labels to content<br>   prune                    Prunes content from the content store<br><br>OPTIONS:<br>   --<span class="hljs-built_in">help</span>, -h  show <span class="hljs-built_in">help</span><br>   <br>[root@ubuntu-22 open-source]<span class="hljs-comment"># </span><br></code></pre></td></tr></table></figure>
+
+<h4 id="diff"><a href="#diff" class="headerlink" title="diff"></a>diff</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 open-source]<span class="hljs-comment"># ctr snapshots diff -h</span><br>NAME:<br>   ctr snapshots diff - Get the diff of two snapshots. the default second snapshot is the first snapshot<span class="hljs-string">&#x27;s parent.</span><br><span class="hljs-string"></span><br><span class="hljs-string">USAGE:</span><br><span class="hljs-string">   ctr snapshots diff [command options] [flags] &lt;idA&gt; [&lt;idB&gt;]</span><br><span class="hljs-string"></span><br><span class="hljs-string">OPTIONS:</span><br><span class="hljs-string">   --media-type value  Media type to use for creating diff (default: &quot;application/vnd.oci.image.layer.v1.tar+gzip&quot;)</span><br><span class="hljs-string">   --ref value         Content upload reference to use</span><br><span class="hljs-string">   --keep              Keep diff content. up to creator to delete it.</span><br><span class="hljs-string">   --label value       Labels to attach to the image</span><br><span class="hljs-string">   </span><br><span class="hljs-string">[root@ubuntu-22 open-source]# </span><br><span class="hljs-string">[root@ubuntu-22 open-source]# </span><br></code></pre></td></tr></table></figure>
+
+<h4 id="event"><a href="#event" class="headerlink" title="event"></a>event</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 open-source]<span class="hljs-comment"># ctr event -h</span><br>NAME:<br>   ctr events - Display containerd events<br><br>USAGE:<br>   ctr events [arguments...]<br>[root@ubuntu-22 open-source]<span class="hljs-comment"># </span><br></code></pre></td></tr></table></figure>
+
+
+<h4 id="image"><a href="#image" class="headerlink" title="image"></a>image</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 ~]<span class="hljs-comment"># ctr image -h</span><br>NAME:<br>   ctr images - Manage images<br><br>USAGE:<br>   ctr images <span class="hljs-built_in">command</span> [<span class="hljs-built_in">command</span> options] [arguments...]<br><br>COMMANDS:<br>   check                    Check existing images to ensure all content is available locally<br>   <span class="hljs-built_in">export</span>                   Export images<br>   import                   Import images<br>   list, <span class="hljs-built_in">ls</span>                 List images known to containerd<br>   mount                    Mount an image to a target path<br>   unmount                  Unmount the image from the target<br>   pull                     Pull an image from a remote<br>   push                     Push an image to a remote<br>   prune                    Remove unused images<br>   delete, del, remove, <span class="hljs-built_in">rm</span>  Remove one or more images by reference<br>   tag                      Tag an image<br>   label                    Set and clear labels <span class="hljs-keyword">for</span> an image<br>   convert                  Convert an image<br>   usage                    Display usage of snapshots <span class="hljs-keyword">for</span> a given image ref<br><br>OPTIONS:<br>   --<span class="hljs-built_in">help</span>, -h  show <span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+
+
+<h4 id="introspection"><a href="#introspection" class="headerlink" title="introspection"></a>introspection</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 ~]<span class="hljs-comment"># ctr info</span><br>&#123;<br>    <span class="hljs-string">&quot;server&quot;</span>: &#123;<br>        <span class="hljs-string">&quot;uuid&quot;</span>: <span class="hljs-string">&quot;64bd2d8f-d225-40aa-82fd-874a0a06032b&quot;</span>,<br>        <span class="hljs-string">&quot;pid&quot;</span>: 939,<br>        <span class="hljs-string">&quot;pidns&quot;</span>: 4026531836<br>    &#125;<br>&#125;<br>[root@ubuntu-22 ~]<span class="hljs-comment"># </span><br>[root@ubuntu-22 ~]<span class="hljs-comment"># ps -ef |grep 939</span><br>root         939       1  0 20:48 ?        00:00:00 /usr/local/bin/containerd<br>root        3492    2363  0 20:50 pts/0    00:00:00 grep --color=auto 939<br>[root@ubuntu-22 ~]<span class="hljs-comment"># </span><br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 ~]<span class="hljs-comment"># ctr plugin ls</span><br>TYPE                                   ID                       PLATFORMS      STATUS    <br>io.containerd.snapshotter.v1           aufs                     linux/amd64    skip      <br>io.containerd.event.v1                 exchange                 -              ok        <br>io.containerd.internal.v1              opt                      -              ok        <br>io.containerd.warning.v1               deprecations             -              ok        <br>io.containerd.snapshotter.v1           blockfile                linux/amd64    skip      <br>io.containerd.snapshotter.v1           btrfs                    linux/amd64    skip      <br>io.containerd.snapshotter.v1           devmapper                linux/amd64    error     <br>io.containerd.snapshotter.v1           native                   linux/amd64    ok        <br>io.containerd.snapshotter.v1           overlayfs                linux/amd64    ok        <br>io.containerd.snapshotter.v1           zfs                      linux/amd64    skip      <br>io.containerd.content.v1               content                  -              ok        <br>io.containerd.metadata.v1              bolt                     -              ok        <br>io.containerd.gc.v1                    scheduler                -              ok        <br>io.containerd.differ.v1                walking                  linux/amd64    ok        <br>io.containerd.lease.v1                 manager                  -              ok        <br>io.containerd.streaming.v1             manager                  -              ok        <br>io.containerd.runtime.v1               linux                    linux/amd64    ok        <br>io.containerd.monitor.v1               cgroups                  linux/amd64    ok        <br>io.containerd.runtime.v2               task                     linux/amd64    ok        <br>io.containerd.runtime.v2               shim                     -              ok        <br>io.containerd.sandbox.store.v1         <span class="hljs-built_in">local</span>                    -              ok        <br>io.containerd.sandbox.controller.v1    <span class="hljs-built_in">local</span>                    -              ok        <br>io.containerd.service.v1               containers-service       -              ok        <br>io.containerd.service.v1               content-service          -              ok        <br>io.containerd.service.v1               diff-service             -              ok        <br>io.containerd.service.v1               images-service           -              ok        <br>io.containerd.service.v1               introspection-service    -              ok        <br>io.containerd.service.v1               namespaces-service       -              ok        <br>io.containerd.service.v1               snapshots-service        -              ok        <br>io.containerd.service.v1               tasks-service            -              ok        <br>io.containerd.grpc.v1                  containers               -              ok        <br>io.containerd.grpc.v1                  content                  -              ok        <br>io.containerd.grpc.v1                  diff                     -              ok        <br>io.containerd.grpc.v1                  events                   -              ok        <br>io.containerd.grpc.v1                  images                   -              ok        <br>io.containerd.grpc.v1                  introspection            -              ok        <br>io.containerd.grpc.v1                  leases                   -              ok        <br>io.containerd.grpc.v1                  namespaces               -              ok        <br>io.containerd.grpc.v1                  sandbox-controllers      -              ok        <br>io.containerd.grpc.v1                  sandboxes                -              ok        <br>io.containerd.grpc.v1                  snapshots                -              ok        <br>io.containerd.grpc.v1                  streaming                -              ok        <br>io.containerd.grpc.v1                  tasks                    -              ok        <br>io.containerd.transfer.v1              <span class="hljs-built_in">local</span>                    -              ok        <br>io.containerd.grpc.v1                  transfer                 -              ok        <br>io.containerd.grpc.v1                  version                  -              ok        <br>io.containerd.internal.v1              restart                  -              ok        <br>io.containerd.tracing.processor.v1     otlp                     -              skip      <br>io.containerd.internal.v1              tracing                  -              skip      <br>io.containerd.grpc.v1                  healthcheck              -              ok        <br>io.containerd.nri.v1                   nri                      -              ok        <br>io.containerd.grpc.v1                  cri                      linux/amd64    ok        <br>[root@ubuntu-22 ~]<span class="hljs-comment"># </span><br></code></pre></td></tr></table></figure>
+
+
+<h4 id="leases"><a href="#leases" class="headerlink" title="leases"></a>leases</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 ~]<span class="hljs-comment"># ctr leases -h</span><br>NAME:<br>   ctr leases - Manage leases<br><br>USAGE:<br>   ctr leases <span class="hljs-built_in">command</span> [<span class="hljs-built_in">command</span> options] [arguments...]<br><br>COMMANDS:<br>   list, <span class="hljs-built_in">ls</span>                 List all active leases<br>   create                   Create lease<br>   delete, del, remove, <span class="hljs-built_in">rm</span>  Delete a lease<br><br>OPTIONS:<br>   --<span class="hljs-built_in">help</span>, -h  show <span class="hljs-built_in">help</span><br>   <br></code></pre></td></tr></table></figure>
+
+<h4 id="namespace"><a href="#namespace" class="headerlink" title="namespace"></a>namespace</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 ~]<span class="hljs-comment"># ctr ns -h</span><br>NAME:<br>   ctr namespaces - Manage namespaces<br><br>USAGE:<br>   ctr namespaces <span class="hljs-built_in">command</span> [<span class="hljs-built_in">command</span> options] [arguments...]<br><br>COMMANDS:<br>   create, c   Create a new namespace<br>   list, <span class="hljs-built_in">ls</span>    List namespaces<br>   remove, <span class="hljs-built_in">rm</span>  Remove one or more namespaces<br>   label       Set and clear labels <span class="hljs-keyword">for</span> a namespace<br><br>OPTIONS:<br>   --<span class="hljs-built_in">help</span>, -h  show <span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 ~]<span class="hljs-comment"># ctr namespace -h</span><br>NAME:<br>   ctr namespaces - Manage namespaces<br><br>USAGE:<br>   ctr namespaces <span class="hljs-built_in">command</span> [<span class="hljs-built_in">command</span> options] [arguments...]<br><br>COMMANDS:<br>   create, c   Create a new namespace<br>   list, <span class="hljs-built_in">ls</span>    List namespaces<br>   remove, <span class="hljs-built_in">rm</span>  Remove one or more namespaces<br>   label       Set and clear labels <span class="hljs-keyword">for</span> a namespace<br><br>OPTIONS:<br>   --<span class="hljs-built_in">help</span>, -h  show <span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="sandbox"><a href="#sandbox" class="headerlink" title="sandbox"></a>sandbox</h4><p>参考：<a target="_blank" rel="noopener" href="https://github.com/containerd/containerd/issues/7739">https://github.com/containerd/containerd/issues/7739</a></p>
+<h4 id="snapshot"><a href="#snapshot" class="headerlink" title="snapshot"></a>snapshot</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><code class="hljs bash">NAME:<br>   ctr snapshots - Manage snapshots<br><br>USAGE:<br>   ctr snapshots <span class="hljs-built_in">command</span> [<span class="hljs-built_in">command</span> options] [arguments...]<br><br>COMMANDS:<br>   commit                   Commit an active snapshot into the provided name<br>   diff                     Get the diff of two snapshots. the default second snapshot is the first snapshot<span class="hljs-string">&#x27;s parent.</span><br><span class="hljs-string">   info                     Get info about a snapshot</span><br><span class="hljs-string">   list, ls                 List snapshots</span><br><span class="hljs-string">   mounts, m, mount         Mount gets mount commands for the snapshots</span><br><span class="hljs-string">   prepare                  Prepare a snapshot from a committed snapshot</span><br><span class="hljs-string">   delete, del, remove, rm  Remove snapshots</span><br><span class="hljs-string">   label                    Add labels to content</span><br><span class="hljs-string">   tree                     Display tree view of snapshot branches</span><br><span class="hljs-string">   unpack                   Unpack applies layers from a manifest to a snapshot</span><br><span class="hljs-string">   usage                    Usage snapshots</span><br><span class="hljs-string">   view                     Create a read-only snapshot from a committed snapshot</span><br><span class="hljs-string"></span><br><span class="hljs-string">OPTIONS:</span><br><span class="hljs-string">   --snapshotter value  Snapshotter name. Empty value stands for the default value. [$CONTAINERD_SNAPSHOTTER]</span><br><span class="hljs-string">   --help, -h           show help</span><br></code></pre></td></tr></table></figure>
+
+<h4 id="task"><a href="#task" class="headerlink" title="task"></a>task</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 ~]<span class="hljs-comment"># ctr t -h</span><br>NAME:<br>   ctr tasks - Manage tasks<br><br>USAGE:<br>   ctr tasks <span class="hljs-built_in">command</span> [<span class="hljs-built_in">command</span> options] [arguments...]<br><br>COMMANDS:<br>   attach                   Attach to the IO of a running container<br>   checkpoint               Checkpoint a container<br>   delete, del, remove, <span class="hljs-built_in">rm</span>  Delete one or more tasks<br>   <span class="hljs-built_in">exec</span>                     Execute additional processes <span class="hljs-keyword">in</span> an existing container<br>   list, <span class="hljs-built_in">ls</span>                 List tasks<br>   <span class="hljs-built_in">kill</span>                     Signal a container (default: SIGTERM)<br>   metrics, metric          Get a single data point of metrics <span class="hljs-keyword">for</span> a task with the built-in Linux runtime<br>   pause                    Pause an existing container<br>   ps                       List processes <span class="hljs-keyword">for</span> container<br>   resume                   Resume a paused container<br>   start                    Start a container that has been created<br><br>OPTIONS:<br>   --<span class="hljs-built_in">help</span>, -h  show <span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 ~]<span class="hljs-comment"># ctr task -h</span><br>NAME:<br>   ctr tasks - Manage tasks<br><br>USAGE:<br>   ctr tasks <span class="hljs-built_in">command</span> [<span class="hljs-built_in">command</span> options] [arguments...]<br><br>COMMANDS:<br>   attach                   Attach to the IO of a running container<br>   checkpoint               Checkpoint a container<br>   delete, del, remove, <span class="hljs-built_in">rm</span>  Delete one or more tasks<br>   <span class="hljs-built_in">exec</span>                     Execute additional processes <span class="hljs-keyword">in</span> an existing container<br>   list, <span class="hljs-built_in">ls</span>                 List tasks<br>   <span class="hljs-built_in">kill</span>                     Signal a container (default: SIGTERM)<br>   metrics, metric          Get a single data point of metrics <span class="hljs-keyword">for</span> a task with the built-in Linux runtime<br>   pause                    Pause an existing container<br>   ps                       List processes <span class="hljs-keyword">for</span> container<br>   resume                   Resume a paused container<br>   start                    Start a container that has been created<br><br>OPTIONS:<br>   --<span class="hljs-built_in">help</span>, -h  show <span class="hljs-built_in">help</span><br></code></pre></td></tr></table></figure>
+<h4 id="tranfer-amp-streaming"><a href="#tranfer-amp-streaming" class="headerlink" title="tranfer &amp; streaming"></a>tranfer &amp; streaming</h4><p>演进中、</p>
+<h4 id="version"><a href="#version" class="headerlink" title="version"></a>version</h4><p>返回containerd的版本号</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 ~]<span class="hljs-comment"># ctr version</span><br>Client:<br>  Version:  v1.7.18<br>  Revision: ae71819c4f5e67bb4d5ae76a6b735f29cc25774e<br>  Go version: go1.21.11<br><br>Server:<br>  Version:  v1.7.18<br>  Revision: ae71819c4f5e67bb4d5ae76a6b735f29cc25774e<br>  UUID: 64bd2d8f-d225-40aa-82fd-874a0a06032b<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 ~]<span class="hljs-comment"># containerd -v</span><br>containerd github.com/containerd/containerd v1.7.18 ae71819c4f5e67bb4d5ae76a6b735f29cc25774e<br></code></pre></td></tr></table></figure>
+
+<h3 id="7-2-2-Services"><a href="#7-2-2-Services" class="headerlink" title="7.2.2 Services"></a>7.2.2 Services</h3><p>containerd中的Service注册的两种插件如下：</p>
+<ul>
+<li>Service Plugins：即io.containerd.service.v1，用于内部微服务之间相互调用，调用方式为函数调用。</li>
+<li>GRPC Plugins：即io.containerd.grpc.v1，用于对外提供服务，通过grpc服务接口进行调用。</li>
+</ul>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 ~]<span class="hljs-comment"># ctr version</span><br>Client:<br>  Version:  v1.7.18<br>  Revision: ae71819c4f5e67bb4d5ae76a6b735f29cc25774e<br>  Go version: go1.21.11<br><br>Server:<br>  Version:  v1.7.18<br>  Revision: ae71819c4f5e67bb4d5ae76a6b735f29cc25774e<br>  UUID: 64bd2d8f-d225-40aa-82fd-874a0a06032b<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 ~]<span class="hljs-comment"># ctr plugin ls</span><br>TYPE                                   ID                       PLATFORMS      STATUS    <br>io.containerd.snapshotter.v1           aufs                     linux/amd64    skip      <br>io.containerd.event.v1                 exchange                 -              ok        <br>io.containerd.internal.v1              opt                      -              ok        <br>io.containerd.warning.v1               deprecations             -              ok        <br>io.containerd.snapshotter.v1           blockfile                linux/amd64    skip      <br>io.containerd.snapshotter.v1           btrfs                    linux/amd64    skip      <br>io.containerd.snapshotter.v1           devmapper                linux/amd64    error     <br>io.containerd.snapshotter.v1           native                   linux/amd64    ok        <br>io.containerd.snapshotter.v1           overlayfs                linux/amd64    ok        <br>io.containerd.snapshotter.v1           zfs                      linux/amd64    skip      <br>io.containerd.content.v1               content                  -              ok        <br>io.containerd.metadata.v1              bolt                     -              ok        <br>io.containerd.gc.v1                    scheduler                -              ok        <br>io.containerd.differ.v1                walking                  linux/amd64    ok        <br>io.containerd.lease.v1                 manager                  -              ok        <br>io.containerd.streaming.v1             manager                  -              ok        <br>io.containerd.runtime.v1               linux                    linux/amd64    ok        <br>io.containerd.monitor.v1               cgroups                  linux/amd64    ok        <br>io.containerd.runtime.v2               task                     linux/amd64    ok        <br>io.containerd.runtime.v2               shim                     -              ok        <br>io.containerd.sandbox.store.v1         <span class="hljs-built_in">local</span>                    -              ok        <br>io.containerd.sandbox.controller.v1    <span class="hljs-built_in">local</span>                    -              ok        <br>io.containerd.service.v1               containers-service       -              ok        <br>io.containerd.service.v1               content-service          -              ok        <br>io.containerd.service.v1               diff-service             -              ok        <br>io.containerd.service.v1               images-service           -              ok        <br>io.containerd.service.v1               introspection-service    -              ok        <br>io.containerd.service.v1               namespaces-service       -              ok        <br>io.containerd.service.v1               snapshots-service        -              ok        <br>io.containerd.service.v1               tasks-service            -              ok        <br>io.containerd.grpc.v1                  containers               -              ok        <br>io.containerd.grpc.v1                  content                  -              ok        <br>io.containerd.grpc.v1                  diff                     -              ok        <br>io.containerd.grpc.v1                  events                   -              ok        <br>io.containerd.grpc.v1                  images                   -              ok        <br>io.containerd.grpc.v1                  introspection            -              ok        <br>io.containerd.grpc.v1                  leases                   -              ok        <br>io.containerd.grpc.v1                  namespaces               -              ok        <br>io.containerd.grpc.v1                  sandbox-controllers      -              ok        <br>io.containerd.grpc.v1                  sandboxes                -              ok        <br>io.containerd.grpc.v1                  snapshots                -              ok        <br>io.containerd.grpc.v1                  streaming                -              ok        <br>io.containerd.grpc.v1                  tasks                    -              ok        <br>io.containerd.transfer.v1              <span class="hljs-built_in">local</span>                    -              ok        <br>io.containerd.grpc.v1                  transfer                 -              ok        <br>io.containerd.grpc.v1                  version                  -              ok        <br>io.containerd.internal.v1              restart                  -              ok        <br>io.containerd.tracing.processor.v1     otlp                     -              skip      <br>io.containerd.internal.v1              tracing                  -              skip      <br>io.containerd.grpc.v1                  healthcheck              -              ok        <br>io.containerd.nri.v1                   nri                      -              ok        <br>io.containerd.grpc.v1                  cri                      linux/amd64    ok        <br>[root@ubuntu-22 ~]<span class="hljs-comment"># </span><br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 ~]<span class="hljs-comment"># ctr plugin ls |grep io.containerd.service.v1</span><br>io.containerd.service.v1               containers-service       -              ok        <br>io.containerd.service.v1               content-service          -              ok        <br>io.containerd.service.v1               diff-service             -              ok        <br>io.containerd.service.v1               images-service           -              ok        <br>io.containerd.service.v1               introspection-service    -              ok        <br>io.containerd.service.v1               namespaces-service       -              ok        <br>io.containerd.service.v1               snapshots-service        -              ok        <br>io.containerd.service.v1               tasks-service            -              ok        <br>[root@ubuntu-22 ~]<span class="hljs-comment"># </span><br>[root@ubuntu-22 ~]<span class="hljs-comment"># </span><br>[root@ubuntu-22 ~]<span class="hljs-comment"># ctr plugin ls |grep io.containerd.grpc.v1</span><br>io.containerd.grpc.v1                  containers               -              ok        <br>io.containerd.grpc.v1                  content                  -              ok        <br>io.containerd.grpc.v1                  diff                     -              ok        <br>io.containerd.grpc.v1                  events                   -              ok        <br>io.containerd.grpc.v1                  images                   -              ok        <br>io.containerd.grpc.v1                  introspection            -              ok        <br>io.containerd.grpc.v1                  leases                   -              ok        <br>io.containerd.grpc.v1                  namespaces               -              ok        <br>io.containerd.grpc.v1                  sandbox-controllers      -              ok        <br>io.containerd.grpc.v1                  sandboxes                -              ok        <br>io.containerd.grpc.v1                  snapshots                -              ok        <br>io.containerd.grpc.v1                  streaming                -              ok        <br>io.containerd.grpc.v1                  tasks                    -              ok        <br>io.containerd.grpc.v1                  transfer                 -              ok        <br>io.containerd.grpc.v1                  version                  -              ok        <br>io.containerd.grpc.v1                  healthcheck              -              ok        <br>io.containerd.grpc.v1                  cri                      linux/amd64    ok   <br></code></pre></td></tr></table></figure>
+
+
+<h3 id="7-2-3-Metadata"><a href="#7-2-3-Metadata" class="headerlink" title="7.2.3 Metadata"></a>7.2.3 Metadata</h3><p>Metadata层为数据库层。containerd中的底层元数据的存储采用了boltdb开源数据库。</p>
+<p>metadata在宿主机上保存的路径为 <code>/var/lib/containerd/io.containerd.metadata.v1.bolt/meta.db</code></p>
+<p>containerd中的boltdb schema数据结构可以参考 <a target="_blank" rel="noopener" href="https://github.com/containerd/containerd/blob/main/core/metadata/buckets.go">https://github.com/containerd/containerd/blob/main/core/metadata/buckets.go</a></p>
+<p>boltbrowser是一款开源的boltdb数据库浏览器。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ubuntu-22 ~]<span class="hljs-comment"># git clone https://github.com/br0xen/boltbrowser.git</span><br>Cloning into <span class="hljs-string">&#x27;boltbrowser&#x27;</span>...<br>remote: Enumerating objects: 678, <span class="hljs-keyword">done</span>.<br>remote: Counting objects: 100% (58/58), <span class="hljs-keyword">done</span>.<br>remote: Compressing objects: 100% (37/37), <span class="hljs-keyword">done</span>.<br>remote: Total 678 (delta 29), reused 42 (delta 21), pack-reused 620<br>Receiving objects: 100% (678/678), 2.68 MiB | 6.01 MiB/s, <span class="hljs-keyword">done</span>.<br>Resolving deltas: 100% (326/326), <span class="hljs-keyword">done</span>.<br>[root@ubuntu-22 ~]<span class="hljs-comment"># </span><br>[root@ubuntu-22 ~]<span class="hljs-comment"># cd boltbrowser/</span><br>[root@ubuntu-22 boltbrowser]<span class="hljs-comment"># </span><br>[root@ubuntu-22 boltbrowser]<span class="hljs-comment"># go build</span><br>go: downloading github.com/br0xen/termbox-util v0.0.0-20170904143325-de1d4c83380e<br>go: downloading github.com/nsf/termbox-go v1.1.1<br>go: downloading go.etcd.io/bbolt v1.3.7<br>go: downloading github.com/mattn/go-runewidth v0.0.9<br>go: downloading golang.org/x/sys v0.8.0<br>[root@ubuntu-22 boltbrowser]<span class="hljs-comment"># </span><br>[root@ubuntu-22 boltbrowser]<span class="hljs-comment"># </span><br>[root@ubuntu-22 boltbrowser]<span class="hljs-comment"># ll /var/lib/containerd/io.containerd.metadata.v1.bolt/</span><br>total 196<br>drwx--x--x  2 root root   4096  4月 13 08:13 ./<br>drwx--x--x 12 root root   4096  7月  8 20:07 ../<br>-rw-r--r--  1 root root 262144  7月 24 21:25 meta.db<br>[root@ubuntu-22 boltbrowser]<span class="hljs-comment"># </span><br>[root@ubuntu-22 boltbrowser]<span class="hljs-comment"># boltbrowser /var/lib/containerd/io.containerd.metadata.v1.bolt/meta.db </span><br>boltbrowser: <span class="hljs-built_in">command</span> not found<br>[root@ubuntu-22 boltbrowser]<span class="hljs-comment"># </span><br>[root@ubuntu-22 boltbrowser]<span class="hljs-comment"># ls</span><br>boltbrowser    build      go.mod  LICENSE  mainloop.go          README.md        screen_browser.go  stringify.go<br>bolt_model.go  cursor.go  go.sum  main.go  mainloop_windows.go  screen_about.go  screen.go          style.go<br>[root@ubuntu-22 boltbrowser]<span class="hljs-comment"># </span><br>[root@ubuntu-22 boltbrowser]<span class="hljs-comment"># ./boltbrowser /var/lib/containerd/io.containerd.metadata.v1.bolt/meta.db </span><br>File /var/lib/containerd/io.containerd.metadata.v1.bolt/meta.db is locked. Make sure it<span class="hljs-string">&#x27;s not used by another app and try again</span><br><span class="hljs-string">[root@ubuntu-22 boltbrowser]# </span><br><span class="hljs-string">[root@ubuntu-22 boltbrowser]# </span><br><span class="hljs-string">[root@ubuntu-22 boltbrowser]# </span><br><span class="hljs-string">[root@ubuntu-22 boltbrowser]# </span><br><span class="hljs-string">[root@ubuntu-22 boltbrowser]# systemctl stop contaienrd</span><br><span class="hljs-string">Failed to stop contaienrd.service: Unit contaienrd.service not loaded.</span><br><span class="hljs-string">[root@ubuntu-22 boltbrowser]# </span><br><span class="hljs-string">[root@ubuntu-22 boltbrowser]# </span><br><span class="hljs-string">[root@ubuntu-22 boltbrowser]# systemctl stop containerd</span><br><span class="hljs-string">[root@ubuntu-22 boltbrowser]# </span><br><span class="hljs-string">[root@ubuntu-22 boltbrowser]# </span><br><span class="hljs-string">[root@ubuntu-22 boltbrowser]# ./boltbrowser /var/lib/containerd/io.containerd.metadata.v1.bolt/meta.db </span><br><span class="hljs-string">                                                           boltbrowser: /var/lib/containerd/io.containerd.metadata.v1.bolt/meta.db                                                          </span><br><span class="hljs-string">==============================================================================================|=============================================================================================</span><br><span class="hljs-string">  - v1                                                                                        | Path: v1 → moby → content → blob → sha256:073c978f17eedaee7fb0d36636e1baa2ffdb6a2b5af2e458c9</span><br><span class="hljs-string">    - moby                                                                                    | Buckets: 1                                                                                  </span><br><span class="hljs-string">      - containers                                                                            | Pairs: 3                                                                                    </span><br><span class="hljs-string">        - 42caca363f947a391bb6a3606cfd29a1fe59ed9b90ad043d8b4e8c5c0a7cf2f9                    |                                                                                             </span><br><span class="hljs-string">          - labels                                                                            |                                                                                             </span><br><span class="hljs-string">            com.docker/engine.bundle.path: /var/run/docker/containerd/42caca363f947a391bb6a360|                                                                                             </span><br><span class="hljs-string">          - runtime                                                                           |                                                                                             </span><br><span class="hljs-string">            name: io.containerd.runc.v2                                                       |                                                                                             </span><br><span class="hljs-string">            options: 0a1a636f6e7461696e6572642e72756e632e76312e4f7074696f6e731226320472756e633|                                                                                             </span><br><span class="hljs-string">          createdat: 010000000ede1dc4b4310e554fffff                                           |                                                                                             </span><br><span class="hljs-string">          image:                                                                              |                                                                                             </span><br><span class="hljs-string">          snapshotKey:                                                                        |                                                                                             </span><br><span class="hljs-string">          snapshotter:                                                                        |                                                                                             </span><br><span class="hljs-string">          spec: 0a3674797065732e636f6e7461696e6572642e696f2f6f70656e636f6e7461696e6572732f7275|                                                                                             </span><br><span class="hljs-string">          updatedat: 010000000ede1dc4b4310e554fffff                                           |                                                                                             </span><br><span class="hljs-string">      - content                                                                               |                                                                                             </span><br><span class="hljs-string">        - blob                                                                                |                                                                                             </span><br><span class="hljs-string">          - sha256:03b30c6a3c320ff172b52bd68eddffde6ded08ce47e650fe52de861c5e9df46d           |                                                                                             </span><br><span class="hljs-string">            - labels                                                                          |                                                                                             </span><br><span class="hljs-string">              containerd.io/distribution.source.docker.io: library/hello-world                |                                                                                             </span><br><span class="hljs-string">            createdat: 010000000eddabc5443894fe6cffff                                         |                                                                                             </span><br><span class="hljs-string">            size: 84a001                                                                      |                                                                                             </span><br><span class="hljs-string">            updatedat: 010000000eddabc5443894fe6cffff                                         |                                                                                             </span><br><span class="hljs-string">          + sha256:073c978f17eedaee7fb0d36636e1baa2ffdb6a2b5af2e458c9612a85ad06ea5d           |                                                                                             </span><br><span class="hljs-string">          + sha256:16edc9559472f368b71e0f19a575e71080f2251f6693e7d560e21cc6472f7da6           |                                                                                             </span><br><span class="hljs-string">          + sha256:33c69a810cc314b55c9e1e218ab9eb1b39034b28b023234854f093a207a87154           |                                                                                             </span><br><span class="hljs-string">          + sha256:74f634b1bc1bd74535d5209589734efbd44a25f4e2dc96d78784576a3eb5b335           |                                                                                             </span><br><span class="hljs-string">          + sha256:796dd77ab5223837579b323c961197514e9b5e37e99babbf51f9bb2ba1dbdcc8           |                                                                                             </span><br><span class="hljs-string">          + sha256:8b08414b805beb7a1440493aa6e8cecd4729c536e8f9adc2d26514051bc31422           |                                                                                             </span><br><span class="hljs-string">          + sha256:e2fc4e5012d16e7fe466f5291c476431beaa1f9b90a5c2125b493ed28e2aba57           |                                                                                             </span><br><span class="hljs-string">          + sha256:e31c3b1cd47718260e1b6163af0a05b3c428dc01fa410baf72ca8b8076e22e72           |                                                                                             </span><br><span class="hljs-string">          + sha256:ee08ce572c81dd90a3fbb7e2f4e660a5224924efd2649fb717460659b080c41b           |                                                                                             </span><br><span class="hljs-string">          + sha256:efaa0224e7c87b2dbf8b4f0fee2bd595764adf6065a6bff6fffe833057237f64           |                                                                                             </span><br><span class="hljs-string">          + sha256:fb9c9aef62af3955f6014613456551c92e88a67dcf1fc51f5f91bcbd1832813f           |                                                                                             </span><br><span class="hljs-string">        - ingests                                                                             |                                                                                             </span><br><span class="hljs-string">      - leases                                                                                |                                                                                             </span><br><span class="hljs-string">        - moby-image-sha256:1052b284c2aa9cd4f832e76eddcba9738d7dca63a3358766e3cf0a408df4e13e  |                                                                                             </span><br><span class="hljs-string">          - content                                                                           |                                                                                             </span><br><span class="hljs-string">            sha256:efaa0224e7c87b2dbf8b4f0fee2bd595764adf6065a6bff6fffe833057237f64:          |                                                                                             </span><br><span class="hljs-string">          createdat: 010000000ede0382f628cfc681ffff                                           |                                                                                             </span><br><span class="hljs-string">        + moby-image-sha256:49b3cb3043cd00b3911213a837d1559638376017483d2d4b9761ed12e50f4f3e  |                                                                                             </span><br><span class="hljs-string">        + moby-image-sha256:86eb87ff06b5a99af56ba09c36f9f06d904cc9f467e61a2a4befdfd2e5c50a3d  |                                                                                             </span><br><span class="hljs-string">        + moby-image-sha256:8c811b4aec35f259572d0f79207bc0678df4c736eeec50bc9fec37ed936a472a  |                                                                                             </span><br><span class="hljs-string">        + moby-image-sha256:9363667f8aecb904d1f10cef4ca936f6507d25f0a50b103b55f78d336dbabe57  |                                                                                             </span><br><span class="hljs-string">        + moby-image-sha256:97f5c5e8b918580066d433f26987c2e8f7348572ec8b85957784ab80471bcb68  |                                                                                             </span><br><span class="hljs-string">        + moby-image-sha256:c80088f20cce4fd7f029dacea2e273e720f3e0d7a5a90b6cfb99d7290ea18537  |                                                                                             </span><br><span class="hljs-string">        + moby-image-sha256:d2c94e258dcb3c5ac2798d32e1249e42ef01cba4841c2234249495f87264ac5a  |                                                                                             </span><br><span class="hljs-string">    version: 06                                                                               |                                                                                             </span><br><span class="hljs-string">                                                                                              |                                                                                             </span><br><span class="hljs-string">                                                                                              |                                                                                             </span><br><span class="hljs-string">                                                                                              |                                                                                             </span><br><span class="hljs-string">Press &#x27;</span>?<span class="hljs-string">&#x27; for help    </span><br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="7-3-containerd-Backend"><a href="#7-3-containerd-Backend" class="headerlink" title="7.3 containerd Backend"></a>7.3 containerd Backend</h2><p>Backend层主要对接操作系统容器运行时，也是containerd对接外部插件的扩展层。<br>Backend层主要包括两大类：proxy plugins和containerd shim。</p>
+<h3 id="7-3-1-containerd中的proxy-plugins"><a href="#7-3-1-containerd中的proxy-plugins" class="headerlink" title="7.3.1 containerd中的proxy plugins"></a>7.3.1 containerd中的proxy plugins</h3><p>containerd中支持的代理插件类型有content、snapshotter及diff（containerd 1.7.1 中新增的类型）。</p>
+<ul>
+<li>content：仅支持1个，要么是内置的content plugin，要么是自行实现的content plugin</li>
+<li>snapshotter插件：可以配置多个</li>
+<li>diff插件：可以配置多个</li>
+</ul>
+<h3 id="7-3-2-containerd中的Runtime和shim"><a href="#7-3-2-containerd中的Runtime和shim" class="headerlink" title="7.3.2 containerd中的Runtime和shim"></a>7.3.2 containerd中的Runtime和shim</h3><h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>节选自《containerd原理剖析与实践》</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【containerd】(202407) 05.containerd核心组件解析</div>
+      <div>http://example.com/2024/07/29/containerd/【containerd】(202407) 05.containerd核心组件解析/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ningan123</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年7月29日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/07/29/containerd/%E3%80%90containerd%E3%80%91(202407)%2001.%E5%AE%89%E8%A3%85containerd/" title="【containerd】(202407) 01.安装containerd">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【containerd】(202407) 01.安装containerd</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/07/29/docker/%E3%80%90dokcer%E7%B3%BB%E5%88%97%E3%80%91ubuntu%E4%B8%8B%E5%8D%B8%E8%BD%BDdocker/" title="【dokcer系列】ubuntu下卸载docker">
+                        <span class="hidden-mobile">【dokcer系列】ubuntu下卸载docker</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

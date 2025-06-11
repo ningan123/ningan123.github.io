@@ -1,0 +1,678 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ningan123">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="dig命令123456789101112dig 常用命令格式dig [@server] [-p port] [-t type] [-4] [-6] [+trace] name@ 指定 DNS 查询使用的服务器名称或 IP ，IP 地址可以是用点分隔的 IPv4 地址也可以是冒号分隔的 IPv6 地址。当参数指定的值是服务器的主机名时，dig 命令会在查询该域名服务器前先解析该主机名；-p 指定 D">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【网络成长记】dig常用命令">
+<meta property="og:url" content="http://example.com/2022/09/24/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91dig%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/index.html">
+<meta property="og:site_name" content="ningan123">
+<meta property="og:description" content="dig命令123456789101112dig 常用命令格式dig [@server] [-p port] [-t type] [-4] [-6] [+trace] name@ 指定 DNS 查询使用的服务器名称或 IP ，IP 地址可以是用点分隔的 IPv4 地址也可以是冒号分隔的 IPv6 地址。当参数指定的值是服务器的主机名时，dig 命令会在查询该域名服务器前先解析该主机名；-p 指定 D">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-09-24T12:31:00.000Z">
+<meta property="article:modified_time" content="2022-12-21T12:20:00.000Z">
+<meta property="article:author" content="ningan123">
+<meta property="article:tag" content="net">
+<meta property="article:tag" content="dig">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>【网络成长记】dig常用命令 - ningan123</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【网络成长记】dig常用命令"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2022-09-24 12:31" pubdate>
+          2022年9月24日 下午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          13k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          107 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【网络成长记】dig常用命令</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h2 id="dig命令"><a href="#dig命令" class="headerlink" title="dig命令"></a>dig命令</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs bash">dig 常用命令格式<br><br>dig [@server] [-p port] [-t <span class="hljs-built_in">type</span>] [-4] [-6] [+trace] name<br><br>@ 指定 DNS 查询使用的服务器名称或 IP ，IP 地址可以是用点分隔的 IPv4 地址也可以是冒号分隔的 IPv6 地址。当参数指定的值是服务器的主机名时，dig 命令会在查询该域名服务器前先解析该主机名；<br>-p 指定 DNS 查询使用的端口号，默认情况下 DNS 查询使用标准的53端口，若使用非端口则需要通过 -p 参数指定，可使用此选项来测试已配置为侦听非标准端口号上的 DNS 服务器；<br>-t 指定 DNS 查询的记录类型，常用的类型包括：A/AAAA/NS/MX/CNAME 等，缺省查询类型是 A ；<br>-4 指定 dig 命令仅使用 IPv4 查询传输；<br>-6 指定 dig 命令仅使用 IPv6 查询传输；<br>+trace 跟踪从根名称服务器开始的迭代查询过程，缺省情况不使用跟踪。启用跟踪时，dig 命令会执行迭代查询以解析要查询的名称，显示来自用于解析查询的每个服务器的应答。<br><br>-x dot-notation     (shortcut <span class="hljs-keyword">for</span> reverse lookups)<br></code></pre></td></tr></table></figure>
+
+<h3 id="常用命令汇总"><a href="#常用命令汇总" class="headerlink" title="常用命令汇总"></a>常用命令汇总</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># 查询该域名的A记录  A记录  Address   本机只向自己的DNS服务器查询</span><br>dig math.stackexchange.com  <br><br><span class="hljs-comment"># short参数 只返回域名对应的IP地址（即A记录）</span><br>dig math.stackexchange.com +short     =   dig +short math.stackexchange.com<br><br><span class="hljs-comment"># @参数，显示向其他DNS服务器查询的结果。 上面命令指定向DNS服务器4.2.2.2查询。</span><br>dig @4.2.2.2 math.stackexchange.com<br><br><span class="hljs-comment"># dig命令的+trace参数可以显示DNS的整个分级查询过程。</span><br>dig +trace math.stackexchange.com  @4.2.2.2<br><br><span class="hljs-comment"># dig命令可以单独查看每一级域名的NS记录</span><br>dig ns com  =  dig -t ns com<br>dig ns stackexchange.com  = dig -t ns stackexchange.com<br>dig +short ns com<br>dig +short ns stackexchange.com<br><br><span class="hljs-comment"># PTR记录用于从IP地址反查域名。dig命令的-x参数用于查询PTR记录。</span><br>dig -x 192.30.252.153<br><br><br><span class="hljs-comment"># dig命令可以查看指定的记录类型。</span><br>dig a github.com = dig A github.com<br>dig ns github.com <span class="hljs-comment"># ns：域名服务器记录，指明该域名由哪台服务器来解析</span><br>dig mx github.com<br>dig aaaa facebook.github.com = dig AAAA facebook.github.com <span class="hljs-comment"># ipv6</span><br>dig cname facebook.github.com <span class="hljs-comment"># cname：规范名资源记录，允许多个名称对应同一主机</span><br><br>NS 记录（Name Server域名服务器）：域名服务器记录，用来指定域名由哪个 DNS 服务器进行解析； name server<br>CNAME 记录（Canonical Name规范名）：用来定义域名的别名，方便实现将多个域名解析到同一个 IP 地址；<br>A 记录（Address地址， IPv4）：用来指定主机名对应的 IPv4 地址；   address<br>AAAA 记录（AAAA：Address地址 IPv6）：用来指定主机名对应的 IPv6 地址；<br>MX 记录（Mail Exchanger邮件交换）：用来指定收件人域名的邮件服务器，SMTP 协议会根据 MX 记录的值来决定邮件的路由过程；<br>PTR 记录（Pointer指针）：常用于反向地址解析，将 IP 地址解析到对应的名称；<br>SOA 记录（Start of Authority起始授权机构）：称为起始授权机构记录，不同于 NS 记录用于标识多台域名解析服务器，SOA 记录用于在多台 NS 记录中哪一台是主 DNS 服务器。<br><br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="dig-trace-math-stackexchange-com-显示详情"><a href="#dig-trace-math-stackexchange-com-显示详情" class="headerlink" title="dig +trace math.stackexchange.com 显示详情"></a>dig +trace math.stackexchange.com 显示详情</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan ~]<span class="hljs-comment"># dig +trace math.stackexchange.com</span><br><br>; &lt;&lt;&gt;&gt; DiG 9.11.3-1ubuntu1.18-Ubuntu &lt;&lt;&gt;&gt; +trace math.stackexchange.com<br>;; global options: +cmd<br>;; Received 51 bytes from 127.0.0.53<span class="hljs-comment">#53(127.0.0.53) in 0 ms</span><br><br>[root@ningan ~]<span class="hljs-comment"># dig +trace math.stackexchange.com  @4.2.2.2</span><br><br>; &lt;&lt;&gt;&gt; DiG 9.11.3-1ubuntu1.18-Ubuntu &lt;&lt;&gt;&gt; +trace math.stackexchange.com @4.2.2.2<br>;; global options: +cmd<br>.                       63834   IN      NS      e.root-servers.net.<br>.                       63834   IN      NS      h.root-servers.net.<br>.                       63834   IN      NS      l.root-servers.net.<br>.                       63834   IN      NS      i.root-servers.net.<br>.                       63834   IN      NS      a.root-servers.net.<br>.                       63834   IN      NS      d.root-servers.net.<br>.                       63834   IN      NS      c.root-servers.net.<br>.                       63834   IN      NS      b.root-servers.net.<br>.                       63834   IN      NS      j.root-servers.net.<br>.                       63834   IN      NS      k.root-servers.net.<br>.                       63834   IN      NS      g.root-servers.net.<br>.                       63834   IN      NS      m.root-servers.net.<br>.                       63834   IN      NS      f.root-servers.net.<br>.                       63834   IN      RRSIG   NS 8 0 518400 20221006160000 20220923150000 20826 . WnPS5Jjb3LJyMJcOcRtpqCsOG9PcwoO4xlMfKNhc7gF6GgqR0Bgt32n1 7gPujfnNm+y6INedDeJC43ciPh9C+jWMKSIZQsNp8JkEc9bmndwcpyhP hMno3mapXZyoCB5sX1Px187YnXU4C7r2w7e9xYGEGoQIIbvs+CiwXlLL sjiERlqrfLmyITs9xxD7rJ4Qbr7AY60toB+DS4ZjSxZyTfYRLQLRFWGA o9v1cTMdqeTLi4fiGvCSQHdQhH3op8LxeHN8mXMmDw5AKQrRBDFuQaYA lCYdq63m91eh0SAGddCtfAylumQI6oAToB1btAG3LKbahYsY3QGIwINW z6QtLw==<br>;; Received 525 bytes from 4.2.2.2<span class="hljs-comment">#53(4.2.2.2) in 101 ms</span><br><br>com.                    172800  IN      NS      a.gtld-servers.net.<br>com.                    172800  IN      NS      b.gtld-servers.net.<br>com.                    172800  IN      NS      c.gtld-servers.net.<br>com.                    172800  IN      NS      d.gtld-servers.net.<br>com.                    172800  IN      NS      e.gtld-servers.net.<br>com.                    172800  IN      NS      f.gtld-servers.net.<br>com.                    172800  IN      NS      g.gtld-servers.net.<br>com.                    172800  IN      NS      h.gtld-servers.net.<br>com.                    172800  IN      NS      i.gtld-servers.net.<br>com.                    172800  IN      NS      j.gtld-servers.net.<br>com.                    172800  IN      NS      k.gtld-servers.net.<br>com.                    172800  IN      NS      l.gtld-servers.net.<br>com.                    172800  IN      NS      m.gtld-servers.net.<br>com.                    86400   IN      DS      30909 8 2 E2D3C916F6DEEAC73294E8268FB5885044A833FC5459588F4A9184CF C41A5766<br>com.                    86400   IN      RRSIG   DS 8 1 86400 20221006160000 20220923150000 20826 . j4E3BSZSX/ao4cPxU0LMtlzR0rMkRjqtB5Tes1UsbvSdGP9wkfFnqxx6 f/XCatshen6jSAKf/gsP2TNa4Jt19/cB/zCjeR1maMznliYLqNaZrrQT Iv/n48chpIZdZ+uBovrZ0j3zU25vaqD1foy17brcm6QYnZhH+PWHw9gT LIzRFdfLqWrBxVqdHbfCfD10h573H0PzUUwvdEU0wbIR/4Zv0YhuXQIV t77haFhp6Q4M3SbWtWhZO7kaIbssIRlPmVWPBk3s+r0RVeQHyLNIZtZF XgaxFtuemV/KUGckDHh+IzjCYHygWcAAdwJRslPYVYuy1bMXNIGLgaj0 Y+GSzQ==<br>;; Received 1182 bytes from 199.7.83.42<span class="hljs-comment">#53(l.root-servers.net) in 17 ms</span><br><br>stackexchange.com.      172800  IN      NS      ns-925.awsdns-51.net.<br>stackexchange.com.      172800  IN      NS      ns-1832.awsdns-37.co.uk.<br>stackexchange.com.      172800  IN      NS      ns-cloud-d1.googledomains.com.<br>stackexchange.com.      172800  IN      NS      ns-cloud-d2.googledomains.com.<br>CK0POJMG874LJREF7EFN8430QVIT8BSM.com. 86400 IN NSEC3 1 1 0 - CK0Q2D6NI4I7EQH8NA30NS61O48UL8G5  NS SOA RRSIG DNSKEY NSEC3PARAM<br>CK0POJMG874LJREF7EFN8430QVIT8BSM.com. 86400 IN RRSIG NSEC3 8 2 86400 20220928042428 20220921031428 32298 com. dtNcF2OBpNtrH8p0VRZU6oqu2C54jzxUCwfpX3bt9sciVgV9AQ2n+7Dt j2tvPwGZPnT+DfD9Ri93aeg3RkzQT2ZnxnkAkDIcwJwF5LOqy0YuC6UT XSZ/R3XPndduNMAPn9KdH3gI7O8IdW2ikpt/2qfe4brvE3zeVP3aFJMP AYDD+C4J1zK9DxDn598PlGKE6LUU3ZNu56AJ7tiAgLtBRA==<br>4OTJD9T3D8J8DLAUKF6PTNN121LN819O.com. 86400 IN NSEC3 1 1 0 - 4OTJGI7PPFM3E45CKDKQ61BEQCTAA8H2  NS DS RRSIG<br>4OTJD9T3D8J8DLAUKF6PTNN121LN819O.com. 86400 IN RRSIG NSEC3 8 2 86400 20220927045638 20220920034638 32298 com. ii7OXKke5DccsV2jkaJ6FvIWpYIIJQC1pTy1QbLvghe0zq2fdkZsis0Q 8I0n5wNIz3+N0JVT5QA7E5NfRD9nsyDxD76FS6/JUuf2CdDoaah/EAMR sc46VbPOjpcQAZRW3gsvsHbg+GbrKkyszaq5I4ol1w4daUncX/h3qVky RXj7auCIimg6CYD5042GfxzyAQWfMKzZR9onED67YrG4hg==<br>;; Received 825 bytes from 192.26.92.30<span class="hljs-comment">#53(c.gtld-servers.net) in 235 ms</span><br><br>math.stackexchange.com. 300     IN      A       151.101.193.69<br>math.stackexchange.com. 300     IN      A       151.101.65.69<br>math.stackexchange.com. 300     IN      A       151.101.1.69<br>math.stackexchange.com. 300     IN      A       151.101.129.69<br>stackexchange.com.      172800  IN      NS      ns-1832.awsdns-37.co.uk.<br>stackexchange.com.      172800  IN      NS      ns-925.awsdns-51.net.<br>stackexchange.com.      172800  IN      NS      ns-cloud-d1.googledomains.com.<br>stackexchange.com.      172800  IN      NS      ns-cloud-d2.googledomains.com.<br>;; Received 252 bytes from 205.251.195.157<span class="hljs-comment">#53(ns-925.awsdns-51.net) in 59 ms</span><br><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="dig-ns-com-和-dig-ns-stackexchange-com-显示详情"><a href="#dig-ns-com-和-dig-ns-stackexchange-com-显示详情" class="headerlink" title="dig ns com 和 dig ns stackexchange.com 显示详情"></a>dig ns com 和 dig ns stackexchange.com 显示详情</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan ~]<span class="hljs-comment"># dig ns com</span><br><br>; &lt;&lt;&gt;&gt; DiG 9.11.3-1ubuntu1.18-Ubuntu &lt;&lt;&gt;&gt; ns com<br>;; global options: +cmd<br>;; Got answer:<br>;; -&gt;&gt;HEADER&lt;&lt;- <span class="hljs-string">opcode: QUERY, status: NOERROR, id: 51369</span><br><span class="hljs-string">;; flags: qr rd ra; QUERY: 1, ANSWER: 13, AUTHORITY: 0, ADDITIONAL: 1</span><br><span class="hljs-string"></span><br><span class="hljs-string">;; OPT PSEUDOSECTION:</span><br><span class="hljs-string">; EDNS: version: 0, flags:; udp: 65494</span><br><span class="hljs-string">;; QUESTION SECTION:</span><br><span class="hljs-string">;com.                           IN      NS</span><br><span class="hljs-string"></span><br><span class="hljs-string">;; ANSWER SECTION:</span><br><span class="hljs-string">com.                    0       IN      NS      i.gtld-servers.net.</span><br><span class="hljs-string">com.                    0       IN      NS      m.gtld-servers.net.</span><br><span class="hljs-string">com.                    0       IN      NS      c.gtld-servers.net.</span><br><span class="hljs-string">com.                    0       IN      NS      j.gtld-servers.net.</span><br><span class="hljs-string">com.                    0       IN      NS      d.gtld-servers.net.</span><br><span class="hljs-string">com.                    0       IN      NS      h.gtld-servers.net.</span><br><span class="hljs-string">com.                    0       IN      NS      e.gtld-servers.net.</span><br><span class="hljs-string">com.                    0       IN      NS      a.gtld-servers.net.</span><br><span class="hljs-string">com.                    0       IN      NS      l.gtld-servers.net.</span><br><span class="hljs-string">com.                    0       IN      NS      f.gtld-servers.net.</span><br><span class="hljs-string">com.                    0       IN      NS      g.gtld-servers.net.</span><br><span class="hljs-string">com.                    0       IN      NS      k.gtld-servers.net.</span><br><span class="hljs-string">com.                    0       IN      NS      b.gtld-servers.net.</span><br><span class="hljs-string"></span><br><span class="hljs-string">;; Query time: 9 msec</span><br><span class="hljs-string">;; SERVER: 127.0.0.53#53(127.0.0.53)</span><br><span class="hljs-string">;; WHEN: Sat Sep 24 11:15:56 CST 2022</span><br><span class="hljs-string">;; MSG SIZE  rcvd: 256</span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string">[root@ningan ~]# dig ns stackexchange.com</span><br><span class="hljs-string"></span><br><span class="hljs-string">; &lt;&lt;&gt;&gt; DiG 9.11.3-1ubuntu1.18-Ubuntu &lt;&lt;&gt;&gt; ns stackexchange.com</span><br><span class="hljs-string">;; global options: +cmd</span><br><span class="hljs-string">;; Got answer:</span><br><span class="hljs-string">;; -&gt;&gt;HEADER&lt;&lt;- opcode</span>: QUERY, status: NOERROR, <span class="hljs-built_in">id</span>: 45577<br>;; flags: qr rd ra; QUERY: 1, ANSWER: 4, AUTHORITY: 0, ADDITIONAL: 1<br><br>;; OPT PSEUDOSECTION:<br>; EDNS: version: 0, flags:; udp: 65494<br>;; QUESTION SECTION:<br>;stackexchange.com.             IN      NS<br><br>;; ANSWER SECTION:<br>stackexchange.com.      0       IN      NS      ns-cloud-d1.googledomains.com.<br>stackexchange.com.      0       IN      NS      ns-cloud-d2.googledomains.com.<br>stackexchange.com.      0       IN      NS      ns-925.awsdns-51.net.<br>stackexchange.com.      0       IN      NS      ns-1832.awsdns-37.co.uk.<br><br>;; Query time: 11 msec<br>;; SERVER: 127.0.0.53<span class="hljs-comment">#53(127.0.0.53)</span><br>;; WHEN: Sat Sep 24 11:17:39 CST 2022<br>;; MSG SIZE  rcvd: 183<br><br></code></pre></td></tr></table></figure>
+
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan ~]<span class="hljs-comment"># dig +short ns com</span><br>i.gtld-servers.net.<br>m.gtld-servers.net.<br>c.gtld-servers.net.<br>j.gtld-servers.net.<br>d.gtld-servers.net.<br>h.gtld-servers.net.<br>e.gtld-servers.net.<br>a.gtld-servers.net.<br>l.gtld-servers.net.<br>f.gtld-servers.net.<br>g.gtld-servers.net.<br>k.gtld-servers.net.<br>b.gtld-servers.net.<br>[root@ningan ~]<span class="hljs-comment">#</span><br>[root@ningan ~]<span class="hljs-comment">#</span><br>[root@ningan ~]<span class="hljs-comment"># dig +short ns stackexchange.com</span><br>ns-cloud-d1.googledomains.com.<br>ns-cloud-d2.googledomains.com.<br>ns-925.awsdns-51.net.<br>ns-1832.awsdns-37.co.uk.<br><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="dig-x-192-30-252-153-显示详情"><a href="#dig-x-192-30-252-153-显示详情" class="headerlink" title="dig -x 192.30.252.153 显示详情"></a>dig -x 192.30.252.153 显示详情</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs bash">; &lt;&lt;&gt;&gt; DiG 9.11.3-1ubuntu1.18-Ubuntu &lt;&lt;&gt;&gt; -x 192.30.252.153<br>;; global options: +cmd<br>;; Got answer:<br>;; -&gt;&gt;HEADER&lt;&lt;- <span class="hljs-string">opcode: QUERY, status: NOERROR, id: 48615</span><br><span class="hljs-string">;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1</span><br><span class="hljs-string"></span><br><span class="hljs-string">;; OPT PSEUDOSECTION:</span><br><span class="hljs-string">; EDNS: version: 0, flags:; udp: 65494</span><br><span class="hljs-string">;; QUESTION SECTION:</span><br><span class="hljs-string">;153.252.30.192.in-addr.arpa.   IN      PTR</span><br><span class="hljs-string"></span><br><span class="hljs-string">;; ANSWER SECTION:</span><br><span class="hljs-string">153.252.30.192.in-addr.arpa. 0  IN      PTR     lb-192-30-252-153-iad.github.com.</span><br><span class="hljs-string"></span><br><span class="hljs-string">;; Query time: 388 msec</span><br><span class="hljs-string">;; SERVER: 127.0.0.53#53(127.0.0.53)</span><br><span class="hljs-string">;; WHEN: Sat Sep 24 11:28:40 CST 2022</span><br><span class="hljs-string">;; MSG SIZE  rcvd: 102</span><br><span class="hljs-string"></span><br></code></pre></td></tr></table></figure>
+
+<h3 id="dig-a-github-com-和-dig-ns-github-com-和-dig-mx-github-com-显示详情"><a href="#dig-a-github-com-和-dig-ns-github-com-和-dig-mx-github-com-显示详情" class="headerlink" title="dig a github.com 和 dig ns github.com 和 dig mx github.com 显示详情"></a>dig a github.com 和 dig ns github.com 和 dig mx github.com 显示详情</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan ~]<span class="hljs-comment"># dig a github.com</span><br><br>; &lt;&lt;&gt;&gt; DiG 9.11.3-1ubuntu1.18-Ubuntu &lt;&lt;&gt;&gt; a github.com<br>;; global options: +cmd<br>;; Got answer:<br>;; -&gt;&gt;HEADER&lt;&lt;- <span class="hljs-string">opcode: QUERY, status: NOERROR, id: 14608</span><br><span class="hljs-string">;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1</span><br><span class="hljs-string"></span><br><span class="hljs-string">;; OPT PSEUDOSECTION:</span><br><span class="hljs-string">; EDNS: version: 0, flags:; udp: 65494</span><br><span class="hljs-string">;; QUESTION SECTION:</span><br><span class="hljs-string">;github.com.                    IN      A</span><br><span class="hljs-string"></span><br><span class="hljs-string">;; ANSWER SECTION:</span><br><span class="hljs-string">github.com.             0       IN      A       140.82.114.3</span><br><span class="hljs-string"></span><br><span class="hljs-string">;; Query time: 1 msec</span><br><span class="hljs-string">;; SERVER: 127.0.0.53#53(127.0.0.53)</span><br><span class="hljs-string">;; WHEN: Sat Sep 24 11:31:27 CST 2022</span><br><span class="hljs-string">;; MSG SIZE  rcvd: 55</span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string">[root@ningan ~]# dig ns github.com</span><br><span class="hljs-string"></span><br><span class="hljs-string">; &lt;&lt;&gt;&gt; DiG 9.11.3-1ubuntu1.18-Ubuntu &lt;&lt;&gt;&gt; ns github.com</span><br><span class="hljs-string">;; global options: +cmd</span><br><span class="hljs-string">;; Got answer:</span><br><span class="hljs-string">;; -&gt;&gt;HEADER&lt;&lt;- opcode</span>: QUERY, status: NOERROR, <span class="hljs-built_in">id</span>: 22967<br>;; flags: qr rd ra; QUERY: 1, ANSWER: 8, AUTHORITY: 0, ADDITIONAL: 1<br><br>;; OPT PSEUDOSECTION:<br>; EDNS: version: 0, flags:; udp: 65494<br>;; QUESTION SECTION:<br>;github.com.                    IN      NS<br><br>;; ANSWER SECTION:<br>github.com.             0       IN      NS      ns-520.awsdns-01.net.<br>github.com.             0       IN      NS      dns1.p08.nsone.net.<br>github.com.             0       IN      NS      ns-421.awsdns-52.com.<br>github.com.             0       IN      NS      dns4.p08.nsone.net.<br>github.com.             0       IN      NS      dns3.p08.nsone.net.<br>github.com.             0       IN      NS      dns2.p08.nsone.net.<br>github.com.             0       IN      NS      ns-1707.awsdns-21.co.uk.<br>github.com.             0       IN      NS      ns-1283.awsdns-32.org.<br><br>;; Query time: 15 msec<br>;; SERVER: 127.0.0.53<span class="hljs-comment">#53(127.0.0.53)</span><br>;; WHEN: Sat Sep 24 11:31:36 CST 2022<br>;; MSG SIZE  rcvd: 262<br><br><br><br><br><br>[root@ningan ~]<span class="hljs-comment"># dig mx github.com</span><br><br>; &lt;&lt;&gt;&gt; DiG 9.11.3-1ubuntu1.18-Ubuntu &lt;&lt;&gt;&gt; mx github.com<br>;; global options: +cmd<br>;; Got answer:<br>;; -&gt;&gt;HEADER&lt;&lt;- <span class="hljs-string">opcode: QUERY, status: NOERROR, id: 64538</span><br><span class="hljs-string">;; flags: qr rd ra; QUERY: 1, ANSWER: 5, AUTHORITY: 0, ADDITIONAL: 1</span><br><span class="hljs-string"></span><br><span class="hljs-string">;; OPT PSEUDOSECTION:</span><br><span class="hljs-string">; EDNS: version: 0, flags:; udp: 65494</span><br><span class="hljs-string">;; QUESTION SECTION:</span><br><span class="hljs-string">;github.com.                    IN      MX</span><br><span class="hljs-string"></span><br><span class="hljs-string">;; ANSWER SECTION:</span><br><span class="hljs-string">github.com.             0       IN      MX      10 alt3.aspmx.l.google.com.</span><br><span class="hljs-string">github.com.             0       IN      MX      5 alt2.aspmx.l.google.com.</span><br><span class="hljs-string">github.com.             0       IN      MX      5 alt1.aspmx.l.google.com.</span><br><span class="hljs-string">github.com.             0       IN      MX      10 alt4.aspmx.l.google.com.</span><br><span class="hljs-string">github.com.             0       IN      MX      1 aspmx.l.google.com.</span><br><span class="hljs-string"></span><br><span class="hljs-string">;; Query time: 15 msec</span><br><span class="hljs-string">;; SERVER: 127.0.0.53#53(127.0.0.53)</span><br><span class="hljs-string">;; WHEN: Sat Sep 24 11:31:56 CST 2022</span><br><span class="hljs-string">;; MSG SIZE  rcvd: 154</span><br><span class="hljs-string"></span><br></code></pre></td></tr></table></figure>
+
+<h3 id="dig-a-facebook-github-com-和-dig-aaaa-facebook-github-com"><a href="#dig-a-facebook-github-com-和-dig-aaaa-facebook-github-com" class="headerlink" title="dig  a facebook.github.com 和  dig  aaaa facebook.github.com"></a>dig  a facebook.github.com 和  dig  aaaa facebook.github.com</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan ~]<span class="hljs-comment"># dig  a facebook.github.com</span><br><br>; &lt;&lt;&gt;&gt; DiG 9.11.3-1ubuntu1.18-Ubuntu &lt;&lt;&gt;&gt; a facebook.github.com<br>;; global options: +cmd<br>;; Got answer:<br>;; -&gt;&gt;HEADER&lt;&lt;- <span class="hljs-string">opcode: QUERY, status: NOERROR, id: 4880</span><br><span class="hljs-string">;; flags: qr rd ra; QUERY: 1, ANSWER: 5, AUTHORITY: 0, ADDITIONAL: 1</span><br><span class="hljs-string"></span><br><span class="hljs-string">;; OPT PSEUDOSECTION:</span><br><span class="hljs-string">; EDNS: version: 0, flags:; udp: 65494</span><br><span class="hljs-string">;; QUESTION SECTION:</span><br><span class="hljs-string">;facebook.github.com.           IN      A</span><br><span class="hljs-string"></span><br><span class="hljs-string">;; ANSWER SECTION:</span><br><span class="hljs-string">facebook.github.com.    0       IN      CNAME   github.github.io.</span><br><span class="hljs-string">github.github.io.       0       IN      A       185.199.109.153</span><br><span class="hljs-string">github.github.io.       0       IN      A       185.199.110.153</span><br><span class="hljs-string">github.github.io.       0       IN      A       185.199.111.153</span><br><span class="hljs-string">github.github.io.       0       IN      A       185.199.108.153</span><br><span class="hljs-string"></span><br><span class="hljs-string">;; Query time: 1 msec</span><br><span class="hljs-string">;; SERVER: 127.0.0.53#53(127.0.0.53)</span><br><span class="hljs-string">;; WHEN: Sat Sep 24 11:42:54 CST 2022</span><br><span class="hljs-string">;; MSG SIZE  rcvd: 142</span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string">[root@ningan ~]# dig  aaaa facebook.github.com</span><br><span class="hljs-string"></span><br><span class="hljs-string">; &lt;&lt;&gt;&gt; DiG 9.11.3-1ubuntu1.18-Ubuntu &lt;&lt;&gt;&gt; aaaa facebook.github.com</span><br><span class="hljs-string">;; global options: +cmd</span><br><span class="hljs-string">;; Got answer:</span><br><span class="hljs-string">;; -&gt;&gt;HEADER&lt;&lt;- opcode</span>: QUERY, status: NOERROR, <span class="hljs-built_in">id</span>: 12984<br>;; flags: qr rd ra; QUERY: 1, ANSWER: 5, AUTHORITY: 0, ADDITIONAL: 1<br><br>;; OPT PSEUDOSECTION:<br>; EDNS: version: 0, flags:; udp: 65494<br>;; QUESTION SECTION:<br>;facebook.github.com.           IN      AAAA<br><br>;; ANSWER SECTION:<br>facebook.github.com.    0       IN      CNAME   github.github.io.<br>github.github.io.       0       IN      AAAA    2606:50c0:8000::153<br>github.github.io.       0       IN      AAAA    2606:50c0:8002::153<br>github.github.io.       0       IN      AAAA    2606:50c0:8001::153<br>github.github.io.       0       IN      AAAA    2606:50c0:8003::153<br><br>;; Query time: 7 msec<br>;; SERVER: 127.0.0.53<span class="hljs-comment">#53(127.0.0.53)</span><br>;; WHEN: Sat Sep 24 11:42:49 CST 2022<br>;; MSG SIZE  rcvd: 190<br><br></code></pre></td></tr></table></figure>
+
+
+<h3 id="dig-cname-facebook-github-com-显示详情"><a href="#dig-cname-facebook-github-com-显示详情" class="headerlink" title="dig cname facebook.github.com 显示详情"></a>dig cname facebook.github.com 显示详情</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan ~]<span class="hljs-comment"># dig cname facebook.github.com</span><br><br>; &lt;&lt;&gt;&gt; DiG 9.11.3-1ubuntu1.18-Ubuntu &lt;&lt;&gt;&gt; cname facebook.github.com<br>;; global options: +cmd<br>;; Got answer:<br>;; -&gt;&gt;HEADER&lt;&lt;- <span class="hljs-string">opcode: QUERY, status: NOERROR, id: 43133</span><br><span class="hljs-string">;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 1</span><br><span class="hljs-string"></span><br><span class="hljs-string">;; OPT PSEUDOSECTION:</span><br><span class="hljs-string">; EDNS: version: 0, flags:; udp: 65494</span><br><span class="hljs-string">;; QUESTION SECTION:</span><br><span class="hljs-string">;facebook.github.com.           IN      CNAME</span><br><span class="hljs-string"></span><br><span class="hljs-string">;; ANSWER SECTION:</span><br><span class="hljs-string">facebook.github.com.    0       IN      CNAME   github.github.io.</span><br><span class="hljs-string"></span><br><span class="hljs-string">;; Query time: 355 msec</span><br><span class="hljs-string">;; SERVER: 127.0.0.53#53(127.0.0.53)</span><br><span class="hljs-string">;; WHEN: Sat Sep 24 11:59:13 CST 2022</span><br><span class="hljs-string">;; MSG SIZE  rcvd: 78</span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string">[root@ningan ~]# dig facebook.github.com +short</span><br><span class="hljs-string">github.github.io.</span><br><span class="hljs-string">185.199.109.153</span><br><span class="hljs-string">185.199.110.153</span><br><span class="hljs-string">185.199.111.153</span><br><span class="hljs-string">185.199.108.153</span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string"></span><br><span class="hljs-string">[root@ningan ~]# dig github.github.io +short</span><br><span class="hljs-string">185.199.109.153</span><br><span class="hljs-string">185.199.110.153</span><br><span class="hljs-string">185.199.111.153</span><br><span class="hljs-string">185.199.108.153</span><br><span class="hljs-string">[root@ningan ~]#</span><br><span class="hljs-string"></span><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="dig-amp-amp-k8s"><a href="#dig-amp-amp-k8s" class="headerlink" title="dig &amp;&amp; k8s"></a>dig &amp;&amp; k8s</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">dig kubernetes.default +search<br>dig kubernetes.default A kubernetes.default AAAA  +search<br>nslookup kubernetes.default<br></code></pre></td></tr></table></figure>
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://www.ruanyifeng.com/blog/2016/06/dns.html">DNS 原理入门</a>    写的灰常好，推荐<br><a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1366027">dig 命令洞察 DNS 解析过程</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/net/" class="category-chain-item">net</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/net/">#net</a>
+      
+        <a href="/tags/dig/">#dig</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【网络成长记】dig常用命令</div>
+      <div>http://example.com/2022/09/24/net/【网络成长记】dig常用命令/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ningan123</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2022年9月24日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2022/10/23/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9101.obsidian%E4%BB%8B%E7%BB%8D/" title="【obsidian系列】01.obsidian介绍">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【obsidian系列】01.obsidian介绍</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2022/08/17/go/%E3%80%90go%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91go%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E5%8C%96%E4%B8%BAuint16/" title="【go语言系列】go类型转换：字符串转化为uint16">
+                        <span class="hidden-mobile">【go语言系列】go类型转换：字符串转化为uint16</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

@@ -1,0 +1,985 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ningan123">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="ningan123的blog">
+<meta property="og:type" content="website">
+<meta property="og:title" content="ningan123">
+<meta property="og:url" content="http://example.com/page/20/index.html">
+<meta property="og:site_name" content="ningan123">
+<meta property="og:description" content="ningan123的blog">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:author" content="ningan123">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>ningan123</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 100vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="An elegant Material-Design theme for Hexo"></span>
+          
+        </div>
+
+        
+      </div>
+
+      
+        <div class="scroll-down-bar">
+          <i class="iconfont icon-arrowdown"></i>
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      <div class="container nopadding-x-md">
+        <div id="board"
+          style="margin-top: 0">
+          
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-10 m-auto">
+                
+
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/12/11/hexo/%E3%80%90hexo%E7%B3%BB%E5%88%97%E3%80%9102.hexo%E5%92%8Cobsidian%E5%AE%9E%E7%8E%B0%E7%AC%94%E8%AE%B0%E4%B8%9D%E6%BB%91/" target="_self">
+          【hexo系列】02.hexo和obsidian实现笔记丝滑
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/11/hexo/%E3%80%90hexo%E7%B3%BB%E5%88%97%E3%80%9102.hexo%E5%92%8Cobsidian%E5%AE%9E%E7%8E%B0%E7%AC%94%E8%AE%B0%E4%B8%9D%E6%BB%91/" target="_self">
+        <div>
+          hexo主题hexo主题大全 12cd bloggit clone https://github.com/yelog/hexo-theme-3-hexo.git themes/3-hexo  这是将3-hexo主题下载到blog目录的themes主题下的3-hexo文件夹中。 打开博客目录下的_config.yml配置文件，修改主题为3-hexo  123hexo cleanhexo ghexo
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-12-11 00:14" pubdate>
+              2022-12-11
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/hexo/" class="category-chain-item">hexo</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/hexo/">#hexo</a>
+            
+              <a href="/tags/obsidian/">#obsidian</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/12/10/hexo/%E3%80%90hexo%E7%B3%BB%E5%88%97%E3%80%9101.hexo%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%8F%8Agithub.io%E6%90%AD%E5%BB%BA/" target="_self">
+          【hexo系列】01.hexo环境搭建及github.io搭建
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/12/10/hexo/%E3%80%90hexo%E7%B3%BB%E5%88%97%E3%80%9101.hexo%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA%E5%8F%8Agithub.io%E6%90%AD%E5%BB%BA/" target="_self">
+        <div>
+          基础环境要求检测Node.js是否安装成功，在命令行中输入 node -v检测npm是否安装成功，在命令行中输入npm -v因为我之前安装过  安装hexo1234# 安装npm install -g hexo-cli# 安装之后验证hexo --version     hexo初体验我的笔记根目录是 E:\SynologyDrive 创建hexo工程方法1：在根目录下操作 1hexo init
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-12-10 13:55" pubdate>
+              2022-12-10
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/hexo/" class="category-chain-item">hexo</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/hexo/">#hexo</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/11/28/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202211)%20vmware%E4%B8%ADubuntu22.04%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85k8s%E9%9B%86%E7%BE%A4(1.24.4%20or%20higher)(cka%E8%80%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA)/" target="_self">
+          【k8s系列】(202211) vmware中ubuntu22.04使用kubeadm安装k8s集群(1.24.4 or higher)(cka考试环境搭建)
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/28/k8s/%E3%80%90k8s%E7%B3%BB%E5%88%97%E3%80%91(202211)%20vmware%E4%B8%ADubuntu22.04%E4%BD%BF%E7%94%A8kubeadm%E5%AE%89%E8%A3%85k8s%E9%9B%86%E7%BE%A4(1.24.4%20or%20higher)(cka%E8%80%83%E8%AF%95%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA)/" target="_self">
+        <div>
+          部署环境准备ubuntu22.04虚拟机3台 环境修改修改hostname(各修改各的)123hostnamectl set-hostname k8s-master // master节点hostnamectl set-hostname k8s-node1  // node1节点hostnamectl set-hostname k8s-node2  // node2节点   重启虚拟机，可以看到h
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-28 22:53" pubdate>
+              2022-11-28
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/k8s/" class="category-chain-item">k8s</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/k8s/">#k8s</a>
+            
+              <a href="/tags/kubeadm/">#kubeadm</a>
+            
+              <a href="/tags/ubuntu/">#ubuntu</a>
+            
+              <a href="/tags/cka/">#cka</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/11/21/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91(202211)%20VMware16.2.2%E4%B8%AD%E5%88%9B%E5%BB%BAubuntu22.04.1%E8%99%9A%E6%8B%9F%E6%9C%BA+%E4%BF%AE%E6%94%B9%E9%9D%99%E6%80%81ip+%E6%8D%A2%E6%BA%90+mobaxterm%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5+%E4%BF%AE%E6%94%B9%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E7%AC%A6%E9%A2%9C%E8%89%B2(cka%E8%80%83%E8%AF%95%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%90%AD%E5%BB%BA)/" target="_self">
+          【网络成长记】(202211) VMware16.2.2中创建ubuntu22.04.1虚拟机+修改静态ip+换源+mobaxterm远程连接+修改命令提示符颜色(cka考试虚拟机搭建)
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/21/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91(202211)%20VMware16.2.2%E4%B8%AD%E5%88%9B%E5%BB%BAubuntu22.04.1%E8%99%9A%E6%8B%9F%E6%9C%BA+%E4%BF%AE%E6%94%B9%E9%9D%99%E6%80%81ip+%E6%8D%A2%E6%BA%90+mobaxterm%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5+%E4%BF%AE%E6%94%B9%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E7%AC%A6%E9%A2%9C%E8%89%B2(cka%E8%80%83%E8%AF%95%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%90%AD%E5%BB%BA)/" target="_self">
+        <div>
+          准备镜像：https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/22.04.1/ubuntu-22.04.1-desktop-amd64.isohttps://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/22.04.1/     vmware：16.2.2 步骤 创建虚新的虚拟机
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-21 22:34" pubdate>
+              2022-11-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/net/" class="category-chain-item">net</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ubuntu/">#ubuntu</a>
+            
+              <a href="/tags/cka/">#cka</a>
+            
+              <a href="/tags/net/">#net</a>
+            
+              <a href="/tags/vmware/">#vmware</a>
+            
+              <a href="/tags/mobaxterm/">#mobaxterm</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/11/21/net/%E3%80%90%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%91(202211)%20VMware16.2.2%E4%B8%AD%E5%88%9B%E5%BB%BAubuntu22.04.1%E8%99%9A%E6%8B%9F%E6%9C%BA+%E4%BF%AE%E6%94%B9%E9%9D%99%E6%80%81ip+%E6%8D%A2%E6%BA%90+mobaxterm%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5+%E4%BF%AE%E6%94%B9%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E7%AC%A6%E9%A2%9C%E8%89%B2(cka%E8%80%83%E8%AF%95%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%90%AD%E5%BB%BA)/" target="_self">
+          【虚拟机】(202211) VMware16.2.2中创建ubuntu22.04.1虚拟机+修改静态ip+换源+mobaxterm远程连接+修改命令提示符颜色(cka考试虚拟机搭建)
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/11/21/net/%E3%80%90%E8%99%9A%E6%8B%9F%E6%9C%BA%E3%80%91(202211)%20VMware16.2.2%E4%B8%AD%E5%88%9B%E5%BB%BAubuntu22.04.1%E8%99%9A%E6%8B%9F%E6%9C%BA+%E4%BF%AE%E6%94%B9%E9%9D%99%E6%80%81ip+%E6%8D%A2%E6%BA%90+mobaxterm%E8%BF%9C%E7%A8%8B%E8%BF%9E%E6%8E%A5+%E4%BF%AE%E6%94%B9%E5%91%BD%E4%BB%A4%E6%8F%90%E7%A4%BA%E7%AC%A6%E9%A2%9C%E8%89%B2(cka%E8%80%83%E8%AF%95%E8%99%9A%E6%8B%9F%E6%9C%BA%E6%90%AD%E5%BB%BA)/" target="_self">
+        <div>
+          准备镜像：https://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/22.04.1/ubuntu-22.04.1-desktop-amd64.isohttps://mirrors.tuna.tsinghua.edu.cn/ubuntu-releases/22.04.1/     vmware：16.2.2 步骤 创建虚新的虚拟机
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-11-21 22:34" pubdate>
+              2022-11-21
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/net/" class="category-chain-item">net</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/ubuntu/">#ubuntu</a>
+            
+              <a href="/tags/cka/">#cka</a>
+            
+              <a href="/tags/net/">#net</a>
+            
+              <a href="/tags/vmware/">#vmware</a>
+            
+              <a href="/tags/mobaxterm/">#mobaxterm</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/23/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9103.obsidian%E4%B8%AD%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE%E5%9B%BE%E5%BA%8A%EF%BC%9F%E6%8F%92%E4%BB%B6%EF%BC%9AImage%20auto%20upload%20Plugin/" target="_self">
+          【obsidian系列】03.obsidian中如何配置图床？插件：Image auto upload Plugin
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/23/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9103.obsidian%E4%B8%AD%E5%A6%82%E4%BD%95%E9%85%8D%E7%BD%AE%E5%9B%BE%E5%BA%8A%EF%BC%9F%E6%8F%92%E4%BB%B6%EF%BC%9AImage%20auto%20upload%20Plugin/" target="_self">
+        <div>
+          背景刚刚从typora转到obsidian，之前在typora用的搭配是：PicGo +typora + GitHub，现在换成了PicGo +obsidian+ GitHub。 关于picgo和github图床的配置参考我的另一篇博文：【实用工具】PicGo +typora + GitHub 搭建个人图床工具 解决typora中的markdown图片自动上传 obsidian配置流程打开 Obs
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-23 20:18" pubdate>
+              2022-10-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/obsidian/" class="category-chain-item">obsidian</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/obsidian/">#obsidian</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/23/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9102.obsidian%E4%B8%AD%E5%A6%82%E4%BD%95%E5%AE%9A%E4%B9%89%E9%99%84%E4%BB%B6(eg.%E5%9B%BE%E7%89%87)%E4%BD%8D%E7%BD%AE%EF%BC%9F%E6%8F%92%E4%BB%B6%EF%BC%9Acustom%20attachment%20location/" target="_self">
+          【obsidian系列】02.obsidian中如何定义附件(eg.图片)位置？插件：custom attachment location
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/23/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9102.obsidian%E4%B8%AD%E5%A6%82%E4%BD%95%E5%AE%9A%E4%B9%89%E9%99%84%E4%BB%B6(eg.%E5%9B%BE%E7%89%87)%E4%BD%8D%E7%BD%AE%EF%BC%9F%E6%8F%92%E4%BB%B6%EF%BC%9Acustom%20attachment%20location/" target="_self">
+        <div>
+          背景我想让插入的图片放到相对位置下，这样更方便查找图片，而且在移动文件夹或者换电脑的时候，也不会丢失图片。 目的：实现一个类似于typora的assets文件夹存放图片。 下图为typora的图像文件位置设置： 操作流程 打开插件左下角设置 –&gt; 第三方插件 –&gt; 社区插件市场 搜索：custom attachment location 打开插件，安装的所有插件都会显示在左侧 可以看到
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-23 16:38" pubdate>
+              2022-10-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/obsidian/" class="category-chain-item">obsidian</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/obsidian/">#obsidian</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/10/23/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9101.obsidian%E4%BB%8B%E7%BB%8D/" target="_self">
+          【obsidian系列】01.obsidian介绍
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/10/23/obsidian/%E3%80%90obsidian%E7%B3%BB%E5%88%97%E3%80%9101.obsidian%E4%BB%8B%E7%BB%8D/" target="_self">
+        <div>
+          介绍中文名：黑曜石 一款强大的markdown编辑器 模式选择打开命令面板，选择“使用浅色模式” 设置完成之后，就变成了这样
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-10-23 16:37" pubdate>
+              2022-10-23
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/obsidian/" class="category-chain-item">obsidian</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/obsidian/">#obsidian</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/09/24/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91dig%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
+          【网络成长记】dig常用命令
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/09/24/net/%E3%80%90%E7%BD%91%E7%BB%9C%E6%88%90%E9%95%BF%E8%AE%B0%E3%80%91dig%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" target="_self">
+        <div>
+          dig命令123456789101112dig 常用命令格式dig [@server] [-p port] [-t type] [-4] [-6] [+trace] name@ 指定 DNS 查询使用的服务器名称或 IP ，IP 地址可以是用点分隔的 IPv4 地址也可以是冒号分隔的 IPv6 地址。当参数指定的值是服务器的主机名时，dig 命令会在查询该域名服务器前先解析该主机名；-p 指定 D
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-09-24 12:31" pubdate>
+              2022-09-24
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/net/" class="category-chain-item">net</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/net/">#net</a>
+            
+              <a href="/tags/dig/">#dig</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+  <div class="row mx-auto index-card">
+    
+    
+    <article class="col-12 col-md-12 mx-auto index-info">
+      <h1 class="index-header">
+        
+        <a href="/2022/08/17/go/%E3%80%90go%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91go%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E5%8C%96%E4%B8%BAuint16/" target="_self">
+          【go语言系列】go类型转换：字符串转化为uint16
+        </a>
+      </h1>
+
+      
+      <a class="index-excerpt index-excerpt__noimg" href="/2022/08/17/go/%E3%80%90go%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91go%E7%B1%BB%E5%9E%8B%E8%BD%AC%E6%8D%A2%EF%BC%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BD%AC%E5%8C%96%E4%B8%BAuint16/" target="_self">
+        <div>
+          字符串转化为uint16123456789101112131415161718192021222324252627282930package mainimport (	&quot;fmt&quot;	&quot;strconv&quot;	&quot;strings&quot;)func main() &#123;	// 方法1	port1, err := strconv.Atoi(&quot;1
+        </div>
+      </a>
+
+      <div class="index-btm post-metas">
+        
+          <div class="post-meta mr-3">
+            <i class="iconfont icon-date"></i>
+            <time datetime="2022-08-17 20:37" pubdate>
+              2022-08-17
+            </time>
+          </div>
+        
+        
+          <div class="post-meta mr-3 d-flex align-items-center">
+            <i class="iconfont icon-category"></i>
+            
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/go/" class="category-chain-item">go</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+          </div>
+        
+        
+          <div class="post-meta">
+            <i class="iconfont icon-tags"></i>
+            
+              <a href="/tags/go/">#go</a>
+            
+          </div>
+        
+      </div>
+    </article>
+  </div>
+
+
+
+  <nav aria-label="navigation">
+    <span class="pagination" id="pagination">
+      <a class="extend prev" rel="prev" href="/page/19/#board"><i class="iconfont icon-arrowleft"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/18/#board">18</a><a class="page-number" href="/page/19/#board">19</a><span class="page-number current">20</span><a class="page-number" href="/page/21/#board">21</a><a class="page-number" href="/page/22/#board">22</a><a class="extend next" rel="next" href="/page/21/#board"><i class="iconfont icon-arrowright"></i></a>
+    </span>
+  </nav>
+
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

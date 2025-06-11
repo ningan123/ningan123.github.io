@@ -1,0 +1,649 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="ningan123">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="背景工作中写的一个go代码被安全中心检查出来了pprof漏洞，想要避免这个问题，故做了如下实验。 解决方案1：直接去掉pprof代码如下左边的代码没有pprof包，右边的代码有pprof包，两边各起了两个httpServer  分别开两个shell启动进程 1234# go run hEqual1&#x2F;main.go -a&#x3D;&quot;0.0.0.0:6010&quot; -b&#x3D;&quot;0.0.0">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【go语言系列】(202410) go语言中httpServer的pprof漏洞如何避免">
+<meta property="og:url" content="http://example.com/2024/10/23/go/%E3%80%90go%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91(202410)%20go%E8%AF%AD%E8%A8%80%E4%B8%ADhttpServer%E7%9A%84pprof%E6%BC%8F%E6%B4%9E%E5%A6%82%E4%BD%95%E9%81%BF%E5%85%8D/index.html">
+<meta property="og:site_name" content="ningan123">
+<meta property="og:description" content="背景工作中写的一个go代码被安全中心检查出来了pprof漏洞，想要避免这个问题，故做了如下实验。 解决方案1：直接去掉pprof代码如下左边的代码没有pprof包，右边的代码有pprof包，两边各起了两个httpServer  分别开两个shell启动进程 1234# go run hEqual1&#x2F;main.go -a&#x3D;&quot;0.0.0.0:6010&quot; -b&#x3D;&quot;0.0.0">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20241023115400.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20241023172345.png">
+<meta property="article:published_time" content="2024-10-23T11:53:00.000Z">
+<meta property="article:modified_time" content="2024-11-02T15:55:00.000Z">
+<meta property="article:author" content="ningan123">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20241023115400.png">
+  
+  
+  
+  <title>【go语言系列】(202410) go语言中httpServer的pprof漏洞如何避免 - ningan123</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_hj8rtnfg7um.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_lbnruvf0jn.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.3","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml"};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 6.3.0"></head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>Fluid</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="【go语言系列】(202410) go语言中httpServer的pprof漏洞如何避免"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2024-10-23 11:53" pubdate>
+          2024年10月23日 中午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          13k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          107 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">【go语言系列】(202410) go语言中httpServer的pprof漏洞如何避免</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>工作中写的一个go代码被安全中心检查出来了pprof漏洞，想要避免这个问题，故做了如下实验。</p>
+<h1 id="解决方案1：直接去掉pprof"><a href="#解决方案1：直接去掉pprof" class="headerlink" title="解决方案1：直接去掉pprof"></a>解决方案1：直接去掉pprof</h1><h2 id="代码如下"><a href="#代码如下" class="headerlink" title="代码如下"></a>代码如下</h2><p>左边的代码没有pprof包，右边的代码有pprof包，两边各起了两个httpServer</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20241023115400.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>分别开两个shell启动进程</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># go run hEqual1/main.go -a=&quot;0.0.0.0:6010&quot; -b=&quot;0.0.0.0:6011&quot; </span><br>2024/10/22 06:36:47 Starting server on  0.0.0.0:6010<br>2024/10/22 06:36:47 Starting server on  0.0.0.0:6011<br><br></code></pre></td></tr></table></figure>
+
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-comment"># go run hEqual0/main.go -a=&quot;0.0.0.0:6020&quot; -b=&quot;0.0.0.0:6021&quot; </span><br>2024/10/22 06:37:05 Starting server on  0.0.0.0:6020<br>2024/10/22 06:37:05 Starting server on  0.0.0.0:6021<br><br></code></pre></td></tr></table></figure>
+
+
+<p>校验结果：<br>有pprof包的结果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan chapter58-httpserver]<span class="hljs-comment"># curl http://192.168.20.201:6010/debug/pprof/goroutine?debug=1</span><br>goroutine profile: total 4<br>1 @ 0x430fd1 0x467fbd 0x661411 0x661245 0x65dce6 0x66f2e8 0x66fde5 0x61dee9 0x61f802 0x6204ae 0x61cd14 0x46d821<br><span class="hljs-comment">#       0x467fbc        runtime/pprof.runtime_goroutineProfileWithLabels+0x1c   /usr/local/go/src/runtime/mprof.go:844</span><br><span class="hljs-comment">#       0x661410        runtime/pprof.writeRuntimeProfile+0xb0                  /usr/local/go/src/runtime/pprof/pprof.go:734</span><br><span class="hljs-comment">#       0x661244        runtime/pprof.writeGoroutine+0x44                       /usr/local/go/src/runtime/pprof/pprof.go:694</span><br><span class="hljs-comment">#       0x65dce5        runtime/pprof.(*Profile).WriteTo+0x145                  /usr/local/go/src/runtime/pprof/pprof.go:329</span><br><span class="hljs-comment">#       0x66f2e7        net/http/pprof.handler.ServeHTTP+0x4a7                  /usr/local/go/src/net/http/pprof/pprof.go:267</span><br><span class="hljs-comment">#       0x66fde4        net/http/pprof.Index+0xe4                               /usr/local/go/src/net/http/pprof/pprof.go:384</span><br><span class="hljs-comment">#       0x61dee8        net/http.HandlerFunc.ServeHTTP+0x28                     /usr/local/go/src/net/http/server.go:2136</span><br><span class="hljs-comment">#       0x61f801        net/http.(*ServeMux).ServeHTTP+0x141                    /usr/local/go/src/net/http/server.go:2514</span><br><span class="hljs-comment">#       0x6204ad        net/http.serverHandler.ServeHTTP+0x8d                   /usr/local/go/src/net/http/server.go:2938</span><br><span class="hljs-comment">#       0x61cd13        net/http.(*conn).serve+0x5f3                            /usr/local/go/src/net/http/server.go:2009</span><br><br>1 @ 0x43bb8e 0x434597 0x468385 0x4b2da7 0x4b38fa 0x4b38e8 0x5581a5 0x562125 0x616c57 0x46d821<br><span class="hljs-comment">#       0x468384        internal/poll.runtime_pollWait+0x84             /usr/local/go/src/runtime/netpoll.go:343</span><br><span class="hljs-comment">#       0x4b2da6        internal/poll.(*pollDesc).wait+0x26             /usr/local/go/src/internal/poll/fd_poll_runtime.go:84</span><br><span class="hljs-comment">#       0x4b38f9        internal/poll.(*pollDesc).waitRead+0x279        /usr/local/go/src/internal/poll/fd_poll_runtime.go:89</span><br><span class="hljs-comment">#       0x4b38e7        internal/poll.(*FD).Read+0x267                  /usr/local/go/src/internal/poll/fd_unix.go:164</span><br><span class="hljs-comment">#       0x5581a4        net.(*netFD).Read+0x24                          /usr/local/go/src/net/fd_posix.go:55</span><br><span class="hljs-comment">#       0x562124        net.(*conn).Read+0x44                           /usr/local/go/src/net/net.go:179</span><br><span class="hljs-comment">#       0x616c56        net/http.(*connReader).backgroundRead+0x36      /usr/local/go/src/net/http/server.go:683</span><br><br>1 @ 0x43bb8e 0x434597 0x468385 0x4b2da7 0x4b446c 0x4b445a 0x5592e9 0x56965e 0x568970 0x620904 0x620571 0x6774dd 0x677489 0x43b71b 0x46d821<br><span class="hljs-comment">#       0x468384        internal/poll.runtime_pollWait+0x84             /usr/local/go/src/runtime/netpoll.go:343</span><br><span class="hljs-comment">#       0x4b2da6        internal/poll.(*pollDesc).wait+0x26             /usr/local/go/src/internal/poll/fd_poll_runtime.go:84</span><br><span class="hljs-comment">#       0x4b446b        internal/poll.(*pollDesc).waitRead+0x2ab        /usr/local/go/src/internal/poll/fd_poll_runtime.go:89</span><br><span class="hljs-comment">#       0x4b4459        internal/poll.(*FD).Accept+0x299                /usr/local/go/src/internal/poll/fd_unix.go:611</span><br><span class="hljs-comment">#       0x5592e8        net.(*netFD).accept+0x28                        /usr/local/go/src/net/fd_unix.go:172</span><br><span class="hljs-comment">#       0x56965d        net.(*TCPListener).accept+0x1d                  /usr/local/go/src/net/tcpsock_posix.go:152</span><br><span class="hljs-comment">#       0x56896f        net.(*TCPListener).Accept+0x2f                  /usr/local/go/src/net/tcpsock.go:315</span><br><span class="hljs-comment">#       0x620903        net/http.(*Server).Serve+0x363                  /usr/local/go/src/net/http/server.go:3056</span><br><span class="hljs-comment">#       0x620570        net/http.(*Server).ListenAndServe+0x70          /usr/local/go/src/net/http/server.go:2985</span><br><span class="hljs-comment">#       0x6774dc        net/http.ListenAndServe+0x2bc                   /usr/local/go/src/net/http/server.go:3239</span><br><span class="hljs-comment">#       0x677488        main.main+0x268                                 /root/go-practice/chapter58-httpserver/hEqual1/main.go:42</span><br><span class="hljs-comment">#       0x43b71a        runtime.main+0x2ba                              /usr/local/go/src/runtime/proc.go:267</span><br><br>1 @ 0x43bb8e 0x434597 0x468385 0x4b2da7 0x4b446c 0x4b445a 0x5592e9 0x56965e 0x568970 0x620904 0x620571 0x677745 0x6776ec 0x46d821<br><span class="hljs-comment">#       0x468384        internal/poll.runtime_pollWait+0x84             /usr/local/go/src/runtime/netpoll.go:343</span><br><span class="hljs-comment">#       0x4b2da6        internal/poll.(*pollDesc).wait+0x26             /usr/local/go/src/internal/poll/fd_poll_runtime.go:84</span><br><span class="hljs-comment">#       0x4b446b        internal/poll.(*pollDesc).waitRead+0x2ab        /usr/local/go/src/internal/poll/fd_poll_runtime.go:89</span><br><span class="hljs-comment">#       0x4b4459        internal/poll.(*FD).Accept+0x299                /usr/local/go/src/internal/poll/fd_unix.go:611</span><br><span class="hljs-comment">#       0x5592e8        net.(*netFD).accept+0x28                        /usr/local/go/src/net/fd_unix.go:172</span><br><span class="hljs-comment">#       0x56965d        net.(*TCPListener).accept+0x1d                  /usr/local/go/src/net/tcpsock_posix.go:152</span><br><span class="hljs-comment">#       0x56896f        net.(*TCPListener).Accept+0x2f                  /usr/local/go/src/net/tcpsock.go:315</span><br><span class="hljs-comment">#       0x620903        net/http.(*Server).Serve+0x363                  /usr/local/go/src/net/http/server.go:3056</span><br><span class="hljs-comment">#       0x620570        net/http.(*Server).ListenAndServe+0x70          /usr/local/go/src/net/http/server.go:2985</span><br><span class="hljs-comment">#       0x677744        net/http.ListenAndServe+0x1a4                   /usr/local/go/src/net/http/server.go:3239</span><br><span class="hljs-comment">#       0x6776eb        main.main.func1+0x14b                           /root/go-practice/chapter58-httpserver/hEqual1/main.go:34</span><br><br>[root@ningan chapter58-httpserver]<span class="hljs-comment"># </span><br>[root@ningan chapter58-httpserver]<span class="hljs-comment"># </span><br>[root@ningan chapter58-httpserver]<span class="hljs-comment"># </span><br>[root@ningan chapter58-httpserver]<span class="hljs-comment"># curl http://192.168.20.201:6011/debug/pprof/goroutine?debug=1</span><br>goroutine profile: total 4<br>1 @ 0x430fd1 0x467fbd 0x661411 0x661245 0x65dce6 0x66f2e8 0x66fde5 0x61dee9 0x61f802 0x6204ae 0x61cd14 0x46d821<br><span class="hljs-comment">#       0x467fbc        runtime/pprof.runtime_goroutineProfileWithLabels+0x1c   /usr/local/go/src/runtime/mprof.go:844</span><br><span class="hljs-comment">#       0x661410        runtime/pprof.writeRuntimeProfile+0xb0                  /usr/local/go/src/runtime/pprof/pprof.go:734</span><br><span class="hljs-comment">#       0x661244        runtime/pprof.writeGoroutine+0x44                       /usr/local/go/src/runtime/pprof/pprof.go:694</span><br><span class="hljs-comment">#       0x65dce5        runtime/pprof.(*Profile).WriteTo+0x145                  /usr/local/go/src/runtime/pprof/pprof.go:329</span><br><span class="hljs-comment">#       0x66f2e7        net/http/pprof.handler.ServeHTTP+0x4a7                  /usr/local/go/src/net/http/pprof/pprof.go:267</span><br><span class="hljs-comment">#       0x66fde4        net/http/pprof.Index+0xe4                               /usr/local/go/src/net/http/pprof/pprof.go:384</span><br><span class="hljs-comment">#       0x61dee8        net/http.HandlerFunc.ServeHTTP+0x28                     /usr/local/go/src/net/http/server.go:2136</span><br><span class="hljs-comment">#       0x61f801        net/http.(*ServeMux).ServeHTTP+0x141                    /usr/local/go/src/net/http/server.go:2514</span><br><span class="hljs-comment">#       0x6204ad        net/http.serverHandler.ServeHTTP+0x8d                   /usr/local/go/src/net/http/server.go:2938</span><br><span class="hljs-comment">#       0x61cd13        net/http.(*conn).serve+0x5f3                            /usr/local/go/src/net/http/server.go:2009</span><br><br>1 @ 0x43bb8e 0x434597 0x468385 0x4b2da7 0x4b446c 0x4b445a 0x5592e9 0x56965e 0x568970 0x620904 0x620571 0x6774dd 0x677489 0x43b71b 0x46d821<br><span class="hljs-comment">#       0x468384        internal/poll.runtime_pollWait+0x84             /usr/local/go/src/runtime/netpoll.go:343</span><br><span class="hljs-comment">#       0x4b2da6        internal/poll.(*pollDesc).wait+0x26             /usr/local/go/src/internal/poll/fd_poll_runtime.go:84</span><br><span class="hljs-comment">#       0x4b446b        internal/poll.(*pollDesc).waitRead+0x2ab        /usr/local/go/src/internal/poll/fd_poll_runtime.go:89</span><br><span class="hljs-comment">#       0x4b4459        internal/poll.(*FD).Accept+0x299                /usr/local/go/src/internal/poll/fd_unix.go:611</span><br><span class="hljs-comment">#       0x5592e8        net.(*netFD).accept+0x28                        /usr/local/go/src/net/fd_unix.go:172</span><br><span class="hljs-comment">#       0x56965d        net.(*TCPListener).accept+0x1d                  /usr/local/go/src/net/tcpsock_posix.go:152</span><br><span class="hljs-comment">#       0x56896f        net.(*TCPListener).Accept+0x2f                  /usr/local/go/src/net/tcpsock.go:315</span><br><span class="hljs-comment">#       0x620903        net/http.(*Server).Serve+0x363                  /usr/local/go/src/net/http/server.go:3056</span><br><span class="hljs-comment">#       0x620570        net/http.(*Server).ListenAndServe+0x70          /usr/local/go/src/net/http/server.go:2985</span><br><span class="hljs-comment">#       0x6774dc        net/http.ListenAndServe+0x2bc                   /usr/local/go/src/net/http/server.go:3239</span><br><span class="hljs-comment">#       0x677488        main.main+0x268                                 /root/go-practice/chapter58-httpserver/hEqual1/main.go:42</span><br><span class="hljs-comment">#       0x43b71a        runtime.main+0x2ba                              /usr/local/go/src/runtime/proc.go:267</span><br><br>1 @ 0x43bb8e 0x434597 0x468385 0x4b2da7 0x4b446c 0x4b445a 0x5592e9 0x56965e 0x568970 0x620904 0x620571 0x677745 0x6776ec 0x46d821<br><span class="hljs-comment">#       0x468384        internal/poll.runtime_pollWait+0x84             /usr/local/go/src/runtime/netpoll.go:343</span><br><span class="hljs-comment">#       0x4b2da6        internal/poll.(*pollDesc).wait+0x26             /usr/local/go/src/internal/poll/fd_poll_runtime.go:84</span><br><span class="hljs-comment">#       0x4b446b        internal/poll.(*pollDesc).waitRead+0x2ab        /usr/local/go/src/internal/poll/fd_poll_runtime.go:89</span><br><span class="hljs-comment">#       0x4b4459        internal/poll.(*FD).Accept+0x299                /usr/local/go/src/internal/poll/fd_unix.go:611</span><br><span class="hljs-comment">#       0x5592e8        net.(*netFD).accept+0x28                        /usr/local/go/src/net/fd_unix.go:172</span><br><span class="hljs-comment">#       0x56965d        net.(*TCPListener).accept+0x1d                  /usr/local/go/src/net/tcpsock_posix.go:152</span><br><span class="hljs-comment">#       0x56896f        net.(*TCPListener).Accept+0x2f                  /usr/local/go/src/net/tcpsock.go:315</span><br><span class="hljs-comment">#       0x620903        net/http.(*Server).Serve+0x363                  /usr/local/go/src/net/http/server.go:3056</span><br><span class="hljs-comment">#       0x620570        net/http.(*Server).ListenAndServe+0x70          /usr/local/go/src/net/http/server.go:2985</span><br><span class="hljs-comment">#       0x677744        net/http.ListenAndServe+0x1a4                   /usr/local/go/src/net/http/server.go:3239</span><br><span class="hljs-comment">#       0x6776eb        main.main.func1+0x14b                           /root/go-practice/chapter58-httpserver/hEqual1/main.go:34</span><br><br>1 @ 0x46d821<br><br></code></pre></td></tr></table></figure>
+
+
+<p>无pprof包的结果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan chapter58-httpserver]<span class="hljs-comment"># curl http://192.168.20.201:6020/debug/pprof/goroutine?debug=1</span><br>404 page not found<br>[root@ningan chapter58-httpserver]<span class="hljs-comment"># curl http://192.168.20.201:6021/debug/pprof/goroutine?debug=1</span><br>404 page not found<br></code></pre></td></tr></table></figure>
+
+<p>结果证明，只要把引用的pprof包删除，便可以解决这个问题~</p>
+<h1 id="解决方案2"><a href="#解决方案2" class="headerlink" title="解决方案2"></a>解决方案2</h1><p>正常服务端口改为http.NewServeMux</p>
+<p><img src="https://raw.githubusercontent.com/ningan123/PicGo_Images/main/img/20241023172345.png" srcset="/img/loading.gif" lazyload alt="image.png"></p>
+<p>启动程序</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">go run perfect/main.go -a=<span class="hljs-string">&quot;0.0.0.0:6030&quot;</span> -b=<span class="hljs-string">&quot;127.0.0.1:6031&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>最终结果如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><code class="hljs bash">[root@ningan ~]<span class="hljs-comment"># curl http://192.168.20.201:6030/debug/pprof/goroutine?debug=1</span><br>404 page not found<br>[root@ningan ~]<span class="hljs-comment"># curl http://192.168.20.201:6031/debug/pprof/goroutine?debug=1</span><br>curl: (7) Failed to connect to 192.168.20.201 port 6031: Connection refused<br>[root@ningan ~]<span class="hljs-comment"># curl http://127.0.0.1:6031/debug/pprof/goroutine?debug=1</span><br>goroutine profile: total 4<br>1 @ 0x433911 0x46f09d 0x678b91 0x6789c5 0x6757eb 0x68590f 0x6863fe 0x637489 0x63930d 0x63a34e 0x6360c8 0x474921<br><span class="hljs-comment">#       0x46f09c        runtime/pprof.runtime_goroutineProfileWithLabels+0x1c   /usr/local/go/src/runtime/mprof.go:1079</span><br><span class="hljs-comment">#       0x678b90        runtime/pprof.writeRuntimeProfile+0xb0                  /usr/local/go/src/runtime/pprof/pprof.go:774</span><br><span class="hljs-comment">#       0x6789c4        runtime/pprof.writeGoroutine+0x44                       /usr/local/go/src/runtime/pprof/pprof.go:734</span><br><span class="hljs-comment">#       0x6757ea        runtime/pprof.(*Profile).WriteTo+0x14a                  /usr/local/go/src/runtime/pprof/pprof.go:369</span><br><span class="hljs-comment">#       0x68590e        net/http/pprof.handler.ServeHTTP+0x52e                  /usr/local/go/src/net/http/pprof/pprof.go:267</span><br><span class="hljs-comment">#       0x6863fd        net/http/pprof.Index+0xdd                               /usr/local/go/src/net/http/pprof/pprof.go:384</span><br><span class="hljs-comment">#       0x637488        net/http.HandlerFunc.ServeHTTP+0x28                     /usr/local/go/src/net/http/server.go:2171</span><br><span class="hljs-comment">#       0x63930c        net/http.(*ServeMux).ServeHTTP+0x1ac                    /usr/local/go/src/net/http/server.go:2688</span><br><span class="hljs-comment">#       0x63a34d        net/http.serverHandler.ServeHTTP+0x8d                   /usr/local/go/src/net/http/server.go:3142</span><br><span class="hljs-comment">#       0x6360c7        net/http.(*conn).serve+0x5e7                            /usr/local/go/src/net/http/server.go:2044</span><br><br>1 @ 0x43e1ce 0x436f37 0x46f465 0x4bcb27 0x4bd67a 0x4bd668 0x5657e5 0x56f745 0x6300f7 0x474921<br><span class="hljs-comment">#       0x46f464        internal/poll.runtime_pollWait+0x84             /usr/local/go/src/runtime/netpoll.go:345</span><br><span class="hljs-comment">#       0x4bcb26        internal/poll.(*pollDesc).wait+0x26             /usr/local/go/src/internal/poll/fd_poll_runtime.go:84</span><br><span class="hljs-comment">#       0x4bd679        internal/poll.(*pollDesc).waitRead+0x279        /usr/local/go/src/internal/poll/fd_poll_runtime.go:89</span><br><span class="hljs-comment">#       0x4bd667        internal/poll.(*FD).Read+0x267                  /usr/local/go/src/internal/poll/fd_unix.go:164</span><br><span class="hljs-comment">#       0x5657e4        net.(*netFD).Read+0x24                          /usr/local/go/src/net/fd_posix.go:55</span><br><span class="hljs-comment">#       0x56f744        net.(*conn).Read+0x44                           /usr/local/go/src/net/net.go:185</span><br><span class="hljs-comment">#       0x6300f6        net/http.(*connReader).backgroundRead+0x36      /usr/local/go/src/net/http/server.go:681</span><br><br>1 @ 0x43e1ce 0x436f37 0x46f465 0x4bcb27 0x4be1cc 0x4be1ba 0x5668e9 0x57727e 0x5765d0 0x63a77e 0x63a411 0x68d8e7 0x68d87b 0x43dd7d 0x474921<br><span class="hljs-comment">#       0x46f464        internal/poll.runtime_pollWait+0x84             /usr/local/go/src/runtime/netpoll.go:345</span><br><span class="hljs-comment">#       0x4bcb26        internal/poll.(*pollDesc).wait+0x26             /usr/local/go/src/internal/poll/fd_poll_runtime.go:84</span><br><span class="hljs-comment">#       0x4be1cb        internal/poll.(*pollDesc).waitRead+0x2ab        /usr/local/go/src/internal/poll/fd_poll_runtime.go:89</span><br><span class="hljs-comment">#       0x4be1b9        internal/poll.(*FD).Accept+0x299                /usr/local/go/src/internal/poll/fd_unix.go:611</span><br><span class="hljs-comment">#       0x5668e8        net.(*netFD).accept+0x28                        /usr/local/go/src/net/fd_unix.go:172</span><br><span class="hljs-comment">#       0x57727d        net.(*TCPListener).accept+0x1d                  /usr/local/go/src/net/tcpsock_posix.go:159</span><br><span class="hljs-comment">#       0x5765cf        net.(*TCPListener).Accept+0x2f                  /usr/local/go/src/net/tcpsock.go:327</span><br><span class="hljs-comment">#       0x63a77d        net/http.(*Server).Serve+0x33d                  /usr/local/go/src/net/http/server.go:3260</span><br><span class="hljs-comment">#       0x63a410        net/http.(*Server).ListenAndServe+0x70          /usr/local/go/src/net/http/server.go:3189</span><br><span class="hljs-comment">#       0x68d8e6        net/http.ListenAndServe+0x2e6                   /usr/local/go/src/net/http/server.go:3443</span><br><span class="hljs-comment">#       0x68d87a        main.main+0x27a                                 /root/go-practice/chapter58-httpserver/perfect/main.go:36</span><br><span class="hljs-comment">#       0x43dd7c        runtime.main+0x29c                              /usr/local/go/src/runtime/proc.go:271</span><br><br>1 @ 0x43e1ce 0x436f37 0x46f465 0x4bcb27 0x4be1cc 0x4be1ba 0x5668e9 0x57727e 0x5765d0 0x63a77e 0x63a411 0x68daaa 0x68da55 0x474921<br><span class="hljs-comment">#       0x46f464        internal/poll.runtime_pollWait+0x84             /usr/local/go/src/runtime/netpoll.go:345</span><br><span class="hljs-comment">#       0x4bcb26        internal/poll.(*pollDesc).wait+0x26             /usr/local/go/src/internal/poll/fd_poll_runtime.go:84</span><br><span class="hljs-comment">#       0x4be1cb        internal/poll.(*pollDesc).waitRead+0x2ab        /usr/local/go/src/internal/poll/fd_poll_runtime.go:89</span><br><span class="hljs-comment">#       0x4be1b9        internal/poll.(*FD).Accept+0x299                /usr/local/go/src/internal/poll/fd_unix.go:611</span><br><span class="hljs-comment">#       0x5668e8        net.(*netFD).accept+0x28                        /usr/local/go/src/net/fd_unix.go:172</span><br><span class="hljs-comment">#       0x57727d        net.(*TCPListener).accept+0x1d                  /usr/local/go/src/net/tcpsock_posix.go:159</span><br><span class="hljs-comment">#       0x5765cf        net.(*TCPListener).Accept+0x2f                  /usr/local/go/src/net/tcpsock.go:327</span><br><span class="hljs-comment">#       0x63a77d        net/http.(*Server).Serve+0x33d                  /usr/local/go/src/net/http/server.go:3260</span><br><span class="hljs-comment">#       0x63a410        net/http.(*Server).ListenAndServe+0x70          /usr/local/go/src/net/http/server.go:3189</span><br><span class="hljs-comment">#       0x68daa9        net/http.ListenAndServe+0x109                   /usr/local/go/src/net/http/server.go:3443</span><br><span class="hljs-comment">#       0x68da54        main.main.func1+0xb4                            /root/go-practice/chapter58-httpserver/perfect/main.go:27</span><br><br>[root@ningan ~]<span class="hljs-comment"># </span><br>[root@ningan ~]<span class="hljs-comment"># </span><br></code></pre></td></tr></table></figure>
+
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p>源码参考：<br><a target="_blank" rel="noopener" href="https://github.com/ningan123/go-practice/tree/master/chapter58-httpserver">go-practice&#x2F;chapter58-httpserver at master · ningan123&#x2F;go-practice</a></p>
+<p>解决方案参考：<br><a target="_blank" rel="noopener" href="https://studygolang.com/articles/12568">你的 pprof 暴露了 - Go语言中文网 - Golang中文社区</a></p>
+<p>深入剖析参考：<br><a target="_blank" rel="noopener" href="https://darjun.github.io/2021/07/13/in-post/godailylib/nethttp/">Go 每日一库之 net&#x2F;http（基础和中间件） - 大俊的博客</a></p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>【go语言系列】(202410) go语言中httpServer的pprof漏洞如何避免</div>
+      <div>http://example.com/2024/10/23/go/【go语言系列】(202410) go语言中httpServer的pprof漏洞如何避免/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>ningan123</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2024年10月23日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2024/10/30/cue/%E3%80%90cue%E8%AF%AD%E8%A8%80%E7%B3%BB%E5%88%97%E3%80%91(202410)%20cue%E4%B8%AD%E9%BB%98%E8%AE%A4%E5%80%BC%E8%AF%A5%E5%A6%82%E4%BD%95%E8%AE%BE%E7%BD%AE%EF%BC%9F/" title="【cue语言系列】(202410) cue中默认值该如何设置？">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">【cue语言系列】(202410) cue中默认值该如何设置？</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2024/09/26/software/%E3%80%90vscode%E3%80%91(202409)%20vscode%E4%B8%AD%E4%BF%AE%E6%94%B9go%20format%E9%85%8D%E7%BD%AE/" title="【vscode】(202409) vscode中修改go format配置">
+                        <span class="hidden-mobile">【vscode】(202409) vscode中修改go format配置</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.0/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.18.2/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    window.tocbot.init(Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc));
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/4.3.1/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>
